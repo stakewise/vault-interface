@@ -1,0 +1,57 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "strict": true,
+    "jsx": "preserve",
+    "rootDir": ".",
+    "allowJs": true,
+    "outDir": "dist",
+    "sourceMap": true,
+    "target": "esnext",
+    "module": "esnext",
+    "declaration": true,
+    "skipLibCheck": true,
+    "declarationMap": true,
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "declarationDir": "dist",
+    "resolveJsonModule": true,
+    "moduleResolution": "node",
+    "emitDeclarationOnly": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "paths": {
+      "*": [
+        "src/*",
+        "src/packages/*"
+      ],
+      "sdk": [
+        "node_modules/@stakewise/v3-sdk"
+      ],
+      "apps/v3-sdk": [
+        "node_modules/@stakewise/v3-sdk"
+      ],
+    },
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "noEmit": true,
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/**/*.d.ts",
+    ".next/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

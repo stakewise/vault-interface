@@ -1,0 +1,15 @@
+export default {
+  monitorAddress: 'monitorAddress',
+  walletConnect: 'walletConnect',
+  braveWallet: 'braveWallet',
+  trustWallet: 'trustWallet',
+  dAppBrowser: 'dAppBrowser',
+  gnosisSafe: 'gnosisSafe',
+  coinbase: 'coinbase',
+  metaMask: 'metaMask',
+  ledger: 'ledger',
+  rabby: 'rabby',
+  zenGo: 'zenGo',
+  taho: 'taho',
+  okx: 'okx',
+} as const

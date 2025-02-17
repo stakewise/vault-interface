@@ -1,0 +1,8 @@
+.wrapper {
+  @include no-user-select;
+  @include keyboard-focus;
+
+  &[disabled] {
+    pointer-events: none;
+  }
+}

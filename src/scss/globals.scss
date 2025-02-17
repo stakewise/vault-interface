@@ -1,0 +1,31 @@
+@import 'sw-components/scss/common-globals';
+//@import 'styles/focus';
+//@import 'styles/shadow';
+//@import 'styles/sizing';
+//@import 'styles/textSizes';
+//@import 'styles/varsColors';
+//@import 'styles/backgroundColors';
+
+:root {
+  color-scheme: light dark;
+}
+
+::-moz-selection {
+  color: #47347e;
+  background: #c8bfe3;
+}
+
+::selection {
+  color: #47347e;
+  background: #c8bfe3;
+}
+
+body {
+  //color: $color-n950;
+  font-size: 14rem;
+  background: $color-background;
+}
+
+#__next {
+  @include viewportHeight();
+}
