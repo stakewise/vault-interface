@@ -7,7 +7,6 @@ import intl from 'sw-modules/intl'
 import theme, { ThemeColor } from 'sw-modules/theme'
 import { cookie, constants } from 'helpers'
 
-import zeplinImage from 'views/ErrorView/images/zeplin.png'
 import messages from 'views/ErrorView/messages'
 
 import { Button, Text } from 'components'
@@ -82,12 +81,6 @@ const GlobalError = ({ error, reset }: GlobalErrorViewProps) => {
                 locale={locale as Intl.LanguagesKeys}
                 locales={allLanguages as unknown as Intl.LanguagesKeys[]}
               >
-                <Image
-                  src={zeplinImage.src}
-                  width={293}
-                  height={172}
-                  alt=""
-                />
                 <Text
                   className="mt-64 text-center"
                   message={messages.error.title}
