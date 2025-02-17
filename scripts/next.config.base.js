@@ -93,10 +93,7 @@ const baseConfig = {
     }
 
     config.externals.push(
-      // 'lokijs',
-      // 'bufferutil',
       'pino-pretty',
-      // 'utf-8-validate'
     )
 
     config.plugins.push(
