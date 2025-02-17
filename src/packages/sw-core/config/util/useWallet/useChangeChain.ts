@@ -7,7 +7,6 @@ import notifications from 'sw-modules/notifications'
 import networks from '../networks'
 
 import messages from '../../../messages'
-import { type } from 'os'
 
 
 type Input = {
