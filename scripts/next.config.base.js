@@ -93,7 +93,7 @@ const baseConfig = {
     }
 
     config.externals.push(
-      'pino-pretty',
+      'pino-pretty'
     )
 
     config.plugins.push(
@@ -130,7 +130,6 @@ const baseConfig = {
       ],
     })
 
-    // Translations updating
     if (!isProduction) {
       config.plugins.push(
         new CircularDependencyPlugin({
