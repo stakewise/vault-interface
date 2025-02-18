@@ -1,0 +1,212 @@
+$ease-in-out-quadratic: cubic-bezier(0.455, 0.03, 0.515, 0.955);
+$ease-out-quadratic: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+
+@mixin basic-transition($property: all) {
+  transition: $property 0.23s $ease-in-out-quadratic;
+}
+
+@mixin top-bottom($rule: animation, $duration: 300ms, $timing: ease, $fade: 0) {
+  @if $fade > 0 {
+    #{$rule}: top-bottom $duration $timing, fade-in $fade $timing;
+  }
+  @else {
+    #{$rule}: top-bottom $duration $timing;
+  }
+}
+
+@mixin top-bottom-offset-left($rule: animation, $duration: 300ms, $timing: ease) {
+  #{$rule}: top-bottom-offset-left $duration $timing;
+}
+
+@mixin bottom-top($rule: animation, $duration: 300ms, $timing: ease, $fade: 0) {
+  @if $fade > 0 {
+    #{$rule}: bottom-top $duration $timing, fade-in $fade $timing;
+  }
+  @else {
+    #{$rule}: bottom-top $duration $timing;
+  }
+}
+
+@mixin bottom-top-offset-left($rule: animation, $duration: 300ms, $timing: ease) {
+  #{$rule}: bottom-top-offset-left $duration $timing;
+}
+
+@mixin right-left($rule: animation, $duration: 300ms, $timing: ease, $fade: 0) {
+  @if $fade > 0 {
+    #{$rule}: right-left $duration $timing, fade-in $fade $timing;
+  }
+  @else {
+    #{$rule}: right-left $duration $timing;
+  }
+}
+
+@mixin left-right($rule: animation, $duration: 300ms, $timing: ease) {
+  #{$rule}: left-right $duration $timing;
+}
+
+@mixin fade-in($rule: animation, $duration: 300ms, $timing: ease) {
+  #{$rule}: fade-in $duration $timing;
+}
+
+@mixin scale-up($rule: animation, $duration: 300ms, $timing: ease) {
+  #{$rule}: scale-up $duration $timing;
+}
+
+@mixin show-content-from-top($rule: animation, $duration: 300ms, $timing: ease) {
+  #{$rule}: show-content-from-top $duration $timing;
+}
+
+@mixin show-content-from-bottom($rule: animation, $duration: 300ms, $timing: ease) {
+  #{$rule}: show-content-from-bottom $duration $timing;
+}
+
+@mixin rotate360($rule: animation, $duration: 300ms, $timing: ease) {
+  #{$rule}: rotate360 $duration $timing;
+}
+
+.rotate-360 {
+  @include rotate360(animation, 1.75s, linear);
+  animation-iteration-count: infinite;
+}
+
+@keyframes top-bottom {
+  from {
+    transform: translateY(-20%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes top-bottom-offset-left {
+  from {
+    transform: translate(-50%, -20%);
+    opacity: 0;
+  }
+  to {
+    transform: translate(-50%, 0);
+    opacity: 1;
+  }
+}
+
+@keyframes bottom-top {
+  from {
+    transform: translateY(20%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes bottom-top-offset-left {
+  from {
+    transform: translate(-50%, 20%);
+    opacity: 0;
+  }
+  to {
+    transform: translate(-50%, 0);
+    opacity: 1;
+  }
+}
+
+@keyframes right-left {
+  from {
+    transform: translateX(20%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes left-right {
+  from {
+    transform: translateX(-20%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes scale-up {
+  0% {
+    transform: scale(90%);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(100%);
+    opacity: 1;
+  }
+}
+
+@keyframes show-content-from-top {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes show-content-from-bottom {
+  from {
+    transform: translateY(200%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes rotate360 {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes fade-in-and-scale {
+  0% {
+    opacity: 0;
+    transform: scale(0.90);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes fade-out-and-reduce {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+}

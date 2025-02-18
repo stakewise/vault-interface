@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+  <g clip-path="url(#a)">
+    <path fill="#F0F0F0" d="M12 24a12 12 0 1 0 0-24 12 12 0 0 0 0 24Z"/>
+    <path fill="#0052B4" d="M2.48 4.7A11.96 11.96 0 0 0 .41 8.86h6.25L2.48 4.69ZM23.59 8.87a11.96 11.96 0 0 0-2.07-4.18l-4.18 4.18h6.25ZM.41 15.13a11.96 11.96 0 0 0 2.07 4.18l4.18-4.18H.4ZM19.3 2.48A11.96 11.96 0 0 0 15.14.41v6.25l4.18-4.18ZM4.7 21.52c1.22.94 2.63 1.65 4.17 2.07v-6.25l-4.18 4.18ZM8.87.41a11.96 11.96 0 0 0-4.18 2.07l4.18 4.18V.4ZM15.13 23.59a11.96 11.96 0 0 0 4.18-2.07l-4.18-4.18v6.25ZM17.34 15.13l4.18 4.18a11.96 11.96 0 0 0 2.07-4.18h-6.25Z"/>
+    <path fill="#D80027" d="M23.9 10.43H13.57V.1a12.12 12.12 0 0 0-3.14 0v10.33H.1a12.12 12.12 0 0 0 0 3.14h10.33V23.9a12.12 12.12 0 0 0 3.14 0V13.57H23.9a12.12 12.12 0 0 0 0-3.14Z"/>
+    <path fill="#D80027" d="m15.13 15.13 5.36 5.36c.24-.25.48-.5.7-.78l-4.58-4.58h-1.48ZM8.87 15.13 3.5 20.49c.25.24.5.48.78.7l4.58-4.58v-1.48ZM8.87 8.87 3.51 3.51c-.24.25-.48.5-.7.78l4.58 4.58h1.48ZM15.13 8.87l5.36-5.36c-.25-.24-.5-.48-.77-.7l-4.59 4.58v1.48Z"/>
+    <path fill="url(#b)" d="M0 0h24v24H0z" opacity=".5"/>
+  </g>
+  <defs>
+    <linearGradient id="b" x1="0" x2="25.88" y1="5.24" y2="12.01" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#D9D9D9" stop-opacity="0"/>
+      <stop offset=".29" stop-color="#D9D9D9"/>
+      <stop offset=".54" stop-color="#D9D9D9" stop-opacity="0"/>
+      <stop offset=".78" stop-color="#D9D9D9"/>
+      <stop offset="1" stop-color="#D9D9D9" stop-opacity="0"/>
+    </linearGradient>
+    <clipPath id="a">
+      <rect width="24" height="24" fill="#fff" rx="12"/>
+    </clipPath>
+  </defs>
+</svg>

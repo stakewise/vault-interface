@@ -1,0 +1,82 @@
+{
+  "name": "vault-interface",
+  "version": "0.1.0",
+  "description": "Vault Interface",
+  "homepage": ".",
+  "private": true,
+  "scripts": {
+    "fast": "next dev -p 5005",
+    "build": "npm run graphql && next build",
+    "dev": "npm run check:env && npm run fast",
+    "lint": "next lint",
+    "lint:css": "stylelint **/*.scss",
+    "lint:css:fix": "stylelint **/*.scss --fix",
+    "check:env": "node ./scripts/checkLocalEnv.js"
+  },
+  "engines": {
+    "node": "=20.12.2",
+    "npm": "=10.5.0"
+  },
+  "sideEffects": [
+    "*.css",
+    "*.scss"
+  ],
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@types/js-cookie": "3.0.6",
+    "@types/react": "18.3.3",
+    "@types/react-dom": "18.3.0",
+    "css-class-generator": "2.0.0",
+    "eslint": "8.57.0",
+    "eslint-config-next": "14.2.5",
+    "eslint-plugin-import": "2.29.1",
+    "file-loader": "6.2.0",
+    "postcss": "8.4.41",
+    "sass": "1.77.8",
+    "sass-loader": "16.0.0",
+    "stylelint": "16.8.1",
+    "stylelint-config-rational-order": "0.1.2",
+    "stylelint-scss": "6.5.0",
+    "tailwindcss": "3.4.10",
+    "terser-webpack-plugin": "5.3.11",
+    "typescript": "5.5.4"
+  },
+  "dependencies": {
+    "@headlessui/react": "2.1.2",
+    "@ledgerhq/hw-app-eth": "6.38.0",
+    "@ledgerhq/hw-transport-webhid": "6.29.2",
+    "@ledgerhq/hw-transport-webusb": "6.29.2",
+    "@ledgerhq/iframe-provider": "0.4.3",
+    "@metamask/onboarding": "1.0.1",
+    "@reduxjs/toolkit": "2.2.7",
+    "@stakewise/v3-sdk": "3.0.1",
+    "@types/react-redux": "7.1.33",
+    "@wagmi/connectors": "5.1.10",
+    "autoprefixer": "10.4.20",
+    "async-mutex": "0.5.0",
+    "circular-dependency-plugin": "5.2.2",
+    "classnames": "2.5.1",
+    "destyle.css": "4.0.1",
+    "ethers": "6.13.2",
+    "focus-visible": "5.2.1",
+    "js-cookie": "3.0.5",
+    "next": "14.2.5",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "react-redux": "9.1.2",
+    "ua-parser-js": "1.0.38",
+    "viem": "2.19.6"
+  }
+}

@@ -1,0 +1,29 @@
+$layer-header: 100;
+$layer-menu: 200;
+$layer-modal: 500;
+$layer-notification: 600;
+
+
+.z-minus {
+  z-index: -1;
+}
+
+.z-1 {
+  z-index: 1;
+}
+
+.z-header {
+  z-index: $layer-header;
+}
+
+.z-menu {
+  z-index: $layer-menu;
+}
+
+.z-modal {
+  z-index: $layer-modal;
+}
+
+.z-notification {
+  z-index: $layer-notification;
+}

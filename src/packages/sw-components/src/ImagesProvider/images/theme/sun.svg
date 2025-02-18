@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+  <g filter="url(#a)">
+    <path fill="url(#b)" d="M10.42 16.28a6.12 6.12 0 1 0 0-12.24 6.12 6.12 0 0 0 0 12.24Z"/>
+  </g>
+  <path fill="url(#c)" d="M10.42 16.28a6.12 6.12 0 1 0 0-12.24 6.12 6.12 0 0 0 0 12.24Z"/>
+  <path fill="url(#d)" d="m10 0 1.73 3H8.27L10 0Z"/>
+  <path fill="url(#e)" d="m.5 10.5 3-1.73v3.46l-3-1.73Z"/>
+  <path fill="url(#f)" d="m20.5 10.5-3-1.73v3.46l3-1.73Z"/>
+  <path fill="url(#g)" d="m3.09 3.41.9 3.35 2.44-2.45-3.34-.9Z"/>
+  <path fill="url(#h)" d="m17.42 3.09-3.35.9 2.45 2.44.9-3.34Z"/>
+  <path fill="url(#i)" d="m3.38 17.41 3.35-.9-2.45-2.44-.9 3.34Z"/>
+  <path fill="url(#j)" d="M10.33 19.23a4.04 4.04 0 1 0 0-8.1 4.04 4.04 0 0 0 0 8.1Z"/>
+  <path fill="url(#k)" d="M15.68 18.45a4.48 4.48 0 1 0 0-8.96 4.48 4.48 0 0 0 0 8.96Z"/>
+  <path fill="url(#l)" d="M13.77 20.2a3.75 3.75 0 1 0 0-7.5 3.75 3.75 0 0 0 0 7.5Z"/>
+  <path fill="url(#m)" d="M7 21h12v-5H7.68L7 21Z"/>
+  <path fill="url(#n)" d="M17.12 21.38a5.02 5.02 0 1 0 0-10.05 5.02 5.02 0 0 0 0 10.05Z"/>
+  <path fill="url(#o)" d="M18.52 21.18a5.02 5.02 0 1 1-2.8-9.65 5.02 5.02 0 0 1 2.8 9.65Z"/>
+  <path fill="url(#p)" d="M11.06 11.2a4.05 4.05 0 0 0-4.01 6.34l1.53-1.1c-.9-2.05-.43-4.7 2.48-5.24Z"/>
+  <path fill="url(#q)" d="M8.53 21.38a4.04 4.04 0 1 0 0-8.1 4.04 4.04 0 0 0 0 8.1Z"/>
+  <defs>
+    <radialGradient id="b" cx="0" cy="0" r="1" gradientTransform="translate(8.79 7.7) scale(8.38327)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FBE07A"/>
+      <stop offset="1" stop-color="#FF9D00"/>
+    </radialGradient>
+    <radialGradient id="c" cx="0" cy="0" r="1" gradientTransform="rotate(60.36 -1.89 11.08) scale(2.67443 5.02904)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#fff" stop-opacity=".5"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="d" cx="0" cy="0" r="1" gradientTransform="translate(9.47 1.2) scale(2.73884)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FBE07A"/>
+      <stop offset="1" stop-color="#FF9D00"/>
+    </radialGradient>
+    <radialGradient id="e" cx="0" cy="0" r="1" gradientTransform="rotate(-90 6.36 4.67) scale(2.73884)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FBE07A"/>
+      <stop offset="1" stop-color="#FF9D00"/>
+    </radialGradient>
+    <radialGradient id="f" cx="0" cy="0" r="1" gradientTransform="rotate(-90 15.17 -4.14) scale(2.73884)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FBE07A"/>
+      <stop offset="1" stop-color="#FF9D00"/>
+    </radialGradient>
+    <radialGradient id="g" cx="0" cy="0" r="1" gradientTransform="rotate(135 1.35 2.83) scale(2.73884)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FBE07A"/>
+      <stop offset="1" stop-color="#FF9D00"/>
+    </radialGradient>
+    <radialGradient id="h" cx="0" cy="0" r="1" gradientTransform="rotate(-135 9.37 -1.36) scale(2.73884)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FBE07A"/>
+      <stop offset="1" stop-color="#FF9D00"/>
+    </radialGradient>
+    <radialGradient id="i" cx="0" cy="0" r="1" gradientTransform="rotate(45 -17.62 12.74) scale(2.73884)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FBE07A"/>
+      <stop offset="1" stop-color="#FF9D00"/>
+    </radialGradient>
+    <radialGradient id="j" cx="0" cy="0" r="1" gradientTransform="translate(10.97 16.59) scale(9.37449)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#fff"/>
+      <stop offset=".35" stop-color="#FCFDFD"/>
+      <stop offset=".6" stop-color="#F3F6F7"/>
+      <stop offset=".81" stop-color="#E3EBEC"/>
+      <stop offset="1" stop-color="#CFDCDE"/>
+    </radialGradient>
+    <radialGradient id="k" cx="0" cy="0" r="1" gradientTransform="translate(12.97 15.38) scale(7.5243)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#fff"/>
+      <stop offset=".35" stop-color="#FCFDFD"/>
+      <stop offset=".6" stop-color="#F3F6F7"/>
+      <stop offset=".81" stop-color="#E3EBEC"/>
+      <stop offset="1" stop-color="#B0C6C9"/>
+    </radialGradient>
+    <radialGradient id="l" cx="0" cy="0" r="1" gradientTransform="matrix(5.04728 0 0 5.04727 13.2 16.74)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#fff"/>
+      <stop offset=".35" stop-color="#FCFDFD"/>
+      <stop offset=".6" stop-color="#F3F6F7"/>
+      <stop offset=".81" stop-color="#E3EBEC"/>
+      <stop offset="1" stop-color="#B0C6C9"/>
+    </radialGradient>
+    <radialGradient id="n" cx="0" cy="0" r="1" gradientTransform="translate(15.54 12.03) scale(9.93681)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#fff"/>
+      <stop offset=".34" stop-color="#FCFDFD"/>
+      <stop offset=".59" stop-color="#F3F6F7"/>
+      <stop offset=".81" stop-color="#E3EBEC"/>
+      <stop offset="1" stop-color="#CFDCDE"/>
+    </radialGradient>
+    <radialGradient id="o" cx="0" cy="0" r="1" gradientTransform="matrix(2.58296 8.89769 -8.89684 2.58272 13.25 12.94)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#fff"/>
+      <stop offset=".35" stop-color="#FCFDFD"/>
+      <stop offset=".6" stop-color="#F3F6F7"/>
+      <stop offset=".81" stop-color="#E3EBEC"/>
+      <stop offset="1" stop-color="#B0C6C9"/>
+    </radialGradient>
+    <radialGradient id="p" cx="0" cy="0" r="1" gradientTransform="rotate(119.18 1.06 8.12) scale(10.0369)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#CFDCDE" stop-opacity="0"/>
+      <stop offset=".89" stop-color="#CFDCDE" stop-opacity=".89"/>
+      <stop offset="1" stop-color="#CFDCDE"/>
+    </radialGradient>
+    <radialGradient id="q" cx="0" cy="0" r="1" gradientTransform="translate(11.2 13.8) scale(7.80446)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#fff"/>
+      <stop offset=".35" stop-color="#FCFDFD"/>
+      <stop offset=".6" stop-color="#F3F6F7"/>
+      <stop offset=".81" stop-color="#E3EBEC"/>
+      <stop offset="1" stop-color="#B0C6C9"/>
+    </radialGradient>
+    <linearGradient id="m" x1="13" x2="13" y1="14.39" y2="21.2" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#fff"/>
+      <stop offset=".35" stop-color="#FCFDFD"/>
+      <stop offset=".6" stop-color="#F3F6F7"/>
+      <stop offset=".81" stop-color="#E3EBEC"/>
+      <stop offset="1" stop-color="#CFDCDE"/>
+    </linearGradient>
+    <filter id="a" width="12.24" height="12.24" x="4.3" y="4.04" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse">
+      <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+      <feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+      <feColorMatrix in="SourceAlpha" result="hardAlpha" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"/>
+      <feOffset/>
+      <feGaussianBlur stdDeviation=".57"/>
+      <feComposite in2="hardAlpha" k2="-1" k3="1" operator="arithmetic"/>
+      <feColorMatrix values="0 0 0 0 0.8 0 0 0 0 0.384314 0 0 0 0 0.156863 0 0 0 0.5 0"/>
+      <feBlend in2="shape" result="effect1_innerShadow_1537_26321"/>
+    </filter>
+  </defs>
+</svg>

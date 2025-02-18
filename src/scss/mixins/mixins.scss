@@ -1,0 +1,165 @@
+@mixin dark-theme {
+  :global(.body-dark-theme) & {
+    @content;
+  }
+}
+
+@mixin light-theme {
+  :global(.body-light-theme) & {
+    @content;
+  }
+}
+
+// https://stackoverflow.com/questions/16348489/is-there-a-way-to-apply-styles-to-safari-only
+@mixin safari {
+  @media not all and (min-resolution:.001dpcm) {
+    @supports (-webkit-appearance:none) {
+      @content;
+    }
+  }
+}
+
+// Colors
+@mixin interaction-color($colorInitial, $colorActive) {
+  color: $colorInitial;
+  transition: color ease .14s;
+
+  &:not([disabled]) {
+
+    @media (hover: hover) {
+
+      &:hover {
+        color: $colorActive;
+      }
+    }
+
+    &:focus {
+      color: $colorActive;
+    }
+  }
+
+  &[disabled] {
+    opacity: .5;
+  }
+}
+
+@mixin interaction-bg($colorInitial, $colorActive) {
+
+  > div {
+    background-color: $colorInitial;
+    transition: color ease .14s;
+  }
+
+  &:not([disabled]) {
+
+    @media (hover: hover) {
+
+      &:hover > div {
+        background-color: $colorActive;
+      }
+    }
+
+    &:focus > div {
+      background-color: $colorActive;
+    }
+  }
+
+  &[disabled] > div {
+    opacity: .5;
+  }
+}
+
+@mixin bg-linear-gradient($colors) {
+  $color1: nth($colors, 1);
+  $color2: nth($colors, 2);
+
+  background: linear-gradient(90deg, $color1 0%, $color2 100%);
+}
+
+@mixin get-rule($rule, $value, $child: null) {
+  @if $child {
+    .#{$child} {
+      #{$rule}: $value;
+    }
+  }
+  @else {
+    #{$rule}: $value;
+  }
+}
+
+// Viewport height (more details in the useViewportHeight hook)
+@mixin viewportHeight($property: min-height, $size: 100, $plus: false) {
+  @if $plus {
+    #{$property}: calc(#{$size}vh + #{$plus});
+    #{$property}: calc(var(--vh, 1vh) * #{$size} + #{$plus});
+  }
+  @else {
+    #{$property}: #{$size}vh;
+    #{$property}: calc(var(--vh, 1vh) * #{$size});
+  }
+}
+
+// Select
+
+@mixin no-user-select {
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
+
+// Focus
+
+@mixin mouse-focus {
+  :global(.js-focus-visible) &:focus:not(:global(.focus-visible)) {
+    @content;
+  }
+}
+
+@mixin keyboard-focus {
+  :global(.js-focus-visible) &:global(.focus-visible):focus {
+    @content;
+  }
+}
+
+// Buttons
+
+@function getHsl($h, $s, $l) {
+  @return scale-color($h, $saturation: $s, $lightness: $l);
+}
+
+@mixin button-linear-gradient($colors) {
+  $color1: nth($colors, 1);
+  $color2: nth($colors, 2);
+
+  $hover-color1: getHsl($color1, -5%, -16%);
+  $hover-color2: getHsl($color2, 0%, -14%);
+
+  $active-color1: getHsl($color1, -11%, -32%);
+  $active-color2: getHsl($color2, 0%, -18%);
+
+  background: linear-gradient(90deg, $color1 0%, $color2 100%);
+
+  @media (hover: hover) {
+    &:hover {
+      background: linear-gradient(90deg, $hover-color1 0%, $hover-color2 90%);
+    }
+  }
+
+  &:active,
+  &.active {
+    background: linear-gradient(90deg, $active-color1 0%, $active-color2 100%);
+  }
+
+  @include keyboard-focus {
+    background: linear-gradient(90deg, $active-color1 0%, $active-color2 100%);
+  }
+
+  //&[disabled] {
+  //  background: rgb($color-moon-rgb / 0.15);
+  //  opacity: 0.3;
+  //}
+}

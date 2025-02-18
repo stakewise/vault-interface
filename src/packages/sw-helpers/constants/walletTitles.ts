@@ -1,0 +1,16 @@
+export default {
+  okx: 'OKX',
+  taho: 'Taho',
+  zenGo: 'ZenGo',
+  ledger: 'Ledger',
+  metaMask: 'MetaMask',
+  coinbase: 'Coinbase',
+  ledgerLive: 'Ledger Live',
+  gnosisSafe: 'Gnosis Safe',
+  dAppBrowser: 'DApp Browser',
+  braveWallet: 'Brave Wallet',
+  rabbyWallet: 'Rabby Wallet',
+  trustWallet: 'Trust Wallet',
+  monitorAddress: 'Check wallet',
+  walletConnect: 'WalletConnect',
+} as const

@@ -1,0 +1,11 @@
+// Typography
+.hover-underline {
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.word-break {
+  word-break: break-word;
+}

@@ -1,0 +1,62 @@
+/*
+ * VISIBILITY
+ * FLEX
+ * POSITION
+ * OVERFLOW
+*/
+
+
+// VISIBILITY
+.hide-empty:empty {
+  display: none;
+}
+
+
+// FLEX
+.flex-2 {
+  flex: 2 1 0;
+}
+
+.flex-auto {
+  flex: 1 1 auto;
+  min-width: 1px;
+}
+
+// OVERFLOW
+.overflow-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+
+  &:not(.block) {
+    display: -webkit-box;
+  }
+}
+
+.overflow-ellipsis-2 {
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.overflow-ellipsis-3 {
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+.scroll-x {
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+@keyframes shine-lines {
+  100% {
+    transform: translateX(100%);
+  }
+}

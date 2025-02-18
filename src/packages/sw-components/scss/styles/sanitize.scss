@@ -1,0 +1,128 @@
+@import '~destyle.css/destyle';
+
+/* Controls reset and app specific styles
+* ========================================================================== */
+
+*:focus {
+  outline: none;
+}
+
+input,
+textarea,
+button,
+select {
+  background: none;
+  border: none;
+  border-radius: 0;
+}
+
+legend,
+fieldset {
+  display: block;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+button,
+input[type='button'] {
+  text-align: center;
+  user-select: none;
+}
+
+textarea {
+  resize: none;
+}
+
+input,
+textarea,
+select {
+
+  &:-webkit-autofill,
+  &:focus {
+    background-color: #fff;
+  }
+
+  // Hides autocomplete in Safari
+  &::-webkit-contacts-auto-fill-button {
+    visibility: hidden;
+  }
+
+  // Chrome autofilled background color
+  &:-webkit-autofill,
+  &:-webkit-autofill:focus {
+    -webkit-box-shadow: inset 0 0 0 100rem #fff;
+  }
+}
+
+select:-moz-focusring {
+  color: transparent;
+  text-shadow: 0 0 0 #000;
+  -webkit-appearance: none;
+  -moz-appearance: radio-container;
+  appearance: normal;
+}
+
+select::-ms-expand {
+  display: none;
+}
+
+hr {
+  height: 1px;
+  border: none;
+}
+
+b,
+strong {
+  font-weight: 600;
+}
+
+/**
+ * Change the fill color to match the text color in all browsers (opinionated).
+ */
+
+svg:not([fill]) {
+  fill: currentColor;
+}
+
+/**
+ * Hide the overflow in IE.
+ */
+
+svg:not(:root) {
+  overflow: hidden;
+}
+
+/* Accessibility
+ * ========================================================================== */
+
+/**
+ * Change the cursor on busy elements in all browsers (opinionated).
+ */
+
+:where([aria-busy='true' i]) {
+  cursor: progress;
+}
+
+/*
+ * Change the cursor on disabled, not-editable, or otherwise
+ * inoperable elements in all browsers (opinionated).
+ */
+
+:where([aria-disabled='true' i], [disabled]) {
+  cursor: not-allowed;
+}
+
+/*
+ * Change the display on visually hidden accessible elements
+ * in all browsers (opinionated).
+ */
+
+:where([aria-hidden='false' i][hidden]) {
+  display: initial;
+}
+
+:where([aria-hidden='false' i][hidden]:not(:focus)) {
+  position: absolute;
+  clip: rect(0, 0, 0, 0);
+}
