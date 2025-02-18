@@ -4,23 +4,21 @@ import cx from 'classnames'
 import device from 'sw-modules/device'
 import { useViewportHeight, useImagesPrefetch } from 'hooks'
 
-// import { layoutIcons } from 'components'
+// import { icons } from 'components'
 
 import {
-  // useFiatRates,
+  useFiatRates,
   useQueryParams,
-  // useInjectedConnectorType,
 } from './util'
 
 import s from './AppLayout.module.scss'
 
 
 const AppLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  // useFiatRates()
+  useFiatRates()
   useQueryParams()
   useViewportHeight()
-  // useInjectedConnectorType()
-  // useImagesPrefetch(layoutIcons)
+  // useImagesPrefetch(icons)
 
   const { isMobile } = device.useData()
 

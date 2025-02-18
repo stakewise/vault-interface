@@ -1,3 +1,4 @@
+import tokens from './tokens'
 import queryNames from './queryNames'
 import cookieNames from './cookieNames'
 import headerNames from './headerNames'
@@ -7,6 +8,7 @@ import localStorageNames from './localStorageNames'
 
 
 export {
+  tokens,
   queryNames,
   cookieNames,
   headerNames,

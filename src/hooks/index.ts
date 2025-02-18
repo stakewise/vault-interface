@@ -1,5 +1,8 @@
 export * from 'sw-hooks'
 
+// Data
+export { default as useActions } from './data/useActions'
+
 // Controls
 export { default as useModalClose } from './controls/useModalClose'
 export { default as useChainChanged } from './controls/useChainChanged'

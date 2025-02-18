@@ -1,10 +1,12 @@
 'use client'
-import React, { useEffect } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import intl from 'sw-modules/intl'
 import theme from 'sw-modules/theme'
-import { ConfigProvider } from 'config'
 import { polyfills } from 'helpers'
+import { ConfigProvider } from 'config'
+import { Provider as ReduxProvider } from 'react-redux'
 import device, { onDeviceChange } from 'sw-modules/device'
+import { createVaultInterfaceStore } from 'sw-store/entries/vault-interface'
 
 import { ImagesProvider } from 'sw-components'
 import AppLayout from 'layouts/AppLayout/AppLayout'
@@ -48,6 +50,8 @@ const GlobalLayout: React.FC<GlobalLayoutProps> = (values) => {
     document.documentElement.lang = locale
   }, [ locale ])
 
+  const store = useMemo(() => createVaultInterfaceStore(), [])
+
   return (
     <theme.Provider value={themeContext}>
       <device.Provider value={deviceContext}>
@@ -55,18 +59,20 @@ const GlobalLayout: React.FC<GlobalLayoutProps> = (values) => {
           locale={locale as Intl.LanguagesKeys}
           locales={allLanguages as unknown as Intl.LanguagesKeys[]}
         >
-          <ConfigProvider serverNetworkId={networkId}>
-            <ImagesProvider>
-              <div>
-                <AppLayout>
-                  {children}
-                </AppLayout>
-                <div id="tooltips" />
-                <div id="bottomLoader" />
-                <div id="notifications" />
-              </div>
-            </ImagesProvider>
-          </ConfigProvider>
+          <ReduxProvider store={store}>
+            <ConfigProvider serverNetworkId={networkId}>
+              <ImagesProvider>
+                <div>
+                  <AppLayout>
+                    {children}
+                  </AppLayout>
+                  <div id="tooltips" />
+                  <div id="bottomLoader" />
+                  <div id="notifications" />
+                </div>
+              </ImagesProvider>
+            </ConfigProvider>
+          </ReduxProvider>
         </intl.IntlProvider>
       </device.Provider>
     </theme.Provider>
