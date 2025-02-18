@@ -42,12 +42,3 @@ yarn-error.log*
 **/*/next-env.d.ts
 tsconfig.tsbuildinfo
 **/*/tsconfig.tsbuildinfo
-
-# GraphQL
-packages/stakewise/types/graphql
-schema.graphql
-*GQL.d.ts
-*.graphql.ts
-
-# Storybook
-storybook-static
