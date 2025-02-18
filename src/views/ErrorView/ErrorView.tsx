@@ -2,7 +2,6 @@
 import React from 'react'
 import { useRouter } from 'next/navigation'
 import { links } from 'helpers'
-import Image from 'next/image'
 
 import { Text, Button } from 'components'
 
@@ -13,7 +12,7 @@ type ErrorViewProps = {
   error: Error
 }
 
-const ErrorView: React.FC<ErrorViewProps> = ({ error }) => {
+const ErrorView: React.FC<ErrorViewProps> = ({ error, reset }) => {
   const { push } = useRouter()
 
   const pageMessages = error ? messages.error : messages.notFound
@@ -22,23 +21,25 @@ const ErrorView: React.FC<ErrorViewProps> = ({ error }) => {
     <div className="width-container flex-1 flex">
       <div className="flex flex-col items-center justify-center m-auto">
         <Text
-          className="mt-64 text-center"
+          className="text-center"
           message={pageMessages.title}
-          color="p600"
-          size="6xl"
+          color="moon"
+          size="h32"
         />
         <Text
-          className="mt-20 text-center max-w-[320rem]"
+          className="mt-16 text-center"
           message={pageMessages.text}
-          color="p900"
-          size="lg"
+          color="moon"
+          size="t14"
         />
         <Button
-          className="mt-64"
-          bgColor="primary"
+          className="mt-32"
+          dataTestId="error-back-button"
           title={messages.buttonTitle}
-          size="md"
-          onClick={() => push(links.home)}
+          onClick={() => {
+            reset()
+            push(links.home)
+          }}
         />
       </div>
     </div>
