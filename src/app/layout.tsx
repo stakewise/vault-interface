@@ -14,29 +14,34 @@ import 'focus-visible'
 import 'scss/globals.scss'
 
 
+const owner = process.env.NEXT_PUBLIC_OWNER || ''
+const domain = process.env.NEXT_PUBLIC_OWNER_DOMAIN || ''
+const ownerTwitter = process.env.NEXT_PUBLIC_OWNER_X_ACCOUNT || ''
+
 export const generateMetadata: GenerateMetadata = async () => {
   const locale = getLocale()
+  const metaDescription = commonMessages.meta.home.description[locale] || ''
 
   let title = commonMessages.meta.home.title[locale]
-  let description = `StakeWise | ${commonMessages.meta.home.description[locale] || ''}`
+  let description = owner ? `${owner} | ${metaDescription}` : metaDescription
   let image = '/og-image.png'
 
-  const domain = 'app.stakewise.io'
-  const url = `https://${domain}/`
+  const url = domain ? `https://${domain}/` : ''
 
   try {
-    const vaultBase = await getVaultBase()
-    const vaultData = vaultBase?.data
-
-    if (vaultData?.displayName) {
-      title = `${vaultData.displayName} | StakeWise`
-    }
-    if (vaultData?.description) {
-      description = vaultData.description
-    }
-    if (vaultData?.imageUrl) {
-      image = vaultData.imageUrl
-    }
+    // TODO get vault data
+    // const vaultBase = await getVaultBase()
+    // const vaultData = vaultBase?.data
+    //
+    // if (vaultData?.displayName) {
+    //   title = owner ? `${vaultData.displayName} | ${owner}` : vaultData.displayName
+    // }
+    // if (vaultData?.description) {
+    //   description = vaultData.description
+    // }
+    // if (vaultData?.imageUrl) {
+    //   image = vaultData.imageUrl
+    // }
   }
   catch {}
 
@@ -45,12 +50,11 @@ export const generateMetadata: GenerateMetadata = async () => {
   return {
     description,
     metadataBase: new URL(url),
-    applicationName: 'StakeWise',
-    archives: [ 'https://v2.stakewise.io' ],
+    applicationName: owner ? `${owner} Vault Interface` : 'Vault Interface',
     manifest: new URL('/manifest.json', url),
-    keywords: [ 'StakeWise', 'staking', 'ETH', 'osETH', 'SWISE' ],
+    keywords: [ owner, 'staking', 'ETH', 'osETH' ].filter(Boolean),
     title: {
-      template: 'StakeWise | %s',
+      template: owner ? `${owner} | %s` : '%s',
       absolute: title,
     },
     icons: {
@@ -81,19 +85,19 @@ export const generateMetadata: GenerateMetadata = async () => {
       description,
       type: 'website',
       images: image,
-      siteName: 'Stakewise',
+      siteName: owner,
     },
     twitter: {
       url,
       title,
       domain,
       description,
-      siteName: 'Stakewise',
+      siteName: owner,
       images: {
         url: image,
-        alt: 'StakeWise logo',
+        alt: owner ? `${owner} logo` : 'logo',
       },
-      creator: '@stakewise_io',
+      creator: ownerTwitter,
       card: 'summary_large_image',
     },
   }
