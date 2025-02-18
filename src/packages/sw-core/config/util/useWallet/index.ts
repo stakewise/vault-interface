@@ -9,7 +9,7 @@ import useUpdateWallet from './useUpdateWallet'
 import { BaseInput } from '../useConfigContext'
 
 
-type Input = BaseInput & {
+type Input = Omit<BaseInput, 'serverNetworkId'> & {
   chainId: number
   configState: ConfigProvider.ConfigState
 }
