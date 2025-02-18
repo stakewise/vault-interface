@@ -40,7 +40,7 @@ const GlobalLayout: React.FC<GlobalLayoutProps> = (values) => {
   })
 
   useEffect(() => {
-    // reload page after 24 hours to refresh quick node token
+    // reload page after 24 hours
     setTimeout(() => window.location.reload(), 60 * 60 * 24 * 1000)
   }, [])
 
