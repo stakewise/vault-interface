@@ -25,6 +25,9 @@
         "src/*",
         "src/packages/*"
       ],
+      "scripts/*": [
+        "../scripts/*"
+      ],
       "sdk": [
         "node_modules/@stakewise/v3-sdk"
       ],
