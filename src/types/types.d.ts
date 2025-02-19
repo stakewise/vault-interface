@@ -51,4 +51,6 @@ declare global {
     title: Intl.Message | string
     isError?: boolean
   }
+
+  type Config = StakeWise.Config
 }
