@@ -8,7 +8,7 @@ import { Provider as ReduxProvider } from 'react-redux'
 import device, { onDeviceChange } from 'sw-modules/device'
 import { createVaultInterfaceStore } from 'sw-store/entries/vault-interface'
 
-import { ImagesProvider } from 'sw-components'
+import { ImagesProvider } from 'components'
 import AppLayout from 'layouts/AppLayout/AppLayout'
 
 import { allLanguages } from 'scripts/collectMessages/languages'

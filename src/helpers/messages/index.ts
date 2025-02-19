@@ -1,19 +1,21 @@
 import meta from './meta'
 import links from './links'
+import buttonTitle from './buttonTitle'
+import accessibility from './accessibility'
 
 
 export default {
   meta,
   links,
-  accessibility: {
-    goToHomePage: {
-      en: 'Go to home page',
-      ru: 'Перейти на главную страницу',
-      fr: 'Aller à la page d\'accueil',
-      es: 'Ir a la página de inicio',
-      pt: 'Ir para a página inicial',
-      de: 'Zur Startseite gehen',
-      zh: '转到主页',
-    },
+  buttonTitle,
+  accessibility,
+  loading: {
+    en: 'Loading...',
+    ru: 'Загрузка...',
+    fr: 'Chargement...',
+    es: 'Cargando...',
+    pt: 'Carregando...',
+    de: 'Laden...',
+    zh: '加载中...',
   },
 }

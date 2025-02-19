@@ -1,0 +1,60 @@
+.overlay {
+  overflow-y: auto;
+  -webkit-backdrop-filter: blur(28rem);
+  backdrop-filter: blur(28rem);
+  @include fade-in(animation, 300ms, ease);
+
+  @include light-theme {
+    background: rgb($color-snow-rgb / 0.1);
+  }
+
+  @include dark-theme {
+    background: rgb($color-coal-rgb / 0.7);
+  }
+}
+
+.modalEnter {
+  transition: all 350ms ease;
+}
+
+.modalFrom {
+  transform: scale(90%);
+  opacity: 0;
+}
+
+.modalTo {
+  transform: scale(100%);
+  opacity: 1;
+}
+
+.modalLeave {
+  transition: all 350ms ease;
+}
+
+.modal {
+  @include scale-up(animation, 300ms, ease);
+  transition: all;
+}
+
+@include except-desktop {
+
+  .modal {
+    width: 100%;
+    min-height: 100%;
+  }
+
+  .content {
+    overflow: auto;
+  }
+}
+
+@include desktop {
+
+  .narrow {
+    width: 480rem;
+  }
+
+  .wide {
+    width: 800rem;
+  }
+}

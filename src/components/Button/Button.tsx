@@ -1,112 +1,143 @@
 import React, { forwardRef, useMemo } from 'react'
 import cx from 'classnames'
+import device from 'sw-modules/device'
 
-import { ButtonBase } from 'sw-components'
-import type { ButtonBaseProps } from 'sw-components'
-
-import ButtonContent from './ButtonContent/ButtonContent'
-import type { ButtonContentProps } from './ButtonContent/ButtonContent'
-
-import { getButtonStyleClassName, ButtonBgColor } from './util'
+import ButtonBase from '../ButtonBase/ButtonBase'
+import type { ButtonBaseProps } from '../ButtonBase/ButtonBase'
+import ButtonContent, { ButtonContentProps } from './ButtonContent/ButtonContent'
 
 
-export const buttonSizes = [ 'lg', 'md', 'sm' ] as const
+export const buttonSizes = [ 'xs', 's', 'm', 'l', 'xl' ] as const
+
+export const buttonColors = [ 'color1', 'color2', 'crystal', 'moon', 'transparent' ] as const
 
 const iconSizes = {
-  lg: 24,
-  md: 24,
-  sm: 16,
+  xs: 16,
+  s: 16,
+  m: 24,
+  l: 28,
+  xl: 32,
 }
 
 const titleSizes = {
-  lg: 'f5',
-  md: 'f6',
-  sm: 'f7',
+  xs: 't12m',
+  s: 't14m',
+  m: 't14m',
+  l: 't18m',
+  xl: 't20b',
 }
 
 type ButtonSize = typeof buttonSizes[number]
 
+type ButtonBgColor = typeof buttonColors[number]
+
 type ButtonStyleProps = {
-  size: ButtonSize
-  bgColor?: ButtonBgColor
+  rounded?: boolean
+  size?: ButtonSize
   fullWidth?: boolean
+  color?: ButtonBgColor
+  withoutPadding?: boolean
   fullWidthOnMobile?: boolean
 }
 
 export type ButtonProps = (
   ButtonBaseProps
   & ButtonStyleProps
-  & Omit<ButtonContentProps, 'iconSize' | 'titleSize' | 'iconClassName'>
-)
+  & Omit<ButtonContentProps, 'color' | 'iconSize' | 'titleSize'>
+  )
 
 const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement, ButtonProps>((props, ref) => {
   const {
-    className, disabled, title, icon, arrow, dataTestId,
-    fullWidth, fullWidthOnMobile, loading,
-
-    size,
-    bgColor = 'primary',
-
+    className,
+    icon,
+    logo,
+    arrow,
+    title,
+    loading,
+    rounded,
+    disabled,
+    fullWidth,
+    size = 'm',
+    ariaLabel,
+    dataTestId,
+    withoutPadding,
+    fullWidthOnMobile,
+    color = 'button1',
     ...rest
   } = props
 
+  if (!title && !ariaLabel) {
+    console.warn('Button must have either a "title" or an "ariaLabel" for correct accessibility')
+  }
+
+  const { isDesktop } = device.useData()
+
+  const hasAdditionalNode = Boolean(arrow || icon || logo)
   const iconSize = iconSizes[size] as ButtonContentProps['iconSize']
   const titleSize = titleSizes[size] as ButtonContentProps['titleSize']
 
+  const contentColor = useMemo(() => {
+    const isFancyColor = [ 'color1', 'color2' ].includes(color)
+
+    if (disabled || loading) {
+      return 'moon'
+    }
+
+    if (color === 'moon') {
+      return 'sun'
+    }
+
+    if (isFancyColor) {
+      return 'snow'
+    }
+
+    return 'moon'
+  }, [ color, loading, disabled ])
+
   const buttonSizeClassName = cx({
-    'h-48': size === 'lg',
-    'h-[42rem]': size === 'md',
-    'h-32': size === 'sm',
+    'min-w-[28rem] h-[28rem]': size === 'xs',
+    'min-w-32 h-32': size === 's',
+    'min-w-[44rem] h-[44rem]': size === 'm',
+    'min-w-60 h-60': size === 'l',
+    'min-w-[70rem] h-[70rem]': size === 'xl',
   })
 
-  const [ commonButtonPaddingClassName, textButtonPaddingClassName ] = [
-    cx({
-      'px-20': title && size === 'lg',
-      'px-16': title && size === 'md',
-      'px-12': title ? size === 'sm' : size === 'lg',
-      'px-8': !title && (size === 'md' || size === 'sm'),
-    }),
-    cx('px-8', {
-      '-mx-8': !fullWidth,
-    }),
-  ]
-
-  const buttonPaddingClassName = [ 'textPrimary', 'textSecondary' ].includes(bgColor)
-    ? textButtonPaddingClassName
-    : commonButtonPaddingClassName
-
-  const { buttonStyleClassName, buttonIconClassName, buttonContentClassName } = useMemo(() => (
-    getButtonStyleClassName({ bgColor, loading, disabled })
-  ), [ bgColor, loading, disabled ])
+  const buttonPaddingClassName = cx({
+    'px-16': hasAdditionalNode,
+    'px-8': !hasAdditionalNode  && size === 'xs',
+    'px-32': !hasAdditionalNode && size === 's',
+    'px-40': !hasAdditionalNode && size === 'm',
+    'px-48': !hasAdditionalNode && (size === 'l' || size === 'xl'),
+  })
 
   const buttonClassName = cx(
-    className,
-    buttonStyleClassName,
-    buttonPaddingClassName,
-    'relative text-center rounded-8',
-    {
-      'w-full': fullWidth,
-      'mobile:w-full': fullWidthOnMobile,
-      [buttonSizeClassName]: !className?.includes('h-auto'),
+    buttonSizeClassName,
+    'relative text-center', {
+      'rounded-8': !rounded,
+      'rounded-72': rounded,
+      'w-full': fullWidth || !isDesktop && fullWidthOnMobile,
+      [buttonPaddingClassName]: title && !withoutPadding,
     }
   )
+
 
   return (
     <ButtonBase
       ref={ref}
-      className={buttonClassName}
-      dataTestId={dataTestId}
+      className={cx(buttonClassName, className)}
       disabled={disabled || loading}
+      dataTestId={dataTestId}
+      data-loading={loading}
       {...rest}
     >
       <ButtonContent
-        className={buttonContentClassName}
-        iconClassName={buttonIconClassName}
         icon={icon}
+        logo={logo}
         arrow={arrow}
         title={title}
         loading={loading}
         iconSize={iconSize}
+        color={contentColor as ButtonContentProps['color']}
         titleSize={titleSize}
       />
     </ButtonBase>

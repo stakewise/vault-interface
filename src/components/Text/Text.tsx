@@ -3,26 +3,19 @@ import cx from 'classnames'
 import methods from 'sw-methods'
 import intl from 'sw-modules/intl'
 
-import { replaceReactComponents } from 'sw-components'
-
-import { constants } from '../../helpers'
+import { constants, replaceReactComponents } from '../../helpers'
 
 
 const sizesMap = {
-  headings: [ '6xl', '5xl', '4xl', '3xl', '2xl', 'xl' ],
-  body: [
-    'lg-bold', 'lg-semi-bold', 'lg',
-    'md-bold', 'md-semi-bold', 'md',
-    'sm-bold', 'sm-semi-bold', 'sm',
-    'xs-bold', 'xs-semi-bold', 'xs',
-  ],
-  functional: [ 'f1', 'f2', 'f3', 'f4', 'f5', 'f6', 'f7', 'f8', 'f9', 'f10', 'f11' ],
+  text: [ 't20b', 't18m', 't18b', 't16m', 't16b', 't14', 't14m', 't14b', 't12', 't12m', 't12b' ],
+  notes: [ 'n10', 'n10m', 'n10b' ],
+  headers: [ 'h100', 'h90', 'h60', 'h48', 'h40', 'h32', 'h24', 'h22', 'h20' ],
 } as const
 
 export const sizes = [
-  ...sizesMap.headings,
-  ...sizesMap.body,
-  ...sizesMap.functional,
+  ...sizesMap.headers,
+  ...sizesMap.text,
+  ...sizesMap.notes,
 ] as const
 
 export type TextSize = typeof sizes[number]
@@ -62,7 +55,6 @@ const Text = React.forwardRef<HTMLElement, TextProps>((props, ref) => {
   const rootClassName = cx(className, {
     [`text-${size}`]: size,
     [`text-${color}`]: color !== 'inherit',
-    'font-fragment': [ '6xl', '5xl', '4xl' ].includes(size),
   })
 
   const htmlAttrs = methods.getGlobalHtmlAttrs(otherProps)
@@ -91,6 +83,7 @@ const Text = React.forwardRef<HTMLElement, TextProps>((props, ref) => {
   }
 
   if (html) {
+    // TODO Href Doesn't work with other tags
     if (/<Href/.test(content as string) && HrefComponent) {
       const children = replaceReactComponents(content as string, { Href: HrefComponent })
         .map((child, index) => typeof child === 'string' ? child : { ...child, key: child.key || index })

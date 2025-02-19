@@ -1,6 +1,7 @@
 export * from 'sw-hooks'
 
 // Data
+export { default as useStore } from './data/useStore'
 export { default as useActions } from './data/useActions'
 
 // Controls

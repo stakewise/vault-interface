@@ -1,0 +1,9 @@
+.option {
+  min-width: 160rem;
+
+  @media (hover: hover) {
+    &:hover {
+      background: rgb($color-moon-rgb / .05);
+    }
+  }
+}

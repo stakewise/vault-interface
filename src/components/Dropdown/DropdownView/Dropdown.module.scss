@@ -1,0 +1,11 @@
+.dropdown {
+  [aria-haspopup='true'] {
+    position: relative;
+    z-index: 1;
+  }
+}
+
+.options {
+  z-index: 2;
+  min-width: 100%;
+}

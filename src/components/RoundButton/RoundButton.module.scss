@@ -1,0 +1,56 @@
+.button {
+  @include basic-transition;
+}
+
+.size-32 {
+  width: 32rem;
+  height: 32rem;
+  @include button-crystal-color();
+}
+
+.size-24 {
+  width: 24rem;
+  height: 24rem;
+}
+
+.color-moon {
+  background-color: $color-moon;
+
+  &[disabled] {
+    opacity: 0.5;
+  }
+}
+
+.color-stone {
+  @include light-theme {
+    background-color: rgb($color-stone-rgb / 0.1);
+  }
+
+  @include dark-theme {
+    background-color: rgb($color-stone-rgb / 0.2);
+  }
+
+  &:not([disabled]) {
+
+    @media (hover: hover) {
+      &:hover {
+        @include light-theme {
+          background-color: rgb($color-stone-rgb / 0.2);
+        }
+
+        @include dark-theme {
+          background-color: rgb($color-stone-rgb / 0.3);
+        }
+      }
+    }
+
+    &:active,
+    .active {
+      background-color: rgb($color-stone-rgb / 0.3);
+    }
+  }
+
+  &[disabled] {
+    opacity: 0.5;
+  }
+}

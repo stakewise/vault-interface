@@ -1,0 +1,13 @@
+.menu {
+  z-index: 99;
+  grid-template-rows: 1fr 68rem 48rem;
+  backdrop-filter: blur(20rem) opacity(1);
+  @include basic-transition;
+  @include viewportHeight(height, 100);
+}
+
+.hidden {
+  transform: translate3d(0, -100%, 0);
+  opacity: 0;
+  backdrop-filter: blur(20rem) opacity(0);
+}

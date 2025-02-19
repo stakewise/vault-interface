@@ -1,0 +1,29 @@
+@include desktop {
+
+  .width-container {
+    width: 100%;
+    max-width: 1320rem;
+    margin-right: auto;
+    margin-left: auto;
+    padding-right: 60rem;
+    padding-left: 60rem;
+  }
+}
+
+@include tablet {
+
+  .width-container {
+    width: 100%;
+    padding-right: 32rem;
+    padding-left: 32rem;
+  }
+}
+
+@include mobile {
+
+  .width-container {
+    width: 100%;
+    padding-right: 24rem;
+    padding-left: 24rem;
+  }
+}
