@@ -1,5 +1,5 @@
 import React from 'react'
-import { DropdownView } from 'sw-components'
+import DropdownView from '../../Dropdown/DropdownView/DropdownView'
 
 import Option, { OptionType } from '../Option/Option'
 

@@ -1,7 +1,7 @@
 import React from 'react'
 import cx from 'classnames'
 
-import { Icon, Logo, Text, IconName, LogoName } from 'sw-components'
+import { Icon, Logo, Text, IconName, LogoName } from 'components'
 
 import OptionTitle from './OptionTitle/OptionTitle'
 

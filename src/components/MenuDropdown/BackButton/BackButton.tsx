@@ -1,7 +1,7 @@
 import React from 'react'
 import cx from 'classnames'
 
-import { Text, Icon, ButtonBase } from 'sw-components'
+import { Text, Icon, ButtonBase } from 'components'
 
 
 type BackButtonProps = {

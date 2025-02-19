@@ -1,7 +1,7 @@
 import React from 'react'
 import cx from 'classnames'
 
-import { Icon, Text } from 'sw-components'
+import { Icon, Text } from 'components'
 
 
 type OptionTitleProps = {
