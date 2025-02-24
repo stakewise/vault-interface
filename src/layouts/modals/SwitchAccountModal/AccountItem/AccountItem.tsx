@@ -1,6 +1,7 @@
 import React from 'react'
 import cx from 'classnames'
-import { FiatAmount , ButtonBase, TokenAmount, Text, Bone } from 'sw-components'
+
+import { FiatAmount, ButtonBase, TokenAmount, Text, Bone } from 'components'
 
 import useAccountItem from './util/useAccountItem'
 

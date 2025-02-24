@@ -3,15 +3,19 @@ import {
   configureStore,
 } from '@reduxjs/toolkit'
 
+import mintToken from '../store/mintToken'
 import fiatRates from '../store/fiatRates'
 import currency from '../store/currency'
+import account from '../store/account'
 import ui from '../store/ui'
 
 
 export const createVaultInterfaceStore = () => configureStore({
   reducer: {
+    mintToken,
     fiatRates,
     currency,
+    account,
     ui,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({

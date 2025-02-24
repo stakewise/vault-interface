@@ -1,11 +1,11 @@
 import React from 'react'
 import cx from 'classnames'
 
+import Logo from '../../Logo/Logo'
 import Loading from '../../Loading/Loading'
 import Text, { TextSize } from '../../Text/Text'
 import Icon, { IconProps } from '../../Icon/Icon'
 import { IconName, LogoName } from '../../Image/Image'
-import Logo from 'sw-components/src/Logo/Logo'
 
 
 export type ButtonContentProps = {

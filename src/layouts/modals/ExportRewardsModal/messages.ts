@@ -1,0 +1,38 @@
+export default {
+  title: {
+    en: 'Export rewards',
+    ru: 'Экспортировать награды',
+    fr: 'Exporter les récompenses',
+    es: 'Exportar recompensas',
+    pt: 'Exportar recompensas',
+    de: 'Belohnungen exportieren',
+    zh: '导出奖励',
+  },
+  toDate: {
+    en: 'To (yyyy-mm-dd)',
+    ru: 'По (гггг-мм-дд)',
+    fr: 'À (aaaa-mm-jj)',
+    es: 'Hasta (aaaa-mm-dd)',
+    pt: 'Até (aaaa-mm-dd)',
+    de: 'Bis (jjjj-mm-tt)',
+    zh: '至 (yyyy-mm-dd)',
+  },
+  fromDate: {
+    en: 'From (yyyy-mm-dd)',
+    ru: 'От (гггг-мм-дд)',
+    fr: 'De (aaaa-mm-jj)',
+    es: 'Desde (aaaa-mm-dd)',
+    pt: 'De (aaaa-mm-dd)',
+    de: 'Von (jjjj-mm-tt)',
+    zh: '从 (yyyy-mm-dd)',
+  },
+  formatTitle: {
+    en: 'Format',
+    ru: 'Формат',
+    fr: 'Format',
+    es: 'Formato',
+    pt: 'Formato',
+    de: 'Format',
+    zh: '格式',
+  },
+}

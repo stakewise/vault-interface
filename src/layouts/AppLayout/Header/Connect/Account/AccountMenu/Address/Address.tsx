@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react'
-import { analytics, commonMessages } from 'helpers'
+import { commonMessages } from 'helpers'
 import { useCopyToClipboard } from 'hooks'
 import { useConfig } from 'config'
 import methods from 'sw-methods'
@@ -25,12 +25,10 @@ const Address: React.FC<AddressProps> = (props) => {
 
   const handleCopy = useCallback(() => {
     copyToClipboard(address as string)
-    analytics.statistics.sendEvent('copyWalletAddress')
   }, [ address, copyToClipboard ])
 
   const handleCLickToLink = useCallback(() => {
     window.open(`${scanLink}${address}`, '_blank')
-    analytics.statistics.sendEvent('clickWalletEtherscan')
   }, [ address, scanLink ])
 
   return (

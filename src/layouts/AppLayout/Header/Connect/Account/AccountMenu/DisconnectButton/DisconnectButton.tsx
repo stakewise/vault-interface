@@ -1,6 +1,5 @@
 import React, { useCallback } from 'react'
 import cx from 'classnames'
-import { analytics } from 'helpers'
 import { useConfig } from 'config'
 
 import { Button } from 'components'
@@ -18,7 +17,6 @@ const DisconnectButton: React.FC<DisconnectButtonProps> = (props) => {
 
   const handleDisconnect = useCallback(() => {
     wallet.disconnect()
-    analytics.statistics.sendEvent('disconnectWallet')
   }, [ wallet ])
 
   return (

@@ -1,0 +1,73 @@
+export default {
+  errors: {
+    noStats: {
+      en: 'No stats for period from {from} to {to}',
+      ru: 'Нет статистики за период с {from} по {to}',
+      fr: 'Aucune statistique pour la période du {from} au {to}',
+      es: 'No hay estadísticas para el período del {from} al {to}',
+      pt: 'Sem estatísticas para o período de {from} a {to}',
+      de: 'Keine Statistiken für den Zeitraum von {from} bis {to}',
+      zh: '从 {from} 到 {to} 的期间没有统计数据',
+    },
+  },
+  format: {
+    xlsx: {
+      en: 'Microsoft Excel Document (xlsx)',
+      ru: 'Документ Microsoft Excel (xlsx)',
+      fr: 'Document Microsoft Excel (xlsx)',
+      es: 'Documento de Microsoft Excel (xlsx)',
+      pt: 'Documento do Microsoft Excel (xlsx)',
+      de: 'Microsoft Excel-Dokument (xlsx)',
+      zh: 'Microsoft Excel 文档 (xlsx)',
+    },
+    csv: {
+      en: 'Comma-Separated Values (csv)',
+      ru: 'Значения, разделённые запятыми (csv)',
+      fr: 'Valeurs séparées par des virgules (csv)',
+      es: 'Valores separados por comas (csv)',
+      pt: 'Valores separados por vírgulas (csv)',
+      de: 'Durch Kommas getrennte Werte (csv)',
+      zh: '逗号分隔值 (csv)',
+    },
+  },
+  file: {
+    headings: {
+      0: {
+        en: 'Reward ({token})',
+        ru: 'Вознаграждение ({token})',
+        fr: 'Récompense ({token})',
+        es: 'Recompensa ({token})',
+        pt: 'Recompensa ({token})',
+        de: 'Belohnung ({token})',
+        zh: '奖励 ({token})',
+      },
+      1: {
+        en: 'Reward ({currency})',
+        ru: 'Награда ({currency})',
+        fr: 'Récompense ({currency})',
+        es: 'Recompensa ({currency})',
+        pt: 'Recompensa ({currency})',
+        de: 'Belohnung ({currency})',
+        zh: '奖励 ({currency})',
+      },
+      2: {
+        en: 'Date (YYYY-MM-DD)',
+        ru: 'Дата (ГГГГ-ММ-ДД)',
+        fr: 'Date (AAAA-MM-JJ)',
+        es: 'Fecha (AAAA-MM-DD)',
+        pt: 'Data (AAAA-MM-DD)',
+        de: 'Datum (JJJJ-MM-TT)',
+        zh: '日期 (YYYY-MM-DD)',
+      },
+    },
+  },
+  successfully: {
+    en: 'Staking stats successfully downloaded',
+    ru: 'Статистика Стейкинга успешно загружена',
+    fr: 'Statistiques de staking téléchargées avec succès',
+    es: 'Estadísticas de staking descargadas con éxito',
+    pt: 'Estatísticas de staking baixadas com sucesso',
+    de: 'Staking-Statistiken erfolgreich heruntergeladen',
+    zh: 'Staking统计数据成功下载',
+  },
+}

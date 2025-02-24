@@ -1,0 +1,25 @@
+.arrow {
+  top: 50%;
+  z-index: 10;
+  margin-top: -12rem;
+  opacity: .7;
+  transition: .2s;
+
+  &:hover {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+
+  &:disabled {
+    display: none;
+  }
+}
+
+.prev {
+  left: 12rem;
+}
+
+.next {
+  right: 12rem;
+}
+

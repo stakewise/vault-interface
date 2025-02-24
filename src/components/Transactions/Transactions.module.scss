@@ -1,0 +1,13 @@
+.line {
+  position: relative;
+
+  &::before {
+    position: absolute;
+    top: 38rem;
+    left: 15rem;
+    width: 2rem;
+    height: 44rem;
+    background: rgb($color-moon-rgb / 0.05);
+    content: '';
+  }
+}

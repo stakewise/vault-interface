@@ -1,0 +1,17 @@
+.container {
+  transition: .2s;
+}
+
+.content {
+  opacity: 1;
+
+  &.open {
+    transition: .6s;
+  }
+
+  &.close {
+    opacity: 0;
+    transition: .1s;
+    pointer-events: none;
+  }
+}

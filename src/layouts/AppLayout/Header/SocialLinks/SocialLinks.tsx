@@ -43,14 +43,6 @@ const links: Link[] = [
 const SocialLinks: React.FC<SocialLinksProps> = (props) => {
   const { className, onClick } = props
 
-  const handleClick = useCallback((dataTestId: string) => {
-    analytics.statistics.sendEvent('clickHeaderSocialLink', { name: dataTestId })
-
-    if (typeof onClick === 'function') {
-      onClick()
-    }
-  }, [ onClick ])
-
   return (
     <div className={cx(className, 'flex gap-16')}>
       {
@@ -61,7 +53,7 @@ const SocialLinks: React.FC<SocialLinksProps> = (props) => {
             to={link}
             ariaLabel={ariaLabel}
             dataTestId={dataTestId}
-            onClick={() => handleClick(dataTestId)}
+            onClick={onClick}
           >
             <Icon
               name={icon}
