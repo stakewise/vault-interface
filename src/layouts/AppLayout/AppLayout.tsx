@@ -1,7 +1,6 @@
 'use client'
 import React from 'react'
 import cx from 'classnames'
-import device from 'sw-modules/device'
 import { useViewportHeight, useImagesPrefetch } from 'hooks'
 
 import { imagesUrls } from 'components'
@@ -11,6 +10,7 @@ import Header from './Header/Header'
 import {
   useFiatRates,
   useQueryParams,
+  useMintTokenData,
 } from './util'
 
 import s from './AppLayout.module.scss'
@@ -19,6 +19,7 @@ import s from './AppLayout.module.scss'
 const AppLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   useFiatRates()
   useQueryParams()
+  useMintTokenData()
   useViewportHeight()
   useImagesPrefetch(imagesUrls)
 

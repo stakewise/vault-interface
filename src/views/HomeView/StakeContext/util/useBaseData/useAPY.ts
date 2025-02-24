@@ -19,8 +19,15 @@ const useAPY = (vaultAddress: string) => {
       //   },
       // })
       const data = {
-        vaults: [],
+        vaults: [
+          {
+            feePercent: 0,
+          },
+        ],
         osTokenHolders: [],
+        osToken: {
+          feePercent: 0,
+        },
       }
 
       const vaultData = data.vaults[0]
