@@ -1,0 +1,37 @@
+.bone {
+  opacity: 1;
+  background: rgb($color-moon-rgb / 0.03);
+  animation-name: fade-out, bone;
+  animation-fill-mode: forwards, forwards;
+  animation-direction: normal, alternate;
+  animation-iteration-count: 1, infinite;
+  animation-timing-function: ease-in-out, ease-in-out;
+}
+
+@for $i from 0 through 3 {
+  .delay-#{$i} {
+    animation-duration: 300ms, 1s;
+    animation-delay: #{$i * 200}ms, #{$i * 200 + 300}ms;
+  }
+}
+
+@keyframes fade-out {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: .2;
+  }
+}
+
+@keyframes bone {
+  0% {
+    transform: translateY(6rem) scale(0.98);
+    opacity: .2;
+  }
+  85%,
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}

@@ -1,0 +1,34 @@
+.selectButton {
+
+  &:not([disabled]) {
+
+    @media (hover: hover) {
+
+      &:hover {
+
+        .icon {
+          background-color: $color-primary;
+        }
+      }
+    }
+
+    &:focus {
+
+      .icon {
+        background-color: $color-primary;
+      }
+    }
+  }
+}
+
+.icon {
+  transition: background-color ease .14s;
+}
+
+.arrow {
+  transition: .3s;
+
+  &.active {
+    transform: scale(-1);
+  }
+}

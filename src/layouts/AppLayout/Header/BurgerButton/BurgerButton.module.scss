@@ -1,0 +1,70 @@
+.wrapper {
+  width: 44rem;
+}
+
+.container {
+  width: 24rem;
+  height: 24rem;
+}
+
+.line {
+  width: 50%;
+  height: 4.17%;
+  border-radius: 3vmin;
+  transition: all 0.2s ease-in-out;
+}
+
+.topLeft {
+  top: 12.5%;
+  left: 2%;
+}
+
+.topRight {
+  top: 12.5%;
+  right: 2%;
+}
+
+.middle {
+  top: 47.91%;
+  left: 25%;
+}
+
+.bottomLeft {
+  bottom: 12.5%;
+  left: 2%;
+}
+
+.bottomRight {
+  right: 2%;
+  bottom: 12.5%;
+}
+
+.active {
+
+  .line {
+    width: 48%;
+  }
+
+  .topLeft {
+    transform: rotate(45deg) translate(37.6%, 195%);
+  }
+
+  .topRight {
+    transform: rotate(-45deg) translate(-37.6%, 195%);
+  }
+
+  .middle {
+    left: 45%;
+    width: 10%;
+    transform: rotate(90deg);
+    opacity: 0;
+  }
+
+  .bottomLeft {
+    transform: rotate(-45deg) translate(37.6%, -195%);
+  }
+
+  .bottomRight {
+    transform: rotate(45deg)  translate(-37.6%, -195%);
+  }
+}

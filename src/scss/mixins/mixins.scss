@@ -87,6 +87,29 @@
   }
 }
 
+@mixin button-crystal-color($child: null) {
+  @include get-rule(background-color, rgb($color-moon-rgb / 0.05), $child);
+
+  &:not([disabled]) {
+
+    @media (hover: hover) {
+      &:hover {
+        @include get-rule(background-color, rgb($color-moon-rgb / 0.10), $child);
+      }
+    }
+
+    &:active,
+    &.active {
+      @include get-rule(background-color, rgb($color-moon-rgb / 0.15), $child);
+    }
+  }
+
+  &[disabled] {
+    background: rgb($color-moon-rgb / 0.15);
+    opacity: 0.3;
+  }
+}
+
 // Viewport height (more details in the useViewportHeight hook)
 @mixin viewportHeight($property: min-height, $size: 100, $plus: false) {
   @if $plus {

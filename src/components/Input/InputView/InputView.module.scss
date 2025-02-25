@@ -1,0 +1,106 @@
+$border-color-default: rgb($color-stone-rgb / 0.1);
+$border-color-hover: rgb($color-moon-rgb / 0.3);
+$border-color-focus: $color-primary;
+$border-color-error: rgb($color-volcano-rgb / 0.1);
+$border-color-error-hover: rgb($color-volcano-rgb / 0.5);
+
+$bg-color-default: rgb($color-stone-rgb / 0.1);
+$bg-color-hover: rgb($color-stone-rgb / 0.15);
+$bg-color-focus: rgb($color-sun-rgb / 0.2);
+$bg-color-error: rgb($color-volcano-rgb / 0.1);
+$bg-color-error-hover: rgb($color-volcano-rgb / 0.15);
+
+@mixin field-colors($border-color, $bg-color) {
+  background-color: $bg-color;
+  border-color: $border-color;
+}
+
+.container {
+  border: 1px solid;
+  @include basic-transition();
+  @include field-colors($border-color-default, $bg-color-default);
+
+  &.isMultiline {
+    min-height: 20rem;
+
+    .crossButton {
+      top: 12rem;
+      right: 16rem;
+    }
+  }
+
+  &:not(.isMultiline) {
+    height: 48rem;
+  }
+
+  &:not(.disabled) {
+
+    @media (hover: hover) {
+      &:hover {
+        @include field-colors($border-color-hover, $bg-color-hover);
+      }
+    }
+
+    &.focused {
+      @include field-colors($border-color-focus, $bg-color-focus);
+    }
+
+    &.error {
+      @include field-colors($border-color-error, $bg-color-error);
+
+      @media (hover: hover) {
+        &:hover {
+          @include field-colors($border-color-error-hover, $bg-color-error-hover);
+        }
+      }
+    }
+  }
+
+  &.filled,
+  &.focused {
+
+    .label {
+      top: 5rem;
+    }
+  }
+
+  &.focused,
+  &:hover {
+
+    .crossButton {
+      opacity: 1;
+    }
+  }
+}
+
+.label {
+  top: 14rem;
+  pointer-events: none;
+  @include basic-transition();
+}
+
+.field {
+  background-color: inherit;
+  border-radius: 0 !important;
+  outline: none !important;
+  box-shadow: none !important;
+  appearance: none;
+  caret-color: $color-moon;
+
+  &.isMultiline {
+    line-height: 20rem;
+  }
+
+  &:focus {
+    background-color: inherit;
+  }
+}
+
+.description {
+  color: rgb($color-moon-rgb / 0.5);
+}
+
+.crossButton {
+  opacity: 0;
+  @include basic-transition();
+}

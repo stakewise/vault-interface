@@ -1,0 +1,15 @@
+.button {
+  width: 90rem;
+  @include button-crystal-color(logo);
+}
+
+.check {
+  @include scale-up(transition, 300ms, ease);
+}
+
+.text {
+  max-width: 90rem;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}

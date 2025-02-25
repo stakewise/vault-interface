@@ -1,7 +1,5 @@
 import { useEffect } from 'react'
-
-import useChainChanged from './useChainChanged'
-import useAddressChanged from './useAddressChanged'
+import { useConfig } from 'config'
 
 
 type Input = {
@@ -12,14 +10,13 @@ type Input = {
 const useModalClose = (values: Input) => {
   const { open = true, closeModal } = values
 
-  const isChangedChainId = useChainChanged()
-  const isChangedAddress = useAddressChanged()
+  const { isAddressChanged, isChainChanged } = useConfig()
 
   useEffect(() => {
-    if (isChangedChainId || isChangedAddress || !open) {
+    if (isChainChanged || isAddressChanged || !open) {
       closeModal()
     }
-  }, [ isChangedChainId, open, isChangedAddress, closeModal ])
+  }, [ open, isChainChanged, isAddressChanged, closeModal ])
 }
 
 

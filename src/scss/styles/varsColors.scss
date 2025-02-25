@@ -1,0 +1,10 @@
+:root {
+  @each $theme, $colors in $themes {
+    .#{$theme} {
+      @each $name, $color in $colors {
+        --color-#{$name}-rgb: #{red($color)} #{green($color)} #{blue($color)};
+        --color-#{$name}: #{$color};
+      }
+    }
+  }
+}

@@ -1,0 +1,13 @@
+.container {
+  margin: 0 -25rem -25rem;
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: 0 !important;
+
+  :global(.swiper-pagination-progressbar-fill) {
+    background: $color-moon;
+  }
+
+  @include mobile {
+    bottom: 12rem;
+  }
+}

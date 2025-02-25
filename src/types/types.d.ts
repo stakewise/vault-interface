@@ -1,4 +1,9 @@
+import type { Time } from 'lightweight-charts'
+import { createVaultInterfaceStore } from 'sw-store/entries/vault-interface'
+
+
 declare global {
+  type Store = ReturnType<(ReturnType<typeof createVaultInterfaceStore>)['getState']>
 
   interface EthereumProvider {
     isTaho: boolean
@@ -50,5 +55,23 @@ declare global {
     id: string
     title: Intl.Message | string
     isError?: boolean
+  }
+
+  type Config = StakeWise.Config
+
+  declare namespace Charts {
+    type TimePoint = {
+      time: Time
+      value: number
+    }
+
+    type Point = {
+      time: Time | number
+      value: number
+    }
+
+    type Style = 'bar' | 'line'
+
+    type PointType = 'fiat' | 'percent'
   }
 }

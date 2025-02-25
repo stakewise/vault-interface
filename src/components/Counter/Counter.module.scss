@@ -1,0 +1,26 @@
+.counter {
+  height: 20rem;
+  min-width: 20rem;
+
+  @include dark-theme {
+    background-color: rgb($color-moon-rgb / 0.2);
+    color: $color-moon;
+
+    :global(.bg-inherit) {
+      background-color: $color-moon;
+    }
+  }
+
+  @include light-theme {
+    background-color: rgb($color-primary-rgb / 0.1);
+    color: $color-primary;
+
+    :global(.bg-inherit) {
+      background-color: $color-primary;
+    }
+  }
+
+  &.disabled {
+    background-color: rgb($color-stone-rgb / 0.2);
+  }
+}

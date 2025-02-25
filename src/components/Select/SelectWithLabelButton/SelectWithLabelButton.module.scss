@@ -1,0 +1,55 @@
+$border-color-default: rgb($color-stone-rgb / 0.10);
+$border-color-hover: rgb($color-moon-rgb / 0.30);
+$border-color-error: rgb($color-volcano-rgb / 0.10);
+$border-color-error-hover: rgb($color-volcano-rgb / 0.50);
+
+$bg-color-default: rgb($color-stone-rgb / 0.10);
+$bg-color-hover: rgb($color-stone-rgb / 0.15);
+$bg-color-error: rgb($color-volcano-rgb / 0.10);
+$bg-color-error-hover: rgb($color-volcano-rgb / 0.15);
+
+@mixin field-colors($border-color, $bg-color) {
+  border-color: $border-color;
+  background-color: $bg-color;
+}
+
+.container {
+  height: 48rem;
+  border: 1px solid;
+  @include basic-transition();
+  @include field-colors($border-color-default, $bg-color-default);
+
+  &:not(.disabled) {
+    @media (hover: hover) {
+      &:hover {
+        @include field-colors($border-color-hover, $bg-color-hover);
+      }
+    }
+
+    &.error {
+      @include field-colors($border-color-error, $bg-color-error);
+
+      @media (hover: hover) {
+        &:hover {
+          @include field-colors($border-color-error-hover, $bg-color-error-hover);
+        }
+      }
+    }
+  }
+
+  &.filled {
+    .label {
+      top: 5rem;
+    }
+  }
+}
+
+.label {
+  top: 14rem;
+  pointer-events: none;
+  @include basic-transition();
+}
+
+.icon {
+  transition: background-color ease .14s;
+}

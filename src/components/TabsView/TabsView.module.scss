@@ -1,0 +1,33 @@
+.line {
+  position: absolute;
+  bottom: 0;
+  height: 2rem;
+  content: '';
+  @include basic-transition();
+}
+
+.borderFill {
+
+  > * {
+    border-bottom: 1px solid rgb($color-stone-rgb / 0.1);
+
+    > * {
+      margin-bottom: -1px;
+    }
+  }
+}
+
+.borderMin {
+
+  > div:first-child {
+    border-bottom: 1px solid rgb($color-stone-rgb / 0.1);
+  }
+
+  > div:not(:first-child) {
+    border-bottom: 1px solid transparent;
+  }
+
+  > * > * {
+    margin-bottom: -1px;
+  }
+}

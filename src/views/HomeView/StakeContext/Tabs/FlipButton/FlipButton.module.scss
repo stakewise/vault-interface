@@ -1,0 +1,28 @@
+.active {
+
+  .right {
+    animation: right 0.8s ease-in-out;
+  }
+
+  .left {
+    animation: left 0.8s ease-in-out;
+  }
+}
+
+.right {
+  transform: scale(-1, -1);
+}
+
+@keyframes right {
+  0%, 90%, 100% { transform: translateX(0); }
+  30% { transform: translateX(-25%); }
+  50% { transform: translateX(8%); }
+  70% { transform: translateX(-5%); }
+}
+
+@keyframes left {
+  0%, 90%, 100% { transform: translateX(0) scale(-1, -1); }
+  30% { transform: translateX(25%) scale(-1, -1); }
+  50% { transform: translateX(-8%) scale(-1, -1); }
+  70% { transform: translateX(5%) scale(-1, -1); }
+}

@@ -1,0 +1,18 @@
+.arrow {
+  top: calc(100% - 10rem);
+  left: calc(50% - 10rem);
+  padding: 2rem;
+  transition: .2s;
+
+  @include dark-theme {
+    background-color: #464546;
+  }
+
+  @include light-theme {
+    background-color: #c1c2cd;
+  }
+
+  &:hover {
+    transform: scale(1.2);
+  }
+}

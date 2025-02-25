@@ -1,0 +1,109 @@
+$primary-light: #74AAFC;
+$forest-light: #4CD48B;
+$forest-light-rgba: rgba(49, 212, 139, 0.3);
+
+
+.trackLine {
+  height: 6rem;
+
+  @include dark-theme {
+    background-color: rgb($color-snow-rgb / 0.2);
+  }
+
+  @include light-theme {
+    background-color: $color-snow;
+  }
+
+  &::after {
+    position: absolute;
+    top: -8rem;
+    left: 0;
+    width: 100%;
+    height: 20rem;
+    content: '';
+  }
+
+}
+
+.track {
+  width: 100%;
+  height: 6rem;
+  margin-top: -6rem;
+}
+
+.fill {
+  height: 6rem;
+}
+
+.thumb {
+  width: 25rem;
+  height: 25rem;
+  margin-top: -10rem;
+
+  &::before {
+    position: absolute;
+    top: 5rem;
+    left: 5rem;
+    width: 15rem;
+    height: 15rem;
+    background: $color-sun;
+    border-radius: 100%;
+    content: '';
+  }
+
+}
+
+// Styles for each theme
+
+.jungle {
+
+  .thumb {
+    background: linear-gradient(90deg, $forest-light 5.26%, $primary-light 94.74%);
+    background-color: $primary-light;
+    box-shadow: 0 0 8rem rgba($forest-light-rgba, 0.3);
+  }
+
+  .fill {
+    background: linear-gradient(90deg, $forest-light 0%, $primary-light 108.5%);
+    box-shadow: 0 0 6rem $forest-light;
+  }
+}
+
+.autumn {
+
+  .thumb {
+    background-color: $primary-light;
+    box-shadow: 0 0 8rem $color-autumn;
+  }
+
+  .fill {
+    background: linear-gradient(90deg, $color-autumn 0%, $primary-light 109.09%);
+    box-shadow: 0 0 6rem $color-autumn;
+  }
+}
+
+.volcano {
+
+  .thumb {
+    background-color: $primary-light;
+    box-shadow: 0 0 8rem rgb($color-volcano-rgb / 0.5);
+  }
+
+  .fill {
+    background: linear-gradient(90deg, $color-volcano 0%, $primary-light 100%);
+    box-shadow: 0 0 6rem $color-volcano;
+  }
+}
+
+.volcanoInverted {
+
+  .thumb {
+    background-color: $color-volcano;
+    box-shadow: 0 0 8rem rgb($color-primary-rgb / 0.5);
+  }
+
+  .fill {
+    background: linear-gradient(90deg, $color-primary 0%, $color-volcano 100%);
+    box-shadow: 0 0 6rem $color-primary;
+  }
+}

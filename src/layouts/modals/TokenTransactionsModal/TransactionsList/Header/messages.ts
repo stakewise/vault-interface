@@ -1,0 +1,38 @@
+export default {
+  sender: {
+    en: 'Sender',
+    ru: 'Отправитель',
+    fr: 'Expéditeur',
+    es: 'Remitente',
+    pt: 'Remetente',
+    de: 'Absender',
+    zh: '发送者',
+  },
+  recipient: {
+    en: 'Recipient',
+    ru: 'Получатель',
+    fr: 'Destinataire',
+    es: 'Destinatario',
+    pt: 'Destinatário',
+    de: 'Empfänger',
+    zh: '接收者',
+  },
+  date: {
+    en: 'Date',
+    ru: 'Дата',
+    fr: 'Date',
+    es: 'Fecha',
+    pt: 'Data',
+    de: 'Datum',
+    zh: '日期',
+  },
+  txHash: {
+    en: 'Tx Hash',
+    ru: 'Хэш транзакции',
+    fr: 'Hash de la transaction',
+    es: 'Hash de Tx',
+    pt: 'Hash da Tx',
+    de: 'Tx-Hash',
+    zh: '交易哈希',
+  },
+}

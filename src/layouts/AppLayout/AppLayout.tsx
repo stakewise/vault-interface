@@ -1,14 +1,16 @@
 'use client'
 import React from 'react'
 import cx from 'classnames'
-import device from 'sw-modules/device'
 import { useViewportHeight, useImagesPrefetch } from 'hooks'
 
-// import { icons } from 'components'
+import { imagesUrls } from 'components'
+
+import Header from './Header/Header'
 
 import {
   useFiatRates,
   useQueryParams,
+  useMintTokenData,
 } from './util'
 
 import s from './AppLayout.module.scss'
@@ -17,24 +19,16 @@ import s from './AppLayout.module.scss'
 const AppLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   useFiatRates()
   useQueryParams()
+  useMintTokenData()
   useViewportHeight()
-  // useImagesPrefetch(icons)
-
-  const { isMobile } = device.useData()
+  useImagesPrefetch(imagesUrls)
 
   return (
     <div
-      className={cx(s.container, 'flex flex-col overflow-hidden', {
-        'py-40': !isMobile,
-        'pt-24 pb-16': isMobile,
-      })}
+      className={cx(s.container, 'flex flex-col overflow-y-hidden')}
     >
-      <main
-        className={cx(
-          'flex-1 w-full flex relative',
-          'ex-mobile:my-60 mobile:my-24'
-        )}
-      >
+      <Header />
+      <main className="flex-1 w-full flex">
         {children}
       </main>
     </div>
