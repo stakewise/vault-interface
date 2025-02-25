@@ -1,6 +1,7 @@
 import meta from './meta'
 import time from './time'
 import links from './links'
+import tooltip from './tooltip'
 import buttonTitle from './buttonTitle'
 import transaction from './transaction'
 import notification from './notification'
@@ -11,10 +12,20 @@ export default {
   meta,
   time,
   links,
+  tooltip,
   buttonTitle,
   transaction,
   notification,
   accessibility,
+  yourApy: {
+    en: 'Your APY',
+    ru: 'Ваш APY',
+    fr: 'Votre APY',
+    es: 'Tu APY',
+    pt: 'Seu APY',
+    de: 'Ihr APY',
+    zh: '您的APY',
+  },
   loading: {
     en: 'Loading...',
     ru: 'Загрузка...',

@@ -2,16 +2,26 @@ import { useEffect, useRef } from 'react'
 import { useConfig } from 'config'
 
 
-const useAddressChanged = (): boolean => {
-  const { address } = useConfig()
+const useAddressChanged = (callback: () => any) => {
+  const { address, autoConnectChecked } = useConfig()
 
-  const ref = useRef<string | null>(address)
+  const isInitRef = useRef(false)
+  const addressRef = useRef<string | null>(address)
+
+  const callbackRef = useRef(callback)
+  callbackRef.current = callback
 
   useEffect(() => {
-    ref.current = address
-  }, [ address ])
+    if (!isInitRef.current && autoConnectChecked) {
+      addressRef.current = address
+      isInitRef.current = true
+    }
 
-  return address !== ref.current
+    if (autoConnectChecked && address !== addressRef.current) {
+      callbackRef.current()
+      addressRef.current = address
+    }
+  }, [ address, autoConnectChecked ])
 }
 
 

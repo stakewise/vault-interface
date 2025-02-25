@@ -2,15 +2,19 @@ import { useEffect, useRef } from 'react'
 import { useConfig } from 'config'
 
 
-const useChainChanged = (): boolean => {
+const useChainChanged = (callback: () => any) => {
   const { chainId } = useConfig()
-  const ref = useRef<ChainIds>(chainId)
+
+  const chainIdRef = useRef<ChainIds>(chainId)
+  const callbackRef = useRef(callback)
+  callbackRef.current = callback
 
   useEffect(() => {
-    ref.current = chainId
+    if (chainIdRef.current !== chainId) {
+      callbackRef.current()
+      chainIdRef.current = chainId
+    }
   }, [ chainId ])
-
-  return chainId !== ref.current
 }
 
 

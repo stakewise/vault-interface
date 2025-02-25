@@ -20,13 +20,6 @@ type Output = {
 const calculateSwapData = async (values: Input): Promise<Output> => {
   const { amount, signSDK, userAddress, vaultAddress } = values
 
-  // TODO Temporarily (change swap/unstake.spec - "Unstake info using vault flow")
-  const e2eData = methods.insertMockE2E<Output>('calculate-swap-data')
-
-  if (e2eData) {
-    return e2eData
-  }
-
   const vaultData = await getDefaultCallData({
     vaultAddress,
     userAddress,

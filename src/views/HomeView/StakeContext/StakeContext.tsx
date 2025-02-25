@@ -5,7 +5,7 @@ import { TransactionsFlowModal } from 'layouts/modals'
 import Tabs from './Tabs/Tabs'
 import { Skeleton } from '../common'
 import { StatisticsModal } from '../modals'
-import { Balance, Boost, Stake, Unboost, Unstake } from '../content'
+import { Balance, Boost, Stake, Mint, Burn, Unboost, Unstake } from '../content'
 
 import { Tab, stakeCtx } from './util'
 
@@ -15,6 +15,8 @@ type VaultContextProps = {
 }
 
 const components = {
+  [Tab.Mint]: Mint,
+  [Tab.Burn]: Burn,
   [Tab.Stake]: Stake,
   [Tab.Boost]: Boost,
   [Tab.Unboost]: Unboost,
