@@ -28,6 +28,7 @@ export type TokenAmountProps = {
   size?: typeof sizes[number]
   token: typeof tokens[number]
   textColor?: typeof constants.colors[number]
+  withMinimalValue?: boolean
   dataTestId?: string
 }
 
@@ -47,7 +48,7 @@ const params = {
 } as const
 
 const TokenAmount: React.FC<TokenAmountProps> = (props) => {
-  const { className, token, value, size = 'md', textColor = 'moon', dataTestId } = props
+  const { className, token, value, size = 'md', textColor = 'moon', withMinimalValue, dataTestId } = props
 
   const sizes = params[size]
 
@@ -72,7 +73,7 @@ const TokenAmount: React.FC<TokenAmountProps> = (props) => {
       />
       <Text
         className="ml-4"
-        message={methods.formatTokenValue(value)}
+        message={methods.formatTokenValue(value, withMinimalValue)}
         size={textSize}
         color={textColor}
       />

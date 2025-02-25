@@ -84,7 +84,6 @@ import percent from './icon/percent.svg'
 import control from './icon/control.svg'
 import rewards from './icon/rewards.svg'
 import calendar from './icon/calendar.svg'
-import question from './icon/question.svg'
 import scrollUp from './icon/scrollUp.svg'
 import performance from './icon/performance.svg'
 import validators from './icon/validators.svg'
@@ -212,7 +211,6 @@ export default {
   'icon/control': control.src,
   'icon/rewards': rewards.src,
   'icon/calendar': calendar.src,
-  'icon/question': question.src,
   'icon/scrollUp': scrollUp.src,
   'icon/validators': validators.src,
   'icon/performance': performance.src,

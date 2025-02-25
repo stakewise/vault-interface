@@ -105,7 +105,6 @@ export const icons = [
   'icon/rewards',
   'icon/warning',
   'icon/calendar',
-  'icon/question',
   'icon/scrollUp',
   'icon/validators',
   'icon/performance',

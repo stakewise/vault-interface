@@ -10,7 +10,7 @@ import messages from './messages'
 
 export type StepProps = {
   className?: string
-  title: Intl.Message
+  title: Intl.Message | string
   status: TransactionStatus
   dataTestId?: string
 }

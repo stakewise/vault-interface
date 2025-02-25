@@ -10,6 +10,7 @@ import type { MouseEventParams, Time, IPriceLine, SingleValueData } from 'lightw
 import Legend from './Legend/Legend'
 import NoItems from './NoItems/NoItems'
 import Skeleton from './Skeleton/Skeleton'
+import NotConnected from './NotConnected/NotConnected'
 
 import { useChart } from './util'
 
@@ -24,6 +25,8 @@ export type ChartProps = {
   pointType: Charts.PointType
   noItemsDescription?: Intl.Message
   hideRightPriceScale?: boolean
+  isNotConnected?: boolean
+  connect?: () => void
 }
 
 const storeSelector = createSelector([
@@ -45,8 +48,10 @@ const Chart: React.FC<ChartProps> = (props) => {
     pointType,
     dataTestId,
     isFetching,
+    isNotConnected,
     noItemsDescription,
     hideRightPriceScale,
+    connect,
   } = props
 
   const { fiatRates, currency, currencySymbol } = useSelector(storeSelector)
@@ -171,6 +176,9 @@ const Chart: React.FC<ChartProps> = (props) => {
     getPriceLineSeries,
   ])
 
+  const showNotConnected = isNotConnected && !isFetching && typeof connect === 'function'
+  const isNoItems = !isFetching && !data.length && !showNotConnected
+
   return (
     <div
       ref={chartContainerRef}
@@ -183,8 +191,13 @@ const Chart: React.FC<ChartProps> = (props) => {
         )
       }
       {
-        !isFetching && !data.length && (
+        isNoItems && (
           <NoItems description={noItemsDescription} />
+        )
+      }
+      {
+        showNotConnected && (
+          <NotConnected onClick={connect} />
         )
       }
       {
