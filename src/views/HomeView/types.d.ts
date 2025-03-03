@@ -1,7 +1,16 @@
 import { SetTransaction } from 'components'
 import { StakeWiseSDK } from 'sdk'
 
-import { Tab } from '../StakeContext/util'
+import { Tab } from './StakeContext/util'
+
+import {
+  useBurn,
+  useMint,
+  useBoost,
+  useStake,
+  useUnboost,
+  useWithdraw,
+} from './StakeContext/util/actions'
 
 
 declare global {
@@ -152,21 +161,21 @@ declare global {
       fee: string
       users: number
       ltvPercent: bigint
-      stakedAssets: bigint
-      mintTokenBalance: bigint
+      // stakedAssets: bigint
+      // mintTokenBalance: bigint
       apy: {
         user: number
         vault: number
         mintToken: number
         maxBoost: number
       }
-      boost: {
-        shares: bigint
-        rewardAssets: bigint
-        exitingPercent: number
-        maxMintShares: bigint
-        isProfitable: boolean
-      }
+      // boost: {
+      //   shares: bigint
+      //   rewardAssets: bigint
+      //   exitingPercent: number
+      //   maxMintShares: bigint
+      //   isProfitable: boolean
+      // }
       isFetching: boolean
       refetchData: () => Promise<void>
     }
@@ -174,11 +183,13 @@ declare global {
     type Context = {
       data: Data
       tabs: Tabs.Data
-      boost: Boost.Actions
-      stake: Stake.Actions
+      burn: useBurn.mock,
+      mint: useMint.mock,
+      boost: useBoost.mock,
+      stake: useStake.mock,
+      unboost: useUnboost.mock,
+      withdraw: useWithdraw.mock,
       field: Forms.Field<bigint>
-      unboost: Unboost.Actions
-      unstake: Unstake.Actions
       vaultAddress: string
       unboostQueue: UnboostQueue.Data
       unstakeQueue: UnstakeQueue.Data

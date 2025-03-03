@@ -62,4 +62,13 @@ export default {
     de: 'Konto-Menü öffnen',
     zh: '打开账户菜单',
   },
+  unstakeQueueToggle: {
+    en: 'Unstake queue toggle',
+    ru: 'Переключатель очереди на Анстейк',
+    fr: 'Basculer la file d\'attente de désengagement',
+    es: 'Alternar la cola de retiro',
+    pt: 'Alternar fila de desestacamento',
+    de: 'Entzugswarteschlange umschalten',
+    zh: '取消质押队列切换',
+  },
 }

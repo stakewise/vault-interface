@@ -1,27 +1,27 @@
 import React from 'react'
 import cx from 'classnames'
 
-import { Text, Tooltip, Icon } from 'components'
+import { Text, Tooltip, Icon, IconName } from 'components'
 
+import Value, { ValueProps } from './Value/Value'
 import Content, { ContentProps } from './Content/Content'
 
 
-export type OptionProps = ContentProps & {
+export type OptionProps = ValueProps & {
   className?: string
   tooltip?: Intl.Message | string
-  text: Intl.Message | string
-  dataTestId?: string
+  title: Intl.Message | string
 }
 
 const Option: React.FC<OptionProps> = (props) => {
-  const { className, text, value, values, tooltip, icon, isFetching, isMagicValue, dataTestId } = props
+  const { className, title, tooltip, textValue, tokenValue, singleValue, isFetching, isMagicValue } = props
 
   return (
     <div className={cx(className, 'flex justify-between items-center')}>
       <div className="flex justify-start items-center">
         <Text
           className="opacity-50"
-          message={text}
+          message={title}
           color="moon"
           size="t14m"
         />
@@ -38,14 +38,20 @@ const Option: React.FC<OptionProps> = (props) => {
           )
         }
       </div>
-      <Content
-        icon={icon}
-        value={value}
-        values={values}
+      <Value
+        textValue={textValue}
+        tokenValue={tokenValue}
+        singleValue={singleValue}
         isFetching={isFetching}
-        isMagicValue={isMagicValue}
-        dataTestId={dataTestId}
       />
+      {/*<Content*/}
+      {/*  icon={icon}*/}
+      {/*  value={value}*/}
+      {/*  textValue={textValue}*/}
+      {/*  isFetching={isFetching}*/}
+      {/*  isMagicValue={isMagicValue}*/}
+      {/*  dataTestId={dataTestId}*/}
+      {/*/>*/}
     </div>
   )
 }

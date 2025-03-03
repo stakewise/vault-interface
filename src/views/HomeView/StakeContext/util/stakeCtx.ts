@@ -1,24 +1,37 @@
-import { useMemo } from 'react'
+import { useEffect, useMemo } from 'react'
 import { ZeroAddress } from 'ethers'
 import { initContext } from 'helpers'
 
-import boostHooks from './boost'
-import stakeHooks from './stake'
 import useFields from './useFields'
 import useTabs, { tabsMock } from './useTabs'
 import useBaseData, { baseDataMock } from './useBaseData'
+import {
+  useBurn,
+  useMint,
+  useStake,
+  useBoost,
+  useUnboost,
+  useWithdraw,
+} from './actions'
+
+import useBalances from './useBalances'
+import useVaultAddress from './useVaultAddress'
 
 
 export const initialContext: StakePage.Context = {
   tabs: tabsMock,
   data: baseDataMock,
   vaultAddress: ZeroAddress,
-  boost: boostHooks.mockLock,
-  stake: stakeHooks.mockStake,
-  unboost: boostHooks.mockUnlock,
-  unstake: stakeHooks.mockUnstake,
-  unstakeQueue: stakeHooks.mockQueue,
-  unboostQueue: boostHooks.mockQueue,
+
+  burn: useBurn.mock,
+  mint: useMint.mock,
+  boost: useBoost.mock,
+  stake: useStake.mock,
+  unboost: useUnboost.mock,
+  withdraw: useWithdraw.mock,
+
+  // unstakeQueue: stakeHooks.mockQueue,
+  // unboostQueue: boostHooks.mockQueue,
   field: {} as Forms.Field<bigint>,
   percentField: {} as Forms.Field<string>,
   isFetching: false,
@@ -28,52 +41,60 @@ export const {
   Provider,
   useData,
   useInit,
-} = initContext<StakePage.Context, StakePage.Input>(initialContext, ({ vaultAddress }) => {
+} = initContext<StakePage.Context, StakePage.Input>(initialContext, () => {
+  const vaultAddress = useVaultAddress()
+
   const tabs = useTabs()
   const data = useBaseData(vaultAddress)
-  const { field, percentField } = useFields({ tabs, data })
+  const fetchBalances = useBalances(vaultAddress)
+  const { field, percentField } = useFields({ tabs })
 
-  const unstakeQueue = stakeHooks.useQueue(vaultAddress)
-  const unboostQueue = boostHooks.useQueue({ vaultAddress, data })
+  useEffect(() => {
+    fetchBalances()
+  }, [ fetchBalances ])
+
+  // const unstakeQueue = stakeHooks.useQueue(vaultAddress)
+  // const unboostQueue = boostHooks.useQueue({ vaultAddress, data })
 
   const params = useMemo(() => ({
     vaultAddress,
-    unstakeQueue,
-    unboostQueue,
+    // unstakeQueue,
+    // unboostQueue,
     percentField,
     field,
-    data,
+    // data,
   }), [
     vaultAddress,
-    unstakeQueue,
-    unboostQueue,
+    // unstakeQueue,
+    // unboostQueue,
     percentField,
     field,
-    data,
+    // data,
   ])
 
-  const boost = boostHooks.useLock(params)
-  const stake = stakeHooks.useStake(params)
-  const unstake = stakeHooks.useUnstake(params)
-  const unboost = boostHooks.useUnlock(params)
+  const burn = useBurn(params)
+  const mint = useMint(params)
+  const boost = useBoost(params)
+  const stake = useStake(params)
+  const unboost = useUnboost(params)
+  const withdraw = useWithdraw(params)
 
   const isFetching = (
     data.isFetching
-    || boost.isFetching
-    || unboostQueue.isFetching
-    || unstakeQueue.isFetching
   )
 
   return useMemo(() => ({
     tabs,
     data,
     field,
+    mint,
     stake,
     boost,
     unboost,
-    unstake,
-    unboostQueue,
-    unstakeQueue,
+    unstake: withdraw,
+    // unstake,
+    // unboostQueue,
+    // unstakeQueue,
     percentField,
     vaultAddress,
     isFetching,
@@ -81,12 +102,14 @@ export const {
     tabs,
     data,
     field,
+    mint,
     stake,
     boost,
     unboost,
-    unstake,
-    unboostQueue,
-    unstakeQueue,
+    withdraw,
+    // unstake,
+    // unboostQueue,
+    // unstakeQueue,
     percentField,
     vaultAddress,
     isFetching,

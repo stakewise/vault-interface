@@ -1,6 +1,7 @@
 import meta from './meta'
 import time from './time'
 import links from './links'
+import status from './status'
 import tooltip from './tooltip'
 import buttonTitle from './buttonTitle'
 import transaction from './transaction'
@@ -12,11 +13,30 @@ export default {
   meta,
   time,
   links,
+  status,
   tooltip,
   buttonTitle,
   transaction,
   notification,
   accessibility,
+  staked: {
+    en: 'Staked {depositToken}',
+    ru: 'Застейкано {depositToken}',
+    fr: 'Staké {depositToken}',
+    es: 'Depositado {depositToken}',
+    pt: 'Staked {depositToken}',
+    de: 'Gestaked {depositToken}',
+    zh: '已质押 {depositToken}',
+  },
+  mintTokenStatus: {
+    en: '{mintToken} status',
+    ru: 'Статус {mintToken}',
+    fr: 'Statut de {mintToken}',
+    es: 'Estado de {mintToken}',
+    pt: 'Status de {mintToken}',
+    de: '{mintToken}-Status',
+    zh: '{mintToken} 状态',
+  },
   yourApy: {
     en: 'Your APY',
     ru: 'Ваш APY',
@@ -88,6 +108,15 @@ export default {
     pt: 'Saindo de {token}',
     de: 'Ausstieg aus {token}',
     zh: '退出{token}',
+  },
+  exitedToken: {
+    en: 'Exited {token}',
+    ru: 'Вышло {token}',
+    fr: 'Sorti {token}',
+    es: 'Salido {token}',
+    pt: 'Saído {token}',
+    de: 'Ausgetreten {token}',
+    zh: '已退出 {token}',
   },
   transactions: {
     en: 'Transactions',

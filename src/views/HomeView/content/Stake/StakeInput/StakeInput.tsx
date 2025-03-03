@@ -21,11 +21,11 @@ const StakeInput: React.FC = () => {
   const handleMaxClick = useCallback(async () => {
     setFetching(true)
 
-    const maxStake = await stake.getMaxStake()
+    const maxStake = await stake.getMaxStake(depositTokenBalance)
     field.setValue(maxStake)
 
     setFetching(false)
-  }, [ field, stake ])
+  }, [ field, stake, depositTokenBalance ])
 
   return (
     <Input

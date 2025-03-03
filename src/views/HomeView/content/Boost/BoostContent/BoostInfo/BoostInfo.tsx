@@ -1,6 +1,6 @@
 import React from 'react'
 import { commonMessages } from 'helpers'
-import { openGuideModal } from 'layouts/modals'
+import { openGuideModal, GuideModal } from 'layouts/modals'
 
 import { Table, StakeStats } from 'views/HomeView/common'
 import { stakeCtx } from 'views/HomeView/StakeContext/util'
@@ -26,7 +26,9 @@ const BoostInfo: React.FC<BoostInfoProps> = (props) => {
         {
           (isValid) => (
             isValid ? (
-              <Table options={options}/>
+              <Table
+                options={options}
+              />
             ) : (
               <StakeStats />
             )
@@ -46,6 +48,7 @@ const BoostInfo: React.FC<BoostInfoProps> = (props) => {
           />
         </Href>
       </div>
+      <GuideModal />
     </div>
   )
 }

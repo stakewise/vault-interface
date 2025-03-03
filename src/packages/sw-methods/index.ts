@@ -11,9 +11,10 @@ import fetchFiatRates from './fetchFiatRates'
 import formatFiatValue from './formatFiatValue'
 import formatTokenValue from './formatTokenValue'
 import getOriginHostName from './getOriginHostName'
-import addNumberSeparator from './addNumberSeparator'
-import getGlobalHtmlAttrs from './getGlobalHtmlAttrs'
 import numericalReduction from './numericalReduction'
+import getGlobalHtmlAttrs from './getGlobalHtmlAttrs'
+import addNumberSeparator from './addNumberSeparator'
+import getInjectedProvider from './getInjectedProvider'
 
 
 export default {
@@ -30,7 +31,8 @@ export default {
   formatFiatValue,
   formatTokenValue,
   getOriginHostName,
-  addNumberSeparator,
-  getGlobalHtmlAttrs,
   numericalReduction,
+  getGlobalHtmlAttrs,
+  addNumberSeparator,
+  getInjectedProvider,
 }

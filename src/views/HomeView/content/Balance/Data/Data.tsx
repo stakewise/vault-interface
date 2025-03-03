@@ -1,5 +1,6 @@
 import React from 'react'
 import methods from 'sw-methods'
+import { useStore } from 'hooks'
 import { useConfig } from 'config'
 import { commonMessages } from 'helpers'
 
@@ -10,9 +11,16 @@ import Row from './Row/Row'
 import messages from './messages'
 
 
+const storeSelector = (store: Store) => ({
+  stakedAssets: store.vault.user.balances.stake.assets,
+  boostedShares: store.vault.user.balances.boost.shares,
+})
+
 const Data: React.FC = () => {
   const { sdk } = useConfig()
   const { data } = stakeCtx.useData()
+
+  const { stakedAssets, boostedShares } = useStore(storeSelector)
 
   const depositToken = sdk.config.tokens.depositToken
 
@@ -27,7 +35,7 @@ const Data: React.FC = () => {
         }}
         isFetching={data.isFetching}
         value={methods.formatApy(data.apy.user)}
-        isMagicValue={Boolean(data.boost.shares)}
+        isMagicValue={Boolean(boostedShares)}
         dataTestId="user-apy"
       />
       <Row
@@ -40,7 +48,7 @@ const Data: React.FC = () => {
         isFetching={data.isFetching}
         dataTestId="user-stake"
         value={{
-          amount: data.stakedAssets,
+          amount: stakedAssets,
           token: sdk.config.tokens.depositToken,
         }}
       />

@@ -1,12 +1,18 @@
 import React, { useMemo } from 'react'
 import { commonMessages } from 'helpers'
 import { useConfig } from 'config'
+import { useStore } from 'hooks'
 
 import { QueueDuration, TextWithTooltip, Button } from 'components'
 import { stakeCtx } from 'views/HomeView/StakeContext/util'
 
 import { ToggleBox, TokenList } from '../../../common'
 
+
+const storeSelector = (store: Store) => ({
+  unboostQueueData: store.vault.user.unboostQueue.data,
+  exitingPercent: store.vault.user.balances.boost.exitingPercent,
+})
 
 type UnboostQueueProps = {
   className?: string
@@ -17,10 +23,11 @@ type UnboostQueueProps = {
 const UnboostQueue: React.FC<UnboostQueueProps> = (props) => {
   const { className, isOpen, handleOpen } = props
 
-  const { unboostQueue, data } = stakeCtx.useData()
+  const { unboostQueue } = stakeCtx.useData()
   const { sdk, address, isReadOnlyMode } = useConfig()
+  const { unboostQueueData, exitingPercent } = useStore(storeSelector)
 
-  const text = unboostQueue.isClaimable
+  const text = unboostQueueData.isClaimable
     ? commonMessages.exitedToken
     : commonMessages.exitingToken
 
@@ -32,11 +39,11 @@ const UnboostQueue: React.FC<UnboostQueueProps> = (props) => {
 
     return {
       title,
-      amount: unboostQueue.exitingShares,
+      amount: unboostQueueData.exitingShares,
       token: sdk.config.tokens.mintToken,
       dataTestId: 'exiting-shares',
     }
-  }, [ sdk, text, unboostQueue ])
+  }, [ sdk, text, unboostQueueData ])
 
   const rewards = useMemo(() => {
     const title: Intl.Message = {
@@ -46,17 +53,17 @@ const UnboostQueue: React.FC<UnboostQueueProps> = (props) => {
 
     return {
       title,
-      amount: unboostQueue.exitingAssets,
+      amount: unboostQueueData.exitingAssets,
       token: sdk.config.tokens.depositToken,
       dataTestId: 'exiting-rewards',
     }
-  }, [ sdk, text, unboostQueue ])
+  }, [ sdk, text, unboostQueueData ])
 
   const amounts = useMemo(() => (
-    unboostQueue.exitingAssets ? [ shares, rewards ] : [ shares ]
-  ), [ shares, rewards, unboostQueue ])
+    unboostQueueData.exitingAssets ? [ shares, rewards ] : [ shares ]
+  ), [ shares, rewards, unboostQueueData ])
 
-  if (!data.boost.exitingPercent || !address) {
+  if (!exitingPercent || !address) {
     return null
   }
 
@@ -79,14 +86,14 @@ const UnboostQueue: React.FC<UnboostQueueProps> = (props) => {
             text={{ message: commonMessages.buttonTitle.unboostQueue }}
           />
           <QueueDuration
-            duration={unboostQueue.duration}
+            duration={unboostQueueData.duration}
             dataTestId="unboost-queue-duration"
           />
         </div>
         <Button
           title={commonMessages.buttonTitle.claim}
-          loading={unboostQueue.isSubmitting}
-          disabled={!unboostQueue.isClaimable || isReadOnlyMode}
+          loading={unboostQueueData.isSubmitting}
+          disabled={!unboostQueueData.isClaimable || isReadOnlyMode}
           color="fancy-ocean"
           size="m"
           dataTestId="unboost-queue-claim-button"

@@ -3,6 +3,7 @@ export { default as useFiatValues } from './data/useFiatValues'
 
 export { default as useTabButton } from './controls/useTabButton'
 export { default as useAutoFetch } from './controls/useAutoFetch'
+export { default as useMountedRef } from './controls/useMountedRef'
 export { default as useObjectState } from './controls/useObjectState'
 export { default as useEventListener } from './controls/useEventListener'
 export { default as useFieldListener } from './controls/useFieldListener'

@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux'
 import { wrapDispatchMethods } from 'sw-store'
 
 import { uiMethods } from 'sw-store/store/ui'
+import { vaultMethods } from 'sw-store/store/vault'
 import { accountMethods } from 'sw-store/store/account'
 import { currencyMethods } from 'sw-store/store/currency'
 import { fiatRatesMethods } from 'sw-store/store/fiatRates'
@@ -15,6 +16,7 @@ const useActions = () => {
 
   return useMemo(() => ({
     ui: wrapDispatchMethods(uiMethods, dispatch),
+    vault: wrapDispatchMethods(vaultMethods, dispatch),
     account: wrapDispatchMethods(accountMethods, dispatch),
     currency: wrapDispatchMethods(currencyMethods, dispatch),
     fiatRates: wrapDispatchMethods(fiatRatesMethods, dispatch),

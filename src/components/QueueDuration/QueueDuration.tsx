@@ -3,18 +3,19 @@ import date from 'sw-modules/date'
 import intl from 'sw-modules/intl'
 import { commonMessages } from 'helpers'
 
-import Text from '../Text/Text'
+import { Text } from 'components'
 
 import messages from './messages'
 
 
 export type QueueDurationProps = {
   duration: null | number
+  isClaimable: boolean
   dataTestId?: string
 }
 
 const QueueDuration: React.FC<QueueDurationProps> = (props) => {
-  const { duration, dataTestId } = props
+  const { duration, isClaimable, dataTestId } = props
 
   const now = date.time()
   const intlRef = intl.useIntlRef()
@@ -48,6 +49,23 @@ const QueueDuration: React.FC<QueueDurationProps> = (props) => {
           ...messages.timeLeft,
           values: {
             time: timeLeft,
+          },
+        }}
+        color="moon"
+        size="t12"
+        dataTestId={dataTestId}
+      />
+    )
+  }
+
+  if (duration === 0 && !isClaimable) {
+    return (
+      <Text
+        className="flex-1 opacity-50"
+        message={{
+          ...messages.timeLeft,
+          values: {
+            time: estimatedTime,
           },
         }}
         color="moon"

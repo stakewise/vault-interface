@@ -11,6 +11,7 @@ import {
   useFiatRates,
   useQueryParams,
   useMintTokenData,
+  useAutoFetchBalances,
 } from './util'
 
 import s from './AppLayout.module.scss'
@@ -21,6 +22,7 @@ const AppLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   useQueryParams()
   useMintTokenData()
   useViewportHeight()
+  useAutoFetchBalances()
   useImagesPrefetch(imagesUrls)
 
   return (

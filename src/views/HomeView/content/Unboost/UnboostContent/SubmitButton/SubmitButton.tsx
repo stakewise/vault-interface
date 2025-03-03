@@ -3,7 +3,13 @@ import { commonMessages } from 'helpers'
 
 import { stakeCtx } from 'views/HomeView/StakeContext/util'
 import { Button } from 'views/HomeView/common'
+import { useStore } from 'hooks'
 
+
+const storeSelector = (store: Store) => ({
+  boostedShares: store.vault.user.balances.boost.shares,
+  exitingPercent: store.vault.user.balances.boost.exitingPercent,
+})
 
 type SubmitButtonProps = {
   className?: string
@@ -13,6 +19,9 @@ const SubmitButton: React.FC<SubmitButtonProps> = (props) => {
   const { className } = props
 
   const { data, unboost } = stakeCtx.useData()
+  const { boostedShares, exitingPercent } = useStore(storeSelector)
+
+  const isDisabled = exitingPercent > 0 || boostedShares === 0n
 
   return (
     <Button
@@ -20,7 +29,7 @@ const SubmitButton: React.FC<SubmitButtonProps> = (props) => {
       title={commonMessages.buttonTitle.unboost}
       color="fancy-sunset"
       loading={data.isFetching}
-      disabled={unboost.isSubmitting || unboost.isDisabled}
+      disabled={unboost.isSubmitting || isDisabled}
       onClick={unboost.submit}
     />
   )

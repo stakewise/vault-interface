@@ -1,26 +1,28 @@
-import React, { useCallback } from 'react'
+import React from 'react'
 import { useConfig } from 'config'
+import { useStore } from 'hooks'
 
 import { Input } from 'views/HomeView/common'
 import { stakeCtx } from 'views/HomeView/StakeContext/util'
 
 
+const storeSelector = (store: Store) => ({
+  mintTokenBalance: store.account.balances.data.mintTokenBalance,
+  maxWithdrawAssets: store.vault.user.balances.withdraw.maxAssets,
+})
+
 const UnstakeInput: React.FC = () => {
   const { sdk } = useConfig()
-  const { unstake, field, data } = stakeCtx.useData()
+  const { field } = stakeCtx.useData()
 
-  const handleMaxClick = useCallback(() => {
-    const maxUnstake = unstake.getMaxStake()
-
-    field.setValue(maxUnstake)
-  }, [ field, unstake ])
+  const { mintTokenBalance, maxWithdrawAssets } = useStore(storeSelector)
 
   return (
     <Input
-      balance={data.mintTokenBalance}
+      balance={mintTokenBalance}
       token={sdk.config.tokens.mintToken}
-      isLoading={unstake.isSubmitting}
-      onMaxButtonClick={handleMaxClick}
+      // isLoading={unstake.isSubmitting}
+      onMaxButtonClick={() => field.setValue(maxWithdrawAssets)}
     />
   )
 }

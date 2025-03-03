@@ -1,34 +1,60 @@
 import { useCallback } from 'react'
-// import { fetchApyQuery } from 'graphql/subgraph/swap' // TODO replace with sdk
 import { ZeroAddress } from 'ethers'
 import { useConfig } from 'config'
 import methods from 'sw-methods'
 
+
+type ApyQueryPayload = {
+  osToken: {
+    apy: number
+    feePercent: number
+  }
+  vaults: {
+    apy: number
+    feePercent: number
+    osTokenHolderMaxBoostApy: number
+    osTokenConfig: {
+      ltvPercent: number
+    }
+  }[]
+  osTokenHolders: {
+    apy: number
+  }[]
+}
 
 const useAPY = (vaultAddress: string) => {
   const { signSDK, address } = useConfig()
 
   return useCallback(async () => {
     try {
-      // const data = await fetchApyQuery({
-      //   requestPolicy: 'no-cache',
-      //   url: signSDK.config.api.subgraph,
-      //   variables: {
-      //     vaultAddress: vaultAddress.toLowerCase(),
-      //     userAddress: address?.toLowerCase() || ZeroAddress,
-      //   },
-      // })
-      const data = {
-        vaults: [
-          {
-            feePercent: 0,
+      const data = await methods.fetch<ApyQueryPayload>(signSDK.config.api.subgraph, {
+        method: 'POST',
+        body: JSON.stringify({
+          query: `
+            query Apy($userAddress: ID!, $vaultAddress: ID!) {
+              osToken(id: "1") {
+                apy
+                feePercent
+              }
+              vaults(where: { id: $vaultAddress }) {
+                apy
+                feePercent
+                osTokenHolderMaxBoostApy
+                osTokenConfig {
+                  ltvPercent
+                }
+              }
+              osTokenHolders(where: { id: $userAddress }) {
+                apy
+              }
+            }
+          `,
+          variables: {
+            vaultAddress: vaultAddress.toLowerCase(),
+            userAddress: address?.toLowerCase() || ZeroAddress,
           },
-        ],
-        osTokenHolders: [],
-        osToken: {
-          feePercent: 0,
-        },
-      }
+        }),
+      })
 
       const vaultData = data.vaults[0]
       const mintTokenData = data.osToken

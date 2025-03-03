@@ -1,14 +1,18 @@
 import React from 'react'
+import { useStore } from 'hooks'
 import { commonMessages } from 'helpers'
 
 import { Note } from 'components'
 
-import { stakeCtx } from 'views/HomeView/StakeContext/util'
 import { ExitQueueNote } from 'views/HomeView/common'
 
 import UnboostInfo from './UnboostInfo/UnboostInfo'
 import SubmitButton from './SubmitButton/SubmitButton'
 
+
+const storeSelector = (store: Store) => ({
+  exitingPercent: store.vault.user.balances.boost.exitingPercent,
+})
 
 type UnboostContentProps = {
   className?: string
@@ -17,13 +21,13 @@ type UnboostContentProps = {
 const UnboostContent: React.FC<UnboostContentProps> = (props) => {
   const { className } = props
 
-  const { data } = stakeCtx.useData()
+  const { exitingPercent } = useStore(storeSelector)
 
   return (
     <div className={className}>
       <SubmitButton />
       {
-        data.boost.exitingPercent ? (
+        exitingPercent ? (
           <ExitQueueNote
             className="mt-8"
             action="unboost"

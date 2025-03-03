@@ -5,6 +5,8 @@ import { Text, Icon, Loading } from 'components'
 
 import MagicPercent from '../../../MagicPercent/MagicPercent'
 
+import type { Position } from '../../../../content/util/types'
+
 
 export type ContentProps = {
   isMagicValue?: boolean
@@ -12,14 +14,11 @@ export type ContentProps = {
   dataTestId?: string
   icon?: IconName
   value?: string
-  values?: {
-    prev: string
-    next: string
-  }
+  textValue?: Position['textValue']
 }
 
 const Content: React.FC<ContentProps> = (props) => {
-  const { value, values, icon, isFetching, isMagicValue, dataTestId } = props
+  const { value, textValue, icon, isFetching, isMagicValue, dataTestId } = props
 
   if (isFetching) {
     return (
@@ -27,11 +26,11 @@ const Content: React.FC<ContentProps> = (props) => {
     )
   }
 
-  if (values) {
+  if (textValue) {
     return (
       <div className="flex gap-4 justify-end items-center opacity-90">
         <Text
-          message={values.prev}
+          message={textValue.prev.message}
           color="moon"
           size="t14m"
           dataTestId={`${dataTestId}-prev`}
@@ -43,10 +42,10 @@ const Content: React.FC<ContentProps> = (props) => {
         />
         <Text
           className={isMagicValue ? 'text-fancy-sunset' : ''}
-          message={values.next}
+          message={textValue.next.message}
           color="moon"
           size="t14m"
-          dataTestId={`${dataTestId}-next`}
+          dataTestId={textValue.next.dataTestId}
         />
       </div>
     )

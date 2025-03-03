@@ -1,6 +1,7 @@
 'use client'
 import React from 'react'
 import cx from 'classnames'
+import { useStore } from 'hooks'
 import { useConfig } from 'config'
 import { useTabButton } from 'sw-hooks'
 
@@ -12,6 +13,11 @@ import FlipButton from './FlipButton/FlipButton'
 import { useTabs } from './util'
 
 
+const storeSelector = (store: Store) => ({
+  unboostQueue: store.vault.user.unboostQueue.data,
+  unstakeQueue: store.vault.user.exitQueue.data,
+})
+
 type TabsProps = {
   className?: string
 }
@@ -20,7 +26,8 @@ const Tabs: React.FC<TabsProps> = (props) => {
   const { className } = props
 
   const { isEthereum } = useConfig()
-  const { tabs, unboostQueue, unstakeQueue } = stakeCtx.useData()
+  const { tabs } = stakeCtx.useData()
+  const { unboostQueue, unstakeQueue } = useStore(storeSelector)
 
   const { tabIndex, tabsList, toggleReversed } = useTabs()
 

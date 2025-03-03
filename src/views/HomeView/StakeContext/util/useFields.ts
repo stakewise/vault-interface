@@ -1,14 +1,13 @@
-import { useRef, useEffect, useMemo } from 'react'
+import { useRef, useMemo, useCallback } from 'react'
+import { useStore, useChainChanged, useAddressChanged } from 'hooks'
 import forms from 'sw-modules/forms'
 import { useConfig } from 'config'
-import { useStore } from 'hooks'
 
 import { Tab } from './enum'
 import emptyBalance from './emptyBalance'
 
 
 type Input = {
-  data: StakePage.Data
   tabs: StakePage.Tabs.Data
 }
 
@@ -18,14 +17,15 @@ type Fields = {
 }
 
 const storeSelector = (store: Store) => ({
+  mintTokenBalance: store.account.balances.data.mintTokenBalance,
   depositTokenBalance: store.account.balances.data.depositTokenBalance,
 })
 
 const useFields = (values: Input) => {
-  const { data, tabs } = values
+  const { tabs } = values
 
-  const { depositTokenBalance } = useStore(storeSelector)
-  const { address, isChainChanged, isAddressChanged } = useConfig()
+  const { address } = useConfig()
+  const { mintTokenBalance, depositTokenBalance } = useStore(storeSelector)
 
   const isStake = tabs.value === Tab.Stake
 
@@ -34,7 +34,7 @@ const useFields = (values: Input) => {
   if (address || !isStake) {
     balance = isStake
       ? depositTokenBalance
-      : data.mintTokenBalance
+      : mintTokenBalance
   }
   else {
     balance = emptyBalance
@@ -64,11 +64,10 @@ const useFields = (values: Input) => {
     tabRef.current = tabs.value
   }
 
-  useEffect(() => {
-    if (isChainChanged || isAddressChanged) {
-      form.reset()
-    }
-  }, [ form, isChainChanged, isAddressChanged ])
+  const resetFrom = useCallback(() => form.reset(), [])
+
+  useChainChanged(resetFrom)
+  useAddressChanged(resetFrom)
 
   return useMemo(() => ({
     field: form.fields.field,
