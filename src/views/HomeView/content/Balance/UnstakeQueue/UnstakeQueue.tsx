@@ -88,7 +88,7 @@ const UnstakeQueue: React.FC<UnstakeQueueProps> = (props) => {
           title={commonMessages.buttonTitle.claim}
           loading={unstakeQueue.isSubmitting}
           disabled={!exitQueueData.withdrawable || isReadOnlyMode}
-          color="fancy-ocean"
+          color="primary"
           size="m"
           dataTestId="unstake-queue-claim-button"
           onClick={unstakeQueue.claim}

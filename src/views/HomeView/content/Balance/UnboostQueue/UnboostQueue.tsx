@@ -94,7 +94,7 @@ const UnboostQueue: React.FC<UnboostQueueProps> = (props) => {
           title={commonMessages.buttonTitle.claim}
           loading={unboostQueueData.isSubmitting}
           disabled={!unboostQueueData.isClaimable || isReadOnlyMode}
-          color="fancy-ocean"
+          color="primary"
           size="m"
           dataTestId="unboost-queue-claim-button"
           onClick={unboostQueue.claim}

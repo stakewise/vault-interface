@@ -110,9 +110,15 @@ const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement, ButtonProps>((p
     'px-48': !hasAdditionalNode && (size === 'l' || size === 'xl'),
   })
 
+  const gradientClassName = cx(
+    'bg-gradient-to-r',
+    'hover:brightness-90 hover:contrast-125'
+  )
+
   const bgClassName = cx({
-    'bg-gradient-to-r from-primary-start to-primary-end hover:brightness-90 hover:contrast-125': color === 'primary',
-    'bg-gradient-to-r from-secondary-start to-secondary-end hover:brightness-90 hover:contrast-125': color === 'secondary',
+    [gradientClassName]: color === 'primary' || color === 'secondary',
+    'from-primary-start to-primary-end': color === 'primary',
+    'from-secondary-start to-secondary-end': color === 'secondary',
     'bg-moon/05 hover:bg-moon/10 active:bg-moon/15': color === 'light',
   })
 

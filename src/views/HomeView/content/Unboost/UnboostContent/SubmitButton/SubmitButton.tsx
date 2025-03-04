@@ -1,9 +1,9 @@
 import React from 'react'
+import { useStore } from 'hooks'
 import { commonMessages } from 'helpers'
 
 import { stakeCtx } from 'views/HomeView/StakeContext/util'
 import { Button } from 'views/HomeView/common'
-import { useStore } from 'hooks'
 
 
 const storeSelector = (store: Store) => ({
@@ -27,7 +27,7 @@ const SubmitButton: React.FC<SubmitButtonProps> = (props) => {
     <Button
       className={className}
       title={commonMessages.buttonTitle.unboost}
-      color="fancy-sunset"
+      color="primary"
       loading={data.isFetching}
       disabled={unboost.isSubmitting || isDisabled}
       onClick={unboost.submit}

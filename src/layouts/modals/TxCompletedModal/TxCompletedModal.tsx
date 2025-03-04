@@ -89,7 +89,7 @@ export const [ TxCompletedModal, openTxCompletedModal ] = (
               <Button
                 className="mb-16"
                 title={messages.tryAgain}
-                color="fancy-ocean"
+                color="primary"
                 fullWidth
                 onClick={() => {
                   if (typeof onTryAgainClick === 'function') {
