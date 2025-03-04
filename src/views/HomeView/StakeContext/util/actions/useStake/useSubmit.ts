@@ -27,7 +27,7 @@ type Input = Partial<ApproveInput> & {
   assets: bigint
 }
 
-const useSubmit = (params: Vault.Params) => {
+const useSubmit = (params: StakePage.Params) => {
   const actions = useActions()
   const { vaultAddress } = params
   const { signSDK, address, chainId, cancelOnChange } = useConfig()

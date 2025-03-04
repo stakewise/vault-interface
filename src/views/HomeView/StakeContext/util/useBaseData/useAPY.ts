@@ -23,11 +23,11 @@ type ApyQueryPayload = {
 }
 
 const useAPY = (vaultAddress: string) => {
-  const { signSDK, address } = useConfig()
+  const { sdk, address } = useConfig()
 
   return useCallback(async () => {
     try {
-      const data = await methods.fetch<ApyQueryPayload>(signSDK.config.api.subgraph, {
+      const data = await methods.fetch<ApyQueryPayload>(sdk.config.api.subgraph, {
         method: 'POST',
         body: JSON.stringify({
           query: `
@@ -81,9 +81,10 @@ const useAPY = (vaultAddress: string) => {
       }
     }
     catch (error) {
+      console.error(error)
       return Promise.reject('Stake: fetchAPY error')
     }
-  }, [ signSDK, address, vaultAddress ])
+  }, [ sdk, address, vaultAddress ])
 }
 
 

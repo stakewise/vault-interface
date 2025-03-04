@@ -1,6 +1,6 @@
 import React from 'react'
 import { useConfig } from 'config'
-import froms from 'sw-modules/forms'
+import forms from 'sw-modules/forms'
 import { commonMessages } from 'helpers'
 
 import { Button as ButtonComponent } from 'components'
@@ -23,7 +23,7 @@ const SubmitButton: React.FC<SubmitButtonProps> = (props) => {
   const { isReadOnlyMode } = useConfig()
   const { tabs, field, percentField } = stakeCtx.useData()
 
-  const { value, error } = froms.useFieldValue<string | bigint>(tabs.value === Tab.Unboost ? percentField : field)
+  const { value, error } = forms.useFieldValue<string | bigint>(tabs.value === Tab.Unboost ? percentField : field)
 
   const buttonProps: ButtonComponentProps = {
     className,
@@ -31,7 +31,7 @@ const SubmitButton: React.FC<SubmitButtonProps> = (props) => {
     size: 'xl',
     type: "submit",
     fullWidth: true,
-    color: color || 'fancy-ocean',
+    color: color || 'color1',
     dataTestId: 'submit-button',
     title: disabled || value ? title : commonMessages.enterAmount,
     disabled: disabled || !value || Boolean(error) || isReadOnlyMode,

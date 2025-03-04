@@ -8,8 +8,8 @@ import {
   useMint,
   useBoost,
   useStake,
+  useUnstake,
   useUnboost,
-  useWithdraw,
 } from './StakeContext/util/actions'
 
 
@@ -86,11 +86,6 @@ declare global {
         to: string
       }
 
-      type BalancerSwapData = {
-        returnAmount: string
-        transactionData: Tx
-      }
-
       type SubmitInput = {
         setTransaction: SetTransaction
       }
@@ -158,24 +153,13 @@ declare global {
 
     type Data = {
       tvl: string
-      fee: string
       users: number
-      ltvPercent: bigint
-      // stakedAssets: bigint
-      // mintTokenBalance: bigint
       apy: {
         user: number
         vault: number
         mintToken: number
         maxBoost: number
       }
-      // boost: {
-      //   shares: bigint
-      //   rewardAssets: bigint
-      //   exitingPercent: number
-      //   maxMintShares: bigint
-      //   isProfitable: boolean
-      // }
       isFetching: boolean
       refetchData: () => Promise<void>
     }
@@ -188,7 +172,7 @@ declare global {
       boost: useBoost.mock,
       stake: useStake.mock,
       unboost: useUnboost.mock,
-      withdraw: useWithdraw.mock,
+      unstake: useUnstake.mock,
       field: Forms.Field<bigint>
       vaultAddress: string
       unboostQueue: UnboostQueue.Data
@@ -198,6 +182,10 @@ declare global {
     }
 
     type Input = {
+      vaultAddress: string
+    }
+
+    type Params = {
       vaultAddress: string
     }
   }

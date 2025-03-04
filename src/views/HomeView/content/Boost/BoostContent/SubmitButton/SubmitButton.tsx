@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react'
-import froms from 'sw-modules/forms'
+import forms from 'sw-modules/forms'
 import { commonMessages } from 'helpers'
 import { useBoostSupplyCapsCheck, useStore } from 'hooks'
 import { useConfig } from 'config'
@@ -28,7 +28,7 @@ const SubmitButton: React.FC<SubmitButtonProps> = (props) => {
 
   const { isGnosis } = useConfig()
   const { boost, field } = stakeCtx.useData()
-  const { value, error } = froms.useFieldValue(field)
+  const { value, error } = forms.useFieldValue(field)
   const { vaultApy, ltvPercent, maxBoostApy, exitingPercent } = useStore(storeSelector)
 
   const { isFetching, checkSupplyCap } = useBoostSupplyCapsCheck({
@@ -76,7 +76,7 @@ const SubmitButton: React.FC<SubmitButtonProps> = (props) => {
       className={className}
       title={title}
       disabled={disabled}
-      color="fancy-sunset"
+      color="color2"
       loading={boost.isAllowanceFetching}
       onClick={handleClick}
     />

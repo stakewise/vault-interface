@@ -62,7 +62,7 @@ const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement, ButtonProps>((p
     dataTestId,
     withoutPadding,
     fullWidthOnMobile,
-    color = 'button1',
+    color = 'color1',
     ...rest
   } = props
 
@@ -110,16 +110,23 @@ const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement, ButtonProps>((p
     'px-48': !hasAdditionalNode && (size === 'l' || size === 'xl'),
   })
 
+  const bgClassName = cx({
+    'bg-gradient-to-r from-button1-start to-button1-end hover:brightness-90 hover:contrast-125': color === 'color1',
+    'bg-gradient-to-r from-button2-start to-button2-end hover:brightness-90 hover:contrast-125': color === 'color2',
+  })
+
   const buttonClassName = cx(
     buttonSizeClassName,
+    `text-${contentColor}`,
     'relative text-center', {
       'rounded-8': !rounded,
       'rounded-72': rounded,
       'w-full': fullWidth || !isDesktop && fullWidthOnMobile,
+      [bgClassName]: !disabled && !loading,
+      'bg-moon/15 opacity-30': disabled || loading,
       [buttonPaddingClassName]: title && !withoutPadding,
     }
   )
-
 
   return (
     <ButtonBase

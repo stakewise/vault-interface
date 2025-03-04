@@ -1,5 +1,6 @@
 import React, { useCallback } from 'react'
 import { commonMessages } from 'helpers'
+import { useConfig } from 'config'
 
 import { openTransactionsFlowModal } from 'layouts/modals'
 import { stakeCtx } from 'views/HomeView/StakeContext/util'
@@ -13,19 +14,28 @@ type SubmitButtonProps = {
 const SubmitButton: React.FC<SubmitButtonProps> = (props) => {
   const { className } = props
 
-  const { stake } = stakeCtx.useData()
+  const { isGnosis } = useConfig()
+  const { stake, field } = stakeCtx.useData()
 
   const handleClick = useCallback(() => {
-    if (stake.isApproveRequired) {
-      openTransactionsFlowModal({
-        flow: 'stake',
-        onStart: ({ setTransaction }) => stake.submit({ setTransaction }),
-      })
+    const assets = field.value
+
+    if (assets) {
+      if (assets > stake.depositToken.allowance && isGnosis) {
+        openTransactionsFlowModal({
+          flow: 'stake',
+          onStart: ({ setTransaction }) => stake.submit({
+            assets,
+            depositToken: stake.depositToken,
+            setTransaction,
+          }),
+        })
+      }
+      else {
+        stake.submit({ assets })
+      }
     }
-    else {
-      stake.submit()
-    }
-  }, [ stake ])
+  }, [ field, stake, isGnosis ])
 
   return (
     <Button

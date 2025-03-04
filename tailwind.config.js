@@ -6,6 +6,8 @@ export default {
   safelist: [
     { pattern: /text-[htn]\d+[bm]?/ },
     { pattern: /(bg|text|border)-(primary|button[12]-(start|end))/ },
+    // TODO rename
+    { pattern: /(bg|text|border)-(ocean|autumn|forest|jungle|volcano|stone|moon|sun|coal|snow|smoke)/ },
   ],
   darkMode: [ 'class', '.body-dark-theme' ],
   theme: {

@@ -15,7 +15,7 @@ type Output = {
 }
 
 interface Hook {
-  (params: Vault.Params): Output
+  (params: StakePage.Params): Output
   mock: Output
 }
 

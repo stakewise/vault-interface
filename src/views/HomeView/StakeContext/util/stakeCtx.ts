@@ -1,6 +1,7 @@
 import { useEffect, useMemo } from 'react'
 import { ZeroAddress } from 'ethers'
 import { initContext } from 'helpers'
+import { useStore } from 'hooks'
 
 import useFields from './useFields'
 import useTabs, { tabsMock } from './useTabs'
@@ -11,7 +12,7 @@ import {
   useStake,
   useBoost,
   useUnboost,
-  useWithdraw,
+  useUnstake,
 } from './actions'
 
 import useBalances from './useBalances'
@@ -28,7 +29,7 @@ export const initialContext: StakePage.Context = {
   boost: useBoost.mock,
   stake: useStake.mock,
   unboost: useUnboost.mock,
-  withdraw: useWithdraw.mock,
+  unstake: useUnstake.mock,
 
   // unstakeQueue: stakeHooks.mockQueue,
   // unboostQueue: boostHooks.mockQueue,
@@ -36,6 +37,10 @@ export const initialContext: StakePage.Context = {
   percentField: {} as Forms.Field<string>,
   isFetching: false,
 }
+
+const storeSelector = (store: Store) => ({
+  isVaultFetching: store.vault.base.isFetching,
+})
 
 export const {
   Provider,
@@ -48,6 +53,7 @@ export const {
   const data = useBaseData(vaultAddress)
   const fetchBalances = useBalances(vaultAddress)
   const { field, percentField } = useFields({ tabs })
+  const { isVaultFetching } = useStore(storeSelector)
 
   useEffect(() => {
     fetchBalances()
@@ -77,39 +83,33 @@ export const {
   const boost = useBoost(params)
   const stake = useStake(params)
   const unboost = useUnboost(params)
-  const withdraw = useWithdraw(params)
+  const unstake = useUnstake(params)
 
-  const isFetching = (
-    data.isFetching
-  )
+  const isFetching = data.isFetching || isVaultFetching
 
   return useMemo(() => ({
-    tabs,
     data,
+    tabs,
     field,
     mint,
+    burn,
     stake,
     boost,
     unboost,
-    unstake: withdraw,
-    // unstake,
-    // unboostQueue,
-    // unstakeQueue,
+    unstake,
     percentField,
     vaultAddress,
     isFetching,
   }), [
-    tabs,
     data,
+    tabs,
     field,
     mint,
+    burn,
     stake,
     boost,
+    unstake,
     unboost,
-    withdraw,
-    // unstake,
-    // unboostQueue,
-    // unstakeQueue,
     percentField,
     vaultAddress,
     isFetching,

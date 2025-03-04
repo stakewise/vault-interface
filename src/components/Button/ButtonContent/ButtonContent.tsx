@@ -54,7 +54,7 @@ const ButtonContent: React.FC<ButtonContentProps> = (props) => {
         )
       }
       {
-        Boolean(title) && (
+        Boolean(title && !loading) && (
           <Text
             message={title as string}
             size={titleSize}
