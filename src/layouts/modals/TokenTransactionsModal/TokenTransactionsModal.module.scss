@@ -3,13 +3,6 @@
   .content {
     margin: 0 -24rem;
   }
-
-  .tabs {
-
-    > div:first-child > div:first-child {
-      margin: 0 24rem;
-    }
-  }
 }
 
 @include except-mobile {

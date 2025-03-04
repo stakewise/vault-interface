@@ -9,7 +9,7 @@ import ButtonContent, { ButtonContentProps } from './ButtonContent/ButtonContent
 
 export const buttonSizes = [ 'xs', 's', 'm', 'l', 'xl' ] as const
 
-export const buttonColors = [ 'color1', 'color2', 'crystal', 'moon', 'transparent' ] as const
+export const buttonColors = [ 'primary', 'secondary', 'light' ] as const
 
 const iconSizes = {
   xs: 16,
@@ -44,7 +44,7 @@ export type ButtonProps = (
   ButtonBaseProps
   & ButtonStyleProps
   & Omit<ButtonContentProps, 'color' | 'iconSize' | 'titleSize'>
-  )
+)
 
 const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement, ButtonProps>((props, ref) => {
   const {
@@ -62,7 +62,7 @@ const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement, ButtonProps>((p
     dataTestId,
     withoutPadding,
     fullWidthOnMobile,
-    color = 'color1',
+    color = 'primary',
     ...rest
   } = props
 
@@ -77,7 +77,7 @@ const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement, ButtonProps>((p
   const titleSize = titleSizes[size] as ButtonContentProps['titleSize']
 
   const contentColor = useMemo(() => {
-    const isFancyColor = [ 'color1', 'color2' ].includes(color)
+    const isFancyColor = [ 'primary', 'secondary' ].includes(color)
 
     if (disabled || loading) {
       return 'moon'
@@ -111,8 +111,9 @@ const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement, ButtonProps>((p
   })
 
   const bgClassName = cx({
-    'bg-gradient-to-r from-button1-start to-button1-end hover:brightness-90 hover:contrast-125': color === 'color1',
-    'bg-gradient-to-r from-button2-start to-button2-end hover:brightness-90 hover:contrast-125': color === 'color2',
+    'bg-gradient-to-r from-primary-start to-primary-end hover:brightness-90 hover:contrast-125': color === 'primary',
+    'bg-gradient-to-r from-secondary-start to-secondary-end hover:brightness-90 hover:contrast-125': color === 'secondary',
+    'bg-moon/05 hover:bg-moon/10 active:bg-moon/15': color === 'light',
   })
 
   const buttonClassName = cx(

@@ -22,7 +22,7 @@ const Skeleton: React.FC = () => {
 
   return (
     <>
-      <div className="flex items-center justify-start gap-12">
+      <div className="flex items-center justify-start gap-12 mobile:gap-4">
         {
           isEthereum && (
             <Bone

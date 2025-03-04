@@ -32,7 +32,7 @@ const ExportButton: React.FC<ExportButtonProps> = (props) => {
         isMobile ? (
           <Button
             size="s"
-            color="crystal"
+            color="light"
             icon="icon/upload"
             dataTestId="export-rewards-button"
             ariaLabel={commonMessages.accessibility.exportRewardsButton}
@@ -45,7 +45,7 @@ const ExportButton: React.FC<ExportButtonProps> = (props) => {
             title={commonMessages.buttonTitle.export}
             dataTestId="export-rewards-button"
             disabled={!address}
-            color="crystal"
+            color="light"
             withoutPadding
             size="s"
             onClick={handleClick}

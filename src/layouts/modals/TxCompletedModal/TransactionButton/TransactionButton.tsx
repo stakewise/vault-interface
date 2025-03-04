@@ -26,7 +26,7 @@ const TransactionButton: React.FC<TransactionButtonProps> = (props) => {
       title={messages.title}
       target="_blank"
       fullWidth
-      color="crystal"
+      color="light"
       dataTestId="etherscan-link"
     />
   )

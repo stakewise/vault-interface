@@ -25,7 +25,7 @@ const NotConnected: React.FC<NotConnectedProps> = (props) => {
         <Button
           className='mt-12'
           title={messages.buttonTitle}
-          color="crystal"
+          color="light"
           size="m"
           onClick={onClick}
         />

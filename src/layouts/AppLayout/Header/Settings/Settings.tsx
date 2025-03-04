@@ -37,7 +37,7 @@ const Settings: React.FC<SettingsProps> = ({ className }) => {
                 button={(
                   <Button
                     className="rounded-full"
-                    color="crystal"
+                    color="light"
                     ariaLabel={ariaLabel}
                     icon={selectedOption?.icon}
                     logo={selectedOption?.logo}
@@ -62,7 +62,7 @@ const Settings: React.FC<SettingsProps> = ({ className }) => {
       button={(
         <Button
           icon="icon/gear"
-          color="crystal"
+          color="light"
           dataTestId="settings-toggle-button"
           ariaLabel={commonMessages.accessibility.openSettings}
         />

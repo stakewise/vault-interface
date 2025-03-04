@@ -31,7 +31,7 @@ const SubmitButton: React.FC<SubmitButtonProps> = (props) => {
     size: 'xl',
     type: "submit",
     fullWidth: true,
-    color: color || 'color1',
+    color: color || 'primary',
     dataTestId: 'submit-button',
     title: disabled || value ? title : commonMessages.enterAmount,
     disabled: disabled || !value || Boolean(error) || isReadOnlyMode,

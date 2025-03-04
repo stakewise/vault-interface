@@ -5,18 +5,19 @@ export default {
   ],
   safelist: [
     { pattern: /text-[htn]\d+[bm]?/ },
-    { pattern: /(bg|text|border)-(primary|button[12]-(start|end))/ },
+    { pattern: /(bg|text|border)-(primary|background|(primary|secondary)-(start|end))/ },
     // TODO rename
-    { pattern: /(bg|text|border)-(ocean|autumn|forest|jungle|volcano|stone|moon|sun|coal|snow|smoke)/ },
+    { pattern: /(bg|text|border)-(ocean|autumn|forest|jungle|volcano|stone|moon|sun|coal|snow|smoke|mirror)/ },
   ],
   darkMode: [ 'class', '.body-dark-theme' ],
   theme: {
     colors: {
       primary: 'rgb(var(--color-primary-rgb) / <alpha-value>)',
-      'button1-start': 'rgb(var(--color-button1-start-rgb) / <alpha-value>)',
-      'button1-end': 'rgb(var(--color-button1-end-rgb) / <alpha-value>)',
-      'button2-start': 'rgb(var(--color-button2-start-rgb) / <alpha-value>)',
-      'button2-end': 'rgb(var(--color-button2-end-rgb) / <alpha-value>)',
+      background: 'rgb(var(--color-background-rgb) / <alpha-value>)',
+      'primary-start': 'rgb(var(--color-primary-start-rgb) / <alpha-value>)',
+      'primary-end': 'rgb(var(--color-primary-end-rgb) / <alpha-value>)',
+      'secondary-start': 'rgb(var(--color-secondary-start-rgb) / <alpha-value>)',
+      'secondary-end': 'rgb(var(--color-secondary-end-rgb) / <alpha-value>)',
 
       autumn: 'rgb(var(--color-autumn-rgb) / <alpha-value>)',
       sunset: 'rgb(var(--color-sunset-rgb) / <alpha-value>)',
@@ -29,7 +30,7 @@ export default {
       coal: 'rgb(var(--color-coal-rgb) / <alpha-value>)',
       snow: 'rgb(var(--color-snow-rgb) / <alpha-value>)',
       smoke: 'rgb(var(--color-smoke-rgb) / <alpha-value>)',
-      mirror: 'rgb(var(--color-mirror-rgb) / <alpha-value>)',
+      mirror: 'rgb(var(--color-mirror-rgb) / <alpha-value>)', // background
       titanium: 'rgb(var(--color-titanium-rgb) / <alpha-value>)',
       transparent: 'rgb(255 255 255 / 0)',
     },

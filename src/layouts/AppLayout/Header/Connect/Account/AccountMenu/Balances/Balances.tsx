@@ -13,7 +13,6 @@ type BalancesProps = {
 
 const storeSelector = (store: Store) => ({
   mintTokenBalance: store.account.balances.data.mintTokenBalance,
-  swiseTokenBalance: store.account.balances.data.swiseTokenBalance,
   nativeTokenBalance: store.account.balances.data.nativeTokenBalance,
   depositTokenBalance: store.account.balances.data.depositTokenBalance,
   isFetching: store.account.balances.isFetching,
@@ -29,7 +28,6 @@ const Balances: React.FC<BalancesProps> = (props) => {
   const {
     depositTokenBalance,
     nativeTokenBalance,
-    swiseTokenBalance,
     mintTokenBalance,
     isFetching,
   } = useStore(storeSelector)
@@ -44,10 +42,6 @@ const Balances: React.FC<BalancesProps> = (props) => {
       {
         token: sdk.config.tokens.mintToken,
         value: mintTokenBalance,
-      },
-      {
-        token: constants.tokens.swise,
-        value: swiseTokenBalance,
       },
     ]
 
@@ -69,7 +63,6 @@ const Balances: React.FC<BalancesProps> = (props) => {
   }, [
     depositTokenBalance,
     nativeTokenBalance,
-    swiseTokenBalance,
     mintTokenBalance,
     isStakeNativeToken,
     sdk,
