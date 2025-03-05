@@ -46,4 +46,13 @@ export default {
     de: 'Bitte fordern Sie Ihre Entboost-Anfrage ein, sobald sie einforderbar ist, um Strafen zu vermeiden.',
     zh: '请在您的解除提升请求可以认领后尽快认领，以免受到惩罚。',
   },
+  earnedRewards: {
+    en: 'The total rewards earned since you started staking. Rewards are updated every 24 hours.',
+    ru: 'Общие награды, полученные с момента начала стейкинга. Награды обновляются каждые 24 часа.',
+    fr: 'Les récompenses totales gagnées depuis que vous avez commencé le staking. Les récompenses sont mises à jour toutes les 24 heures.',
+    es: 'Las recompensas totales ganadas desde que comenzaste a hacer staking. Las recompensas se actualizan cada 24 horas.',
+    pt: 'As recompensas totais ganhas desde que você começou a fazer staking. As recompensas são atualizadas a cada 24 horas.',
+    de: 'Die gesamten Belohnungen, die seit Beginn des Stakings verdient wurden. Belohnungen werden alle 24 Stunden aktualisiert.',
+    zh: '自您开始进行Staking以来，总奖励收益。奖励每24小时更新一次。',
+  },
 }

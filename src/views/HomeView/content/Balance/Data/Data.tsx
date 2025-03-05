@@ -52,6 +52,18 @@ const Data: React.FC = () => {
           token: sdk.config.tokens.depositToken,
         }}
       />
+      <Row
+        className="py-12 border-top border-moon/10"
+        text={commonMessages.earnedRewards}
+        tooltip={commonMessages.tooltip.earnedRewards}
+        isFetching={data.isFetching}
+        dataTestId="user-rewards"
+        withMinimalValue
+        value={{
+          amount: data.userRewards,
+          token: sdk.config.tokens.depositToken,
+        }}
+      />
     </>
   )
 }

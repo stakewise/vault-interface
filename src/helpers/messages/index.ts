@@ -145,4 +145,13 @@ export default {
     de: 'Transaktionen',
     zh: '交易',
   },
+  earnedRewards: {
+    en: 'Earned rewards',
+    ru: 'Заработанные награды',
+    fr: 'Récompenses gagnées',
+    es: 'Recompensas ganadas',
+    pt: 'Recompensas ganhas',
+    de: 'Erworbene Belohnungen',
+    zh: '获得的奖励',
+  },
 }
