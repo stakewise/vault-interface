@@ -12,6 +12,7 @@ import { ToggleBox, TokenList } from '../../../common'
 const storeSelector = (store: Store) => ({
   unboostQueueData: store.vault.user.unboostQueue.data,
   exitingPercent: store.vault.user.balances.boost.exitingPercent,
+  isFetching: store.vault.user.unboostQueue.isFetching,
 })
 
 type UnboostQueueProps = {
@@ -25,7 +26,7 @@ const UnboostQueue: React.FC<UnboostQueueProps> = (props) => {
 
   const { unboostQueue } = stakeCtx.useData()
   const { sdk, address, isReadOnlyMode } = useConfig()
-  const { unboostQueueData, exitingPercent } = useStore(storeSelector)
+  const { unboostQueueData, exitingPercent, isFetching } = useStore(storeSelector)
 
   const text = unboostQueueData.isClaimable
     ? commonMessages.exitedToken
@@ -92,12 +93,12 @@ const UnboostQueue: React.FC<UnboostQueueProps> = (props) => {
         </div>
         <Button
           title={commonMessages.buttonTitle.claim}
-          loading={unboostQueueData.isSubmitting}
+          loading={isFetching}
           disabled={!unboostQueueData.isClaimable || isReadOnlyMode}
           color="primary"
           size="m"
           dataTestId="unboost-queue-claim-button"
-          onClick={unboostQueue.claim}
+          onClick={() => unboostQueue.claim(unboostQueueData)}
         />
       </div>
     </ToggleBox>

@@ -11,6 +11,7 @@ import { TokenList, ToggleBox } from '../../../common'
 
 const storeSelector = (store: Store) => ({
   exitQueueData: store.vault.user.exitQueue.data,
+  isFetching: store.vault.user.exitQueue.isFetching,
 })
 
 type UnstakeQueueProps = {
@@ -22,8 +23,8 @@ type UnstakeQueueProps = {
 const UnstakeQueue: React.FC<UnstakeQueueProps> = (props) => {
   const { className, isOpen, handleOpen } = props
 
+  const { exitQueueData, isFetching } = useStore(storeSelector)
   const { unstakeQueue } = stakeCtx.useData()
-  const { exitQueueData } = useStore(storeSelector)
   const { sdk, isReadOnlyMode, address } = useConfig()
 
   const exiting = useMemo(() => {
@@ -86,12 +87,12 @@ const UnstakeQueue: React.FC<UnstakeQueueProps> = (props) => {
         </div>
         <Button
           title={commonMessages.buttonTitle.claim}
-          loading={unstakeQueue.isSubmitting}
+          loading={isFetching}
           disabled={!exitQueueData.withdrawable || isReadOnlyMode}
           color="primary"
           size="m"
           dataTestId="unstake-queue-claim-button"
-          onClick={unstakeQueue.claim}
+          onClick={() => unstakeQueue.claim(exitQueueData)}
         />
       </div>
     </ToggleBox>

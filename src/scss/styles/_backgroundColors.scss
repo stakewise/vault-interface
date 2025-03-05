@@ -1,0 +1,9 @@
+.body-light-theme .bg-modal {
+  background: rgb($color-snow-rgb / 0.5);
+  border: solid 1px rgb($color-moon-rgb / 0.1);
+}
+
+.body-dark-theme .bg-modal {
+  background: rgb($color-snow-rgb / 0.05);
+  border: solid 1px rgb($color-snow-rgb / 0.05);
+}

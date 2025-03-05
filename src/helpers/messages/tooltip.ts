@@ -37,4 +37,13 @@ export default {
     de: 'Die Gebühr (in {nativeToken}), die Sie zahlen müssen, damit die Transaktion vom Netzwerk bestätigt wird.',
     zh: '您需要支付的费用（以 {nativeToken} 计），以便网络确认交易。',
   },
+  unboostPenalties: {
+    en: 'Please claim your unboost request as soon as it becomes claimable to avoid penalties.',
+    ru: 'Пожалуйста, заявите о своем запросе на анбуст сразу после того, как он станет доступным для получения, чтобы избежать штрафов.',
+    fr: 'Veuillez réclamer votre demande de déboost dès qu\'elle devient réclamable pour éviter des pénalités.',
+    es: 'Por favor, reclame su solicitud de desempeño tan pronto como sea reclamable para evitar penalizaciones.',
+    pt: 'Por favor, reivindique seu pedido de desimpulsionamento assim que se tornar reivindicável para evitar penalidades.',
+    de: 'Bitte fordern Sie Ihre Entboost-Anfrage ein, sobald sie einforderbar ist, um Strafen zu vermeiden.',
+    zh: '请在您的解除提升请求可以认领后尽快认领，以免受到惩罚。',
+  },
 }

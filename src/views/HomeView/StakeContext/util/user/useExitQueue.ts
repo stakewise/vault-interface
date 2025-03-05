@@ -125,6 +125,10 @@ const useExitQueue = (vaultAddress: string) => {
   ])
 
   useEffect(() => {
+    fetchExitQueue()
+  }, [ fetchExitQueue ])
+
+  useEffect(() => {
     if (!address) {
       actions.vault.user.exitQueue.resetData()
     }

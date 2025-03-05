@@ -22,7 +22,7 @@ const useUnboost: Hook = (params) => {
 
   const { vaultAddress } = params
 
-  const { address, sdk, chainId, cancelOnChange } = useConfig()
+  const { address, chainId, cancelOnChange } = useConfig()
   const { boostedShares, rewardAssets } = useStore(storeSelector)
 
   const { submit } = useUnboostSubmit({

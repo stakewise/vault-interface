@@ -2,7 +2,7 @@ import React from 'react'
 import froms from 'sw-modules/forms'
 import { useConfig } from 'config'
 
-import { StakeStats, Table } from 'views/HomeView/common'
+import { Table } from 'views/HomeView/common'
 import { stakeCtx } from 'views/HomeView/StakeContext/util'
 
 import { useOptions } from './util'

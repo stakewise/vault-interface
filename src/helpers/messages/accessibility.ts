@@ -80,4 +80,13 @@ export default {
     de: 'Exportprämien-Schaltfläche',
     zh: '导出奖励按钮',
   },
+  unboostQueueToggle: {
+    en: 'Unboost queue toggle',
+    ru: 'Переключение очереди Анбуста',
+    fr: 'Basculer la file d\'attente de débouclement',
+    es: 'Alternar cola de desimpulso',
+    pt: 'Alternar fila de desimpulso',
+    de: 'Warteschlange für Unboost umschalten',
+    zh: '切换解除加速队列',
+  },
 }

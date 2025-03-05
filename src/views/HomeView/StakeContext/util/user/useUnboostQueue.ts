@@ -116,6 +116,10 @@ const useUnboostQueue = (values: Input) => {
   ])
 
   useEffect(() => {
+    fetchUnboostQueue()
+  }, [ fetchUnboostQueue ])
+
+  useEffect(() => {
     if (!address) {
       actions.vault.user.unboostQueue.resetData()
     }

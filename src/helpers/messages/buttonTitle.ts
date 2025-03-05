@@ -134,4 +134,13 @@ export default {
     de: 'Exportieren',
     zh: '导出',
   },
+  unboostQueue: {
+    en: 'Unboost queue',
+    ru: 'Очередь на снятие буста',
+    fr: 'File d\'attente pour Unboost',
+    es: 'Cola de desactivación del boost',
+    pt: 'Fila de Unboost',
+    de: 'Unboost-Warteschlange',
+    zh: '取消Boost队列',
+  },
 }
