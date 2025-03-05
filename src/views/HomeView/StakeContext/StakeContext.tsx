@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { TransactionsFlowModal } from 'layouts/modals'
+import { ExportRewardsModal, TransactionsFlowModal } from 'layouts/modals'
 
 import Tabs from './Tabs/Tabs'
 import { Skeleton } from '../common'
@@ -45,7 +45,8 @@ const StakeContext: React.FC<VaultContextProps> = (props) => {
   return (
     <stakeCtx.Provider value={ctx}>
       {content}
-      <StatisticsModal/>
+      <StatisticsModal />
+      <ExportRewardsModal />
       <TransactionsFlowModal />
     </stakeCtx.Provider>
   )

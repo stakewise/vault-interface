@@ -71,4 +71,13 @@ export default {
     de: 'Entzugswarteschlange umschalten',
     zh: '取消质押队列切换',
   },
+  exportRewardsButton: {
+    en: 'Export rewards button',
+    ru: 'Кнопка экспорта наград',
+    fr: 'Bouton d\'exportation des récompenses',
+    es: 'Botón de exportar recompensas',
+    pt: 'Botão de exportar recompensas',
+    de: 'Exportprämien-Schaltfläche',
+    zh: '导出奖励按钮',
+  },
 }

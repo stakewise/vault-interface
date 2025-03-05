@@ -22,7 +22,6 @@ const initialState: Omit<StakePage.Data, 'refetchData'> = {
 
 export const baseDataMock: StakePage.Data = {
   ...initialState,
-  // userRewards: 0n, // TODO add user rewards
   refetchData: () => Promise.resolve(),
 }
 

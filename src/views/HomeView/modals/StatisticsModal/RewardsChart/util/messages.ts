@@ -1,11 +1,11 @@
 export default {
   osTokenStats: {
-    en: '{token} stats',
-    ru: '{token} статистика',
-    fr: 'Statistiques de {token}',
-    es: 'Estadísticas de {token}',
-    pt: 'Estatísticas de {token}',
-    de: '{token}-Statistiken',
-    zh: '{token} 统计',
+    en: '{mintToken} stats',
+    ru: '{mintToken} статистика',
+    fr: 'Statistiques de {mintToken}',
+    es: 'Estadísticas de {mintToken}',
+    pt: 'Estatísticas de {mintToken}',
+    de: '{mintToken}-Statistiken',
+    zh: '{mintToken} 统计',
   },
 }

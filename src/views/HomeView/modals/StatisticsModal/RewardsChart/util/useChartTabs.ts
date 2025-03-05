@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react'
+import { useMemo } from 'react'
 import { useConfig } from 'config'
 import forms from 'sw-modules/forms'
 import { commonMessages } from 'helpers'
@@ -55,17 +55,22 @@ const initialDays = daysOptions[0].value
 const initialType = chartTypeOptions[0].value as Type
 
 const useChartTabs = () => {
-  const { sdk } = useConfig()
+  const { address, sdk } = useConfig()
 
   const tabsOptions: TabsProps['tabsList'] = useMemo(() => [
     {
       id: Tab.User,
       title: commonMessages.myStats,
-      dataTestId: 'stake-user-stats-chart-tab',
+      dataTestId: 'user-stats-chart-tab',
     },
     {
       id: Tab.OsToken,
-      title: { ...messages.osTokenStats, values: { token: sdk.config.tokens.mintToken } },
+      title: {
+        ...messages.osTokenStats,
+        values: {
+          mintToken: sdk.config.tokens.mintToken,
+        },
+      },
       dataTestId: 'osToken-stats-chart-tab',
     },
   ], [ sdk ])
@@ -77,7 +82,7 @@ const useChartTabs = () => {
     },
     tab: {
       valueType: 'string',
-      initialValue: tabsOptions[1].id as Tab,
+      initialValue: tabsOptions[address ? 0 : 1].id as Tab,
     },
     days: {
       valueType: 'string',

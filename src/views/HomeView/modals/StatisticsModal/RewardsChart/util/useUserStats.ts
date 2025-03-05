@@ -1,11 +1,28 @@
 import { useCallback, useEffect, useMemo, useRef } from 'react'
+import methods from 'sw-methods'
 import { useConfig } from 'config'
 import { useObjectState } from 'hooks'
 import { calculateUserStats, getTimestamp } from 'sdk'
-// import { fetchStakeStatsQuery } from 'graphql/subgraph/swap' // TODO replace with sdk
 
 import { Type } from './enums'
 
+
+type StakeStatsQueryPayload = {
+  osTokenHolder: {
+    apy: number
+    timestamp: string
+    totalAssets: string
+    earnedAssets: string
+  }[]
+}
+
+type StakeStatsVariables = {
+  first: number
+  where: {
+    osTokenHolder: string
+    timestamp_gte?: number
+  }
+}
 
 type Input = {
   type: Type
@@ -64,45 +81,63 @@ const useUserStats = (input: Input): Output => {
 
     setState({ isFetching: true })
 
-    // const timestamp = String(getTimestamp(days))
-    //
-    // const osTokenHolderId = address.toLowerCase()
-    //
-    // const [ timestampResult, firstResult ] = await Promise.all([
-    //   fetchStakeStatsQuery({
-    //     url: sdk.config.api.subgraph,
-    //     requestPolicy: 'no-cache',
-    //     variables: {
-    //       first: days,
-    //       where: {
-    //         osTokenHolder: osTokenHolderId,
-    //         timestamp_gte: timestamp,
-    //       },
-    //     },
-    //   }),
-    //   fetchStakeStatsQuery({
-    //     url: sdk.config.api.subgraph,
-    //     requestPolicy: 'no-cache',
-    //     variables: {
-    //       first: 1,
-    //       where: {
-    //         osTokenHolder: osTokenHolderId,
-    //       },
-    //     },
-    //   }),
-    // ])
-    //
-    // const userStats = calculateUserStats(timestampResult.osTokenHolder)
-    //
-    // const newState = {
-    //   ...userStats,
-    //   isFetching: false,
-    //   isExportVisible: Boolean(firstResult.osTokenHolder.length),
-    // }
-    //
-    // setState(newState)
-    //
-    // cache.current[days] = newState
+    const timestamp = String(getTimestamp(days))
+
+    const osTokenHolderId = address.toLowerCase()
+
+    const fetchStakeStats = (variables: StakeStatsVariables) => {
+      return methods.fetch<StakeStatsQueryPayload>(sdk.config.api.subgraph, {
+        method: 'POST',
+        body: JSON.stringify({
+          query: `
+            query StakeStats(
+              $where: OsTokenHolderStats_filter
+              $first: Int
+            ) {
+              osTokenHolder: osTokenHolderStats_collection(
+                interval: day
+                first: $first
+                where: $where
+              ) {
+                apy
+                timestamp
+                totalAssets
+                earnedAssets
+              }
+            }
+          `,
+          variables,
+        }),
+      })
+    }
+
+    const [ timestampResult, firstResult ] = await Promise.all([
+      fetchStakeStats({
+        first: days,
+        where: {
+          osTokenHolder: osTokenHolderId,
+          timestamp_gte: timestamp,
+        },
+      }),
+      fetchStakeStats({
+        first: 1,
+        where: {
+          osTokenHolder: osTokenHolderId,
+        },
+      }),
+    ])
+
+    const userStats = calculateUserStats(timestampResult.osTokenHolder)
+
+    const newState = {
+      ...userStats,
+      isFetching: false,
+      isExportVisible: Boolean(firstResult.osTokenHolder.length),
+    }
+
+    setState(newState)
+
+    cache.current[days] = newState
   }, [ sdk, address, setState ])
 
   useEffect(() => {

@@ -125,4 +125,13 @@ export default {
     de: 'Einfordern',
     zh: '索取',
   },
+  export: {
+    en: 'Export',
+    ru: 'Экспортировать',
+    fr: 'Exporter',
+    es: 'Exportar',
+    pt: 'Exportar',
+    de: 'Exportieren',
+    zh: '导出',
+  },
 }
