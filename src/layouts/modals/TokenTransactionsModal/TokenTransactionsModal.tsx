@@ -7,7 +7,6 @@ import { commonMessages, constants } from 'helpers'
 import { Modal } from 'components'
 
 import TransactionsList from './TransactionsList/TransactionsList'
-import { useResetCache } from './util'
 
 import s from './TokenTransactionsModal.module.scss'
 
@@ -17,8 +16,6 @@ export const [ TokenTransactionsModal, openTokenTransactionsModal ] = (
     const { closeModal } = props
 
     const { isMobile } = device.useData()
-
-    useResetCache()
 
     return (
       <Modal
