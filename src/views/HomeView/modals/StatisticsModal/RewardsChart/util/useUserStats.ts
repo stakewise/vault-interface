@@ -1,28 +1,11 @@
 import { useCallback, useEffect, useMemo, useRef } from 'react'
-import methods from 'sw-methods'
+import { requests } from 'helpers'
 import { useConfig } from 'config'
 import { useObjectState } from 'hooks'
 import { calculateUserStats, getTimestamp } from 'sdk'
 
 import { Type } from './enums'
 
-
-type StakeStatsQueryPayload = {
-  osTokenHolder: {
-    apy: number
-    timestamp: string
-    totalAssets: string
-    earnedAssets: string
-  }[]
-}
-
-type StakeStatsVariables = {
-  first: number
-  where: {
-    osTokenHolder: string
-    timestamp_gte?: number
-  }
-}
 
 type Input = {
   type: Type
@@ -85,44 +68,24 @@ const useUserStats = (input: Input): Output => {
 
     const osTokenHolderId = address.toLowerCase()
 
-    const fetchStakeStats = (variables: StakeStatsVariables) => {
-      return methods.fetch<StakeStatsQueryPayload>(sdk.config.api.subgraph, {
-        method: 'POST',
-        body: JSON.stringify({
-          query: `
-            query StakeStats(
-              $where: OsTokenHolderStats_filter
-              $first: Int
-            ) {
-              osTokenHolder: osTokenHolderStats_collection(
-                interval: day
-                first: $first
-                where: $where
-              ) {
-                apy
-                timestamp
-                totalAssets
-                earnedAssets
-              }
-            }
-          `,
-          variables,
-        }),
-      })
-    }
-
     const [ timestampResult, firstResult ] = await Promise.all([
-      fetchStakeStats({
-        first: days,
-        where: {
-          osTokenHolder: osTokenHolderId,
-          timestamp_gte: timestamp,
+      requests.fetchStakeStats({
+        url: sdk.config.api.subgraph,
+        variables: {
+          first: days,
+          where: {
+            osTokenHolder: osTokenHolderId,
+            timestamp_gte: timestamp,
+          },
         },
       }),
-      fetchStakeStats({
-        first: 1,
-        where: {
-          osTokenHolder: osTokenHolderId,
+      requests.fetchStakeStats({
+        url: sdk.config.api.subgraph,
+        variables: {
+          first: 1,
+          where: {
+            osTokenHolder: osTokenHolderId,
+          },
         },
       }),
     ])

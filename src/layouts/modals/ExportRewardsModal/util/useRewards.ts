@@ -4,8 +4,7 @@ import { useConfig } from 'config'
 import { mergeRewardsFiat, StakeWiseSDK } from 'sdk'
 import date from 'sw-modules/date'
 import forms from 'sw-modules/forms'
-import { modifiers } from 'helpers'
-// import { fetchStakeStatsQuery } from 'graphql/subgraph/swap' // TODO replace with sdk
+import { modifiers, requests } from 'helpers'
 
 import type { ExportForm } from './useForm'
 
@@ -56,20 +55,18 @@ const useRewards = (input: Input) => {
       userAddress,
     } = params
 
-    // const data = await fetchStakeStatsQuery({
-    //   url: sdk.config.api.subgraph,
-    //   requestPolicy: 'no-cache',
-    //   variables: {
-    //     where: {
-    //       osTokenHolder: userAddress.toLowerCase(),
-    //       timestamp_gte: String(dateFrom * 1_000),
-    //       timestamp_lte: String(dateTo * 1_000),
-    //     },
-    //   },
-    // })
-    //
-    // const rewards = data?.osTokenHolder || []
-    const rewards = []
+    const data = await requests.fetchStakeStats({
+      url: sdk.config.api.subgraph,
+      variables: {
+        where: {
+          osTokenHolder: userAddress.toLowerCase(),
+          timestamp_gte: String(dateFrom * 1_000),
+          timestamp_lte: String(dateTo * 1_000),
+        },
+      },
+    })
+
+    const rewards = data?.osTokenHolder || []
 
     const fiatRates = await sdk.utils.getFiatRatesByDay({ dateTo, dateFrom })
 

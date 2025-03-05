@@ -1,19 +1,35 @@
 'use client'
-import { useCallback, useEffect } from 'react'
-// import { fetchExitStatsQuery } from 'graphql/backend/exitQueue' // TODO replace with sdk
-import { useActions, useAutoFetch, useMintToken } from 'hooks'
+import { useCallback } from 'react'
+import { useActions, useAutoFetch, useMintToken, useChainChanged } from 'hooks'
 import { useConfig } from 'config'
+import methods from 'sw-methods'
 
+
+type ExitStatsQueryPayload = {
+  exitStats: {
+    duration: number
+  }
+}
 
 const useMintTokenData = () => {
+  const { sdk } = useConfig()
   const actions = useActions()
-  const { sdk, isChainChanged } = useConfig()
   const fetchMintTokenData = useMintToken({ sdk })
 
   const fetchQueueDays = useCallback(async () => {
     try {
-      const result = { exitStats: { duration: 0 } }
-      // const result = await fetchExitStatsQuery({ url: sdk.config.api.backend })
+      const result = await methods.fetch<ExitStatsQueryPayload>(sdk.config.api.subgraph, {
+        method: 'POST',
+        body: JSON.stringify({
+          query: `
+            query ExitStats {
+              exitStats {
+                duration    
+              }
+            }
+          `,
+        }),
+      })
 
       const days = result.exitStats.duration
       const secondsInDay = 86400
@@ -42,11 +58,7 @@ const useMintTokenData = () => {
     })
   }, [ actions, fetchMintTokenData, fetchQueueDays ])
 
-  useEffect(() => {
-    if (isChainChanged) {
-      fetchData()
-    }
-  }, [ isChainChanged, fetchData ])
+  useChainChanged(fetchData)
 
   useAutoFetch({
     action: fetchData,
