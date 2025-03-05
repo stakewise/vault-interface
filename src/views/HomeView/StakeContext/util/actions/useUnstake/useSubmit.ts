@@ -1,4 +1,4 @@
-import { useCallback } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import { useConfig } from 'config'
 import { AllocatorActionType } from 'sdk'
 import { commonMessages } from 'helpers'
@@ -8,7 +8,10 @@ import { useActions, useBalances, useStore, useSubgraphUpdate } from 'hooks'
 import { Action, openTxCompletedModal } from 'layouts/modals'
 
 
-type Output = (assets: bigint) => Promise<void>
+type Output = {
+  isSubmitting: boolean
+  submit: (assets: bigint) => Promise<void>
+}
 
 const storeSelector = (store: Store) => ({
   isCollateralized: store.vault.base.data.isCollateralized,
@@ -20,14 +23,17 @@ const useSubmit = (params: StakePage.Params): Output => {
   const actions = useActions()
   const { signSDK, address, chainId, cancelOnChange } = useConfig()
   const { isCollateralized } = useStore(storeSelector)
+  const [ isSubmitting, setSubmitting ] = useState(false)
 
   const subgraphUpdate = useSubgraphUpdate()
   const { refetchDepositTokenBalance } = useBalances()
 
-  return useCallback(async (assets: bigint) => {
+  const submit = useCallback(async (assets: bigint) => {
     if (!address) {
       return
     }
+
+    setSubmitting(true)
 
     actions.ui.setBottomLoader({
       content: commonMessages.notification.waitingConfirmation,
@@ -85,6 +91,8 @@ const useSubmit = (params: StakePage.Params): Output => {
         text: commonMessages.notification.failed,
       })
     }
+
+    setSubmitting(false)
   }, [
     fetch,
     chainId,
@@ -96,6 +104,14 @@ const useSubmit = (params: StakePage.Params): Output => {
     subgraphUpdate,
     cancelOnChange,
     refetchDepositTokenBalance,
+  ])
+
+  return useMemo(() => ({
+    submit,
+    isSubmitting,
+  }), [
+    submit,
+    isSubmitting,
   ])
 }
 

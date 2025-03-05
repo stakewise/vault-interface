@@ -7,21 +7,20 @@ import { stakeCtx } from 'views/HomeView/StakeContext/util'
 
 
 const storeSelector = (store: Store) => ({
-  mintTokenBalance: store.account.balances.data.mintTokenBalance,
   maxWithdrawAssets: store.vault.user.balances.withdraw.maxAssets,
 })
 
 const UnstakeInput: React.FC = () => {
   const { sdk } = useConfig()
-  const { field } = stakeCtx.useData()
+  const { field, unstake } = stakeCtx.useData()
 
-  const { mintTokenBalance, maxWithdrawAssets } = useStore(storeSelector)
+  const { maxWithdrawAssets } = useStore(storeSelector)
 
   return (
     <Input
-      balance={mintTokenBalance}
+      balance={maxWithdrawAssets}
       token={sdk.config.tokens.mintToken}
-      // isLoading={unstake.isSubmitting}
+      isLoading={unstake.isSubmitting}
       onMaxButtonClick={() => field.setValue(maxWithdrawAssets)}
     />
   )

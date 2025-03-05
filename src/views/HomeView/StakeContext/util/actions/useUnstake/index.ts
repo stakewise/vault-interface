@@ -4,9 +4,8 @@ import useSubmit from './useSubmit'
 import useEstimateGas, { Type } from '../useEstimateGas'
 
 
-type Output = {
+type Output = ReturnType<typeof useSubmit> & {
   getWithdrawGas: ReturnType<typeof useEstimateGas>
-  submit: ReturnType<typeof useSubmit>
 }
 
 interface Hook {
@@ -14,23 +13,26 @@ interface Hook {
   mock: Output
 }
 
-const useWithdraw: Hook = (params) => {
-  const submit = useSubmit(params)
+const useUnstake: Hook = (params) => {
+  const { isSubmitting, submit } = useSubmit(params)
   const getWithdrawGas = useEstimateGas(Type.Withdraw)
 
   return useMemo(() => ({
+    isSubmitting,
     getWithdrawGas,
     submit,
   }), [
+    isSubmitting,
     getWithdrawGas,
     submit,
   ])
 }
 
-useWithdraw.mock = {
+useUnstake.mock = {
+  isSubmitting: false,
   getWithdrawGas: () => Promise.resolve(0n),
   submit: () => Promise.resolve(),
 }
 
 
-export default useWithdraw
+export default useUnstake

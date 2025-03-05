@@ -7,12 +7,10 @@ import UnstakeInput from './UnstakeInput/UnstakeInput'
 
 
 const Unstake: React.FC = () => (
-  <div className="mt-20">
-    <Form>
-      <UnstakeInput />
-      <UnstakeContent className="mt-8" />
-    </Form>
-  </div>
+  <Form className="mt-20">
+    <UnstakeInput />
+    <UnstakeContent className="mt-8" />
+  </Form>
 )
 
 

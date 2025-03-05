@@ -29,7 +29,7 @@ const StakeInput: React.FC = () => {
 
   return (
     <Input
-      isLoading={isFetching}
+      isLoading={isFetching || stake.isSubmitting}
       balance={depositTokenBalance}
       token={sdk.config.tokens.depositToken}
       onMaxButtonClick={handleMaxClick}

@@ -6,11 +6,9 @@ import useDepositTokenApprove from './useDepositTokenApprove'
 import useEstimateGas, { Type } from '../useEstimateGas'
 
 
-type Output = {
-  isSubmitting: boolean
+type Output = ReturnType<typeof useSubmit> & {
   getDepositGas: ReturnType<typeof useEstimateGas>
   getMaxStake: ReturnType<typeof useMaxStake>
-  submit: ReturnType<typeof useSubmit>['submit']
   depositToken: ReturnType<typeof useDepositTokenApprove>
 }
 
