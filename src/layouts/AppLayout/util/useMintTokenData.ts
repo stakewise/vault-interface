@@ -18,7 +18,7 @@ const useMintTokenData = () => {
 
   const fetchQueueDays = useCallback(async () => {
     try {
-      const result = await methods.fetch<ExitStatsQueryPayload>(sdk.config.api.subgraph, {
+      const result = await methods.fetch<ExitStatsQueryPayload>(sdk.config.api.backend, {
         method: 'POST',
         body: JSON.stringify({
           query: `

@@ -15,6 +15,11 @@ import {
   useUnstake,
 } from './actions'
 
+import {
+  useExitQueue,
+  useUnboostQueue,
+} from './user'
+
 import useBalances from './useBalances'
 import useVaultAddress from './useVaultAddress'
 
@@ -30,9 +35,9 @@ export const initialContext: StakePage.Context = {
   stake: useStake.mock,
   unboost: useUnboost.mock,
   unstake: useUnstake.mock,
+  unstakeQueue: { claim: Promise.resolve },
+  unboostQueue: { claim: Promise.resolve },
 
-  // unstakeQueue: stakeHooks.mockQueue,
-  // unboostQueue: boostHooks.mockQueue,
   field: {} as Forms.Field<bigint>,
   percentField: {} as Forms.Field<string>,
   isFetching: false,
@@ -46,36 +51,40 @@ export const {
   Provider,
   useData,
   useInit,
-} = initContext<StakePage.Context, StakePage.Input>(initialContext, () => {
-  const vaultAddress = useVaultAddress()
-
+} = initContext<StakePage.Context>(initialContext, () => {
   const tabs = useTabs()
-  const data = useBaseData(vaultAddress)
+  const vaultAddress = useVaultAddress()
   const fetchBalances = useBalances(vaultAddress)
-  const { field, percentField } = useFields({ tabs })
   const { isVaultFetching } = useStore(storeSelector)
+  const { field, percentField } = useFields({ tabs })
+  const { refetchData, ...data } = useBaseData(vaultAddress)
+  const { fetchExitQueue, claimExitQueue } = useExitQueue(vaultAddress)
+  const { fetchUnboostQueue, claimUnboostQueue } = useUnboostQueue({ vaultAddress, fetchBalances })
+
+  const fetch = useMemo(() => ({
+    data: refetchData,
+    unstakeQueue: fetchExitQueue,
+    unboostQueue: fetchUnboostQueue,
+  }), [
+    refetchData,
+    fetchExitQueue,
+    fetchUnboostQueue,
+  ])
 
   useEffect(() => {
     fetchBalances()
   }, [ fetchBalances ])
 
-  // const unstakeQueue = stakeHooks.useQueue(vaultAddress)
-  // const unboostQueue = boostHooks.useQueue({ vaultAddress, data })
-
   const params = useMemo(() => ({
     vaultAddress,
-    // unstakeQueue,
-    // unboostQueue,
     percentField,
     field,
-    // data,
+    fetch,
   }), [
-    vaultAddress,
-    // unstakeQueue,
-    // unboostQueue,
-    percentField,
+    fetch,
     field,
-    // data,
+    percentField,
+    vaultAddress,
   ])
 
   const burn = useBurn(params)
@@ -97,6 +106,12 @@ export const {
     boost,
     unboost,
     unstake,
+    unstakeQueue: {
+      claim: claimExitQueue,
+    },
+    unboostQueue: {
+      claim: claimUnboostQueue,
+    },
     percentField,
     vaultAddress,
     isFetching,
@@ -113,5 +128,7 @@ export const {
     percentField,
     vaultAddress,
     isFetching,
+    claimExitQueue,
+    claimUnboostQueue,
   ])
 })

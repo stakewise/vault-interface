@@ -12,7 +12,7 @@ const storeSelector = (store: Store) => ({
   vaultAddress: store.vault.base.data.vaultAddress,
 })
 
-const useSubmit = (params: Vault.Params) => {
+const useSubmit = (params: StakePage.Params) => {
   const actions = useActions()
   const { vaultAddress } = useStore(storeSelector)
   const { signSDK, address, chainId, cancelOnChange } = useConfig()

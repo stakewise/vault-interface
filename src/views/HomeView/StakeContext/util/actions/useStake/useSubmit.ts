@@ -29,7 +29,7 @@ type Input = Partial<ApproveInput> & {
 
 const useSubmit = (params: StakePage.Params) => {
   const actions = useActions()
-  const { vaultAddress } = params
+  const { vaultAddress, fetch } = params
   const { signSDK, address, chainId, cancelOnChange } = useConfig()
 
   const subgraphUpdate = useSubgraphUpdate()
@@ -121,13 +121,10 @@ const useSubmit = (params: StakePage.Params) => {
         cancelOnChange({
           address,
           chainId,
-          logic: () => {
-            params.fetch.vault()
-            params.fetch.vaultStats(30)
-            params.userFetch.balances()
-
-            refetchDepositTokenBalance()
-          },
+          logic: () => Promise.all([
+            fetch.data(),
+            refetchDepositTokenBalance(),
+          ]),
         })
 
         const tokens = [
@@ -156,7 +153,7 @@ const useSubmit = (params: StakePage.Params) => {
       return Promise.reject(error)
     }
   }, [
-    params,
+    fetch,
     chainId,
     signSDK,
     address,

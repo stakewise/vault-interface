@@ -14,8 +14,8 @@ const storeSelector = (store: Store) => ({
   isCollateralized: store.vault.base.data.isCollateralized,
 })
 
-const useSubmit = (params: Vault.Params): Output => {
-  const { vaultAddress } = params
+const useSubmit = (params: StakePage.Params): Output => {
+  const { vaultAddress, fetch } = params
 
   const actions = useActions()
   const { signSDK, address, chainId, cancelOnChange } = useConfig()
@@ -47,9 +47,8 @@ const useSubmit = (params: Vault.Params): Output => {
           address,
           chainId,
           logic: () => {
-            params.fetch.vault()
-            params.userFetch.balances()
-            params.userFetch.exitQueue()
+            fetch.data()
+            fetch.unstakeQueue()
 
             refetchDepositTokenBalance()
           },
@@ -87,7 +86,7 @@ const useSubmit = (params: Vault.Params): Output => {
       })
     }
   }, [
-    params,
+    fetch,
     chainId,
     signSDK,
     actions,

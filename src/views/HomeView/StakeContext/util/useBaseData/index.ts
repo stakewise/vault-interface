@@ -10,7 +10,9 @@ import useStats from './useStats'
 
 const initialState: Omit<StakePage.Data, 'refetchData'> = {
   users: 0,
+  ltvPercent: 0n,
   tvl: methods.formatApy(0),
+  fee: methods.formatApy(0),
   isFetching: true,
   apy: {
     user: 0,

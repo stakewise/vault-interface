@@ -10,7 +10,7 @@ type Output = {
   isSubmitting: boolean
   getDepositGas: ReturnType<typeof useEstimateGas>
   getMaxStake: ReturnType<typeof useMaxStake>
-  submit: ReturnType<typeof useSubmit>
+  submit: ReturnType<typeof useSubmit>['submit']
   depositToken: ReturnType<typeof useDepositTokenApprove>
 }
 
