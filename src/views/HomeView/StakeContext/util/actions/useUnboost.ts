@@ -38,8 +38,8 @@ const useUnboost: Hook = (params) => {
       logic: async () => {
         refetchMintTokenBalance()
         refetchNativeTokenBalance()
-        params.userFetch.unboostQueue()
-        await params.userFetch.balances()
+        params.fetch.unboostQueue()
+        await params.fetch.data()
       },
     })
 

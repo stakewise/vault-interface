@@ -49,8 +49,7 @@ const useSubmit = (params: StakePage.Params) => {
           address,
           chainId,
           logic: () => {
-            params.fetch.vault()
-            params.userFetch.balances()
+            params.fetch.data()
 
             refetchMintTokenBalance()
             refetchDepositTokenBalance()
