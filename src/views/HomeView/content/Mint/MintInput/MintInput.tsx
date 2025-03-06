@@ -13,15 +13,15 @@ const storeSelector = (store: Store) => ({
 })
 
 const MintInput: React.FC = () => {
-  const { field } = stakeCtx.useData()
-
   const { sdk } = useConfig()
+  const { field, mint } = stakeCtx.useData()
   const { maxMintShares } = useStore(storeSelector)
 
   return (
     <Input
       balance={maxMintShares}
       token={sdk.config.tokens.mintToken}
+      isLoading={mint.isSubmitting}
       balanceTitle={{
         ...messages.balanceTitle,
         values: { mintToken: sdk.config.tokens.mintToken },

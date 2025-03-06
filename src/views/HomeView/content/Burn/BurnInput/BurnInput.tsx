@@ -14,9 +14,8 @@ const storeSelector = (store: Store) => ({
 })
 
 const BurnInput: React.FC = () => {
-  const { field } = stakeCtx.useData()
-
   const { sdk } = useConfig()
+  const { field, burn } = stakeCtx.useData()
   const { mintTokenBalance, mintedShares } = useStore(storeSelector)
 
   const maxBurn = mintedShares > mintTokenBalance
@@ -27,6 +26,7 @@ const BurnInput: React.FC = () => {
     <Input
       balance={maxBurn}
       token={sdk.config.tokens.mintToken}
+      isLoading={burn.isSubmitting}
       balanceTitle={{
         ...messages.balanceTitle,
         values: { mintToken: sdk.config.tokens.mintToken },

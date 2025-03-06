@@ -12,7 +12,7 @@ const storeSelector = (store: Store) => ({
 
 const BoostInput: React.FC = () => {
   const { sdk } = useConfig()
-  const { field } = stakeCtx.useData()
+  const { field, boost } = stakeCtx.useData()
   const { mintTokenBalance } = useStore(storeSelector)
 
   const handleMaxClick = useCallback(() => {
@@ -22,6 +22,7 @@ const BoostInput: React.FC = () => {
   return (
     <Input
       balance={mintTokenBalance}
+      isLoading={boost.isSubmitting}
       token={sdk.config.tokens.mintToken}
       onMaxButtonClick={handleMaxClick}
     />

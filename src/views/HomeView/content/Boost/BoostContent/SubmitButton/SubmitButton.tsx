@@ -75,7 +75,7 @@ const SubmitButton: React.FC<SubmitButtonProps> = (props) => {
     <Button
       className={className}
       title={title}
-      disabled={value > 0n && disabled}
+      disabled={value ? disabled || boost.isSubmitting : false}
       color="secondary"
       loading={boost.isAllowanceFetching}
       onClick={handleClick}
