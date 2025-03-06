@@ -28,6 +28,15 @@ export default {
     de: 'Gestaked {depositToken}',
     zh: '已质押 {depositToken}',
   },
+  minted: {
+    en: 'Minted {mintToken}',
+    ru: 'Заминчено {mintToken}',
+    fr: 'Minté {mintToken}',
+    es: 'Minteado {mintToken}',
+    pt: 'Mintado {mintToken}',
+    de: 'Gemintet {mintToken}',
+    zh: '铸造{mintToken}',
+  },
   invalidBoostSupplyCap: {
     en: 'The boost capacity has been reached. Please come back later.',
     ru: 'Достигнута максимальная емкость буста. Пожалуйста, вернитесь позже.',

@@ -1,4 +1,4 @@
-import { useCallback } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import { useActions, useBalances, useStore, useSubgraphUpdate } from 'hooks'
 import { getters, commonMessages } from 'helpers'
 import notifications from 'sw-modules/notifications'
@@ -18,12 +18,15 @@ const useSubmit = (params: StakePage.Params) => {
   const { signSDK, address, chainId, cancelOnChange } = useConfig()
 
   const subgraphUpdate = useSubgraphUpdate()
+  const [ isSubmitting, setSubmitting ] = useState(false)
   const { refetchDepositTokenBalance, refetchMintTokenBalance } = useBalances()
 
-  return useCallback(async (shares: bigint) => {
+  const submit = useCallback(async (shares: bigint) => {
     if (!address) {
       return
     }
+
+    setSubmitting(true)
 
     actions.ui.setBottomLoader({
       content: commonMessages.notification.waitingConfirmation,
@@ -71,8 +74,11 @@ const useSubmit = (params: StakePage.Params) => {
 
         openTxCompletedModal({ tokens, hash })
       }
+
+      setSubmitting(false)
     }
     catch (error) {
+      setSubmitting(false)
       actions.ui.resetBottomLoader()
       console.error('Mint send transaction error', error as Error)
 
@@ -94,6 +100,14 @@ const useSubmit = (params: StakePage.Params) => {
     cancelOnChange,
     refetchMintTokenBalance,
     refetchDepositTokenBalance,
+  ])
+
+  return useMemo(() => ({
+    isSubmitting,
+    submit,
+  }), [
+    isSubmitting,
+    submit,
   ])
 }
 

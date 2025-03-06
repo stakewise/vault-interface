@@ -13,25 +13,21 @@ type SubmitButtonProps = {
 const SubmitButton: React.FC<SubmitButtonProps> = (props) => {
   const { className } = props
 
-  const { stake } = stakeCtx.useData()
+  const { burn, field } = stakeCtx.useData()
 
   const handleClick = useCallback(() => {
-    if (stake.isApproveRequired) {
-      openTransactionsFlowModal({
-        flow: 'stake',
-        onStart: ({ setTransaction }) => stake.submit({ setTransaction }),
-      })
+    const shares = field.value
+
+    if (shares) {
+      burn.submit(shares)
     }
-    else {
-      stake.submit()
-    }
-  }, [ stake ])
+  }, [ burn, field ])
 
   return (
     <Button
       className={className}
-      title={commonMessages.buttonTitle.stake}
-      loading={stake.isSubmitting}
+      title={commonMessages.buttonTitle.burn}
+      loading={burn.isSubmitting}
       onClick={handleClick}
     />
   )

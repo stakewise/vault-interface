@@ -2,7 +2,6 @@
 import React from 'react'
 import cx from 'classnames'
 import { useStore } from 'hooks'
-import { useConfig } from 'config'
 import { useTabButton } from 'sw-hooks'
 import device from 'sw-modules/device'
 
@@ -26,12 +25,10 @@ type TabsProps = {
 const Tabs: React.FC<TabsProps> = (props) => {
   const { className } = props
 
-  const { isEthereum } = useConfig()
   const { tabs } = stakeCtx.useData()
   const { isMobile } = device.useData()
   const { unboostQueue, unstakeQueue } = useStore(storeSelector)
-
-  const { tabIndex, tabsList, toggleReversed } = useTabs()
+  const { tabIndex, tabsList, withToggleButton, toggleReversed } = useTabs()
 
   const isClaimAvailable = Boolean(unboostQueue.isClaimable || unstakeQueue.withdrawable)
 
@@ -43,7 +40,7 @@ const Tabs: React.FC<TabsProps> = (props) => {
   return (
     <div className={cx(className, 'flex items-center justify-start gap-12 mobile:gap-4')}>
       {
-        isEthereum && (
+        withToggleButton && (
           <FlipButton
             onClick={toggleReversed}
           />

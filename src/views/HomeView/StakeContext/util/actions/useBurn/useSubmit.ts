@@ -1,4 +1,4 @@
-import { useCallback } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import { useConfig } from 'config'
 import { AllocatorActionType } from 'sdk'
 import { commonMessages } from 'helpers'
@@ -16,14 +16,17 @@ const useSubmit = (params: StakePage.Params) => {
   const actions = useActions()
   const subgraphUpdate = useSubgraphUpdate()
   const { refetchDepositTokenBalance, refetchMintTokenBalance } = useBalances()
+  const [ isSubmitting, setSubmitting ] = useState(false)
 
   const { vaultAddress } = useStore(storeSelector)
   const { signSDK, address, chainId, cancelOnChange } = useConfig()
 
-  return useCallback(async (shares: bigint) => {
+  const submit = useCallback(async (shares: bigint) => {
     if (!address) {
       return
     }
+
+    setSubmitting(true)
 
     actions.ui.setBottomLoader({
       content: commonMessages.notification.waitingConfirmation,
@@ -70,8 +73,11 @@ const useSubmit = (params: StakePage.Params) => {
 
         openTxCompletedModal({ tokens, hash })
       }
+
+      setSubmitting(false)
     }
     catch (error) {
+      setSubmitting(false)
       actions.ui.resetBottomLoader()
       console.error('Burn send transaction error', error as Error)
 
@@ -93,6 +99,14 @@ const useSubmit = (params: StakePage.Params) => {
     cancelOnChange,
     refetchMintTokenBalance,
     refetchDepositTokenBalance,
+  ])
+
+  return useMemo(() => ({
+    isSubmitting,
+    submit,
+  }), [
+    isSubmitting,
+    submit,
   ])
 }
 
