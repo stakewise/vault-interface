@@ -43,7 +43,7 @@ const BoostInfo: React.FC<BoostInfoProps> = (props) => {
         >
           <Text
             message={commonMessages.buttonTitle.boostGuideLink}
-            color="ocean"
+            color="primary"
             size="t14m"
           />
         </Href>

@@ -88,7 +88,7 @@ const TransactionItem: React.FC<TransactionItemProps> = (props) => {
       >
         <Icon
           name="icon/link"
-          color="ocean"
+          color="primary"
           size={16}
         />
       </Href>

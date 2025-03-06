@@ -1,0 +1,20 @@
+$light-secondary-start: map-get($colors-light-theme, 'secondary-start');
+$light-secondary-end: map-get($colors-light-theme, 'secondary-end');
+
+$dark-secondary-start: map-get($colors-dark-theme, 'secondary-start');
+$dark-secondary-end: map-get($colors-dark-theme, 'secondary-end');
+
+
+.text-secondary-gradient {
+  max-width: max-content;
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+
+  .body-light-theme & {
+    background-image: linear-gradient(to right, $light-secondary-start, $light-secondary-end);
+  }
+
+  .body-dark-theme & {
+    background-image: linear-gradient(to right, $dark-secondary-start, $dark-secondary-end);
+  }
+}

@@ -34,7 +34,7 @@ const Option: React.FC<OptionProps> = (props) => {
   const buttonNode = (
     <div
       className={cx(s.option, className, 'flex items-center pl-16 pr-24 cursor-pointer', {
-        'bg-ocean/10': active,
+        'bg-primary/10': active,
         'h-48': !subTitle,
         'h-[52rem]': subTitle,
       })}

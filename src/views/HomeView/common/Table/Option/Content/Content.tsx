@@ -41,7 +41,7 @@ const Content: React.FC<ContentProps> = (props) => {
           size={16}
         />
         <Text
-          className={isMagicValue ? 'text-fancy-sunset' : ''}
+          className={isMagicValue ? 'text-secondary-gradient' : ''}
           message={textValue.next.message}
           color="moon"
           size="t14m"

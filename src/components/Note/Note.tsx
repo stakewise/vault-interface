@@ -25,13 +25,13 @@ const Note: React.FC<NoteProps> = (props) => {
       return 'forest'
     }
 
-    return 'ocean'
+    return 'primary'
   }, [ type ])
 
   return (
     <div
       className={cx(className, 'py-16 px-24 mt-24 rounded-12', {
-        'bg-ocean/10 border border-ocean/30': type === 'info',
+        'bg-primary/10 border border-primary/30': type === 'info',
         'bg-forest/10 border border-forest/30': type === 'success',
         'bg-autumn/10 border border-autumn/30': type === 'warning',
         'bg-volcano/10 border border-volcano/30': type === 'error',

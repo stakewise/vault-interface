@@ -63,11 +63,11 @@ const SubmitButton: React.FC<SubmitButtonProps> = (props) => {
     if (isPermitRequired) {
       openTransactionsFlowModal({
         flow: 'boost',
-        onStart: ({ setTransaction }) => boost.submit({ setTransaction }),
+        onStart: ({ setTransaction }) => boost.submit({ amount, setTransaction }),
       })
     }
     else {
-      boost.submit()
+      boost.submit({ amount })
     }
   }, [ field, boost ])
 
@@ -75,7 +75,7 @@ const SubmitButton: React.FC<SubmitButtonProps> = (props) => {
     <Button
       className={className}
       title={title}
-      disabled={disabled}
+      disabled={value > 0n && disabled}
       color="secondary"
       loading={boost.isAllowanceFetching}
       onClick={handleClick}

@@ -86,7 +86,7 @@ const BoostPercent: React.FC<BoostPercentProps> = (props) => {
         )
       }
       <Text
-        className={cx({ 'text-fancy-sunset': isProfitable })}
+        className={cx({ 'text-secondary-gradient': isProfitable })}
         dataTestId={dataTestId}
         message={formattedApy}
         color={textColor}

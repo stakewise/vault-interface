@@ -77,7 +77,7 @@ export const [ SwitchAccountModal, openSwitchAccountModal ] = (
                 >
                   <Text
                     message={nextPathType.title}
-                    color="ocean"
+                    color="primary"
                     tag="span"
                     size="t14"
                   />
