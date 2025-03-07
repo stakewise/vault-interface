@@ -71,7 +71,7 @@ const DropdownView: DropdownViewComponent = (props) => {
         </ListboxButton>
         <ListboxOptions
           ref={refs.setFloating}
-          className={cx(s.options, 'absolute rounded-8 bg-background border border-moon/10 overflow-hidden shadow-md')}
+          className={cx(s.options, 'absolute rounded-8 bg-background border border-dark/10 overflow-hidden shadow-md')}
           style={floatingStyles}
           data-testid={`${dataTestId}-options`}
           onClick={onOptionsClick}

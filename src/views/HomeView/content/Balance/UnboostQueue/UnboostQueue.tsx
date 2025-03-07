@@ -82,7 +82,7 @@ const UnboostQueue: React.FC<UnboostQueueProps> = (props) => {
       <div className="flex items-center justify-between">
         <div>
           <TextWithTooltip
-            icon={{ size: 16, color: 'autumn' }}
+            icon={{ size: 16, color: 'warning' }}
             tooltip={commonMessages.tooltip.unboostPenalties}
             text={{ message: commonMessages.buttonTitle.unboostQueue }}
           />

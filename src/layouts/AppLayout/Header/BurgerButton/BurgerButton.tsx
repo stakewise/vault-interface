@@ -17,7 +17,7 @@ type BurgerButtonProps = {
 const BurgerButton: React.FC<BurgerButtonProps> = (props) => {
   const { className, active, dataTestId, onClick } = props
 
-  const lineClassName = cx(s.line, 'absolute bg-moon')
+  const lineClassName = cx(s.line, 'absolute bg-dark')
 
   const ariaLabel = active
     ? commonMessages.accessibility.closeMobileMenu

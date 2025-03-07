@@ -27,7 +27,7 @@ const Token: React.FC<TokenProps> = (props) => {
       <Text
         message={token}
         size={isMobile ? 't14b' : 'h20'}
-        color="moon"
+        color="dark"
         dataTestId={dataTestId}
       />
     </div>

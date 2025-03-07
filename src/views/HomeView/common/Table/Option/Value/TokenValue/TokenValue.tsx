@@ -23,7 +23,7 @@ const TokenValue: React.FC<TokenValueProps> = (props) => {
   return (
     <div className="flex items-center justify-between">
       <TokenAmount
-        textColor={prev.color || 'moon'}
+        textColor={prev.color || 'dark'}
         value={prev.value}
         token={token}
         size="sm"
@@ -35,12 +35,12 @@ const TokenValue: React.FC<TokenValueProps> = (props) => {
             <Icon
               className="mx-4"
               name="arrow/right"
-              color="moon"
+              color="dark"
               size={16}
             />
             <TokenAmount
               value={next.value as bigint}
-              textColor={next.color || 'moon'}
+              textColor={next.color || 'dark'}
               token={token}
               size="sm"
               dataTestId={`position-${next.dataTestId || 'amount'}-next`}

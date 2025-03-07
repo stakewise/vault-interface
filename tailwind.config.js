@@ -5,33 +5,26 @@ export default {
   ],
   safelist: [
     { pattern: /text-[htn]\d+[bm]?/ },
-    { pattern: /(bg|text|border)-(primary|background|(primary|secondary)-(start|end))/ },
-    // TODO rename
-    { pattern: /(bg|text|border)-(ocean|autumn|forest|jungle|volcano|stone|moon|sun|coal|snow|smoke|mirror)/ },
+    { pattern: /(bg|text|border)-(dark|light|white|black|(primary|secondary)(-(start|end))?|background|error|warning|success(-light)?)/ },
   ],
   darkMode: [ 'class', '.body-dark-theme' ],
   theme: {
     colors: {
+      dark: 'rgb(var(--color-dark-rgb) / <alpha-value>)',
+      light: 'rgb(var(--color-light-rgb) / <alpha-value>)',
+      black: 'rgb(var(--color-black-rgb) / <alpha-value>)',
+      white: 'rgb(var(--color-white-rgb) / <alpha-value>)',
       primary: 'rgb(var(--color-primary-rgb) / <alpha-value>)',
+      secondary: 'rgb(var(--color-secondary-rgb) / <alpha-value>)',
       background: 'rgb(var(--color-background-rgb) / <alpha-value>)',
+      error: 'rgb(var(--color-error-rgb) / <alpha-value>)',
+      warning: 'rgb(var(--color-warning-rgb) / <alpha-value>)',
+      success: 'rgb(var(--color-success-rgb) / <alpha-value>)',
+      'success-light': 'rgb(var(--color-success-light-rgb) / <alpha-value>)',
       'primary-start': 'rgb(var(--color-primary-start-rgb) / <alpha-value>)',
       'primary-end': 'rgb(var(--color-primary-end-rgb) / <alpha-value>)',
       'secondary-start': 'rgb(var(--color-secondary-start-rgb) / <alpha-value>)',
       'secondary-end': 'rgb(var(--color-secondary-end-rgb) / <alpha-value>)',
-
-      autumn: 'rgb(var(--color-autumn-rgb) / <alpha-value>)',
-      sunset: 'rgb(var(--color-sunset-rgb) / <alpha-value>)',
-      forest: 'rgb(var(--color-forest-rgb) / <alpha-value>)',
-      jungle: 'rgb(var(--color-jungle-rgb) / <alpha-value>)',
-      volcano: 'rgb(var(--color-volcano-rgb) / <alpha-value>)',
-      stone: 'rgb(var(--color-stone-rgb) / <alpha-value>)',
-      moon: 'rgb(var(--color-moon-rgb) / <alpha-value>)',
-      sun: 'rgb(var(--color-sun-rgb) / <alpha-value>)',
-      coal: 'rgb(var(--color-coal-rgb) / <alpha-value>)',
-      snow: 'rgb(var(--color-snow-rgb) / <alpha-value>)',
-      smoke: 'rgb(var(--color-smoke-rgb) / <alpha-value>)',
-      mirror: 'rgb(var(--color-mirror-rgb) / <alpha-value>)', // background
-      titanium: 'rgb(var(--color-titanium-rgb) / <alpha-value>)',
       transparent: 'rgb(255 255 255 / 0)',
     },
     spacing: {

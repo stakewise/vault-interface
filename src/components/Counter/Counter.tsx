@@ -17,7 +17,7 @@ export type CounterProps = {
 const Counter = forwardRef<HTMLAnchorElement | HTMLDivElement, CounterProps>((props, ref) => {
   const { className, count, disabled = false, isFetching } = props
 
-  const textColor = disabled ? 'stone' : 'inherit'
+  const textColor = disabled ? 'secondary' : 'inherit'
   const counterClassName = cx(className, s.counter, 'px-6 rounded-24 inline-flex items-center justify-center', {
     [s.disabled]: disabled,
   })

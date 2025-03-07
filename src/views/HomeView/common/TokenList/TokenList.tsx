@@ -27,14 +27,14 @@ const TokenList: React.FC<TokenListProps> = (props) => {
           <div
             key={index}
             className={cx('flex items-center justify-between', {
-              'mt-12 pt-12 border-top border-moon/10': index,
+              'mt-12 pt-12 border-top border-dark/10': index,
             })}
             data-testid={dataTestId}
           >
             <TextWithTooltip
               text={{
                 message: title,
-                color: 'moon',
+                color: 'dark',
                 size: 't14m',
               }}
               tooltip={tooltip}
@@ -50,7 +50,7 @@ const TokenList: React.FC<TokenListProps> = (props) => {
                 className="mt-4 opacity-60"
                 amount={amount}
                 token={token}
-                color="moon"
+                color="dark"
                 size="t12m"
                 dataTestId={dataTestId ? `${dataTestId}-fiat-amount` : undefined}
               />

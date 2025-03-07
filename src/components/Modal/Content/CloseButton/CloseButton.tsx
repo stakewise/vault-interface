@@ -17,7 +17,7 @@ const CloseButton: React.FC<CloseButtonProps> = (props) => {
     <RoundButton
       className="flex-none ml-24"
       icon="icon/close"
-      color="stone"
+      color="secondary"
       size={32}
       ariaLabel={messages.closeModal}
       dataTestId={dataTestId ? `${dataTestId}-close` : 'close'}

@@ -31,19 +31,19 @@ const Content: React.FC<ContentProps> = (props) => {
       <div className="flex gap-4 justify-end items-center opacity-90">
         <Text
           message={textValue.prev.message}
-          color="moon"
+          color="dark"
           size="t14m"
           dataTestId={`${dataTestId}-prev`}
         />
         <Icon
           name="arrow/right"
-          color="moon"
+          color="dark"
           size={16}
         />
         <Text
           className={isMagicValue ? 'text-secondary-gradient' : ''}
           message={textValue.next.message}
-          color="moon"
+          color="dark"
           size="t14m"
           dataTestId={textValue.next.dataTestId}
         />
@@ -67,7 +67,7 @@ const Content: React.FC<ContentProps> = (props) => {
           <Icon
             className="mr-4 opacity-50"
             name={icon as IconName}
-            color="moon"
+            color="dark"
             size={16}
           />
         )
@@ -75,7 +75,7 @@ const Content: React.FC<ContentProps> = (props) => {
       <Text
         className="opacity-90"
         message={value as string}
-        color="moon"
+        color="dark"
         size="t14m"
         dataTestId={dataTestId}
       />

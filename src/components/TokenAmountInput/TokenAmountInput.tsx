@@ -127,12 +127,12 @@ const TokenAmountInput: React.FC<TokenAmountInputProps> = (props) => {
             className="mb-16"
             message={label as string}
             size={isMobile ? 't12' : 't14m'}
-            color="moon"
+            color="dark"
             dataTestId={dataTestId ? `${dataTestId}-label` : ''}
           />
         )
       }
-      <div className="pt-16 px-16 pb-8 flex flex-col bg-moon/05 rounded-8">
+      <div className="pt-16 px-16 pb-8 flex flex-col bg-dark/05 rounded-8">
         <div
           className={cx('flex justify-between items-center w-full', {
             'pt-8': isMobile,
@@ -164,7 +164,7 @@ const TokenAmountInput: React.FC<TokenAmountInputProps> = (props) => {
               <FiatAmount
                 amount={formattedValue || '0'}
                 token={token}
-                color="stone"
+                color="secondary"
                 size="t14"
               />
             )
@@ -188,7 +188,7 @@ const TokenAmountInput: React.FC<TokenAmountInputProps> = (props) => {
               className="flex-1 mt-6"
               message={error}
               size="t14m"
-              color="volcano"
+              color="error"
             />
           )
         }

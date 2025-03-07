@@ -36,7 +36,7 @@ const Balance: React.FC<BalanceProps> = (props) => {
           },
         }}
         size={isDesktop ? 't14m' : 't12m'}
-        color="stone"
+        color="secondary"
       />
       {
         value && typeof onClick === 'function' && (

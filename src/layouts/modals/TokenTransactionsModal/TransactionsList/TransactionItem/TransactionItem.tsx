@@ -38,14 +38,14 @@ const TransactionItem: React.FC<TransactionItemProps> = (props) => {
     >
       <div className="flex justify-start items-center">
         <Text
-          color={amount.isExpenses ? 'volcano' : 'forest'}
+          color={amount.isExpenses ? 'error' : 'success-light'}
           message={amount.isExpenses ? '-' : '+'}
           size="t14m"
           dataTestId={`${dataTestId}-sign`}
         />
         <Text
           className="ml-8 whitespace-nowrap"
-          color="moon"
+          color="dark"
           size="t14m"
           message={sender}
           dataTestId={`${dataTestId}-sender`}
@@ -53,7 +53,7 @@ const TransactionItem: React.FC<TransactionItemProps> = (props) => {
       </div>
       <Text
         className="text-right whitespace-nowrap"
-        color="moon"
+        color="dark"
         size="t14m"
         message={recipient}
         dataTestId={`${dataTestId}-recipient`}
@@ -71,13 +71,13 @@ const TransactionItem: React.FC<TransactionItemProps> = (props) => {
         className={cx('whitespace-nowrap', {
           'opacity-60': isMobile,
         })}
-        color="moon"
+        color="dark"
         size="t14m"
         message={date.time(timestamp).fromNow()}
         dataTestId={`${dataTestId}-timestamp`}
       />
       <Text
-        color="moon"
+        color="dark"
         size="t14m"
         message={hash.text}
       />

@@ -44,21 +44,21 @@ const SelectWithLabelButton = forwardRef<HTMLButtonElement, SelectWithLabelButto
           message={label}
           tag="label"
           size={(title && !disabled) ? 't12' : 't14'}
-          color="moon"
+          color="dark"
           htmlFor={controlId}
         />
         <div className="flex text-start">
           <Text
             className="overflow-ellipsis whitespace-nowrap flex-1 mt-16"
             message={title as string}
-            color="moon"
+            color="dark"
             size="t14m"
           />
           <div className="ml-4 flex items-center">
             <Icon
               className={s.icon}
               name={`arrow/${arrow}` as IconProps['name']}
-              color="moon"
+              color="dark"
               size={16}
             />
           </div>

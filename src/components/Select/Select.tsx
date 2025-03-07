@@ -55,7 +55,7 @@ const Select: React.FC<SelectProps> = (props) => {
                       className="w-full absolute left-0 pt-2 px-16 opacity-70"
                       message={error as string}
                       size="t14"
-                      color="volcano"
+                      color="error"
                       dataTestId={`${dataTestId}Error`}
                     />
                   )

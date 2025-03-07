@@ -39,7 +39,7 @@ const Data: React.FC = () => {
         dataTestId="user-apy"
       />
       <Row
-        className="py-12 border-top border-moon/10"
+        className="py-12 border-top border-dark/10"
         text={messages.stake}
         tooltip={{
           ...messages.tooltips.stake,
@@ -53,7 +53,7 @@ const Data: React.FC = () => {
         }}
       />
       <Row
-        className="py-12 border-top border-moon/10"
+        className="py-12 border-top border-dark/10"
         text={commonMessages.earnedRewards}
         tooltip={commonMessages.tooltip.earnedRewards}
         isFetching={data.isFetching}

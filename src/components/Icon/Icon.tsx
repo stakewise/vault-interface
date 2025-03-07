@@ -21,7 +21,7 @@ export type IconProps = {
 }
 
 const Icon = forwardRef<HTMLDivElement, IconProps>((props, ref) => {
-  const { className, name, size = 16, color = 'moon', dataTestId } = props
+  const { className, name, size = 16, color = 'dark', dataTestId } = props
 
   const arrowDirection = /arrows?\//.test(name)
     ? name.replace(/(new-)?arrows?\/(up)?/, '')

@@ -19,13 +19,13 @@ const OptionTitle: React.FC<OptionTitleProps> = (props) => {
         <Text
           className="flex-1"
           message={title}
-          color="moon"
+          color="dark"
           size="t14"
         />
         <Icon
           className="ml-8"
           name="arrow/right"
-          color="moon"
+          color="dark"
           size={16}
         />
       </div>
@@ -36,7 +36,7 @@ const OptionTitle: React.FC<OptionTitleProps> = (props) => {
     <Text
       className={className}
       message={title}
-      color="moon"
+      color="dark"
       size="t14"
     />
   )

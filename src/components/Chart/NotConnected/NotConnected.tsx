@@ -19,7 +19,7 @@ const NotConnected: React.FC<NotConnectedProps> = (props) => {
       <div className="absolute h-full w-full flex items-center flex-col justify-center">
         <Text
           message={messages.title}
-          color="moon"
+          color="dark"
           size="t18m"
         />
         <Button

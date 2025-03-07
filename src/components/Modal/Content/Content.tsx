@@ -63,7 +63,7 @@ const Content: React.FC<ContentProps> = (props) => {
       className="mt-24"
       message={description as Intl.Message}
       HrefComponent={Href}
-      color="moon"
+      color="dark"
       size="t14"
       html
     />
@@ -85,7 +85,7 @@ const Content: React.FC<ContentProps> = (props) => {
                   <Text
                     className="mb-4"
                     message={subTitle as Intl.Message}
-                    color="moon"
+                    color="dark"
                     size="t14"
                   />
                 )

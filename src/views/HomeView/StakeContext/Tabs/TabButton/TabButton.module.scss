@@ -4,15 +4,15 @@
 
 @keyframes pulse {
   0% {
-    box-shadow: 0 0 0 0 rgb($color-jungle-rgb / 0.9);
-    background-color: rgb($color-jungle-rgb / 1);
+    box-shadow: 0 0 0 0 rgb($color-success-rgb / 0.9);
+    background-color: rgb($color-success-rgb / 1);
   }
   70% {
-    box-shadow: 0 0 0 8rem rgb($color-jungle-rgb / 0);
-    background-color: rgb($color-jungle-rgb / 0.9);
+    box-shadow: 0 0 0 8rem rgb($color-success-rgb / 0);
+    background-color: rgb($color-success-rgb / 0.9);
   }
   100% {
-    box-shadow: 0 0 0 rgb($color-jungle-rgb / 0);
-    background-color: rgb($color-jungle-rgb / 0.8);
+    box-shadow: 0 0 0 rgb($color-success-rgb / 0);
+    background-color: rgb($color-success-rgb / 0.8);
   }
 }

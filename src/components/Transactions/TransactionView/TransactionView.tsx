@@ -29,9 +29,9 @@ const TransactionView: React.FC<StepProps> = (props) => {
   const isLoaderVisible = [ TransactionStatus.Waiting, TransactionStatus.Confirm ].includes(status)
 
   const iconClassName = cx('flex items-center justify-center flex-none rounded-full w-32 h-32', {
-    'bg-moon/05': status === TransactionStatus.Pending || isLoaderVisible,
-    'bg-forest': status === TransactionStatus.Success,
-    'bg-volcano': status === TransactionStatus.Fail,
+    'bg-dark/05': status === TransactionStatus.Pending || isLoaderVisible,
+    'bg-success-light': status === TransactionStatus.Success,
+    'bg-error': status === TransactionStatus.Fail,
   })
 
   const iconName = useMemo(() => {
@@ -63,7 +63,7 @@ const TransactionView: React.FC<StepProps> = (props) => {
                 'rotate-360': isLoaderVisible,
               })}
               name={iconName}
-              color={isLoaderVisible ? 'moon' : 'snow'}
+              color={isLoaderVisible ? 'dark' : 'white'}
               size={24}
             />
           )
@@ -73,14 +73,14 @@ const TransactionView: React.FC<StepProps> = (props) => {
         <Text
           className="flex-1"
           message={title}
-          color="moon"
+          color="dark"
           size="t14m"
           dataTestId={dataTestId ? `${dataTestId}-title` : undefined}
         />
         <Text
           className="mt-4 opacity-60"
           message={descriptions[status] as Intl.Message}
-          color="moon"
+          color="dark"
           size="t14"
         />
       </div>

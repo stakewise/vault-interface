@@ -43,7 +43,7 @@ const Option: React.FC<OptionProps> = (props) => {
     >
       {
         Boolean(logo || icon) && (
-          <div className="rounded-full p-4 bg-moon/05">
+          <div className="rounded-full p-4 bg-dark/05">
             {
               logo ? (
                 <Logo
@@ -54,7 +54,7 @@ const Option: React.FC<OptionProps> = (props) => {
                 <Icon
                   name={icon as IconName}
                   size={24}
-                  color="moon"
+                  color="dark"
                 />
               )
             }
@@ -72,7 +72,7 @@ const Option: React.FC<OptionProps> = (props) => {
               className="opacity-50"
               dataTestId={`${dataTestId}-subtitle`}
               message={subTitle}
-              color="moon"
+              color="dark"
               size="t12"
             />
           </div>

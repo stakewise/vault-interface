@@ -18,7 +18,7 @@ const BackButton: React.FC<BackButtonProps> = (props) => {
       className="flex-none mr-24"
       ariaLabel={messages.goBack}
       icon="arrow/left"
-      color="stone"
+      color="secondary"
       size={32}
       data-testid={dataTestId ? `${dataTestId}-back` : 'back'}
       onClick={onClick}

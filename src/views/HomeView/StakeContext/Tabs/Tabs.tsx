@@ -80,7 +80,7 @@ const Tabs: React.FC<TabsProps> = (props) => {
         <div
           ref={tabButtonRef}
           className={cx(
-            'bg-moon/10 rounded-16',
+            'bg-dark/10 rounded-16',
             'absolute top-0 left-0 transition-all duration-200 pointer-events-none'
           )}
         />

@@ -60,7 +60,7 @@ const Tooltip: React.FC<TooltipProps> = props => {
               className="py-8 px-16"
               dataTestId={`${dataTestId}-content`}
               message={content as Intl.Message}
-              color="snow"
+              color="white"
               size="t12"
               html
             />

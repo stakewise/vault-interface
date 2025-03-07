@@ -23,7 +23,7 @@ const Table: React.FC<TableProps> = (props) => {
           <Text
             className="text-center mb-12"
             message={title}
-            color="moon"
+            color="dark"
             size="t14b"
           />
         )

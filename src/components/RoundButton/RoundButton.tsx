@@ -12,7 +12,7 @@ import s from './RoundButton.module.scss'
 
 export type RoundButtonSize = 16 | 24 | 32 | 48
 
-export type RoundButtonColors = 'stone' | 'moon'
+export type RoundButtonColors = 'secondary' | 'dark'
 
 const iconSizes: Record<RoundButtonSize, IconProps['size']> = {
   16: 16,
@@ -32,7 +32,7 @@ export type RoundButtonProps = (
 )
 
 const RoundButton: React.FC<RoundButtonProps> = (props) => {
-  const { className, disabled, icon, size, color, iconColor = 'moon', ariaLabel, ...rest } = props
+  const { className, disabled, icon, size, color, iconColor = 'dark', ariaLabel, ...rest } = props
 
   const iconSize = iconSizes[size]
   const buttonClassName = cx(s.button, className, s[`size-${size}`], s[`color-${color}`], 'rounded-full')

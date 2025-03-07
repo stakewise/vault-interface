@@ -22,7 +22,7 @@ const TextValue: React.FC<TextValueProps> = (props) => {
           <Icon
             className="mr-4 opacity-50"
             name={prev.icon}
-            color="moon"
+            color="dark"
             size={16}
           />
         )
@@ -30,7 +30,7 @@ const TextValue: React.FC<TextValueProps> = (props) => {
       <Text
         className={prev.className}
         message={prev.message || '-'}
-        color={prev.color || 'moon'}
+        color={prev.color || 'dark'}
         size={prev.size || 't14m'}
         dataTestId={`position-${prev.dataTestId || 'value'}-prev`}
       />
@@ -40,14 +40,14 @@ const TextValue: React.FC<TextValueProps> = (props) => {
             <Icon
               className="mx-4"
               name="arrow/right"
-              color="moon"
+              color="dark"
               size={16}
             />
             <Text
               className={next.className}
               message={next.message}
               size={next.size || 't14m'}
-              color={next.color || 'moon'}
+              color={next.color || 'dark'}
               dataTestId={`position-${next.dataTestId || 'value'}-next`}
             />
           </>

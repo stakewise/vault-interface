@@ -29,7 +29,7 @@ const FailedToken: React.FC<FailedTokenProps> = (props) => {
 
   return (
     <div
-      className={cx(className, 'flex items-center justify-between border-top border-moon/10 py-16')}
+      className={cx(className, 'flex items-center justify-between border-top border-dark/10 py-16')}
     >
       <Text
         className="flex-1"
@@ -37,7 +37,7 @@ const FailedToken: React.FC<FailedTokenProps> = (props) => {
           ...title,
           values: { token },
         }}
-        color="volcano"
+        color="error"
         size="t18m"
         dataTestId={`action-${action}`}
       />
@@ -52,7 +52,7 @@ const FailedToken: React.FC<FailedTokenProps> = (props) => {
           className="opacity-60 text-right mt-4"
           amount={value}
           token={token}
-          color="moon"
+          color="dark"
           size="t12"
         />
       </div>

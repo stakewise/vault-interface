@@ -16,10 +16,10 @@ const Skeleton: React.FC<SkeletonProps> = ({ className }) => {
   return (
     <div className={className}>
       <div className="absolute top-0 right-0 pb-32 h-full">
-        <Bone className="top-0 right-0 mr-48 h-full w-px bg-moon/03" />
+        <Bone className="top-0 right-0 mr-48 h-full w-px bg-dark/03" />
       </div>
       <div className="absolute w-full pr-48 bottom-0">
-        <Bone className="top-0 right-0 mb-32 w-full h-px bg-moon/03" />
+        <Bone className="top-0 right-0 mb-32 w-full h-px bg-dark/03" />
       </div>
       {
         Array.from({ length: columns }).map((_, index) => (

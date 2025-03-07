@@ -57,7 +57,7 @@ const SocialLinks: React.FC<SocialLinksProps> = (props) => {
           >
             <Icon
               name={icon}
-              color="moon"
+              color="dark"
               size={24}
             />
           </Href>

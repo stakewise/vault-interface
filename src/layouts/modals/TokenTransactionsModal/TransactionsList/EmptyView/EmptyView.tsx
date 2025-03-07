@@ -17,14 +17,14 @@ const EmptyView: React.FC<EmptyViewProps> = (props) => {
     <div className={cx(className, 'flex flex-col justify-center items-center m-auto')}>
       <Icon
         name="icon/storage"
-        color="moon"
+        color="dark"
         size={32}
       />
       <Text
         className="opacity-60 mt-24"
         message={messages.empty}
         size="t14"
-        color="moon"
+        color="dark"
       />
     </div>
   )

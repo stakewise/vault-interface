@@ -28,7 +28,7 @@ const InputButton: React.FC<InputButtonProps> = (props) => {
       <Text
         message={title}
         size="t12"
-        color="moon"
+        color="dark"
       />
     </ButtonBase>
   )

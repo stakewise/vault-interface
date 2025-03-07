@@ -1,4 +1,13 @@
 export default {
+  vault: {
+    en: 'Vault',
+    ru: 'Волт',
+    fr: 'Vault',
+    es: 'Vault',
+    pt: 'Vault',
+    de: 'Vault',
+    zh: 'Vault',
+  },
   tooltips: {
     notProfitable: {
       en: `

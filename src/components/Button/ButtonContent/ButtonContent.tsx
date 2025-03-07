@@ -67,7 +67,7 @@ const ButtonContent: React.FC<ButtonContentProps> = (props) => {
           <Icon
             className={iconClassName}
             name={arrow as IconName}
-            size={iconSize as IconSize}
+            size={iconSize}
             color="inherit"
           />
         )

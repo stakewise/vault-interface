@@ -31,7 +31,7 @@ const Row: React.FC<RowProps> = (props) => {
         <TextWithTooltip
           text={{
             message: text,
-            color: 'moon',
+            color: 'dark',
             size: 't14m',
           }}
           tooltip={tooltip}

@@ -30,19 +30,19 @@ interface Hook {
 const styles: Record<OsTokenPositionHealth, PositionHealthStyle> = {
   [OsTokenPositionHealth.Healthy]: {
     text: commonMessages.status.healthy,
-    color: 'jungle',
+    color: 'success',
   },
   [OsTokenPositionHealth.Moderate]: {
     text: commonMessages.status.moderate,
-    color: 'autumn',
+    color: 'warning',
   },
   [OsTokenPositionHealth.Unhealthy]: {
     text: commonMessages.status.unhealthy,
-    color: 'volcano',
+    color: 'error',
   },
   [OsTokenPositionHealth.Risky]: {
     text: commonMessages.status.risky,
-    color: 'volcano',
+    color: 'error',
   },
 }
 

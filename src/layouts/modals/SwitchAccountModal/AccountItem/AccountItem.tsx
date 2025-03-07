@@ -25,14 +25,14 @@ const AccountItem: React.FC<AccountItemProps> = (props) => {
   return (
     <ButtonBase
       className={cx('flex flex-col items-center justify-center p-24 rounded-8', {
-        'bg-moon/05': !isActive,
+        'bg-dark/05': !isActive,
         'bg-primary/20 border border-primary': isActive,
       })}
       onClick={handleClick}
     >
       <Text
         message={shortenAddress as Intl.Message | string}
-        color="moon"
+        color="dark"
         size="t14b"
       />
       {
@@ -48,7 +48,7 @@ const AccountItem: React.FC<AccountItemProps> = (props) => {
               className="mt-4 text-center opacity-60"
               token={token}
               amount={balance as string}
-              color="moon"
+              color="dark"
               size="t12m"
             />
           </>

@@ -9,7 +9,7 @@
 .borderFill {
 
   > * {
-    border-bottom: 1px solid rgb($color-stone-rgb / 0.1);
+    border-bottom: 1px solid rgb($color-secondary-rgb / 0.1);
 
     > * {
       margin-bottom: -1px;
@@ -20,7 +20,7 @@
 .borderMin {
 
   > div:first-child {
-    border-bottom: 1px solid rgb($color-stone-rgb / 0.1);
+    border-bottom: 1px solid rgb($color-secondary-rgb / 0.1);
   }
 
   > div:not(:first-child) {

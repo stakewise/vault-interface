@@ -34,7 +34,7 @@ const QueueDuration: React.FC<QueueDurationProps> = (props) => {
       <Text
         className="flex-1 opacity-50"
         message={messages.calculating}
-        color="moon"
+        color="dark"
         size="t12"
         dataTestId={dataTestId}
       />
@@ -51,7 +51,7 @@ const QueueDuration: React.FC<QueueDurationProps> = (props) => {
             time: timeLeft,
           },
         }}
-        color="moon"
+        color="dark"
         size="t12"
         dataTestId={dataTestId}
       />
@@ -68,7 +68,7 @@ const QueueDuration: React.FC<QueueDurationProps> = (props) => {
             time: estimatedTime,
           },
         }}
-        color="moon"
+        color="dark"
         size="t12"
         dataTestId={dataTestId}
       />

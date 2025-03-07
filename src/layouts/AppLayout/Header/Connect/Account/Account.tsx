@@ -49,7 +49,7 @@ const Account: React.FC<AccountProps> = (props) => {
       </PopoverButton>
       <PopoverPanel
         ref={refs.setFloating}
-        className={cx(s.container, 'bg-background px-12 py-8 rounded-12 border border-moon/10 shadow-md z-menu')}
+        className={cx(s.container, 'bg-background px-12 py-8 rounded-12 border border-dark/10 shadow-md z-menu')}
         style={floatingStyles}
       >
         <AccountMenu logo={logo} />

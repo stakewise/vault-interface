@@ -28,7 +28,7 @@ const networkOptions = Object.values(supportedChains)
 
     const logo = isGnosis ? 'token/GNO' : 'token/ETH'
 
-    const item: SelectProps['options'][number] = {
+    const item: DropdownProps['options'][number] = {
       title: config.name,
       value: config.id,
       logo,

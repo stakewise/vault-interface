@@ -32,14 +32,14 @@ const TextWithTooltip: React.FC<TextWithTooltipProps> = (props) => {
         dataTestId={text.dataTestId}
         message={text.message}
         size={text.size || 't14m'}
-        color={text.color || 'moon'}
+        color={text.color || 'dark'}
       />
       {
         Boolean(tooltip) && (
           <Tooltip content={tooltip}>
             <Icon
               className="ml-4 opacity-50"
-              color={icon?.color || 'stone'}
+              color={icon?.color || 'secondary'}
               size={icon?.size || 16}
               name="icon/info"
             />

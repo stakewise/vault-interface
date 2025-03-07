@@ -53,7 +53,7 @@ const Content: React.FC<ContentProps> = (props) => {
           className="mt-4 opacity-60"
           amount={amount}
           token={token}
-          color="moon"
+          color="dark"
           size="t12m"
         />
       </div>
@@ -77,7 +77,7 @@ const Content: React.FC<ContentProps> = (props) => {
 
     return (
       <UserApy
-        type="swap"
+        type="vault"
         userApy={data.apy.user}
         isDangerous={isDangerous}
         isUnprofitable={isUnprofitable}
@@ -90,7 +90,7 @@ const Content: React.FC<ContentProps> = (props) => {
   return (
     <Text
       message={value}
-      color="moon"
+      color="dark"
       size="t14m"
       dataTestId={dataTestId}
     />

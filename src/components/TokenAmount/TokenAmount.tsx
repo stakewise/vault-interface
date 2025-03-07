@@ -48,7 +48,7 @@ const params = {
 } as const
 
 const TokenAmount: React.FC<TokenAmountProps> = (props) => {
-  const { className, token, value, size = 'md', textColor = 'moon', withMinimalValue, dataTestId } = props
+  const { className, token, value, size = 'md', textColor = 'dark', withMinimalValue, dataTestId } = props
 
   const sizes = params[size]
 

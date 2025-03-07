@@ -51,7 +51,7 @@ const Option: React.FC<OptionProps> = (props) => {
                 <Icon
                   name={icon as IconName}
                   size={24}
-                  color="moon"
+                  color="dark"
                 />
               )
             }
@@ -70,7 +70,7 @@ const Option: React.FC<OptionProps> = (props) => {
               className="opacity-50"
               message={subTitle as string}
               size="t12"
-              color="moon"
+              color="dark"
             />
           </div>
         )

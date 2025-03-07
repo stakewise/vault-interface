@@ -125,7 +125,7 @@ const InputView: React.FC<InputViewProps> = (props) => {
 
   const inputClassName = cx(
     s.field,
-    'w-full text-t14m overflow-ellipsis whitespace-nowrap text-moon',
+    'w-full text-t14m overflow-ellipsis whitespace-nowrap text-dark',
     {
       'mt-16': Boolean(label),
       'cursor-default': disabled,
@@ -135,7 +135,7 @@ const InputView: React.FC<InputViewProps> = (props) => {
   const textareaClassName = cx(
     s.field,
     s.isMultiline,
-    'w-full mb-8 pb-8 pr-32 text-t14m text-moon scroll-y',
+    'w-full mb-8 pb-8 pr-32 text-t14m text-dark scroll-y',
     {
       'mt-24': Boolean(label),
       'cursor-default': disabled,
@@ -186,7 +186,7 @@ const InputView: React.FC<InputViewProps> = (props) => {
                 message={label as string}
                 tag="label"
                 size={(value || isFocused && !disabled) ? 't12' : 't14'}
-                color="moon"
+                color="dark"
                 htmlFor={controlId}
               />
             )
@@ -212,7 +212,7 @@ const InputView: React.FC<InputViewProps> = (props) => {
                   <Icon
                     name="icon/close"
                     size={24}
-                    color="moon"
+                    color="dark"
                   />
                 </ButtonBase>
               )
@@ -254,10 +254,10 @@ const InputView: React.FC<InputViewProps> = (props) => {
       }
       {
         isShowTooltip && (
-          <div className="py-8 px-16 rounded-8 absolute left-0 bottom-full bg-coal mb-4">
+          <div className="py-8 px-16 rounded-8 absolute left-0 bottom-full bg-black mb-4">
             <Text
               size="t14"
-              color="snow"
+              color="white"
               message={error as Intl.Message}
               dataTestId={`${testId}-error`}
             />

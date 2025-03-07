@@ -33,7 +33,7 @@ const Skeleton: React.FC = () => {
             <Bone
               key={id}
               className={cx('px-12 py-6 rounded-16', {
-                'bg-moon/10': !index,
+                'bg-dark/10': !index,
               })}
             >
               <div className="flex items-center gap-4 opacity-0">
@@ -44,7 +44,7 @@ const Skeleton: React.FC = () => {
                 }
                 <Text
                   message={title}
-                  color="moon"
+                  color="dark"
                   size="t14m"
                 />
               </div>

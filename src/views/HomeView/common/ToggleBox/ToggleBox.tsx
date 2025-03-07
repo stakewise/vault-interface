@@ -19,13 +19,13 @@ type ToggleBoxProps = {
 const ToggleBox: React.FC<ToggleBoxProps> = (props) => {
   const { className, children, toggleContent, isOpen, dataTestId, ariaLabel, handleOpen } = props
 
-  const containerClassName = cx(className, 'border rounded-8 border-moon/20')
+  const containerClassName = cx(className, 'border rounded-8 border-dark/20')
   const arrowClassName = cx(s.arrow, 'absolute rounded-full')
 
   return (
     <AutoHeightToggle
       className={containerClassName}
-      contentClassName="mt-12 pt-12 border-top border-moon/05"
+      contentClassName="mt-12 pt-12 border-top border-dark/05"
       toggleContent={toggleContent}
       padding={24}
       isOpen={isOpen}
@@ -42,7 +42,7 @@ const ToggleBox: React.FC<ToggleBoxProps> = (props) => {
           >
             <Icon
               name={isOpen ? 'arrow/up' : 'arrow/down'}
-              color="snow"
+              color="white"
               size={16}
             />
           </ButtonBase>

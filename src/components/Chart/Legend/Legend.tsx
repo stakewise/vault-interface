@@ -36,13 +36,13 @@ const Legend: React.FC<LegendProps> = (props) => {
               ref={tokenValueTooltipRef}
               message=""
               size="t18m"
-              color="moon"
+              color="dark"
             />
             <Text
               ref={fiatTooltipRef}
               className="opacity-50"
               message=""
-              color="moon"
+              color="dark"
               size="t14m"
             />
           </div>
@@ -51,7 +51,7 @@ const Legend: React.FC<LegendProps> = (props) => {
             ref={percentageTooltipRef}
             className="opacity-80"
             message=""
-            color="moon"
+            color="dark"
             size="t18m"
           />
         )
@@ -62,13 +62,13 @@ const Legend: React.FC<LegendProps> = (props) => {
             'ml-4': pointType === 'fiat',
           })}
           name="icon/calendar"
-          color="moon"
+          color="dark"
         />
         <Text
           ref={timeTooltipRef}
           className="opacity-50"
           message=""
-          color="moon"
+          color="dark"
           size="t12m"
         />
       </div>

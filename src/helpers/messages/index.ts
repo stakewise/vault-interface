@@ -163,4 +163,13 @@ export default {
     de: 'Erworbene Belohnungen',
     zh: '获得的奖励',
   },
+  amount: {
+    en: 'Amount',
+    ru: 'Сумма',
+    fr: 'Montant',
+    es: 'Cantidad',
+    pt: 'Quantidade',
+    de: 'Betrag',
+    zh: '金额',
+  },
 }

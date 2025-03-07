@@ -76,7 +76,7 @@ const UnstakeQueue: React.FC<UnstakeQueueProps> = (props) => {
         <div>
           <Text
             message={commonMessages.buttonTitle.unstakeQueue}
-            color="moon"
+            color="dark"
             size="t14m"
           />
           <QueueDuration

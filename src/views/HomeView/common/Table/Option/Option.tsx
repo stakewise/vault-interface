@@ -22,7 +22,7 @@ const Option: React.FC<OptionProps> = (props) => {
         <Text
           className="opacity-50"
           message={title}
-          color="moon"
+          color="dark"
           size="t14m"
         />
         {
@@ -31,7 +31,7 @@ const Option: React.FC<OptionProps> = (props) => {
               <Icon
                 className="ml-4 opacity-20"
                 name="icon/info"
-                color="moon"
+                color="dark"
                 size={16}
               />
             </Tooltip>

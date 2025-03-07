@@ -12,7 +12,7 @@ export type RangeSliderViewProps = {
   max?: number
   step?: number
   value: number
-  color?: 'jungle' | 'autumn' | 'volcano' | 'volcanoInverted'
+  color?: 'success' | 'warning' | 'error' | 'errorInverted'
   disabled?: boolean
   dataTestId?: string
   ariaLabelledBy?: string
@@ -21,7 +21,7 @@ export type RangeSliderViewProps = {
 
 const RangeSliderView: React.FC<RangeSliderViewProps> = (props: RangeSliderViewProps) => {
   const {
-    className, min = 0, max = 100, step = 1, value, color = 'jungle', disabled,
+    className, min = 0, max = 100, step = 1, value, color = 'success', disabled,
     dataTestId, ariaLabelledBy, onChange,
   } = props
 
@@ -56,7 +56,7 @@ const RangeSliderView: React.FC<RangeSliderViewProps> = (props: RangeSliderViewP
         'cursor-grabbing': isGrabbing && !disabled,
       })}
     >
-      <div className={cx(s.trackLine, 'bg-snow/05 rounded-2 relative')}>
+      <div className={cx(s.trackLine, 'bg-white/05 rounded-2 relative')}>
         <div
           className={cx(s.fill, 'absolute left-0 top-0 rounded-2')}
           style={{ width: `${percent}%` }}
@@ -68,7 +68,7 @@ const RangeSliderView: React.FC<RangeSliderViewProps> = (props: RangeSliderViewP
       >
         <div
           ref={thumbRef}
-          className={cx(s.thumb, 'bg-forest rounded-full absolute z-1', {
+          className={cx(s.thumb, 'bg-success-light rounded-full absolute z-1', {
             'cursor-grab': !isGrabbing && !disabled,
           })}
           tabIndex={0}

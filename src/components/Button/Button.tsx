@@ -77,22 +77,14 @@ const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement, ButtonProps>((p
   const titleSize = titleSizes[size] as ButtonContentProps['titleSize']
 
   const contentColor = useMemo(() => {
-    const isFancyColor = [ 'primary', 'secondary' ].includes(color)
+    const isBaseColor = [ 'primary', 'secondary' ].includes(color)
 
-    if (disabled || loading) {
-      return 'moon'
+    if (isBaseColor && !loading && !disabled) {
+      return 'white'
     }
 
-    if (color === 'moon') {
-      return 'sun'
-    }
-
-    if (isFancyColor) {
-      return 'snow'
-    }
-
-    return 'moon'
-  }, [ color, loading, disabled ])
+    return 'dark'
+  }, [ loading, disabled, color ])
 
   const buttonSizeClassName = cx({
     'min-w-[28rem] h-[28rem]': size === 'xs',
@@ -119,7 +111,7 @@ const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement, ButtonProps>((p
     [gradientClassName]: color === 'primary' || color === 'secondary',
     'from-primary-start to-primary-end': color === 'primary',
     'from-secondary-start to-secondary-end': color === 'secondary',
-    'bg-moon/05 hover:bg-moon/10 active:bg-moon/15': color === 'light',
+    'bg-dark/05 hover:bg-dark/10 active:bg-dark/15': color === 'light',
   })
 
   const buttonClassName = cx(
@@ -130,7 +122,7 @@ const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement, ButtonProps>((p
       'rounded-72': rounded,
       'w-full': fullWidth || !isDesktop && fullWidthOnMobile,
       [bgClassName]: !disabled && !loading,
-      'bg-moon/15 opacity-30': disabled || loading,
+      'bg-dark/15 opacity-30': disabled || loading,
       [buttonPaddingClassName]: title && !withoutPadding,
     }
   )

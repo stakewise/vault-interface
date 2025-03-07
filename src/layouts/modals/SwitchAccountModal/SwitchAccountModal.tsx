@@ -58,7 +58,7 @@ export const [ SwitchAccountModal, openSwitchAccountModal ] = (
               <Text
                 className="opacity-60"
                 message={commonMessages.loading}
-                color="moon"
+                color="dark"
                 size="t14"
               />
             ) : (
@@ -66,7 +66,7 @@ export const [ SwitchAccountModal, openSwitchAccountModal ] = (
                 <Text
                   className="opacity-60"
                   message={messages.note}
-                  color="moon"
+                  color="dark"
                   tag="span"
                   size="t14"
                 />
