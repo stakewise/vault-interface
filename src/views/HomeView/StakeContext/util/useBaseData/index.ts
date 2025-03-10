@@ -6,6 +6,7 @@ import methods from 'sw-methods'
 
 import useAPY from './useAPY'
 import useStats from './useStats'
+import useUserRewards from './useUserRewards'
 
 
 const initialState: Omit<StakePage.Data, 'refetchData'> = {
@@ -13,6 +14,7 @@ const initialState: Omit<StakePage.Data, 'refetchData'> = {
   ltvPercent: 0n,
   tvl: methods.formatApy(0),
   fee: methods.formatApy(0),
+  userRewards: 0n,
   isFetching: true,
   apy: {
     user: 0,
@@ -32,12 +34,14 @@ const useBaseData = (vaultAddress: string) => {
 
   const fetchAPY = useAPY(vaultAddress)
   const fetchStats = useStats()
+  const fetchUserRewards = useUserRewards(vaultAddress)
 
   const fetchData = useCallback(async () => {
     try {
-      const [ apyData, stats ] = await Promise.all([
+      const [ apyData, stats, userRewards ] = await Promise.all([
         fetchAPY(),
         fetchStats(),
+        fetchUserRewards(),
       ])
 
       const { tvl, users } = stats
@@ -49,6 +53,7 @@ const useBaseData = (vaultAddress: string) => {
         fee,
         users,
         ltvPercent,
+        userRewards,
         isFetching: false,
       })
     }
@@ -62,7 +67,7 @@ const useBaseData = (vaultAddress: string) => {
     finally {
       setState({ isFetching: false })
     }
-  }, [ fetchAPY, fetchStats, setState ])
+  }, [ fetchAPY, fetchStats, fetchUserRewards, setState ])
 
   useEffect(() => {
     fetchData()

@@ -35,6 +35,7 @@ declare global {
         maxBoost: number
       }
       ltvPercent: bigint
+      userRewards: bigint
       isFetching: boolean
       refetchData: () => Promise<void>
     }
