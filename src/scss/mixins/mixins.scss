@@ -87,7 +87,7 @@
   }
 }
 
-@mixin button-crystal-color($child: null) {
+@mixin button-light-color($child: null) {
   @include get-rule(background-color, rgb($color-dark-rgb / 0.05), $child);
 
   &:not([disabled]) {
