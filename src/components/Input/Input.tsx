@@ -2,33 +2,21 @@ import React, { useCallback, useState } from 'react'
 import { formatEther, parseEther } from 'ethers'
 import forms from 'sw-modules/forms'
 
-import InputView from './InputView/InputView'
+import InputView, { InputViewProps } from './InputView/InputView'
 
 
-export type InputProps = {
-  className?: string
-  disabled?: boolean
-  multiline?: number
-  autoFocus?: boolean
-  dataTestId?: string
+export type InputProps = Omit<InputViewProps, 'value'> & {
   withCrossButton?: boolean
   withChangeValue?: boolean
-  label?: Intl.Message | string
-  description?: Intl.Message | string
-  buttonTitle?: Intl.Message | string
   field: Forms.Field<string | bigint>
-  secondaryButtonTitle?: Intl.Message | string
   onChange?: (value: Forms.FieldValue) => void
-  onSecondaryButtonClick?: () => void
-  onButtonClick?: () => void
-  onFocus?: () => void
-  onBlur?: () => void
 }
 
 const Input: React.FC<InputProps> = (props) => {
   const {
     className, field, label, disabled, autoFocus, dataTestId,
     buttonTitle, description, secondaryButtonTitle, multiline,
+    elementClassName,
 
     withCrossButton = true,
     withChangeValue = true,
@@ -116,6 +104,7 @@ const Input: React.FC<InputProps> = (props) => {
       buttonTitle={buttonTitle}
       description={description}
       isRequired={field.isRequired}
+      elementClassName={elementClassName}
       secondaryButtonTitle={secondaryButtonTitle}
       onBlur={onBlur}
       onFocus={onFocus}
