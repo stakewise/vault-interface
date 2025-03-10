@@ -1,10 +1,9 @@
 import React from 'react'
 import cx from 'classnames'
 
-import { Text, Tooltip, Icon, IconName } from 'components'
+import { Text, Tooltip, Icon } from 'components'
 
 import Value, { ValueProps } from './Value/Value'
-import Content, { ContentProps } from './Content/Content'
 
 
 export type OptionProps = ValueProps & {
@@ -14,7 +13,7 @@ export type OptionProps = ValueProps & {
 }
 
 const Option: React.FC<OptionProps> = (props) => {
-  const { className, title, tooltip, textValue, tokenValue, singleValue, isFetching, isMagicValue } = props
+  const { className, title, tooltip, textValue, tokenValue, isFetching } = props
 
   return (
     <div className={cx(className, 'flex justify-between items-center')}>
@@ -41,17 +40,8 @@ const Option: React.FC<OptionProps> = (props) => {
       <Value
         textValue={textValue}
         tokenValue={tokenValue}
-        singleValue={singleValue}
         isFetching={isFetching}
       />
-      {/*<Content*/}
-      {/*  icon={icon}*/}
-      {/*  value={value}*/}
-      {/*  textValue={textValue}*/}
-      {/*  isFetching={isFetching}*/}
-      {/*  isMagicValue={isMagicValue}*/}
-      {/*  dataTestId={dataTestId}*/}
-      {/*/>*/}
     </div>
   )
 }

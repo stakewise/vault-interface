@@ -254,7 +254,7 @@ const InputView: React.FC<InputViewProps> = (props) => {
       }
       {
         isShowTooltip && (
-          <div className="py-8 px-16 rounded-8 absolute left-0 bottom-full bg-black mb-4">
+          <div className="py-8 px-16 rounded-8 absolute left-0 bottom-full bg-coal mb-4">
             <Text
               size="t14"
               color="white"

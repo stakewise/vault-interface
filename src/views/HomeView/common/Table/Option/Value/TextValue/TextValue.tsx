@@ -18,7 +18,7 @@ const TextValue: React.FC<TextValueProps> = (props) => {
   return (
     <div className="flex items-center justify-between">
       {
-        Boolean(prev.icon) && (
+        prev.icon && (
           <Icon
             className="mr-4 opacity-50"
             name={prev.icon}

@@ -3,13 +3,11 @@ import { useStore } from 'hooks'
 import { useConfig } from 'config'
 import forms from 'sw-modules/forms'
 import { commonMessages } from 'helpers'
-import type { PositionProps } from '../ActionModal/Position/Position'
 
-import type { Input } from './types'
+import type { Input, Position } from './types'
 
 
-type Items = PositionProps['items']
-type Item = Items[number]
+type Item = Position
 
 const storeSelector = (store: Store) => ({
   mintedShares: store.vault.user.balances.mintToken.minted.shares,

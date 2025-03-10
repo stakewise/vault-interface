@@ -6,24 +6,10 @@ import { useConfig } from 'config'
 
 import { stakeCtx } from 'views/HomeView/StakeContext/util'
 
-import type { Input } from './types'
+import type { Input, Position } from './types'
 
 
-type Item = {
-  title: Intl.Message | string
-  hidden?: boolean
-  isFetching?: boolean
-  textValue?: {
-    prev: {
-      message: string
-      dataTestId?: string
-    }
-    next: {
-      message?: string
-      dataTestId?: string
-    }
-  }
-}
+type Item = Position
 
 const hide: Item = {
   title: {},

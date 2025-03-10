@@ -1,17 +1,17 @@
 import React from 'react'
 
-import { Icon, TokenAmount, TextColor, IconName } from 'components'
+import { Icon, TokenAmount, TokenAmountProps } from 'components'
 
 
 export type TokenValueProps = {
   next: {
     value: bigint | null
-    color?: TextColor
+    color?: TokenAmountProps['textColor']
     dataTestId?: string
   }
   prev: {
     value: bigint
-    color?: TextColor
+    color?: TokenAmountProps['textColor']
     dataTestId?: string
   }
   token: Tokens

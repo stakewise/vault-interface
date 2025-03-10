@@ -4,12 +4,10 @@ import { useConfig } from 'config'
 import { commonMessages } from 'helpers'
 import forms from 'sw-modules/forms'
 
-import type { PositionProps } from '../ActionModal/Position/Position'
-import type { Input } from './types'
+import type { Input, Position } from './types'
 
 
-type Items = PositionProps['items']
-type Item = Items[number]
+type Item = Position
 
 const storeSelector = (store: Store) => ({
   stakedAssets: store.vault.user.balances.stake.assets,

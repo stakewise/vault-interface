@@ -4,11 +4,6 @@ import { AbortRequest } from 'apps/v3-sdk'
 const fetchMethod = <T = any>(url: string, options: RequestInit = {}): AbortRequest<T, T> => {
   const isApi = /^\/api/.test(url)
 
-  options.headers = {
-    ...options?.headers,
-    'content-type': 'application/json',
-  }
-
   if (isApi) {
     options.headers = {
       'cache-control': 'no-store',

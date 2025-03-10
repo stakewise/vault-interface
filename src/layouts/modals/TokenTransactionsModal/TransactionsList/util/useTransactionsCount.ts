@@ -15,10 +15,15 @@ type Output = {
   isFetching: boolean
 }
 
+type State = {
+  data: TokenHoldersQueryPayload | null
+  isFetching: boolean
+}
+
 const useTransactionsCount = (): Output => {
   const { sdk, address } = useConfig()
 
-  const [ { data, isFetching }, setState ] = useState({
+  const [ { data, isFetching }, setState ] = useState<State>({
     data: null,
     isFetching: !address,
   })

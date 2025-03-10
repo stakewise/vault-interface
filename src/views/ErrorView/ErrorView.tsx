@@ -10,6 +10,7 @@ import messages from './messages'
 
 type ErrorViewProps = {
   error: Error
+  reset: () => void
 }
 
 const ErrorView: React.FC<ErrorViewProps> = ({ error, reset }) => {

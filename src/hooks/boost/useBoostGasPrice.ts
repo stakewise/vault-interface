@@ -4,7 +4,7 @@ import { useConfig } from 'config'
 
 
 type Input = {
-  vaultAddress: string
+  vaultAddress: string | null
   mintTokenBalance: bigint
 }
 
@@ -15,7 +15,7 @@ const useBoostGasPrice = (values: Input) => {
   const [ gasPrice, setGasPrice ] = useState(0n)
 
   const fetchGasPrice = useCallback(async () => {
-    if (!address || !mintTokenBalance) {
+    if (!address || !mintTokenBalance || !vaultAddress) {
       return 0n
     }
 

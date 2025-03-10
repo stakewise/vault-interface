@@ -3,7 +3,7 @@ import methods from 'sw-methods'
 
 type StakeStatsQueryPayload = {
   osTokenHolder: {
-    apy: number
+    apy: string
     timestamp: string
     totalAssets: string
     earnedAssets: string

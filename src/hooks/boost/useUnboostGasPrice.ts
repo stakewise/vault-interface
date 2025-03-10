@@ -3,7 +3,7 @@ import { useConfig } from 'config'
 
 
 type Input = {
-  vaultAddress: string
+  vaultAddress: string | null
 }
 
 const useUnboostGasPrice = (values: Input) => {
@@ -13,7 +13,7 @@ const useUnboostGasPrice = (values: Input) => {
   const [ gasPrice, setGasPrice ] = useState(0n)
 
   const fetchGasPrice = useCallback(async () => {
-    if (!address) {
+    if (!address || !vaultAddress) {
       return 0n
     }
 

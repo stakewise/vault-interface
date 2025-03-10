@@ -5,26 +5,12 @@ import { useConfig } from 'config'
 import { BigDecimal } from 'sdk'
 import methods from 'sw-methods'
 
-import type { Input } from './types'
+import type { Input, Position } from './types'
 
 import messages from './messages'
 
 
-type Item = {
-  title: Intl.Message | string
-  hidden?: boolean
-  isFetching?: boolean
-  textValue?: {
-    prev: {
-      message: string
-      dataTestId?: string
-    }
-    next: {
-      message?: string
-      dataTestId?: string
-    }
-  }
-}
+type Item = Position
 
 const storeSelector = (store: Store) => ({
   mintTokenAPY: store.mintToken.apy,

@@ -4,13 +4,11 @@ import { useConfig } from 'config'
 import forms from 'sw-modules/forms'
 import { modifiers } from 'helpers'
 
-import type { PositionProps } from '../ActionModal/Position/Position'
-import type { Input } from './types'
+import type { Input, Position } from './types'
 import messages from './messages'
 
 
-type Items = PositionProps['items']
-type Item = Items[number]
+type Item = Position
 
 const storeSelector = (store: Store) => ({
   totalShares: store.vault.user.balances.boost.totalShares,

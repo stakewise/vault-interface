@@ -143,4 +143,13 @@ export default {
     de: 'Unboost-Warteschlange',
     zh: '取消Boost队列',
   },
+  claimed: {
+    en: 'Claimed',
+    ru: 'Получено',
+    fr: 'Réclamé',
+    es: 'Reclamado',
+    pt: 'Reivindicado',
+    de: 'Beansprucht',
+    zh: '已领取',
+  },
 }

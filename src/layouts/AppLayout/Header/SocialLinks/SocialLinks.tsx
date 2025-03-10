@@ -1,8 +1,8 @@
-import React, { useCallback } from 'react'
+import React from 'react'
 import cx from 'classnames'
-import { analytics, commonMessages } from 'helpers'
+import { commonMessages } from 'helpers'
 
-import { Icon, IconName , Href } from 'components'
+import { Icon, IconName, Href } from 'components'
 
 import s from './SocialLinks.module.scss'
 

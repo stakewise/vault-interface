@@ -11,7 +11,7 @@ type State = {
   isFetching: boolean
 }
 
-const useBoostAllowance = (vaultAddress: string) => {
+const useBoostAllowance = (vaultAddress: string | null) => {
   const { sdk, address, isGnosis } = useConfig()
 
   const [ { permitAddress, isFetching }, setState ] = useObjectState<State>({
@@ -43,7 +43,7 @@ const useBoostAllowance = (vaultAddress: string) => {
     try {
       let permitAddress: State['permitAddress'] = null
 
-      if (address) {
+      if (address && vaultAddress) {
         setState({ isFetching: true })
 
         permitAddress = await sdk.boost.getLeverageStrategyProxy({

@@ -1,6 +1,6 @@
 $primary-light: #74AAFC;
-$success-light: #4CD48B;
-$success-light-rgba: rgba(49, 212, 139, 0.3);
+$success-light-light: #4CD48B;
+$success-light-light-rgba: rgba(49, 212, 139, 0.3);
 
 
 .trackLine {
@@ -58,14 +58,14 @@ $success-light-rgba: rgba(49, 212, 139, 0.3);
 .success {
 
   .thumb {
-    background: linear-gradient(90deg, $success-light 5.26%, $primary-light 94.74%);
+    background: linear-gradient(90deg, $success-light-light 5.26%, $primary-light 94.74%);
     background-color: $primary-light;
-    box-shadow: 0 0 8rem rgba($success-light-rgba, 0.3);
+    box-shadow: 0 0 8rem rgba($success-light-light-rgba, 0.3);
   }
 
   .fill {
-    background: linear-gradient(90deg, $success-light 0%, $primary-light 108.5%);
-    box-shadow: 0 0 6rem $success-light;
+    background: linear-gradient(90deg, $success-light-light 0%, $primary-light 108.5%);
+    box-shadow: 0 0 6rem $success-light-light;
   }
 }
 

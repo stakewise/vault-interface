@@ -24,15 +24,16 @@ const Input: React.FC<InputProps> = (props) => {
 
   const { address } = useConfig()
   const { exitingPercent } = useStore(storeSelector)
-  const { field, tabs, stake, withdraw, boost } = stakeCtx.useData()
+  const { field, tabs, stake, unstake, boost, unboost } = stakeCtx.useData()
 
   const isDisabled = Boolean(exitingPercent) && [ Tab.Boost, Tab.Unboost ].includes(tabs.value)
   const isSubmitting = (
     isLoading
     || isDisabled
     || stake.isSubmitting
-    // || boost.isSubmitting
-    // || withdraw.isSubmitting
+    || boost.isSubmitting
+    || unstake.isSubmitting
+    || unboost.isSubmitting
   )
 
   let tokenBalance: TokenAmountInputProps['tokenBalance'] = 0n

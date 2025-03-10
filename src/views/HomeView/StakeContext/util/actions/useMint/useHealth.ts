@@ -4,11 +4,11 @@ import { useStore } from 'hooks'
 import { useConfig } from 'config'
 import { commonMessages } from 'helpers'
 
-import type { TextColor } from 'sw-components'
+import type { TextProps } from 'components'
 
 
 type PositionHealthStyle = {
-  color: TextColor
+  color: TextProps['color']
   text: Intl.Message
 }
 

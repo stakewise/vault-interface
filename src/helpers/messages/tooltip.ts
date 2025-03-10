@@ -55,4 +55,50 @@ export default {
     de: 'Die gesamten Belohnungen, die seit Beginn des Stakings verdient wurden. Belohnungen werden alle 24 Stunden aktualisiert.',
     zh: '自您开始进行Staking以来，总奖励收益。奖励每24小时更新一次。',
   },
+  boostDisabled: {
+    en: `
+      The current unboost request must be <CustomComponent /> before boosting again
+    `,
+    ru: `
+      Текущий запрос на анбуст должен быть <CustomComponent /> перед повторным бустом
+    `,
+    fr: `
+      La demande de débouclage actuelle doit être <CustomComponent /> avant de booster à nouveau.
+    `,
+    es: `
+      La solicitud de despotenciar actual debe ser <CustomComponent /> antes de potenciar nuevamente.
+    `,
+    pt: `
+      A solicitação de despotencialização atual deve ser <CustomComponent /> antes de potencializar novamente.
+    `,
+    de: `
+      Die aktuelle Entboost-Anforderung muss <CustomComponent /> bevor Sie erneut boosten können.
+    `,
+    zh: `
+      当前的取消加速请求必须在再次加速之前 <CustomComponent />。
+    `,
+  },
+  unboostDisabled: {
+    en: `
+      The current unboost request must be <CustomComponent /> before unboosting again
+    `,
+    ru: `
+      Текущий запрос на анбуст должен быть <CustomComponent /> перед повторным анбустом
+    `,
+    fr: `
+      La demande de désactivation actuelle doit être <CustomComponent /> avant de pouvoir désactiver à nouveau.
+    `,
+    es: `
+      La solicitud de desactivación actual debe ser <CustomComponent /> antes de volver a desactivar.
+    `,
+    pt: `
+      A solicitação de desativação atual deve ser <CustomComponent /> antes de desativar novamente.
+    `,
+    de: `
+      Die aktuelle Entboosting-Anfrage muss <CustomComponent /> sein, bevor Sie erneut entboosten können.
+    `,
+    zh: `
+      当前的取消提升请求必须是<CustomComponent />后才能再次取消提升
+    `,
+  },
 }

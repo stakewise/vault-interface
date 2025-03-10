@@ -88,6 +88,7 @@ const UnboostQueue: React.FC<UnboostQueueProps> = (props) => {
           />
           <QueueDuration
             duration={unboostQueueData.duration}
+            isClaimable={unboostQueueData.isClaimable}
             dataTestId="unboost-queue-duration"
           />
         </div>

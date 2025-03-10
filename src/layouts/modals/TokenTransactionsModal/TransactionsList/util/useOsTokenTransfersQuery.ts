@@ -23,10 +23,15 @@ type TokenTransfersQueryPayload = {
   }[]
 }
 
+type State = {
+  data: TokenTransfersQueryPayload | null
+  isFetching: boolean
+}
+
 const useOsTokenTransfersQuery = ({ variables, pause }: Input) => {
   const { sdk } = useConfig()
 
-  const [ { data, isFetching }, setState ] = useState({
+  const [ { data, isFetching }, setState ] = useState<State>({
     data: null,
     isFetching: !pause,
   })

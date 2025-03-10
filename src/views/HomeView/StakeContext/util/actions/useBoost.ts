@@ -49,7 +49,7 @@ const useBoost: Hook = (params) => {
       logic: async () => {
         refetchMintTokenBalance()
         refetchNativeTokenBalance()
-        await params.userFetch.balances()
+        await params.fetch.data()
       },
     })
 
