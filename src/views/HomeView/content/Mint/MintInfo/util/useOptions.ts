@@ -5,7 +5,7 @@ import { useConfig } from 'config'
 
 import { stakeCtx } from 'views/HomeView/StakeContext/util'
 
-import { usePosition } from '../../../util'
+import { usePosition, Position } from '../../../util'
 import useTransactionPrice from './useTransactionPrice'
 
 
@@ -28,7 +28,7 @@ const useOptions = () => {
     field,
   })
 
-  return useMemo(() => {
+  return useMemo<Position[]>(() => {
     if (address) {
       return [
         ...position,

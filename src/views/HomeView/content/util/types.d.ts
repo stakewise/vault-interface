@@ -1,3 +1,6 @@
+import { IconName, TextProps, TokenAmountProps } from 'components'
+
+
 export type ActionType = 'stake' | 'unstake' | 'mint' | 'burn' | 'boost' | 'unboost'
 
 export type Input = {
@@ -5,15 +8,14 @@ export type Input = {
   type: ActionType
 }
 
-type TokenValueStatus = {
-  value: bigint | null
+type TokenValue= {
+  value: bigint
+  color?: TokenAmountProps['textColor']
   dataTestId?: string
 }
 
-type TextValueStatus = {
-  color?: string
-  message?: string
-  dataTestId?: string
+type TextValue = Partial<TextProps> & {
+  icon?: IconName
 }
 
 export type Position = {
@@ -23,11 +25,13 @@ export type Position = {
   isFetching?: boolean
   tokenValue?: {
     token: Tokens
-    prev: TokenValueStatus
-    next: TokenValueStatus
+    prev: TokenValue
+    next: Omit<TokenValue, 'value'> & {
+      value: bigint | null
+    }
   }
   textValue?: {
-    prev: TextValueStatus
-    next: TextValueStatus
+    prev: TextValue
+    next: TextValue
   }
 }

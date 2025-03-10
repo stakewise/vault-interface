@@ -3,14 +3,11 @@ import { useFiatValues } from 'hooks'
 import { commonMessages } from 'helpers'
 import { useConfig } from 'config'
 
-import { TableProps } from 'views/HomeView/common'
 import { stakeCtx } from 'views/HomeView/StakeContext/util'
 
-import { usePosition } from 'views/HomeView/content/util'
+import { usePosition, Position } from 'views/HomeView/content/util'
 import useTransactionPrice from './useTransactionPrice'
 
-
-type Output = TableProps['options']
 
 const useInfo = () => {
   const { sdk } = useConfig()
@@ -31,7 +28,7 @@ const useInfo = () => {
     },
   })
 
-  return useMemo<Output>(() => {
+  return useMemo<Position[]>(() => {
     return [
       ...position,
       {
