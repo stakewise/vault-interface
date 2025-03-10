@@ -16,7 +16,9 @@ type ErrorViewProps = {
 const ErrorView: React.FC<ErrorViewProps> = ({ error, reset }) => {
   const { push } = useRouter()
 
-  const pageMessages = error ? messages.error : messages.notFound
+  const pageMessages = error
+    ? messages.error
+    : messages.notFound
 
   return (
     <div className="width-container flex-1 flex">
