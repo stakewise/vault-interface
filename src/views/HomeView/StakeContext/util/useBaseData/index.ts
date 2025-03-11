@@ -1,18 +1,20 @@
 import { useEffect, useCallback, useMemo } from 'react'
-import { useObjectState } from 'hooks'
+import { useObjectState, useStore } from 'hooks'
 import notifications from 'sw-modules/notifications'
 import { commonMessages } from 'helpers'
+import { useConfig } from 'config'
 import methods from 'sw-methods'
 
 import useAPY from './useAPY'
-import useStats from './useStats'
 import useUserRewards from './useUserRewards'
 
 
-const initialState: Omit<StakePage.Data, 'refetchData'> = {
-  users: 0,
+const storeSelector = (store: Store) => ({
+  totalAssets: store.vault.base.data.totalAssets,
+})
+
+const initialState: Omit<StakePage.Data, 'tvl' | 'refetchData'> = {
   ltvPercent: 0n,
-  tvl: methods.formatApy(0),
   fee: methods.formatApy(0),
   userRewards: 0n,
   isFetching: true,
@@ -26,32 +28,34 @@ const initialState: Omit<StakePage.Data, 'refetchData'> = {
 
 export const baseDataMock: StakePage.Data = {
   ...initialState,
+  tvl: methods.formatApy(0),
   refetchData: () => Promise.resolve(),
 }
 
 const useBaseData = (vaultAddress: string) => {
+  const { sdk } = useConfig()
+  const { totalAssets } = useStore(storeSelector)
   const [ state, setState ] = useObjectState(initialState)
 
   const fetchAPY = useAPY(vaultAddress)
-  const fetchStats = useStats()
   const fetchUserRewards = useUserRewards(vaultAddress)
+
+  const tvl = useMemo(() => {
+    return `${methods.formatTokenValue(totalAssets)} ${sdk.config.tokens.depositToken}`
+  }, [ sdk, totalAssets ])
 
   const fetchData = useCallback(async () => {
     try {
-      const [ apyData, stats, userRewards ] = await Promise.all([
+      const [ apyData, userRewards ] = await Promise.all([
         fetchAPY(),
-        fetchStats(),
         fetchUserRewards(),
       ])
 
-      const { tvl, users } = stats
       const { apy, fee, ltvPercent } = apyData
 
       setState({
         apy,
-        tvl,
         fee,
-        users,
         ltvPercent,
         userRewards,
         isFetching: false,
@@ -67,7 +71,7 @@ const useBaseData = (vaultAddress: string) => {
     finally {
       setState({ isFetching: false })
     }
-  }, [ fetchAPY, fetchStats, fetchUserRewards, setState ])
+  }, [ fetchAPY, fetchUserRewards, setState ])
 
   useEffect(() => {
     fetchData()
@@ -75,8 +79,10 @@ const useBaseData = (vaultAddress: string) => {
 
   return useMemo<StakePage.Data>(() => ({
     ...state,
+    tvl,
     refetchData: fetchData,
   }), [
+    tvl,
     state,
     fetchData,
   ])

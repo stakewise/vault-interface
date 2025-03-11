@@ -27,7 +27,6 @@ declare global {
     type Data = {
       tvl: string
       fee: string
-      users: number
       apy: {
         user: number
         vault: number
