@@ -15,7 +15,16 @@ import {
 } from './util'
 
 import s from './AppLayout.module.scss'
+import dynamic from 'next/dynamic'
 
+
+const BottomLoader = dynamic(() => import('./BottomLoader/BottomLoader'), {
+  ssr: false,
+})
+
+const Notifications = dynamic(() => import('./Notifications/Notifications'), {
+  ssr: false,
+})
 
 const AppLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   useFiatRates()
@@ -33,6 +42,8 @@ const AppLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
       <main className="flex-1 w-full flex">
         {children}
       </main>
+      <BottomLoader />
+      <Notifications />
     </div>
   )
 }

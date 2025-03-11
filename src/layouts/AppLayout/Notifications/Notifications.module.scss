@@ -1,0 +1,24 @@
+@include mobile {
+
+  .notifications {
+    right: 16rem;
+    left: 16rem;
+  }
+}
+
+@include tablet {
+
+  .notifications {
+    right: 24rem;
+    left: 24rem;
+  }
+}
+
+@include desktop {
+
+  .notifications {
+    left: 50%;
+    width: 560rem;
+    margin-left: -280rem;
+  }
+}
