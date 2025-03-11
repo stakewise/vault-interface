@@ -20,6 +20,7 @@ export interface BaseState {
 export const initialState: BaseState = {
   data: {
     apy: 0,
+    // @ts-ignore
     baseApy: 0,
     imageUrl: '',
     createdAt: 0,
