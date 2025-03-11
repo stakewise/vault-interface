@@ -2,11 +2,11 @@ import time from 'dayjs'
 
 import useTime from './useTime'
 
-import './plugins'
+import { initPlugins } from './plugins'
 import './locales'
 
 
-console.log('date', time)
+initPlugins()
 
 declare global {
 

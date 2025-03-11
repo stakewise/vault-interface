@@ -10,8 +10,12 @@ dayjs.extend(relativeTime)
 dayjs.extend(duration)
 dayjs.extend(utc)
 
-console.log('plugins')
-console.log(dayjs, [ customParseFormat, relativeTime, duration, utc ])
+export const initPlugins = () => {
+  dayjs.extend(customParseFormat)
+  dayjs.extend(relativeTime)
+  dayjs.extend(duration)
+  dayjs.extend(utc)
+}
 
 declare module 'dayjs' {
 

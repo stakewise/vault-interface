@@ -27,7 +27,6 @@ const Icon = forwardRef<HTMLDivElement, IconProps>((props, ref) => {
     ? name.replace(/(new-)?arrows?\/(up)?/, '')
     : ''
 
-  console.log({ name, arrowDirection })
   return (
     <Image
       ref={ref}

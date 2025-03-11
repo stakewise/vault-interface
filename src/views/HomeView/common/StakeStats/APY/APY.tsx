@@ -30,7 +30,7 @@ const APY: React.FC<APYProps> = (props) => {
       <div className="flex items-center justify-start">
         <Text
           className="opacity-60"
-          message={methods.formatApy(data.apy.mintToken)}
+          message={methods.formatApy(data.apy.vault)}
           color="dark"
           size="t14"
           dataTestId="os-token-apy"
