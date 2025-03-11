@@ -12,7 +12,6 @@ import { ImagesProvider } from 'components'
 import AppLayout from 'layouts/AppLayout/AppLayout'
 
 import { allLanguages } from 'scripts/collectMessages/languages'
-import { createWebStore } from 'sw-store/entries/web'
 
 
 polyfills.promiseAllSettled()
