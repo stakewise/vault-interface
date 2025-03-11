@@ -10,6 +10,7 @@ dayjs.extend(relativeTime)
 dayjs.extend(duration)
 dayjs.extend(utc)
 
+console.log(dayjs, [ customParseFormat, relativeTime, duration, utc ])
 
 declare module 'dayjs' {
 

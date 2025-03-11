@@ -8,13 +8,4 @@ export default {
     de: 'Gesamtwert gesperrt',
     zh: '锁定总价值',
   },
-  stakers: {
-    en: 'Stakers',
-    ru: 'Стейкеры',
-    fr: 'Stakers',
-    es: 'Stakers',
-    pt: 'Stakers',
-    de: 'Stakers',
-    zh: '质押者',
-  },
 }
