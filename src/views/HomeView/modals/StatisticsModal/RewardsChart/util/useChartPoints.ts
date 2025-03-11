@@ -12,7 +12,7 @@ type Input = {
 }
 
 type Output = {
-  points: Charts.Point[]
+  points: Charts.MainData
   isFetching: boolean
   isExportVisible: boolean
 }
@@ -24,7 +24,13 @@ const useChartPoints = ({ tab, type, days }: Input): Output => {
   return useMemo(() => ({
     isExportVisible: userStats.isExportVisible,
     isFetching: userStats.isFetching || osTokenStats.isFetching,
-    points: tab === Tab.User ? userStats.data : osTokenStats.data,
+    points: [
+      {
+        data: tab === Tab.User
+          ? userStats.data
+          : osTokenStats.data,
+      },
+    ],
   }), [ tab, userStats, osTokenStats ])
 }
 

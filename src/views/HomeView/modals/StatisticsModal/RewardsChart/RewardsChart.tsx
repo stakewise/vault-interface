@@ -61,7 +61,7 @@ const RewardsChart: React.FC<RewardsChartProps> = (props) => {
       className="mt-24"
       data={points}
       isFetching={isFetching}
-      hideRightPriceScale={isMobile}
+      hideRightScale={isMobile}
       token={sdk.config.tokens.depositToken}
       noItemsDescription={messages.description}
       dataTestId={`stake-chart-${tab}-${type}`}

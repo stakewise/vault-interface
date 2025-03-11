@@ -22,8 +22,10 @@ const ExportButton: React.FC<ExportButtonProps> = (props) => {
   const { vaultAddress } = stakeCtx.useData()
 
   const handleClick = useCallback(() => {
-    closeModal()
-    openExportRewardsModal({ vaultAddress, statsType: 'osToken' })
+    if (vaultAddress) {
+      closeModal()
+      openExportRewardsModal({ vaultAddress, statsType: 'osToken' })
+    }
   }, [ vaultAddress, closeModal ])
 
   return (
