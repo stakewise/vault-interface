@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "fast": "next dev -p 5005",
-    "build": "npm run graphql && next build",
+    "build": "next build",
     "dev": "npm run check:env && npm run fast",
     "lint": "next lint",
     "lint:css": "stylelint **/*.scss",
