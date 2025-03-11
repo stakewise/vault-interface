@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React from 'react'
 import cx from 'classnames'
 import date from 'sw-modules/date'
 import device from 'sw-modules/device'

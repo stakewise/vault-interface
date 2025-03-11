@@ -6,6 +6,8 @@ import './plugins'
 import './locales'
 
 
+console.log('date', time)
+
 declare global {
 
   namespace Date {
