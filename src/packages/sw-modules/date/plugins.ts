@@ -5,17 +5,14 @@ import relativeTime from 'dayjs/plugin/relativeTime'
 import customParseFormat from 'dayjs/plugin/customParseFormat'
 
 
-dayjs.extend(customParseFormat)
-dayjs.extend(relativeTime)
-dayjs.extend(duration)
-dayjs.extend(utc)
-
 export const initPlugins = () => {
   dayjs.extend(customParseFormat)
   dayjs.extend(relativeTime)
   dayjs.extend(duration)
   dayjs.extend(utc)
 }
+
+initPlugins()
 
 declare module 'dayjs' {
 
