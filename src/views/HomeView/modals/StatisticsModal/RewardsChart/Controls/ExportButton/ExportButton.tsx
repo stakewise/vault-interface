@@ -24,7 +24,7 @@ const ExportButton: React.FC<ExportButtonProps> = (props) => {
   const handleClick = useCallback(() => {
     if (vaultAddress) {
       closeModal()
-      openExportRewardsModal({ vaultAddress, statsType: 'osToken' })
+      openExportRewardsModal({ vaultAddress, statsType: 'allocator' })
     }
   }, [ vaultAddress, closeModal ])
 
