@@ -1,7 +1,6 @@
 import React, { useCallback } from 'react'
 import { commonMessages } from 'helpers'
 
-import { openTransactionsFlowModal } from 'layouts/modals'
 import { stakeCtx } from 'views/HomeView/StakeContext/util'
 import { Button } from 'views/HomeView/common'
 
