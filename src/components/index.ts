@@ -74,6 +74,8 @@ export type { ModalProps } from './Modal/Modal'
 export { default as Note } from './Note/Note'
 export type { NoteProps } from './Note/Note'
 
+export { default as Notification } from './Notification/Notification'
+
 export { default as Pagination } from './Pagination/Pagination'
 export type { PaginationProps } from './Pagination/Pagination'
 

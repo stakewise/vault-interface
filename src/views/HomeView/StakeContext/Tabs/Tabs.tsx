@@ -1,8 +1,9 @@
 'use client'
 import React from 'react'
 import cx from 'classnames'
-import { useConfig } from 'config'
+import { useStore } from 'hooks'
 import { useTabButton } from 'sw-hooks'
+import device from 'sw-modules/device'
 
 import { stakeCtx, Tab } from 'views/HomeView/StakeContext/util'
 
@@ -12,6 +13,11 @@ import FlipButton from './FlipButton/FlipButton'
 import { useTabs } from './util'
 
 
+const storeSelector = (store: Store) => ({
+  unboostQueue: store.vault.user.unboostQueue.data,
+  unstakeQueue: store.vault.user.exitQueue.data,
+})
+
 type TabsProps = {
   className?: string
 }
@@ -19,22 +25,22 @@ type TabsProps = {
 const Tabs: React.FC<TabsProps> = (props) => {
   const { className } = props
 
-  const { isEthereum } = useConfig()
-  const { tabs, unboostQueue, unstakeQueue } = stakeCtx.useData()
-
-  const { tabIndex, tabsList, toggleReversed } = useTabs()
+  const { tabs } = stakeCtx.useData()
+  const { isMobile } = device.useData()
+  const { unboostQueue, unstakeQueue } = useStore(storeSelector)
+  const { tabIndex, tabsList, withToggleButton, toggleReversed } = useTabs()
 
   const isClaimAvailable = Boolean(unboostQueue.isClaimable || unstakeQueue.withdrawable)
 
   const { tabButtonRef, containerRef } = useTabButton({
-    gap: 12,
+    gap: isMobile ? 4 : 12,
     index: tabIndex,
   }, [ tabsList, isClaimAvailable ])
 
   return (
-    <div className={cx(className, 'flex items-center justify-start gap-12')}>
+    <div className={cx(className, 'flex items-center justify-start gap-12 mobile:gap-4')}>
       {
-        isEthereum && (
+        withToggleButton && (
           <FlipButton
             onClick={toggleReversed}
           />
@@ -43,7 +49,7 @@ const Tabs: React.FC<TabsProps> = (props) => {
       <div
         ref={containerRef}
         className={cx(
-          'flex items-center justify-start gap-12',
+          'flex items-center justify-start gap-12 mobile:gap-4',
           'relative'
         )}
       >
@@ -74,7 +80,7 @@ const Tabs: React.FC<TabsProps> = (props) => {
         <div
           ref={tabButtonRef}
           className={cx(
-            'bg-moon/10 rounded-16',
+            'bg-dark/10 rounded-16',
             'absolute top-0 left-0 transition-all duration-200 pointer-events-none'
           )}
         />

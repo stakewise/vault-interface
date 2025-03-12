@@ -14,7 +14,7 @@ export type LoadingProps = {
 }
 
 const Loading: React.FC<LoadingProps> = (props) => {
-  const { className, color = 'moon', size = 16 } = props
+  const { className, color = 'dark', size = 16 } = props
 
   return (
     <Icon

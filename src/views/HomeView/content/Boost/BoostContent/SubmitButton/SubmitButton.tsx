@@ -1,6 +1,8 @@
 import React, { useCallback } from 'react'
-import froms from 'sw-modules/forms'
+import forms from 'sw-modules/forms'
 import { commonMessages } from 'helpers'
+import { useBoostSupplyCapsCheck, useStore } from 'hooks'
+import { useConfig } from 'config'
 
 import { openTransactionsFlowModal } from 'layouts/modals'
 import { stakeCtx } from 'views/HomeView/StakeContext/util'
@@ -10,6 +12,13 @@ import { Tooltip } from 'components'
 import messages from './messages'
 
 
+const storeSelector = (store: Store) => ({
+  vaultApy: store.vault.base.data.apy,
+  ltvPercent: store.vault.base.data.osTokenConfig.ltvPercent,
+  maxBoostApy: store.vault.base.data.allocatorMaxBoostApy,
+  exitingPercent: store.vault.user.balances.boost.exitingPercent,
+})
+
 type SubmitButtonProps = {
   className?: string
 }
@@ -17,11 +26,18 @@ type SubmitButtonProps = {
 const SubmitButton: React.FC<SubmitButtonProps> = (props) => {
   const { className } = props
 
-  const { data, boost, field } = stakeCtx.useData()
-  const { value, error } = froms.useFieldValue(field)
+  const { isGnosis } = useConfig()
+  const { boost, field } = stakeCtx.useData()
+  const { value, error } = forms.useFieldValue(field)
+  const { vaultApy, ltvPercent, maxBoostApy, exitingPercent } = useStore(storeSelector)
 
-  const isDisabled = data.boost.exitingPercent > 0
-  const isNotProfitable = data.apy.mintToken >= data.apy.maxBoost
+  const { isFetching, checkSupplyCap } = useBoostSupplyCapsCheck({
+    ltvPercent: BigInt(ltvPercent),
+    skip: isGnosis,
+  })
+
+  const isDisabled = exitingPercent > 0
+  const isNotProfitable = vaultApy >= maxBoostApy
 
   const title = isNotProfitable
     ? messages.notProfitable
@@ -29,10 +45,11 @@ const SubmitButton: React.FC<SubmitButtonProps> = (props) => {
 
   const isValidSupplyCap = error
     ? true
-    : boost.checkSupplyCap(value || 0n)
+    : checkSupplyCap(value || 0n)
 
   const disabled = (
     isDisabled
+    || isFetching
     || isNotProfitable
     || !isValidSupplyCap
     || boost.isSubmitting
@@ -46,11 +63,11 @@ const SubmitButton: React.FC<SubmitButtonProps> = (props) => {
     if (isPermitRequired) {
       openTransactionsFlowModal({
         flow: 'boost',
-        onStart: ({ setTransaction }) => boost.submit({ setTransaction }),
+        onStart: ({ setTransaction }) => boost.submit({ amount, setTransaction }),
       })
     }
     else {
-      boost.submit()
+      boost.submit({ amount })
     }
   }, [ field, boost ])
 
@@ -58,8 +75,8 @@ const SubmitButton: React.FC<SubmitButtonProps> = (props) => {
     <Button
       className={className}
       title={title}
-      disabled={disabled}
-      color="fancy-sunset"
+      disabled={value ? disabled || boost.isSubmitting : false}
+      color="secondary"
       loading={boost.isAllowanceFetching}
       onClick={handleClick}
     />

@@ -47,7 +47,7 @@ const Menu: React.FC<MenuProps> = (props) => {
   }
 
   return (
-    <div className={cx(className, 'border-top border-stone/30 pt-16 pb-8')}>
+    <div className={cx(className, 'border-top border-secondary/30 pt-16 pb-8')}>
       {
         items.map((item, index) => (
           <MenuItem

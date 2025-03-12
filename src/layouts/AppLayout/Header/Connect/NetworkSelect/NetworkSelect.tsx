@@ -28,7 +28,7 @@ const networkOptions = Object.values(supportedChains)
 
     const logo = isGnosis ? 'token/GNO' : 'token/ETH'
 
-    const item: SelectProps['options'][number] = {
+    const item: DropdownProps['options'][number] = {
       title: config.name,
       value: config.id,
       logo,
@@ -65,7 +65,7 @@ const NetworkSelect: React.FC<NetworkSelectProps> = (props) => {
       button={(
         <Button
           className="rounded-8"
-          color="crystal"
+          color="light"
           dataTestId={`${dataTestId}-button`}
           logo={isGnosis ? 'token/GNO' : 'token/ETH'}
           title={isMobile ? '' : sdk.config.network.name}

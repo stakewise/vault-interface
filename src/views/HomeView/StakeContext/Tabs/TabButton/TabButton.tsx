@@ -38,7 +38,7 @@ const TabButton = forwardRef<HTMLButtonElement, TabButtonProps>((props, ref) => 
         }
         <Text
           message={title}
-          color="moon"
+          color="dark"
           size="t14m"
         />
       </div>

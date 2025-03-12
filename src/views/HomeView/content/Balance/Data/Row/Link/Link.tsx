@@ -20,13 +20,13 @@ const Link: React.FC<LinkProps> = (props) => {
         <Icon
           className="mr-4"
           name={icon}
-          color="ocean"
+          color="primary"
           size={16}
         />
         <Text
           className="hover:underline"
           message={title}
-          color="ocean"
+          color="primary"
           size="t14m"
         />
       </ButtonBase>

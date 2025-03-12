@@ -1,13 +1,13 @@
 import React from 'react'
 import cx from 'classnames'
 
-import Icon, { IconName } from '../../Icon/Icon'
+import Icon, { IconProps } from '../../Icon/Icon'
 
 import PaginationButton from '../PaginationButton/PaginationButton'
 
 
 type ArrowButtonProps = {
-  iconName: IconName
+  iconName: IconProps['name']
   disabled: boolean
   dataTestId?: string
   onClick: () => void
@@ -19,7 +19,7 @@ const ArrowButton: React.FC<ArrowButtonProps> = (props) => {
   return (
     <PaginationButton
       className={cx({
-        'border-moon/10': disabled,
+        'border-dark/10': disabled,
       })}
       disabled={disabled}
       dataTestId={dataTestId}
@@ -27,7 +27,7 @@ const ArrowButton: React.FC<ArrowButtonProps> = (props) => {
     >
       <Icon
         name={iconName}
-        color={disabled ? 'stone' : 'moon'}
+        color={disabled ? 'secondary' : 'dark'}
         size={16}
       />
     </PaginationButton>

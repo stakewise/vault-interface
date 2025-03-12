@@ -41,7 +41,7 @@ const Address: React.FC<AddressProps> = (props) => {
         <Text
           className="ml-8"
           message={shortAddress}
-          color="moon"
+          color="dark"
           size="t14m"
         />
       </div>
@@ -49,7 +49,7 @@ const Address: React.FC<AddressProps> = (props) => {
         <RoundButton
           ariaLabel={commonMessages.accessibility.copyButton}
           icon="icon/copy"
-          color="stone"
+          color="secondary"
           size={24}
           onClick={handleCopy}
         />
@@ -57,7 +57,7 @@ const Address: React.FC<AddressProps> = (props) => {
           className="ml-8"
           ariaLabel={commonMessages.accessibility.viewInBlockExplorer}
           icon="icon/link"
-          color="stone"
+          color="secondary"
           size={24}
           onClick={handleCLickToLink}
         />

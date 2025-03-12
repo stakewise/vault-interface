@@ -19,12 +19,12 @@ const MenuItem: React.FC<MenuItemProps> = (props) => {
     <div className={cx(className, 'flex justify-between items-center w-full')}>
       <Text
         message={title}
-        color="moon"
+        color="dark"
         size="t14m"
       />
       <Icon
         name="arrow/right"
-        color="moon"
+        color="dark"
         size={16}
       />
     </div>

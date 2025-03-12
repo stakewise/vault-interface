@@ -13,35 +13,35 @@ type HeaderProps = {
 
 const Header: React.FC<HeaderProps> = ({ className }) => (
   <div
-    className={cx(className, 'py-16 grid border-bottom border-stone/30')}
+    className={cx(className, 'py-16 grid border-bottom border-secondary/30')}
   >
     <Text
       message={messages.sender}
-      color="moon"
+      color="dark"
       size="t14b"
     />
     <Text
       className="text-right"
       message={messages.recipient}
-      color="moon"
+      color="dark"
       size="t14b"
     />
     <Text
       className="text-right"
       message={commonMessages.amount}
-      color="moon"
+      color="dark"
       size="t14b"
     />
     <Text
       className="text-right"
       message={messages.date}
-      color="moon"
+      color="dark"
       size="t14b"
     />
     <Text
       className="text-right"
       message={messages.txHash}
-      color="moon"
+      color="dark"
       size="t14b"
     />
     <div />

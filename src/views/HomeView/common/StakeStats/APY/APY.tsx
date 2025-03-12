@@ -30,8 +30,8 @@ const APY: React.FC<APYProps> = (props) => {
       <div className="flex items-center justify-start">
         <Text
           className="opacity-60"
-          message={methods.formatApy(data.apy.mintToken)}
-          color="moon"
+          message={methods.formatApy(data.apy.vault)}
+          color="dark"
           size="t14"
           dataTestId="os-token-apy"
         />
@@ -42,7 +42,7 @@ const APY: React.FC<APYProps> = (props) => {
               <Text
                 className="opacity-60"
                 message="-"
-                color="moon"
+                color="dark"
                 size="t14"
               />
               &nbsp;
@@ -58,7 +58,7 @@ const APY: React.FC<APYProps> = (props) => {
       <Text
         className={cx('opacity-40', { 'mt-4': isMobile })}
         message={messages.apy}
-        color="moon"
+        color="dark"
         size={isMobile ? 't12m' : 't14m'}
       />
     </div>

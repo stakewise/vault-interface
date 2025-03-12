@@ -6,7 +6,7 @@ import Modal, { ModalProps } from '../Modal/Modal'
 
 
 export type TransactionsModalProps = Omit<ModalProps, 'ref'> & {
-  title: Intl.Message
+  title: Intl.Message | string
   items: Transaction[]
 }
 

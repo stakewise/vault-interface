@@ -106,7 +106,7 @@ const PercentInput: React.FC<PercentInputProps> = ({ field, isDisabled, dataTest
 
   return (
     <div
-      className="pt-16 px-16 pb-12 flex flex-col justify-between bg-moon/05 rounded-8 h-[108rem]"
+      className="pt-16 px-16 pb-12 flex flex-col justify-between bg-dark/05 rounded-8 h-[108rem]"
       data-testid={dataTestId}
     >
       <div
@@ -129,13 +129,13 @@ const PercentInput: React.FC<PercentInputProps> = ({ field, isDisabled, dataTest
             rangeButtons.map(({ title, value }, index) => (
               <ButtonBase
                 key={index}
-                className="opacity-50 hover:opacity-100 bg-moon/10 px-12 py-6 rounded-16 h-32"
+                className="opacity-50 hover:opacity-100 bg-dark/10 px-12 py-6 rounded-16 h-32"
                 disabled={isDisabled}
                 dataTestId={`percent-${value}`}
                 onClick={() => field.setValue(value)}
               >
                 <Text
-                  color="moon"
+                  color="dark"
                   message={title}
                   size="t14m"
                 />
@@ -146,7 +146,7 @@ const PercentInput: React.FC<PercentInputProps> = ({ field, isDisabled, dataTest
       </div>
       <RangeSliderView
         step={0.01}
-        color="volcanoInverted"
+        color="errorInverted"
         value={parseInt(value || '0')}
         disabled={isDisabled}
         onChange={(value) => field.setValue(value.toFixed())}

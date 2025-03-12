@@ -71,10 +71,10 @@ const TabsView: React.FC<TabsViewProps> = (props) => {
       lineRef.current.style.left = `${leftPosition}px`
 
       if (element.dataset['error'] === 'true') {
-        lineRef.current.classList.replace('bg-primary', 'bg-volcano')
+        lineRef.current.classList.replace('bg-primary', 'bg-error')
       }
       else {
-        lineRef.current.classList.replace('bg-volcano', 'bg-primary')
+        lineRef.current.classList.replace('bg-error', 'bg-primary')
       }
     }
   }, [ id ])
@@ -130,14 +130,14 @@ const TabsView: React.FC<TabsViewProps> = (props) => {
                     {
                       ({ selected }) => {
                         const defaultClassName = cx({
-                          'text-moon': selected,
-                          'text-stone': disabled,
-                          'interaction-color-stone': !selected,
+                          'text-dark': selected,
+                          'text-secondary': disabled,
+                          'interaction-color-secondary': !selected,
                         })
 
                         const errorClassName = cx({
-                          'text-volcano': selected,
-                          'interaction-color-volcano': !selected,
+                          'text-error': selected,
+                          'interaction-color-error': !selected,
                         })
 
                         return (

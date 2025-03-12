@@ -51,7 +51,7 @@ export const [ ConnectWalletModal, openConnectWalletModal ] = (
     const bottomNode = !isMonitorAddress && (
       <div className="mt-32 text-center">
         <Href
-          className="inline-block cursor-pointer hover-underline text-ocean"
+          className="inline-block cursor-pointer hover-underline text-primary"
           tabIndex="0"
           onClick={() => metaMaskOnboarding.current?.startOnboarding()}
         >

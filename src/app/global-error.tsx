@@ -1,12 +1,10 @@
 'use client'
 import React, { useEffect } from 'react'
 import cx from 'classnames'
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
 import intl from 'sw-modules/intl'
+import { Inter } from 'next/font/google'
 import theme, { ThemeColor } from 'sw-modules/theme'
 import { cookie, constants } from 'helpers'
-
 import messages from 'views/ErrorView/messages'
 
 import { Button, Text } from 'components'
@@ -32,7 +30,7 @@ const GlobalError = ({ error, reset }: GlobalErrorViewProps) => {
   const isSystemTheme = cookie.get(constants.cookieNames.isSystemTheme) !== 'false'
   const initialLocale = cookie.get(constants.cookieNames.language) as Intl.LanguagesKeys
 
-  const isValidLocale = (allLanguages as Intl.LanguagesKeys[]).includes(initialLocale)
+  const isValidLocale = allLanguages.includes(initialLocale)
 
   const locale = isValidLocale ? initialLocale : 'en'
 
@@ -47,67 +45,68 @@ const GlobalError = ({ error, reset }: GlobalErrorViewProps) => {
 
   return (
     <html lang={locale}>
-      <body
-        className={cx(font.className, {
-          'body-dark-theme': cookieTheme === ThemeColor.Dark,
-          'body-light-theme': cookieTheme === ThemeColor.Light,
-        })}
-      >
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              if (${isSystemTheme}) {
-                const isDarkTheme = (
-                  window.matchMedia
-                  && window.matchMedia('(prefers-color-scheme: dark)').matches
-                );
-      
-                if (isDarkTheme) {
-                  document.body.classList.add('body-dark-theme');
-                  document.body.classList.remove('body-light-theme');
-                }
-                else {
-                  document.body.classList.add('body-light-theme');
-                  document.body.classList.remove('body-dark-theme');
-                }
-              }
-            `,
-          }}
-        />
-        <div className="width-container flex-1 flex h-[100vh]">
-          <div className="flex flex-col items-center justify-center m-auto">
-            <theme.Provider value={themeContext}>
-              <intl.IntlProvider
-                locale={locale as Intl.LanguagesKeys}
-                locales={allLanguages as unknown as Intl.LanguagesKeys[]}
-              >
-                <Text
-                  className="mt-64 text-center"
-                  message={messages.error.title}
-                  color="p600"
-                  size="6xl"
-                />
-                <Text
-                  className="mt-20 text-center max-w-[320rem]"
-                  message={messages.error.text}
-                  color="p900"
-                  size="lg"
-                />
-                <Button
-                  className="mt-64"
-                  bgColor="primary"
-                  title={messages.buttonTitle}
-                  size="md"
-                  onClick={() => {
-                    reset()
-                    window.location.href = '/'
-                  }}
-                />
-              </intl.IntlProvider>
-            </theme.Provider>
+    <body
+      className={cx(font.className, {
+        'body-dark-theme': cookieTheme === ThemeColor.Dark,
+        'body-light-theme': cookieTheme === ThemeColor.Light,
+      })}
+    >
+    <script
+      dangerouslySetInnerHTML={{
+        __html: `
+          if (${isSystemTheme}) {
+            const isDarkTheme = (
+              window.matchMedia
+              && window.matchMedia('(prefers-color-scheme: dark)').matches
+            );
+  
+            if (isDarkTheme) {
+              document.body.classList.add('body-dark-theme');
+              document.body.classList.remove('body-light-theme');
+            }
+            else {
+              document.body.classList.add('body-light-theme');
+              document.body.classList.remove('body-dark-theme');
+            }
+          }
+        `,
+      }}
+    />
+    <div id="global-wrapper" className="page-error flex h-lvh">
+      <theme.Provider value={themeContext}>
+        <intl.IntlProvider
+          locale={locale as Intl.LanguagesKeys}
+          locales={allLanguages as unknown as Intl.LanguagesKeys[]}
+        >
+          <div className='width-container flex flex-1'>
+            <div className="flex flex-col items-center justify-center m-auto max-w-[520rem]">
+              <Text
+                className="text-center"
+                message={messages.error.title}
+                color="dark"
+                size="h32"
+              />
+              <Text
+                className="mt-16 text-center"
+                message={messages.error.text}
+                color="dark"
+                size="t14"
+              />
+              <Button
+                className="mt-32"
+                dataTestId="global-error-back-button"
+                title={messages.buttonTitle}
+                onClick={() => {
+                  reset()
+                  window.location.href = '/'
+                }}
+              />
+            </div>
           </div>
-        </div>
-      </body>
+        </intl.IntlProvider>
+      </theme.Provider>
+    </div>
+    </body>
     </html>
   )
 }

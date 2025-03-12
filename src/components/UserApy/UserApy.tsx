@@ -28,7 +28,7 @@ const UserApy: React.FC<UserApyProps> = (props) => {
       <Text
         message={methods.formatApy(userApy)}
         dataTestId={dataTestId}
-        color="moon"
+        color="dark"
         size="t14m"
       />
     )

@@ -1,12 +1,18 @@
 import React, { useMemo } from 'react'
 import { commonMessages } from 'helpers'
 import { useConfig } from 'config'
+import { useStore } from 'hooks'
 
 import { QueueDuration, Text, Button } from 'components'
 import { stakeCtx } from 'views/HomeView/StakeContext/util'
 
-import { ToggleBox, TokenList } from '../../../common'
+import { TokenList, ToggleBox } from '../../../common'
 
+
+const storeSelector = (store: Store) => ({
+  exitQueueData: store.vault.user.exitQueue.data,
+  isFetching: store.vault.user.exitQueue.isFetching,
+})
 
 type UnstakeQueueProps = {
   className?: string
@@ -17,6 +23,7 @@ type UnstakeQueueProps = {
 const UnstakeQueue: React.FC<UnstakeQueueProps> = (props) => {
   const { className, isOpen, handleOpen } = props
 
+  const { exitQueueData, isFetching } = useStore(storeSelector)
   const { unstakeQueue } = stakeCtx.useData()
   const { sdk, isReadOnlyMode, address } = useConfig()
 
@@ -28,11 +35,11 @@ const UnstakeQueue: React.FC<UnstakeQueueProps> = (props) => {
 
     return {
       title,
-      amount: unstakeQueue.total - unstakeQueue.withdrawable,
+      amount: exitQueueData.total - exitQueueData.withdrawable,
       token: sdk.config.tokens.depositToken,
       dataTestId: 'total-assets',
     }
-  }, [ sdk, unstakeQueue ])
+  }, [ sdk, exitQueueData ])
 
   const exited = useMemo(() => {
     const title: Intl.Message = {
@@ -43,14 +50,14 @@ const UnstakeQueue: React.FC<UnstakeQueueProps> = (props) => {
     return {
       title,
       token: sdk.config.tokens.depositToken,
-      amount: unstakeQueue.withdrawable,
+      amount: exitQueueData.withdrawable,
       dataTestId: 'exited-assets',
     }
-  }, [ sdk, unstakeQueue ])
+  }, [ sdk, exitQueueData ])
 
   const amounts = useMemo(() => [ exiting, exited ], [ exiting, exited ])
 
-  if (!unstakeQueue.total || !address) {
+  if (!exitQueueData.total || !address) {
     return null
   }
 
@@ -69,22 +76,23 @@ const UnstakeQueue: React.FC<UnstakeQueueProps> = (props) => {
         <div>
           <Text
             message={commonMessages.buttonTitle.unstakeQueue}
-            color="moon"
+            color="dark"
             size="t14m"
           />
           <QueueDuration
-            duration={unstakeQueue.duration}
+            duration={exitQueueData.duration}
+            isClaimable={!exitQueueData.withdrawable}
             dataTestId="unstake-queue-duration"
           />
         </div>
         <Button
           title={commonMessages.buttonTitle.claim}
-          loading={unstakeQueue.isSubmitting}
-          disabled={!unstakeQueue.withdrawable || isReadOnlyMode}
-          color="fancy-ocean"
+          loading={isFetching}
+          disabled={!exitQueueData.withdrawable || isReadOnlyMode}
+          color="primary"
           size="m"
           dataTestId="unstake-queue-claim-button"
-          onClick={unstakeQueue.claim}
+          onClick={() => unstakeQueue.claim(exitQueueData)}
         />
       </div>
     </ToggleBox>

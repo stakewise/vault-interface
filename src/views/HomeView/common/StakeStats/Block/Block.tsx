@@ -22,14 +22,14 @@ const Block: React.FC<BlockProps> = (props) => {
       <Text
         className="opacity-60"
         message={value}
-        color="moon"
+        color="dark"
         size="t14"
         dataTestId={dataTestId}
       />
       <Text
         className={cx('opacity-40', { 'mt-4': isMobile })}
         message={text}
-        color="moon"
+        color="dark"
         size={isMobile ? 't12m' : 't14m'}
       />
     </div>

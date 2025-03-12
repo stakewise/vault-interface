@@ -10,12 +10,15 @@ import messages from './messages'
 
 type ErrorViewProps = {
   error: Error
+  reset: () => void
 }
 
 const ErrorView: React.FC<ErrorViewProps> = ({ error, reset }) => {
   const { push } = useRouter()
 
-  const pageMessages = error ? messages.error : messages.notFound
+  const pageMessages = error
+    ? messages.error
+    : messages.notFound
 
   return (
     <div className="width-container flex-1 flex">
@@ -23,13 +26,13 @@ const ErrorView: React.FC<ErrorViewProps> = ({ error, reset }) => {
         <Text
           className="text-center"
           message={pageMessages.title}
-          color="moon"
+          color="dark"
           size="h32"
         />
         <Text
           className="mt-16 text-center"
           message={pageMessages.text}
-          color="moon"
+          color="dark"
           size="t14"
         />
         <Button

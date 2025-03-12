@@ -10,7 +10,7 @@ import Option, { OptionProps } from './Option/Option'
 export type TableProps = {
   className?: string
   title?: Intl.Message
-  options: OptionProps[]
+  options: Array<OptionProps & { hidden?: boolean }>
 }
 
 const Table: React.FC<TableProps> = (props) => {
@@ -23,18 +23,20 @@ const Table: React.FC<TableProps> = (props) => {
           <Text
             className="text-center mb-12"
             message={title}
-            color="moon"
+            color="dark"
             size="t14b"
           />
         )
       }
       {
-        options.map((option, index) => (
-          <Option
-            key={index}
-            className={cx({ 'mt-16': index })}
-            {...option}
-          />
+        options.map(({ hidden, ...option }, index) => (
+          !hidden && (
+            <Option
+              key={index}
+              className={cx({ 'mt-16': index })}
+              {...option}
+            />
+          )
         ))
       }
     </Box>

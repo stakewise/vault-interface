@@ -10,29 +10,38 @@ const baseTabsList = [
 
 const boostTabsList = [
   { id: Tab.Stake, title: commonMessages.buttonTitle.stake },
+  { id: Tab.Mint, title: commonMessages.buttonTitle.mint },
   { id: Tab.Boost, title: commonMessages.buttonTitle.boost },
   { id: Tab.Balance, title: commonMessages.balance },
 ]
 
 const unboostTabsList = [
   { id: Tab.Unstake, title: commonMessages.buttonTitle.unstake },
+  { id: Tab.Burn, title: commonMessages.buttonTitle.burn },
   { id: Tab.Unboost, title: commonMessages.buttonTitle.unboost },
   { id: Tab.Balance, title: commonMessages.balance },
 ]
 
+const mintTabsList = boostTabsList.filter(({ id }) => id !== Tab.Boost)
+
+const burnTabsList = unboostTabsList.filter(({ id }) => id !== Tab.Unboost)
+
 export type Input = {
-  isEthereum?: boolean
+  withMint?: boolean
+  withBoost?: boolean
   isReversed?: boolean
 }
 
-const getTabsList = ({ isEthereum, isReversed }: Input) => {
-  let list = baseTabsList
-
-  if (isEthereum) {
-    list = isReversed ? unboostTabsList : boostTabsList
+const getTabsList = ({ withMint, withBoost, isReversed }: Input) => {
+  if (withBoost) {
+    return isReversed ? unboostTabsList : boostTabsList
   }
 
-  return list
+  if (withMint) {
+    return isReversed ? burnTabsList : mintTabsList
+  }
+
+  return baseTabsList
 }
 
 

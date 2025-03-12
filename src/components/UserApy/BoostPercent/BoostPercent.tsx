@@ -39,14 +39,14 @@ const BoostPercent: React.FC<BoostPercentProps> = (props) => {
   const isProfitable = !isDangerous && !isUnprofitable
 
   let tooltip: Intl.Message | undefined = undefined,
-    textColor: TextProps['color'] = 'moon'
+    textColor: TextProps['color'] = 'dark'
 
   const apyType = type === 'vault'
-    ? intlRef.current.formatMessage(commonMessages.links.vault)
+    ? intlRef.current.formatMessage(messages.vault)
     : sdk.config.tokens.mintToken
 
   if (isUnprofitable) {
-    textColor = 'autumn'
+    textColor = 'warning'
     tooltip = {
       ...messages.tooltips.notProfitable,
       values: {
@@ -55,7 +55,7 @@ const BoostPercent: React.FC<BoostPercentProps> = (props) => {
     }
   }
   else if (isDangerous) {
-    textColor = 'volcano'
+    textColor = 'error'
     tooltip = {
       ...messages.tooltips.dangerous,
       values: {
@@ -80,13 +80,13 @@ const BoostPercent: React.FC<BoostPercentProps> = (props) => {
           <Icon
             className="mr-4"
             name="icon/warning"
-            color={isDangerous ? 'volcano' : 'autumn'}
+            color={isDangerous ? 'error' : 'warning'}
             size={16}
           />
         )
       }
       <Text
-        className={cx({ 'text-fancy-sunset': isProfitable })}
+        className={cx({ 'text-secondary-gradient': isProfitable })}
         dataTestId={dataTestId}
         message={formattedApy}
         color={textColor}

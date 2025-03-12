@@ -25,10 +25,11 @@ type GlobalLayoutProps = {
   locale: Intl.LanguagesKeys
   serverTheme: Theme.Input
   serverDevice: Device.Context
+  vaultBase: Partial<Store['vault']['base']> | null
 }
 
 const GlobalLayout: React.FC<GlobalLayoutProps> = (values) => {
-  const { children, networkId, locale: initialLocale, serverDevice, serverTheme } = values
+  const { children, networkId, locale: initialLocale, serverDevice, serverTheme, vaultBase } = values
 
   // Strange "_next" type values may come in
   const isValidLocale = allLanguages.includes(initialLocale)
@@ -50,7 +51,16 @@ const GlobalLayout: React.FC<GlobalLayoutProps> = (values) => {
     document.documentElement.lang = locale
   }, [ locale ])
 
-  const store = useMemo(() => createVaultInterfaceStore(), [])
+
+  const store = useMemo(() => {
+    if (vaultBase) {
+      return createVaultInterfaceStore({
+        vault: { base: vaultBase },
+      })
+    }
+
+    return createVaultInterfaceStore()
+  }, [ vaultBase ])
 
   return (
     <theme.Provider value={themeContext}>

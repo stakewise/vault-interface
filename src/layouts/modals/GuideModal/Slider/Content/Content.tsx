@@ -57,7 +57,7 @@ const Content: React.FC<ContentProps> = (props) => {
                 'min-h-[88rem]': isDesktop,
               })}
               message={text as Intl.Message}
-              color="moon"
+              color="dark"
               size="t14m"
               HrefComponent={withHref ? Href : undefined}
               html={withHref}

@@ -11,7 +11,7 @@ import s from './FlipButton.module.scss'
 
 const arrows = [ s.left, s.right ]
 
-const style = getImageStyle({ size: 16, color: 'moon', imageUrl: arrowImage.src })
+const style = getImageStyle({ size: 16, color: 'dark', imageUrl: arrowImage.src })
 
 type FlipButtonProps = {
   className?: string
@@ -41,7 +41,7 @@ const FlipButton: React.FC<FlipButtonProps> = (props) => {
 
   return (
     <ButtonBase
-      className={cx(className, 'opacity-50 hover:opacity-100 bg-moon/10 px-12 py-6 rounded-16 h-32')}
+      className={cx(className, 'opacity-50 hover:opacity-100 bg-dark/10 px-12 py-6 rounded-16 h-32')}
       ariaLabel={commonMessages.accessibility.flipStakeTabs}
       dataTestId="flip-tabs"
       onClick={handleClick}
@@ -54,7 +54,7 @@ const FlipButton: React.FC<FlipButtonProps> = (props) => {
           arrows.map((className, index) => (
             <div
               key={index}
-              className={cx(className, 'w-16 h-16 absolute top-0 left-0 bg-moon')}
+              className={cx(className, 'w-16 h-16 absolute top-0 left-0 bg-dark')}
               style={style}
             />
           ))

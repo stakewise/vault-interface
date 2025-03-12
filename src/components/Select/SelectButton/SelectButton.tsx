@@ -23,13 +23,13 @@ type SelectButtonProps = ButtonProps & {
 const SelectButton = forwardRef<HTMLButtonElement, SelectButtonProps>((props, ref) => {
   const { className, logo, title, disabled, isError, isActive, arrow = 'down', ...rest } = props
 
-  const defaultClassName = isActive ? 'text-primary': 'interaction-color-moon'
+  const defaultClassName = isActive ? 'text-primary': 'interaction-color-dark'
 
   return (
     <ButtonBase
       ref={ref}
       className={cx('flex py-12', className, s.selectButton, {
-        'text-volcano': isError,
+        'text-error': isError,
         [defaultClassName]: !isError,
       })}
       {...rest}
@@ -60,7 +60,7 @@ const SelectButton = forwardRef<HTMLButtonElement, SelectButtonProps>((props, re
               className={s.icon}
               size={16}
               name={`arrow/${arrow}` as IconProps['name']}
-              color={isActive ? 'primary' : 'moon'}
+              color={isActive ? 'primary' : 'dark'}
             />
           </div>
         )

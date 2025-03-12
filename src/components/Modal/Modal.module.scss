@@ -5,11 +5,11 @@
   @include fade-in(animation, 300ms, ease);
 
   @include light-theme {
-    background: rgb($color-snow-rgb / 0.1);
+    background: rgb($color-white-rgb / 0.1);
   }
 
   @include dark-theme {
-    background: rgb($color-coal-rgb / 0.7);
+    background: rgb($color-black-rgb / 0.7);
   }
 }
 

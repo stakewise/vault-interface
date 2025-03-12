@@ -15,12 +15,12 @@ const BackButton: React.FC<BackButtonProps> = (props) => {
 
   return (
     <ButtonBase
-      className={cx(className, 'h-40 pb-8 px-12 mb-8 flex items-center w-full border-bottom border-moon/10')}
+      className={cx(className, 'h-40 pb-8 px-12 mb-8 flex items-center w-full border-bottom border-dark/10')}
       onClick={onClick}
     >
       <Icon
         name="arrow/left"
-        color="moon"
+        color="dark"
         size={16}
       />
       {
@@ -29,7 +29,7 @@ const BackButton: React.FC<BackButtonProps> = (props) => {
             className="flex-1 mr-16"
             message={title}
             size="t14"
-            color="moon"
+            color="dark"
           />
         )
       }

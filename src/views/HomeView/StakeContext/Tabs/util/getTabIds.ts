@@ -1,8 +1,8 @@
 import getTabsList, { Input } from './getTabsList'
 
 
-const getTabIds = ({ isEthereum, isReversed }: Input) => {
-  const list = getTabsList({ isEthereum, isReversed })
+const getTabIds = (values: Input) => {
+  const list = getTabsList(values)
 
   return list.map(({ id }) => id)
 }

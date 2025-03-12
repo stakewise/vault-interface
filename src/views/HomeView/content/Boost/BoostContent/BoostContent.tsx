@@ -1,11 +1,15 @@
 import React from 'react'
+import { useStore } from 'hooks'
 
 import { ExitQueueNote } from 'views/HomeView/common'
-import { stakeCtx } from 'views/HomeView/StakeContext/util'
 
 import BoostInfo from './BoostInfo/BoostInfo'
 import SubmitButton from './SubmitButton/SubmitButton'
 
+
+const storeSelector = (store: Store) => ({
+  exitingPercent: store.vault.user.balances.boost.exitingPercent,
+})
 
 type BoostContentProps = {
   className?: string
@@ -14,13 +18,13 @@ type BoostContentProps = {
 const BoostContent: React.FC<BoostContentProps> = (props) => {
   const { className } = props
 
-  const { data } = stakeCtx.useData()
+  const { exitingPercent } = useStore(storeSelector)
 
   return (
     <div className={className}>
       <SubmitButton />
       {
-        data.boost.exitingPercent ? (
+        exitingPercent ? (
           <ExitQueueNote
             className="mt-8"
             action="boost"

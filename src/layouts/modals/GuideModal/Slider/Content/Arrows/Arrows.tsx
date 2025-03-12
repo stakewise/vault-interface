@@ -37,8 +37,8 @@ const Arrows: React.FC<ArrowsProps> = (props) => {
         disabled={!swiper?.activeIndex}
         size={isMobile ? 24 : 48}
         icon="arrow/left"
-        iconColor="smoke"
-        color="moon"
+        iconColor="light"
+        color="dark"
         onClick={handlePrev}
       />
       <RoundButton
@@ -47,8 +47,8 @@ const Arrows: React.FC<ArrowsProps> = (props) => {
         disabled={swiper?.slides?.length - 1 === swiper?.activeIndex}
         size={isMobile ? 24 : 48}
         icon="arrow/right"
-        iconColor="smoke"
-        color="moon"
+        iconColor="light"
+        color="dark"
         onClick={handleNext}
       />
     </div>

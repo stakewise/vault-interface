@@ -37,7 +37,7 @@ const ButtonRangePicker: React.FC<ButtonRangePickerProps> = (props) => {
       className={cx(
         className,
         'relative',
-        'flex rounded-12 border border-stone/10'
+        'flex rounded-12 border border-secondary/10'
       )}
       data-testid={dataTestId}
     >
@@ -55,7 +55,7 @@ const ButtonRangePicker: React.FC<ButtonRangePickerProps> = (props) => {
                 'opacity-50': index !== activeIndex,
               })}
               message={item.title || ''}
-              color="moon"
+              color="dark"
               size="t14m"
             />
           </ButtonBase>
@@ -65,7 +65,7 @@ const ButtonRangePicker: React.FC<ButtonRangePickerProps> = (props) => {
         ref={tabButtonRef}
         className={cx(
           s.rounded,
-          'bg-moon/03 py-4 px-8',
+          'bg-dark/03 py-4 px-8',
           'absolute top-0 left-0 transition-all duration-200 pointer-events-none'
         )}
       />

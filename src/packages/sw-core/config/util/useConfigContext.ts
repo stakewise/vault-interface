@@ -39,16 +39,6 @@ const useConfigContext = <T extends {}>(values: Input<T>): ConfigProvider.Contex
 
   const stateRef = useRef<ConfigProvider.State>(state)
 
-  const isChainChanged = stateRef.current.networkId !== state.networkId
-
-  let isAddressChanged = stateRef.current.address !== state.address
-  const isAutoConnectChanged = stateRef.current.autoConnectChecked !== state.autoConnectChecked
-
-  if (isAutoConnectChanged && !stateRef.current.address) {
-    // autoconnect should not affect this property
-    isAddressChanged = false
-  }
-
   stateRef.current = state
 
   const setData = useCallback((data: Partial<ConfigProvider.State>) => {
@@ -105,8 +95,6 @@ const useConfigContext = <T extends {}>(values: Input<T>): ConfigProvider.Contex
       wallet,
       chainId,
       isReadOnlyMode,
-      isChainChanged,
-      isAddressChanged,
       isInjectedWallet,
       cancelOnChange,
     }
@@ -121,8 +109,6 @@ const useConfigContext = <T extends {}>(values: Input<T>): ConfigProvider.Contex
     wallet,
     config,
     state,
-    isChainChanged,
-    isAddressChanged,
     middleware,
     cancelOnChange,
   ])

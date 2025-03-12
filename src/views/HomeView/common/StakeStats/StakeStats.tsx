@@ -30,12 +30,6 @@ const StakeStats: React.FC<StakeStatsProps> = (props) => {
         text={isMobile ? 'TVL' : messages.tvl}
         dataTestId="stake-tvl"
       />
-      <Block
-        className="pr-8"
-        value={data.users.toLocaleString()}
-        text={messages.stakers}
-        dataTestId="stake-users"
-      />
     </Box>
   )
 }

@@ -19,7 +19,7 @@ const NoItems: React.FC<NoItemsProps> = (props) => {
         <Text
           className="mt-16"
           message={messages.noItems}
-          color="moon"
+          color="dark"
           size="t18m"
         />
         {
@@ -27,7 +27,7 @@ const NoItems: React.FC<NoItemsProps> = (props) => {
             <Text
               className="mt-4 opacity-50 text-center"
               message={description}
-              color="moon"
+              color="dark"
               size="t14m"
             />
           )

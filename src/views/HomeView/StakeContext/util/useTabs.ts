@@ -1,5 +1,5 @@
-import { useMemo, useCallback, useState, useEffect } from 'react'
-import { useConfig } from 'config'
+import { useMemo, useCallback, useState } from 'react'
+import { useChainChanged } from 'hooks'
 
 import { Tab } from './enum'
 
@@ -10,7 +10,6 @@ export const tabsMock = {
 }
 
 const useTabs = () => {
-  const { isChainChanged } = useConfig()
   const [ tab, setTab ] = useState<Tab>(Tab.Stake)
 
   const handleSetTab = useCallback((tab: Tab) => {
@@ -21,11 +20,7 @@ const useTabs = () => {
     }
   }, [])
 
-  useEffect(() => {
-    if (isChainChanged) {
-      setTab(Tab.Stake)
-    }
-  }, [ isChainChanged ])
+  useChainChanged(() => setTab(Tab.Stake))
 
   return useMemo(() => ({
     value: tab,

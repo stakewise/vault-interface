@@ -16,25 +16,25 @@ const Note: React.FC<NoteProps> = (props) => {
 
   const textColor = useMemo(() => {
     if (type === 'error') {
-      return 'volcano'
+      return 'error'
     }
     if (type === 'warning') {
-      return 'autumn'
+      return 'warning'
     }
     if (type === 'success') {
-      return 'forest'
+      return 'success-light'
     }
 
-    return 'ocean'
+    return 'primary'
   }, [ type ])
 
   return (
     <div
       className={cx(className, 'py-16 px-24 mt-24 rounded-12', {
-        'bg-ocean/10 border border-ocean/30': type === 'info',
-        'bg-forest/10 border border-forest/30': type === 'success',
-        'bg-autumn/10 border border-autumn/30': type === 'warning',
-        'bg-volcano/10 border border-volcano/30': type === 'error',
+        'bg-primary/10 border border-primary/30': type === 'info',
+        'bg-success-light/10 border border-success-light/30': type === 'success',
+        'bg-warning/10 border border-warning/30': type === 'warning',
+        'bg-error/10 border border-error/30': type === 'error',
       })}
       data-testid={dataTestId}
     >

@@ -3,7 +3,7 @@ import cx from 'classnames'
 
 import Logo from '../../Logo/Logo'
 import Loading from '../../Loading/Loading'
-import Text, { TextSize } from '../../Text/Text'
+import Text, { TextSize, TextColor } from '../../Text/Text'
 import Icon, { IconProps } from '../../Icon/Icon'
 import { IconName, LogoName } from '../../Image/Image'
 
@@ -54,11 +54,11 @@ const ButtonContent: React.FC<ButtonContentProps> = (props) => {
         )
       }
       {
-        Boolean(title) && (
+        Boolean(title && !loading) && (
           <Text
             message={title as string}
             size={titleSize}
-            color="inherit"
+            color={color as TextColor}
           />
         )
       }
@@ -66,9 +66,9 @@ const ButtonContent: React.FC<ButtonContentProps> = (props) => {
         Boolean(arrow && !loading) && (
           <Icon
             className={iconClassName}
-            name={arrow as IconName}
-            size={iconSize as IconSize}
-            color="inherit"
+            name={`arrow/${arrow}` as IconName}
+            size={iconSize}
+            color={color}
           />
         )
       }

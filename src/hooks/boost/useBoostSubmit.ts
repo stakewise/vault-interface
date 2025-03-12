@@ -18,6 +18,7 @@ type ApproveInput = {
 
 type PermitInput = {
   userAddress: string
+  vaultAddress: string
   spenderAddress: string
   setTransaction: SetTransaction
 }
@@ -25,6 +26,7 @@ type PermitInput = {
 type BoostInput = {
   amount: bigint
   userAddress: string
+  vaultAddress: string
   permitParams?: {
     vault: string
     amount: bigint
@@ -51,7 +53,7 @@ type Output = {
   submit: (values: SubmitInput) => Promise<string | undefined>
 }
 
-const useBoostSubmit = (vaultAddress: string): Output => {
+const useBoostSubmit = (vaultAddress: string | null): Output => {
   const actions = useActions()
   const { signSDK, address } = useConfig()
 
@@ -87,7 +89,7 @@ const useBoostSubmit = (vaultAddress: string): Output => {
   }, [ allowance, approve, checkAllowance ])
 
   const permit = useCallback(async (values: PermitInput) => {
-    const { userAddress, spenderAddress, setTransaction } = values
+    const { userAddress, vaultAddress, spenderAddress, setTransaction } = values
 
     try {
       const { amount, deadline, v, r, s } = await signSDK.utils.getPermitSignature({
@@ -113,10 +115,10 @@ const useBoostSubmit = (vaultAddress: string): Output => {
 
       return Promise.reject(error)
     }
-  }, [ signSDK, vaultAddress ])
+  }, [ signSDK ])
 
   const boost = useCallback(async (values: BoostInput) => {
-    const { amount, userAddress, permitParams, setTransaction } = values
+    const { amount, userAddress, vaultAddress, permitParams, setTransaction } = values
 
     try {
       setTransaction(BoostStep.Boost, Transactions.Status.Confirm)
@@ -146,7 +148,6 @@ const useBoostSubmit = (vaultAddress: string): Output => {
     }
   }, [
     signSDK,
-    vaultAddress,
     subgraphUpdate,
   ])
 
@@ -154,7 +155,7 @@ const useBoostSubmit = (vaultAddress: string): Output => {
     const { amount, getUserApy, setTransaction = () => {}, onSuccess } = values
 
     try {
-      if (!amount || !address) {
+      if (!amount || !address || !vaultAddress) {
         return
       }
 
@@ -186,6 +187,7 @@ const useBoostSubmit = (vaultAddress: string): Output => {
           permitParams = await permit({
             spenderAddress: permitAddress,
             userAddress: address,
+            vaultAddress,
             setTransaction,
           })
         }
@@ -194,6 +196,7 @@ const useBoostSubmit = (vaultAddress: string): Output => {
       const hash = await boost({
         amount,
         permitParams,
+        vaultAddress,
         userAddress: address,
         setTransaction,
       })
@@ -238,6 +241,7 @@ const useBoostSubmit = (vaultAddress: string): Output => {
     address,
     actions,
     allowance,
+    vaultAddress,
     permitAddress,
     boost,
     permit,

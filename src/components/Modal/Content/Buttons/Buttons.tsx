@@ -37,7 +37,7 @@ const Buttons: React.FC<ButtonsProps> = (props) => {
             className={cx(s.button, secondaryButton?.className, 'px-16', { 'flex-1': isNarrow })}
             title={secondaryButton?.title as string}
             size={secondaryButton?.size}
-            color="crystal"
+            color="light"
             withoutPadding
             fullWidthOnMobile
             dataTestId={secondaryButton?.dataTestId}

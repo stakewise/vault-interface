@@ -16,7 +16,7 @@ const StatisticsButton: React.FC<StatisticsButtonProps> = (props) => {
     <Button
       className={className}
       fullWidth
-      color="fancy-ocean"
+      color="primary"
       title={commonMessages.statistics}
       dataTestId="statistics-button"
       onClick={openStatisticsModal}

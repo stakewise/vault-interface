@@ -9,6 +9,7 @@ import { getServerTheme } from 'sw-modules/theme/_SSR'
 import { getServerDevice } from 'sw-modules/device/_SSR'
 import GlobalLayout from 'layouts/GlobalLayout/GlobalLayout'
 import { getNetworkId } from 'sw-core/config/_SSR'
+import { getVaultBase } from 'helpers/requests/_SSR'
 
 import 'focus-visible'
 import 'scss/globals.scss'
@@ -29,19 +30,18 @@ export const generateMetadata: GenerateMetadata = async () => {
   const url = domain ? `https://${domain}/` : 'https://app.stakewise.io/'
 
   try {
-    // TODO get vault data
-    // const vaultBase = await getVaultBase()
-    // const vaultData = vaultBase?.data
-    //
-    // if (vaultData?.displayName) {
-    //   title = owner ? `${vaultData.displayName} | ${owner}` : vaultData.displayName
-    // }
-    // if (vaultData?.description) {
-    //   description = vaultData.description
-    // }
-    // if (vaultData?.imageUrl) {
-    //   image = vaultData.imageUrl
-    // }
+    const vaultBase = await getVaultBase()
+    const vaultData = vaultBase?.data
+
+    if (vaultData?.displayName) {
+      title = owner ? `${vaultData.displayName} | ${owner}` : vaultData.displayName
+    }
+    if (vaultData?.description) {
+      description = vaultData.description
+    }
+    if (vaultData?.imageUrl) {
+      image = vaultData.imageUrl
+    }
   }
   catch {}
 
@@ -126,13 +126,14 @@ const font = Inter({
   subsets: [ 'latin', 'cyrillic' ],
 })
 
-const RootLayout = (props: RootLayoutProps) => {
+const RootLayout = async (props: RootLayoutProps) => {
   const { children } = props
 
   const locale = getLocale()
   const device = getServerDevice()
   const networkId = getNetworkId()
   const serverTheme = getServerTheme()
+  const vaultBase = await getVaultBase()
 
   return (
     <html lang={locale}>
@@ -168,6 +169,7 @@ const RootLayout = (props: RootLayoutProps) => {
           <GlobalLayout
             locale={locale}
             networkId={networkId}
+            vaultBase={vaultBase}
             serverDevice={device}
             serverTheme={serverTheme}
           >

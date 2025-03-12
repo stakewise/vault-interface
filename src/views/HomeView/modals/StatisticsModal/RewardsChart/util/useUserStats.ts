@@ -1,134 +1,65 @@
-import { useCallback, useEffect, useMemo, useRef } from 'react'
+import { useCallback, useEffect } from 'react'
 import { useConfig } from 'config'
-import { useObjectState } from 'hooks'
-import { calculateUserStats, getTimestamp } from 'sdk'
-// import { fetchStakeStatsQuery } from 'graphql/subgraph/swap' // TODO replace with sdk
-
-import { Type } from './enums'
+import { useActions, useStore } from 'hooks'
+import cacheStorage from 'sw-modules/cache-storage'
 
 
-type Input = {
-  type: Type
-  days: number
-}
+type Cache = Record<string, any>
 
-type Output = {
-  data: Charts.Point[]
-  isFetching: boolean
-  isExportVisible: boolean
-}
+const cache = cacheStorage.get<Cache>(UNIQUE_FILE_ID)
+cache.setData({})
 
-type State = {
-  apy: Charts.Point[]
-  rewards: Charts.Point[]
-  balance: Charts.Point[]
-  isFetching: boolean
-  isExportVisible: boolean
-}
+const storeSelector = (store: Store) => ({
+  vaultAddress: store.vault.base.data.vaultAddress,
+})
 
-const initialState = {
-  apy: [],
-  rewards: [],
-  balance: [],
-  isFetching: true,
-  isExportVisible: false,
-}
+const useUserStats = (daysCount: number) => {
+  const actions = useActions()
+  const { sdk, address } = useConfig()
+  const { vaultAddress } = useStore(storeSelector)
 
-const useUserStats = (input: Input): Output => {
-  const { days, type } = input
+  const fetch = useCallback(async () => {
+    const cacheKey = `${address}-${vaultAddress}-${daysCount}`
+    const cachedData = cache.getData() || {}
+    const cachedValue = cachedData[cacheKey]
 
-  const { sdk, address, autoConnectChecked } = useConfig()
+    try {
+      if (address) {
+        if (cachedValue) {
+          actions.vault.user.rewards.setData(cachedValue)
+          return
+        }
 
-  const cache = useRef<Record<number, State>>({})
+        actions.vault.user.rewards.setFetching(true)
 
-  const [ state, setState ] = useObjectState<State>({
-    ...initialState,
-    isFetching: Boolean(address),
-  })
+        const data = await sdk.vault.getUserStats({
+          daysCount,
+          vaultAddress,
+          userAddress: address,
+        })
 
-  const fetchRewards = useCallback(async (days = 30) => {
-    if (!address) {
-      setState({
-        ...initialState,
-        isFetching: false,
-      })
+        actions.vault.user.rewards.setData(data)
 
-      return
+        cache.setData({
+          ...cachedData,
+          [cacheKey]: data,
+        })
+      }
     }
-
-    if (cache.current[days]) {
-      setState(cache.current[days])
-
-      return
+    catch (error: any) {
+      console.error('Fetch user stats fail', error)
+      actions.vault.user.rewards.setFetching(false)
     }
-
-    setState({ isFetching: true })
-
-    // const timestamp = String(getTimestamp(days))
-    //
-    // const osTokenHolderId = address.toLowerCase()
-    //
-    // const [ timestampResult, firstResult ] = await Promise.all([
-    //   fetchStakeStatsQuery({
-    //     url: sdk.config.api.subgraph,
-    //     requestPolicy: 'no-cache',
-    //     variables: {
-    //       first: days,
-    //       where: {
-    //         osTokenHolder: osTokenHolderId,
-    //         timestamp_gte: timestamp,
-    //       },
-    //     },
-    //   }),
-    //   fetchStakeStatsQuery({
-    //     url: sdk.config.api.subgraph,
-    //     requestPolicy: 'no-cache',
-    //     variables: {
-    //       first: 1,
-    //       where: {
-    //         osTokenHolder: osTokenHolderId,
-    //       },
-    //     },
-    //   }),
-    // ])
-    //
-    // const userStats = calculateUserStats(timestampResult.osTokenHolder)
-    //
-    // const newState = {
-    //   ...userStats,
-    //   isFetching: false,
-    //   isExportVisible: Boolean(firstResult.osTokenHolder.length),
-    // }
-    //
-    // setState(newState)
-    //
-    // cache.current[days] = newState
-  }, [ sdk, address, setState ])
+  }, [ actions, address, daysCount, sdk, vaultAddress ])
 
   useEffect(() => {
-    if (address && autoConnectChecked) {
-      fetchRewards(days)
+    if (address) {
+      fetch()
     }
-  }, [ address, autoConnectChecked, fetchRewards, days ])
-
-  return useMemo(() => {
-    const getPointsByType = () => {
-      if (type === Type.APY) {
-        return state.apy
-      }
-      else if (type === Type.Balance) {
-        return state.balance
-      }
-
-      return state.rewards
+    else {
+      actions.vault.user.rewards.resetData()
     }
-
-    return ({
-      data: getPointsByType(),
-      isFetching: state.isFetching,
-      isExportVisible: state.isExportVisible,
-    })
-  }, [ state, type ])
+  }, [ address, actions, fetch ])
 }
 
 

@@ -1,0 +1,52 @@
+.notification {
+  min-width: 210rem;
+  max-width: 560rem;
+  animation: openNotification 500ms ease;
+  background-color: $color-light;
+
+  &::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    content: '';
+  }
+
+  &.error::before {
+    background-color: rgb($color-error-rgb / 0.2);
+  }
+
+  &.info::before {
+    background-color: rgb($color-primary-rgb / 0.2);
+  }
+
+  &.success::before {
+    background-color: rgb($color-success-light-rgb / 0.2);
+  }
+
+  &.closed {
+    opacity: 0;
+    transition: all 0.3s ease-out;
+  }
+}
+
+.closeButton {
+  top: 50%;
+  right: 16rem;
+  margin-top: -12rem;
+  background-color: rgb($color-dark-rgb / 0.05);
+  pointer-events: auto;
+}
+
+@keyframes openNotification {
+  from {
+    transform: translate3d(0, -100%, 0) scale(80%);
+    opacity: 0;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}

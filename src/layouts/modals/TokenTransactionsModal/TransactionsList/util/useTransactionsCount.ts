@@ -1,67 +1,69 @@
-import { useEffect, useMemo } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useConfig } from 'config'
-import { constants } from 'helpers'
-import cacheStorage from 'sw-modules/cache-storage'
+import methods from 'sw-methods'
 
-// import { useTokenHoldersQuery, getTokenTransfersQueryCache } from 'graphql/subgraph/tokenTransfers'
-// import type { TokenHoldersQueryPayload } from 'graphql/subgraph/tokenTransfers'
 
+type TokenHoldersQueryPayload = {
+  osTokenHolders: {
+    id: string
+    transfersCount: number
+  }[]
+}
 
 type Output = {
   transactionsCount: number
   isFetching: boolean
 }
 
-type Input = {
-  token: string
+type State = {
+  data: TokenHoldersQueryPayload | null
+  isFetching: boolean
 }
 
-const modifyTokenHolder = ({ swiseTokenHolders, osTokenHolders }: TokenHoldersQueryPayload) => ({
-  [constants.tokens.swise]: Number(swiseTokenHolders[0]?.transfersCount || 0),
-  [constants.tokens.osToken]:  Number(osTokenHolders[0]?.transfersCount || 0),
-})
-
-const transactionsCountCache = cacheStorage.get<Record<string, number>>(UNIQUE_FILE_ID)
-
-const useTransactionsCount = ({ token }: Input): Output => {
+const useTransactionsCount = (): Output => {
   const { sdk, address } = useConfig()
 
-  // const { data: counts, isFetching: isTokenHolderFetching } = useTokenHoldersQuery({
-  //   urls: sdk.config.api,
-  //   variables: {
-  //     address: address?.toLowerCase() as string,
-  //   },
-  //   pause: !address,
-  //   modifyResult: modifyTokenHolder,
-  // })
+  const [ { data, isFetching }, setState ] = useState<State>({
+    data: null,
+    isFetching: !address,
+  })
 
-  const isTokenHolderFetching = false
-  const counts = modifyTokenHolder({ swiseTokenHolders: [], osTokenHolders: [] })
+  const fetchOsTokenHolders = useCallback(async () => {
+    setState({ data: null, isFetching: true })
+
+    try {
+      const data = await methods.fetch<TokenHoldersQueryPayload>(sdk.config.api.subgraph, {
+        method: 'POST',
+        body: JSON.stringify({
+          query: `
+            query TokenHolders($address: ID!) {
+              osTokenHolders(where: { id: $address }) {
+                id
+                transfersCount
+              }
+            }
+          `,
+          variables: {
+            address,
+          },
+        }),
+      })
+
+      setState({ data, isFetching: false })
+    }
+    catch {
+      setState({ data: null, isFetching: false })
+    }
+  }, [ sdk, address ])
 
   useEffect(() => {
-    if (counts && address) {
-      const total = Object.values(counts).reduce((acc, count) => acc + count, 0)
-
-      const cachedTotal = transactionsCountCache.getData()?.[address]
-      const isCountUpdated = typeof cachedTotal === 'number' && cachedTotal !== total
-
-      if (isCountUpdated) {
-        const transfersCache = getTokenTransfersQueryCache(sdk.config.api.subgraph)
-
-        transfersCache.resetData()
-      }
-
-      transactionsCountCache.setData((data) => ({
-        ...data,
-        [address]: total,
-      }))
-    }
-  }, [ sdk, address, counts ])
+    fetchOsTokenHolders()
+  }, [ fetchOsTokenHolders ])
 
   return useMemo(() => ({
-    transactionsCount: counts?.[token as keyof typeof counts] || 0,
-    isFetching: isTokenHolderFetching,
-  }), [ token, counts, isTokenHolderFetching ])
+    transactionsCount: data?.osTokenHolders[0]?.transfersCount || 0,
+    isFetching,
+  }), [ data, isFetching ])
 }
 
 

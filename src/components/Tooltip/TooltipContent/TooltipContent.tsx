@@ -33,7 +33,7 @@ const TooltipContent: React.FC<TooltipContentProps> = (props) => {
         {...data.getFloatingProps()}
       >
         <div
-          className={cx(className, s.tooltip, 'bg-coal overflow-hidden rounded-8', {
+          className={cx(className, s.tooltip, 'bg-black overflow-hidden rounded-8', {
             'text-center': textCenter,
           })}
           data-testid={dataTestId}

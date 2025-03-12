@@ -37,7 +37,7 @@ const ConnectorButton: React.FC<ConnectorButtonProps> = (props) => {
           className={cx(s.text, 'mt-16 opacity-60')}
           dataTestId={`${dataTestId}-title`}
           message={title}
-          color="moon"
+          color="dark"
           size="t12m"
         />
       </Href>
@@ -69,7 +69,7 @@ const ConnectorButton: React.FC<ConnectorButtonProps> = (props) => {
         className={cx(s.text, 'mt-16 opacity-60')}
         dataTestId={`${dataTestId}-title`}
         message={title}
-        color="moon"
+        color="dark"
         size="t12m"
       />
     </ButtonBase>

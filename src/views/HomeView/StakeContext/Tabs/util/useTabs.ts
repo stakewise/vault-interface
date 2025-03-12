@@ -1,4 +1,5 @@
 import { useConfig } from 'config'
+import { useStore } from 'hooks'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 import { stakeCtx } from 'views/HomeView/StakeContext/util'
@@ -7,18 +8,28 @@ import getTabIds from './getTabIds'
 import getTabsList from './getTabsList'
 
 
+const storeSelector = (store: Store) => ({
+  isMoreV2: store.vault.base.data.versions.isMoreV2,
+  isMintTokenDisabled: store.vault.user.balances.mintToken.isDisabled,
+})
+
 const useTabs = () => {
   const { isEthereum } = useConfig()
   const { tabs } = stakeCtx.useData()
+  const { isMoreV2, isMintTokenDisabled } = useStore(storeSelector)
 
-  const isInitiallyReversed = getTabIds({ isEthereum }).indexOf(tabs.value) === -1
+  const withMint = !isMintTokenDisabled
+  const withBoost = withMint && isEthereum && isMoreV2
+  const withToggleButton = withMint || withBoost
+
+  const isInitiallyReversed = getTabIds({ withMint, withBoost }).indexOf(tabs.value) === -1
 
   const [ isReversed, setReversed ] = useState(isInitiallyReversed)
 
   const [ tabIds, tabsList ] = useMemo(() => [
-    getTabIds({ isEthereum, isReversed }),
-    getTabsList({ isEthereum, isReversed }),
-  ], [ isEthereum, isReversed ])
+    getTabIds({ withMint, withBoost, isReversed }),
+    getTabsList({ withMint, withBoost, isReversed }),
+  ], [ withMint, withBoost, isReversed ])
 
   const prevIndex = useRef(tabIds.indexOf(tabs.value))
 
@@ -39,15 +50,15 @@ const useTabs = () => {
     const isResetNeeded = nextTabIndex === -1
 
     if (isResetNeeded) {
-      const nextTabIndex = isEthereum ? tabIndex : 0
+      const nextTabIndex = withToggleButton ? tabIndex : 0
 
       tabs.setTab(tabIds[nextTabIndex])
     }
 
-    if (!isEthereum) {
+    if (!withToggleButton) {
       setReversed(false)
     }
-  }, [ tabs, tabIds, tabIndex, isEthereum ])
+  }, [ tabs, tabIds, tabIndex, withToggleButton ])
 
   const toggleReversed = useCallback(() => {
     setReversed((isReversed) => !isReversed)
@@ -56,10 +67,12 @@ const useTabs = () => {
   return useMemo(() => ({
     tabIndex,
     tabsList,
+    withToggleButton,
     toggleReversed,
   }), [
     tabIndex,
     tabsList,
+    withToggleButton,
     toggleReversed,
   ])
 }

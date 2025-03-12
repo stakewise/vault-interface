@@ -1,30 +1,26 @@
-import React, { useMemo, useRef } from 'react'
+import React, { useRef } from 'react'
 import cx from 'classnames'
 import device from 'sw-modules/device'
-import { useConfig } from 'config'
 import { useSearchParams } from 'next/navigation'
 
 import { Bone, Text, MagicIcon } from 'components'
 
 import { Tab } from '../../StakeContext/util'
-import { getTabsList } from '../../StakeContext/Tabs/util'
+import { useTabs } from '../../StakeContext/Tabs/util'
 
 
 const Skeleton: React.FC = () => {
-  const searchParams = useSearchParams()
-  const { isEthereum } = useConfig()
-
   const { isMobile } = device.useData()
-
-  const tabs = useMemo(() => getTabsList({ isEthereum }), [ isEthereum ])
+  const searchParams = useSearchParams()
+  const { tabsList, withToggleButton } = useTabs()
 
   const isBalancesRef = useRef(Boolean(searchParams.get('balances')))
 
   return (
     <>
-      <div className="flex items-center justify-start gap-12">
+      <div className="flex items-center justify-start gap-12 mobile:gap-4">
         {
-          isEthereum && (
+          withToggleButton && (
             <Bone
               className="rounded-72"
               w={40}
@@ -33,11 +29,11 @@ const Skeleton: React.FC = () => {
           )
         }
         {
-          tabs.map(({ id, title }, index) => (
+          tabsList.map(({ id, title }, index) => (
             <Bone
               key={id}
               className={cx('px-12 py-6 rounded-16', {
-                'bg-moon/10': !index,
+                'bg-dark/10': !index,
               })}
             >
               <div className="flex items-center gap-4 opacity-0">
@@ -48,7 +44,7 @@ const Skeleton: React.FC = () => {
                 }
                 <Text
                   message={title}
-                  color="moon"
+                  color="dark"
                   size="t14m"
                 />
               </div>

@@ -11,7 +11,7 @@ const Box: React.FC<BoxProps> = (props) => {
   const { children, className } = props
 
   return (
-    <div className={cx(className, `border rounded-8 border-moon/20`)}>
+    <div className={cx(className, `border rounded-8 border-dark/20`)}>
       {children}
     </div>
   )

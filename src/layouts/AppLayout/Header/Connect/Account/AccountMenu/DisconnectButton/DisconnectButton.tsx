@@ -20,10 +20,10 @@ const DisconnectButton: React.FC<DisconnectButtonProps> = (props) => {
   }, [ wallet ])
 
   return (
-    <div className={cx(className, 'border-top border-stone/30 pt-8')}>
+    <div className={cx(className, 'border-top border-secondary/30 pt-8')}>
       <Button
         fullWidth
-        color="crystal"
+        color="light"
         title={messages.buttonTitle}
         dataTestId="disconnect-wallet-button"
         onClick={handleDisconnect}

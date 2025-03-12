@@ -2,12 +2,21 @@ import * as constants from 'sw-helpers/constants'
 
 
 const colors = [
+  'dark',
+  'light',
+  'white',
+  'black',
   'primary',
+  'secondary',
   'background',
-  'button1-start',
-  'button1-end',
-  'button2-start',
-  'button2-end',
+  'error',
+  'warning',
+  'success',
+  'success-light',
+  'primary-start',
+  'primary-end',
+  'secondary-start',
+  'secondary-end',
 ] as const
 
 

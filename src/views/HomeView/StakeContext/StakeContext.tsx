@@ -1,20 +1,18 @@
 import React from 'react'
 
-import { TransactionsFlowModal } from 'layouts/modals'
+import { ExportRewardsModal, TransactionsFlowModal } from 'layouts/modals'
 
 import Tabs from './Tabs/Tabs'
 import { Skeleton } from '../common'
 import { StatisticsModal } from '../modals'
-import { Balance, Boost, Stake, Unboost, Unstake } from '../content'
+import { Balance, Boost, Stake, Mint, Burn, Unboost, Unstake } from '../content'
 
 import { Tab, stakeCtx } from './util'
 
 
-type VaultContextProps = {
-  vaultAddress: string
-}
-
 const components = {
+  [Tab.Mint]: Mint,
+  [Tab.Burn]: Burn,
   [Tab.Stake]: Stake,
   [Tab.Boost]: Boost,
   [Tab.Unboost]: Unboost,
@@ -22,11 +20,8 @@ const components = {
   [Tab.Balance]: Balance,
 }
 
-const StakeContext: React.FC<VaultContextProps> = (props) => {
-  const { vaultAddress } = props
-
-  const ctx = stakeCtx.useInit({ vaultAddress })
-
+const StakeContext: React.FC = () => {
+  const ctx = stakeCtx.useInit()
   const Tab = components[ctx.tabs.value as Tab]
 
   const content = ctx.isFetching ? (
@@ -43,7 +38,8 @@ const StakeContext: React.FC<VaultContextProps> = (props) => {
   return (
     <stakeCtx.Provider value={ctx}>
       {content}
-      <StatisticsModal/>
+      <StatisticsModal />
+      <ExportRewardsModal />
       <TransactionsFlowModal />
     </stakeCtx.Provider>
   )

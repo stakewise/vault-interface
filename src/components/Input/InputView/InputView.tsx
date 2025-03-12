@@ -4,6 +4,7 @@ import methods from 'sw-methods'
 
 import Text from '../../Text/Text'
 import Icon from '../../Icon/Icon'
+import Logo from '../../Logo/Logo'
 import ButtonBase from '../../ButtonBase/ButtonBase'
 
 import InputButton from '../InputButton/InputButton'
@@ -21,10 +22,12 @@ type ViewProps = {
 
 export type InputViewProps = ViewProps & {
   className?: string
+  elementClassName?: string
   description?: Intl.Message | string
   label?: Intl.Message | string
   disabled?: boolean
   multiline?: number
+  token?: Tokens
   secondaryButtonTitle?: Intl.Message | string
   autoFocus?: boolean
   dataTestId?: string
@@ -39,7 +42,7 @@ export type InputViewProps = ViewProps & {
 const InputView: React.FC<InputViewProps> = (props) => {
   const {
     className, value, error, label, autoFocus, description, secondaryButtonTitle,
-    disabled, isRequired, dataTestId, multiline, buttonTitle,
+    token, disabled, isRequired, dataTestId, multiline, buttonTitle, elementClassName,
 
     onButtonClick, onSecondaryButtonClick, onCrossClick, onChange, onBlur, onFocus, ...otherProps
   } = props
@@ -112,20 +115,22 @@ const InputView: React.FC<InputViewProps> = (props) => {
   const isFilled = value !== undefined && value !== ''
   const isShowTooltip = isError && isFocused && typeof error !== 'boolean'
 
-  const containerClassName = cx(s.container, 'w-full flex rounded-8', {
+  const containerClassName = cx(s.container, 'w-full flex items-center rounded-8', {
     [s.focused]: isFocused && !disabled,
     [s.filled]: isFilled,
     [s.error]: isError && !isFocused,
     [s.disabled]: disabled,
     [s.isMultiline]: multiline,
-    'px-16': !multiline,
+    'px-16': !multiline && !token,
+    'pl-8 pr-16': token,
     'pl-16': multiline,
     'opacity-50 cursor-default': disabled,
   })
 
   const inputClassName = cx(
     s.field,
-    'w-full text-t14m overflow-ellipsis whitespace-nowrap text-moon',
+    elementClassName,
+    'w-full text-t14m overflow-ellipsis whitespace-nowrap text-dark',
     {
       'mt-16': Boolean(label),
       'cursor-default': disabled,
@@ -135,7 +140,8 @@ const InputView: React.FC<InputViewProps> = (props) => {
   const textareaClassName = cx(
     s.field,
     s.isMultiline,
-    'w-full mb-8 pb-8 pr-32 text-t14m text-moon scroll-y',
+    elementClassName,
+    'w-full mb-8 pb-8 pr-32 text-t14m text-dark scroll-y',
     {
       'mt-24': Boolean(label),
       'cursor-default': disabled,
@@ -178,6 +184,15 @@ const InputView: React.FC<InputViewProps> = (props) => {
         }}
         onClick={disabled ? undefined : handleFocus}
       >
+        {
+          token && (
+            <Logo
+              className="mr-8"
+              name={`token/${token}`}
+              size={20}
+            />
+          )
+        }
         <div className="w-full h-full inline-flex flex-col justify-center relative">
           {
             Boolean(label) && (
@@ -186,7 +201,7 @@ const InputView: React.FC<InputViewProps> = (props) => {
                 message={label as string}
                 tag="label"
                 size={(value || isFocused && !disabled) ? 't12' : 't14'}
-                color="moon"
+                color="dark"
                 htmlFor={controlId}
               />
             )
@@ -212,7 +227,7 @@ const InputView: React.FC<InputViewProps> = (props) => {
                   <Icon
                     name="icon/close"
                     size={24}
-                    color="moon"
+                    color="dark"
                   />
                 </ButtonBase>
               )
@@ -254,10 +269,10 @@ const InputView: React.FC<InputViewProps> = (props) => {
       }
       {
         isShowTooltip && (
-          <div className="py-8 px-16 rounded-8 absolute left-0 bottom-full bg-coal mb-4">
+          <div className="py-8 px-16 rounded-8 absolute left-0 bottom-full bg-black mb-4">
             <Text
               size="t14"
-              color="snow"
+              color="white"
               message={error as Intl.Message}
               dataTestId={`${testId}-error`}
             />

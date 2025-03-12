@@ -21,7 +21,7 @@ const PaginationButton: React.FC<PaginationButtonProps> = (props) => {
   const buttonClassName = cx(
     s.button,
     className,
-    'flex items-center justify-center border border-stone/30 rounded-8 h-32 w-32',
+    'flex items-center justify-center border border-secondary/30 rounded-8 h-32 w-32',
     {
       [s.active]: isActive,
     }

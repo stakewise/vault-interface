@@ -24,7 +24,7 @@ const PageButton: React.FC<PageButtonProps> = (props) => {
       onClick={onClick}
     >
       <Text
-        color="moon"
+        color="dark"
         message={String(page)}
         tag="span"
         size="t14"

@@ -32,7 +32,7 @@ const useMintToken = (values: Input) => {
       return rate
     }
     catch (error: any) {
-      analytics.sentry.exception('Error useMintToken - fetchRate', error)
+      console.error('Error useMintToken - fetchRate', error)
 
       return '0'
     }

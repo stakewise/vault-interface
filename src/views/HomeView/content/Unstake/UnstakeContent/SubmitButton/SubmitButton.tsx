@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React from 'react'
 import { commonMessages } from 'helpers'
 
 import { Button } from 'views/HomeView/common'
@@ -12,14 +12,14 @@ type UnstakeButtonProps = {
 const SubmitButton: React.FC<UnstakeButtonProps> = (props) => {
   const { className } = props
 
-  const { unstake } = stakeCtx.useData()
+  const { unstake, field } = stakeCtx.useData()
 
   return (
     <Button
       className={className}
       title={commonMessages.buttonTitle.unstake}
-      loading={unstake.isFetching || unstake.isSubmitting}
-      onClick={unstake.submit}
+      loading={unstake.isSubmitting}
+      onClick={() => unstake.submit(field.value)}
     />
   )
 }

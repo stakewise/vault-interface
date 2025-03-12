@@ -64,7 +64,7 @@ const TransactionsList: React.FC<TransactionsListProps> = (props) => {
             <TransactionItem
               key={index}
               className={cx(gridClassName, {
-                'bg-stone/10': index % 2 !== 0,
+                'bg-secondary/10': index % 2 !== 0,
               })}
               sender={sender}
               hash={hash}

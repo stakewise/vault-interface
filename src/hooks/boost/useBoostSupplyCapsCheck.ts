@@ -27,7 +27,7 @@ const useBoostSupplyCapsCheck = (values: Input) => {
 
   const fetchSupplyDiff = useCallback(async () => {
     try {
-      const response = await fetch('/api/boost-supply-diff')
+      const response = await fetch('https://app.stakewise.io/api/boost-supply-diff')
 
       if (response?.status !== 200) {
         throw new Error('checkSupplyCap: Failed to request data from aave')

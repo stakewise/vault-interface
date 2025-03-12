@@ -1,6 +1,8 @@
 import meta from './meta'
 import time from './time'
 import links from './links'
+import status from './status'
+import tooltip from './tooltip'
 import buttonTitle from './buttonTitle'
 import transaction from './transaction'
 import notification from './notification'
@@ -11,10 +13,66 @@ export default {
   meta,
   time,
   links,
+  status,
+  tooltip,
   buttonTitle,
   transaction,
   notification,
   accessibility,
+  staked: {
+    en: 'Staked {depositToken}',
+    ru: 'Застейкано {depositToken}',
+    fr: 'Staké {depositToken}',
+    es: 'Depositado {depositToken}',
+    pt: 'Staked {depositToken}',
+    de: 'Gestaked {depositToken}',
+    zh: '已质押 {depositToken}',
+  },
+  minted: {
+    en: 'Minted {mintToken}',
+    ru: 'Заминчено {mintToken}',
+    fr: 'Minté {mintToken}',
+    es: 'Minteado {mintToken}',
+    pt: 'Mintado {mintToken}',
+    de: 'Gemintet {mintToken}',
+    zh: '铸造{mintToken}',
+  },
+  invalidBoostSupplyCap: {
+    en: 'The boost capacity has been reached. Please come back later.',
+    ru: 'Достигнута максимальная емкость буста. Пожалуйста, вернитесь позже.',
+    fr: 'La capacité de boost a été atteinte. Veuillez revenir plus tard.',
+    es: 'Se ha alcanzado la capacidad máxima de boost. Por favor, vuelva más tarde.',
+    pt: 'A capacidade de boost foi atingida. Por favor, volte mais tarde.',
+    de: 'Die Kapazität des Boosts wurde erreicht. Bitte kommen Sie später wieder.',
+    zh: '已达到提升容量。请稍后再来。',
+  },
+  enterAmount: {
+    en: 'Enter amount',
+    ru: 'Введите сумму',
+    fr: 'Entrez le montant',
+    es: 'Ingrese cantidad',
+    pt: 'Insira o valor',
+    de: 'Betrag eingeben',
+    zh: '输入金额',
+  },
+  mintTokenStatus: {
+    en: '{mintToken} status',
+    ru: 'Статус {mintToken}',
+    fr: 'Statut de {mintToken}',
+    es: 'Estado de {mintToken}',
+    pt: 'Status de {mintToken}',
+    de: '{mintToken}-Status',
+    zh: '{mintToken} 状态',
+  },
+  yourApy: {
+    en: 'Your APY',
+    ru: 'Ваш APY',
+    fr: 'Votre APY',
+    es: 'Tu APY',
+    pt: 'Seu APY',
+    de: 'Ihr APY',
+    zh: '您的APY',
+  },
   loading: {
     en: 'Loading...',
     ru: 'Загрузка...',
@@ -78,6 +136,15 @@ export default {
     de: 'Ausstieg aus {token}',
     zh: '退出{token}',
   },
+  exitedToken: {
+    en: 'Exited {token}',
+    ru: 'Вышло {token}',
+    fr: 'Sorti {token}',
+    es: 'Salido {token}',
+    pt: 'Saído {token}',
+    de: 'Ausgetreten {token}',
+    zh: '已退出 {token}',
+  },
   transactions: {
     en: 'Transactions',
     ru: 'Транзакции',
@@ -86,5 +153,23 @@ export default {
     pt: 'Transações',
     de: 'Transaktionen',
     zh: '交易',
+  },
+  earnedRewards: {
+    en: 'Earned rewards',
+    ru: 'Заработанные награды',
+    fr: 'Récompenses gagnées',
+    es: 'Recompensas ganadas',
+    pt: 'Recompensas ganhas',
+    de: 'Erworbene Belohnungen',
+    zh: '获得的奖励',
+  },
+  amount: {
+    en: 'Amount',
+    ru: 'Сумма',
+    fr: 'Montant',
+    es: 'Cantidad',
+    pt: 'Quantidade',
+    de: 'Betrag',
+    zh: '金额',
   },
 }

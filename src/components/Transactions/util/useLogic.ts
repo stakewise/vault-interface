@@ -12,7 +12,7 @@ export enum TransactionStatus {
 
 export type Transaction = {
   id: number | string
-  title: Intl.Message
+  title: Intl.Message | string
   status: TransactionStatus
   testId?: string
 }

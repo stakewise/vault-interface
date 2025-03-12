@@ -6,14 +6,13 @@ import getUrls from './getUrls'
 type Input = {
   chainId: Network
   library?: StakeWise.Provider
-  token?: string
 }
 
 const sdkList = {} as Record<Network, StakeWiseSDK>
 
-const getSDK = ({ chainId, library, token }: Input) => {
-  if (!sdkList[chainId] || library || token) {
-    const endpoints: StakeWise.Options['endpoints'] = getUrls({ chainId, token })
+const getSDK = ({ chainId, library }: Input) => {
+  if (!sdkList[chainId] || library) {
+    const endpoints: StakeWise.Options['endpoints'] = getUrls({ chainId })
 
     const sdk = new StakeWiseSDK({
       endpoints,

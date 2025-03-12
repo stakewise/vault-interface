@@ -9,7 +9,7 @@ import ButtonContent, { ButtonContentProps } from './ButtonContent/ButtonContent
 
 export const buttonSizes = [ 'xs', 's', 'm', 'l', 'xl' ] as const
 
-export const buttonColors = [ 'color1', 'color2', 'crystal', 'moon', 'transparent' ] as const
+export const buttonColors = [ 'primary', 'secondary', 'light' ] as const
 
 const iconSizes = {
   xs: 16,
@@ -44,7 +44,7 @@ export type ButtonProps = (
   ButtonBaseProps
   & ButtonStyleProps
   & Omit<ButtonContentProps, 'color' | 'iconSize' | 'titleSize'>
-  )
+)
 
 const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement, ButtonProps>((props, ref) => {
   const {
@@ -62,7 +62,7 @@ const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement, ButtonProps>((p
     dataTestId,
     withoutPadding,
     fullWidthOnMobile,
-    color = 'button1',
+    color = 'primary',
     ...rest
   } = props
 
@@ -77,22 +77,14 @@ const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement, ButtonProps>((p
   const titleSize = titleSizes[size] as ButtonContentProps['titleSize']
 
   const contentColor = useMemo(() => {
-    const isFancyColor = [ 'color1', 'color2' ].includes(color)
+    const isBaseColor = [ 'primary', 'secondary' ].includes(color)
 
-    if (disabled || loading) {
-      return 'moon'
+    if (isBaseColor && !loading && !disabled) {
+      return 'white'
     }
 
-    if (color === 'moon') {
-      return 'sun'
-    }
-
-    if (isFancyColor) {
-      return 'snow'
-    }
-
-    return 'moon'
-  }, [ color, loading, disabled ])
+    return 'dark'
+  }, [ loading, disabled, color ])
 
   const buttonSizeClassName = cx({
     'min-w-[28rem] h-[28rem]': size === 'xs',
@@ -110,16 +102,30 @@ const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement, ButtonProps>((p
     'px-48': !hasAdditionalNode && (size === 'l' || size === 'xl'),
   })
 
+  const gradientClassName = cx(
+    'bg-gradient-to-r',
+    'hover:brightness-90 hover:contrast-125'
+  )
+
+  const bgClassName = cx({
+    [gradientClassName]: color === 'primary' || color === 'secondary',
+    'from-primary-start to-primary-end': color === 'primary',
+    'from-secondary-start to-secondary-end': color === 'secondary',
+    'bg-dark/05 hover:bg-dark/10 active:bg-dark/15': color === 'light',
+  })
+
   const buttonClassName = cx(
     buttonSizeClassName,
+    `text-${contentColor}`,
     'relative text-center', {
       'rounded-8': !rounded,
       'rounded-72': rounded,
       'w-full': fullWidth || !isDesktop && fullWidthOnMobile,
+      [bgClassName]: !disabled && !loading,
+      'bg-dark/15 opacity-30': disabled || loading,
       [buttonPaddingClassName]: title && !withoutPadding,
     }
   )
-
 
   return (
     <ButtonBase

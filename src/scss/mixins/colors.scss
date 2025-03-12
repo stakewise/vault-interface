@@ -8,23 +8,21 @@ $themes: (
 $color-primary: var(--color-primary);
 $color-background: var(--color-background);
 
-$color-button1-start: var(--color-button1-start);
-$color-button1-end: var(--color-button1-end);
+$color-primary-start: var(--color-primary-start);
+$color-primary-end: var(--color-primary-end);
 
-$color-button2-start: var(--color-button2-start);
-$color-button2-end: var(--color-button2-end);
+$color-secondary-start: var(--color-secondary-start);
+$color-secondary-end: var(--color-secondary-end);
 
-$color-autumn: var(--color-autumn);
-$color-forest: var(--color-forest);
-$color-jungle: var(--color-jungle);
-$color-volcano: var(--color-volcano);
-$color-stone: var(--color-stone);
-$color-moon: var(--color-moon);
-$color-sun: var(--color-sun);
-$color-coal: var(--color-coal);
-$color-snow: var(--color-snow);
-$color-smoke: var(--color-smoke);
-$color-titanium: var(--color-titanium);
+$color-warning: var(--color-warning);
+$color-success-light: var(--color-success-light);
+$color-success: var(--color-success);
+$color-error: var(--color-error);
+$color-secondary: var(--color-secondary);
+$color-dark: var(--color-dark);
+$color-light: var(--color-light);
+$color-black: var(--color-black);
+$color-white: var(--color-white);
 
 // RGB COLORS: color: rgb($color-...-rgb / 0.24);
 $color-primary-rgb: var(--color-primary-rgb);
@@ -36,14 +34,12 @@ $color-button1-end-rgb: var(--color-button1-end-rgb);
 $color-button2-start: var(--color-button2-start);
 $color-button2-end: var(--color-button2-end);
 
-$color-autumn-rgb: var(--color-autumn-rgb);
-$color-forest-rgb: var(--color-forest-rgb);
-$color-jungle-rgb: var(--color-jungle-rgb);
-$color-volcano-rgb: var(--color-volcano-rgb);
-$color-stone-rgb: var(--color-stone-rgb);
-$color-moon-rgb: var(--color-moon-rgb);
-$color-sun-rgb: var(--color-sun-rgb);
-$color-coal-rgb: var(--color-coal-rgb);
-$color-snow-rgb: var(--color-snow-rgb);
-$color-smoke-rgb: var(--color-smoke-rgb);
-$color-titanium-rgb: var(--color-titanium-rgb);
+$color-warning-rgb: var(--color-warning-rgb);
+$color-success-light-rgb: var(--color-success-light-rgb);
+$color-success-rgb: var(--color-success-rgb);
+$color-error-rgb: var(--color-error-rgb);
+$color-secondary-rgb: var(--color-secondary-rgb);
+$color-dark-rgb: var(--color-dark-rgb);
+$color-light-rgb: var(--color-light-rgb);
+$color-black-rgb: var(--color-black-rgb);
+$color-white-rgb: var(--color-white-rgb);

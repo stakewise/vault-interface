@@ -5,10 +5,7 @@ import { useConfig } from 'config'
 import { getters } from 'helpers'
 import methods from 'sw-methods'
 
-// import {
-//   useTokenTransfersQuery,
-//   TokenTransfersQueryPayload,
-// } from 'graphql/subgraph/tokenTransfers'
+import useOsTokenTransfersQuery from './useOsTokenTransfersQuery'
 
 import messages from './messages'
 
@@ -25,37 +22,32 @@ type Input = {
   pause: boolean
 }
 
-const modifyTokenTransfers = ({ tokenTransfers }: TokenTransfersQueryPayload) => tokenTransfers
-
 const useTokenTransactions = ({ skip, first, token, pause }: Input): Output => {
   const { isMobile } = device.useData()
   const { sdk, address } = useConfig()
 
-  const where = useMemo(() => {
+  const variables = useMemo(() => {
     const formattedAddress = address?.toLowerCase() as string
 
-    return {
+    const where = {
       or: [
         { tokenSymbol: token, from: formattedAddress },
         { tokenSymbol: token, to: formattedAddress },
       ],
     }
-  }, [ token, address ])
 
-  // const { data: tokenTransfers, isFetching: isTokenTransfersFetching } = useTokenTransfersQuery({
-  //   urls: sdk.config.api,
-  //   variables: {
-  //     skip,
-  //     first,
-  //     where,
-  //     orderDirection: 'desc',
-  //   },
-  //   pause,
-  //   modifyResult: modifyTokenTransfers,
-  // })
+    return {
+      skip,
+      first,
+      where,
+      orderDirection: 'desc',
+    }
+  }, [ skip, first, token, address ])
 
-  const tokenTransfers = []
-  const isTokenTransfersFetching = false
+  const { data: tokenTransfers, isFetching: isTokenTransfersFetching } = useOsTokenTransfersQuery({
+    variables,
+    pause,
+  })
 
   const getAddressMessage = useCallback((sender: string) => {
     const isUserAddress = getters.isEqualAddresses(address as string, sender)
@@ -75,7 +67,7 @@ const useTokenTransactions = ({ skip, first, token, pause }: Input): Output => {
 
   const transactions = useMemo(() => {
     if (tokenTransfers?.length && address) {
-      const tokenName = token === 'osToken' ? sdk.config.tokens.mintToken : token
+      const tokenName = sdk.config.tokens.mintToken
 
       return tokenTransfers.map(({ id, to, from, amount, timestamp }) => ({
         amount: {
@@ -94,7 +86,7 @@ const useTokenTransactions = ({ skip, first, token, pause }: Input): Output => {
     }
 
     return []
-  }, [ sdk, token, address, tokenTransfers, getAddressMessage ])
+  }, [ sdk, address, tokenTransfers, getAddressMessage ])
 
   return useMemo(() => ({
     transactions,

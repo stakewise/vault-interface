@@ -12,7 +12,7 @@ import useSubgraphUpdate from '../fetch/useSubgraphUpdate'
 type Input = {
   shares: bigint
   rewards: bigint
-  vaultAddress: string
+  vaultAddress: string | null
 }
 
 type SubmitInput = {
@@ -38,7 +38,7 @@ const useUnboostSubmit = (values: Input) => {
   const submit = useCallback(async (values: SubmitInput) => {
     const { percent, onSuccess } = values
 
-    if (!percent || !address) {
+    if (!percent || !address || !vaultAddress) {
       return
     }
 

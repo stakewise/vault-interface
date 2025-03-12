@@ -30,9 +30,7 @@ const useTransactionsList = ({ limit, token }: Input): Output => {
     setPage(0)
   }, [ token, limit ])
 
-  const { transactionsCount, isFetching: isTransactionsCountFetching } = useTransactionsCount({
-    token,
-  })
+  const { transactionsCount, isFetching: isTransactionsCountFetching } = useTransactionsCount()
 
   const isEmpty = !isTransactionsCountFetching && !transactionsCount
 

@@ -62,7 +62,7 @@ const Balance: React.FC<BalanceProps> = (props) => {
   const containerClassName = cx(
     className,
     'px-12 py-4 flex items-center justify-between',
-    'rounded-8 bg-titanium/30 border border-moon/03'
+    'rounded-8 bg-dark/03 border border-dark/03'
   )
 
   const withAddTokenButton = Boolean(
@@ -76,7 +76,7 @@ const Balance: React.FC<BalanceProps> = (props) => {
       <div className="flex items-center justify-start">
         <Text
           message={token}
-          color="moon"
+          color="dark"
           size="t14m"
         />
         {
@@ -84,7 +84,7 @@ const Balance: React.FC<BalanceProps> = (props) => {
             <RoundButton
               className="ml-8"
               icon="icon/plus"
-              color="stone"
+              color="secondary"
               size={24}
               dataTestId={`${token}-add-button`}
               ariaLabel={commonMessages.accessibility.addTokenToWallet}
@@ -111,7 +111,7 @@ const Balance: React.FC<BalanceProps> = (props) => {
               className="opacity-60"
               amount={value}
               token={token}
-              color="moon"
+              color="dark"
               size="t12m"
               dataTestId={`${token}-fiat-amount`}
             />

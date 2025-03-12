@@ -1,14 +1,14 @@
-$border-color-default: rgb($color-stone-rgb / 0.1);
-$border-color-hover: rgb($color-moon-rgb / 0.3);
+$border-color-default: rgb($color-secondary-rgb / 0.1);
+$border-color-hover: rgb($color-dark-rgb / 0.3);
 $border-color-focus: $color-primary;
-$border-color-error: rgb($color-volcano-rgb / 0.1);
-$border-color-error-hover: rgb($color-volcano-rgb / 0.5);
+$border-color-error: rgb($color-error-rgb / 0.1);
+$border-color-error-hover: rgb($color-error-rgb / 0.5);
 
-$bg-color-default: rgb($color-stone-rgb / 0.1);
-$bg-color-hover: rgb($color-stone-rgb / 0.15);
-$bg-color-focus: rgb($color-sun-rgb / 0.2);
-$bg-color-error: rgb($color-volcano-rgb / 0.1);
-$bg-color-error-hover: rgb($color-volcano-rgb / 0.15);
+$bg-color-default: rgb($color-secondary-rgb / 0.1);
+$bg-color-hover: rgb($color-secondary-rgb / 0.15);
+$bg-color-focus: rgb($color-light-rgb / 0.2);
+$bg-color-error: rgb($color-error-rgb / 0.1);
+$bg-color-error-hover: rgb($color-error-rgb / 0.15);
 
 @mixin field-colors($border-color, $bg-color) {
   background-color: $bg-color;
@@ -85,7 +85,7 @@ $bg-color-error-hover: rgb($color-volcano-rgb / 0.15);
   outline: none !important;
   box-shadow: none !important;
   appearance: none;
-  caret-color: $color-moon;
+  caret-color: $color-dark;
 
   &.isMultiline {
     line-height: 20rem;
@@ -97,7 +97,7 @@ $bg-color-error-hover: rgb($color-volcano-rgb / 0.15);
 }
 
 .description {
-  color: rgb($color-moon-rgb / 0.5);
+  color: rgb($color-dark-rgb / 0.5);
 }
 
 .crossButton {

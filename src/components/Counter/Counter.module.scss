@@ -3,11 +3,11 @@
   min-width: 20rem;
 
   @include dark-theme {
-    background-color: rgb($color-moon-rgb / 0.2);
-    color: $color-moon;
+    background-color: rgb($color-dark-rgb / 0.2);
+    color: $color-dark;
 
     :global(.bg-inherit) {
-      background-color: $color-moon;
+      background-color: $color-dark;
     }
   }
 
@@ -21,6 +21,6 @@
   }
 
   &.disabled {
-    background-color: rgb($color-stone-rgb / 0.2);
+    background-color: rgb($color-secondary-rgb / 0.2);
   }
 }

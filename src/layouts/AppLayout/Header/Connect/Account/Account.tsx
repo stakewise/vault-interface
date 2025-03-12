@@ -42,14 +42,14 @@ const Account: React.FC<AccountProps> = (props) => {
         <Button
           logo={logo}
           title={title}
-          color="crystal"
+          color="light"
           dataTestId="account-button"
           ariaLabel={commonMessages.accessibility.openAccountMenu}
         />
       </PopoverButton>
       <PopoverPanel
         ref={refs.setFloating}
-        className={cx(s.container, 'bg-mirror px-12 py-8 rounded-12 border border-moon/10 shadow-md z-menu')}
+        className={cx(s.container, 'bg-background px-12 py-8 rounded-12 border border-dark/10 shadow-md z-menu')}
         style={floatingStyles}
       >
         <AccountMenu logo={logo} />

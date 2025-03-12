@@ -20,9 +20,9 @@ const useSettings = (input: Input) => {
 
   const isLight = themeValue === ThemeColor.Light
 
-  const moonColor = isLight ? '#00060F' : '#FFFFFF'
+  const darkColor = isLight ? '#00060F' : '#FFFFFF'
   const gridColor = isLight ? '#00040e26' : '#FFFFFF12'
-  const moonOpacityColor = isLight ? '#00040e0d' : '#FFFFFF12'
+  const darkOpacityColor = isLight ? '#00040e0d' : '#FFFFFF12'
 
   return useMemo<DeepPartial<ChartOptionsBase>>(() => {
     return ({
@@ -49,7 +49,7 @@ const useSettings = (input: Input) => {
       },
       layout: {
         attributionLogo: false,
-        textColor: moonColor,
+        textColor: darkColor,
         background: { color: 'transparent' },
       },
       timeScale: {
@@ -57,13 +57,13 @@ const useSettings = (input: Input) => {
         fixLeftEdge: true,
         fixRightEdge: true,
         ticksVisible: false,
-        borderColor: moonOpacityColor,
+        borderColor: darkOpacityColor,
       },
       rightPriceScale: {
         autoScale: false,
         entireTextOnly: true,
         visible: !hideRightPriceScale,
-        borderColor: moonOpacityColor,
+        borderColor: darkOpacityColor,
         scaleMargins: {
           top: style === 'line' ? 0.25 : 0.2,
           bottom: style === 'line' ? 0.1 : 0,
@@ -75,7 +75,7 @@ const useSettings = (input: Input) => {
           labelVisible: false,
           width: 1 as LineWidth,
           style: LineStyle.Solid,
-          color: moonOpacityColor,
+          color: darkOpacityColor,
         },
         mode: CrosshairMode.Magnet,
         vertLine: {
@@ -83,11 +83,11 @@ const useSettings = (input: Input) => {
           labelVisible: false,
           width: 2 as LineWidth,
           style: LineStyle.Solid,
-          color: moonOpacityColor,
+          color: darkOpacityColor,
         },
       },
     })
-  }, [ gridColor, moonColor, moonOpacityColor, style, hideRightPriceScale, intlControls.locale, formatLabel ])
+  }, [ gridColor, darkColor, darkOpacityColor, style, hideRightPriceScale, intlControls.locale, formatLabel ])
 }
 
 

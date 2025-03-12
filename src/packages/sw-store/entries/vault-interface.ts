@@ -7,15 +7,17 @@ import mintToken from '../store/mintToken'
 import fiatRates from '../store/fiatRates'
 import currency from '../store/currency'
 import account from '../store/account'
+import vault from '../store/vault'
 import ui from '../store/ui'
 
 
-export const createVaultInterfaceStore = () => configureStore({
+export const createVaultInterfaceStore = (initialState?: unknown) => configureStore({
   reducer: {
     mintToken,
     fiatRates,
     currency,
     account,
+    vault,
     ui,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({
@@ -24,4 +26,5 @@ export const createVaultInterfaceStore = () => configureStore({
     },
   }),
   devTools: !IS_PROD,
+  preloadedState: initialState,
 })

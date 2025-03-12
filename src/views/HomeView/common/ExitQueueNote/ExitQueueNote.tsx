@@ -33,7 +33,7 @@ const ExitQueueNote: React.FC<ExitQueueNoteProps> = (props) => {
       HrefComponent={() => (
         <Text
           className="underline lowercase align-baseline"
-          color="autumn"
+          color="warning"
           tag="button"
           size="t14m"
           dataTestId="balances-link"

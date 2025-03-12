@@ -1,17 +1,17 @@
 $primary-light: #74AAFC;
-$forest-light: #4CD48B;
-$forest-light-rgba: rgba(49, 212, 139, 0.3);
+$success-light-light: #4CD48B;
+$success-light-light-rgba: rgba(49, 212, 139, 0.3);
 
 
 .trackLine {
   height: 6rem;
 
   @include dark-theme {
-    background-color: rgb($color-snow-rgb / 0.2);
+    background-color: rgb($color-white-rgb / 0.2);
   }
 
   @include light-theme {
-    background-color: $color-snow;
+    background-color: $color-white;
   }
 
   &::after {
@@ -46,7 +46,7 @@ $forest-light-rgba: rgba(49, 212, 139, 0.3);
     left: 5rem;
     width: 15rem;
     height: 15rem;
-    background: $color-sun;
+    background: $color-light;
     border-radius: 100%;
     content: '';
   }
@@ -55,55 +55,55 @@ $forest-light-rgba: rgba(49, 212, 139, 0.3);
 
 // Styles for each theme
 
-.jungle {
+.success {
 
   .thumb {
-    background: linear-gradient(90deg, $forest-light 5.26%, $primary-light 94.74%);
+    background: linear-gradient(90deg, $success-light-light 5.26%, $primary-light 94.74%);
     background-color: $primary-light;
-    box-shadow: 0 0 8rem rgba($forest-light-rgba, 0.3);
+    box-shadow: 0 0 8rem rgba($success-light-light-rgba, 0.3);
   }
 
   .fill {
-    background: linear-gradient(90deg, $forest-light 0%, $primary-light 108.5%);
-    box-shadow: 0 0 6rem $forest-light;
+    background: linear-gradient(90deg, $success-light-light 0%, $primary-light 108.5%);
+    box-shadow: 0 0 6rem $success-light-light;
   }
 }
 
-.autumn {
+.warning {
 
   .thumb {
     background-color: $primary-light;
-    box-shadow: 0 0 8rem $color-autumn;
+    box-shadow: 0 0 8rem $color-warning;
   }
 
   .fill {
-    background: linear-gradient(90deg, $color-autumn 0%, $primary-light 109.09%);
-    box-shadow: 0 0 6rem $color-autumn;
+    background: linear-gradient(90deg, $color-warning 0%, $primary-light 109.09%);
+    box-shadow: 0 0 6rem $color-warning;
   }
 }
 
-.volcano {
+.error {
 
   .thumb {
     background-color: $primary-light;
-    box-shadow: 0 0 8rem rgb($color-volcano-rgb / 0.5);
+    box-shadow: 0 0 8rem rgb($color-error-rgb / 0.5);
   }
 
   .fill {
-    background: linear-gradient(90deg, $color-volcano 0%, $primary-light 100%);
-    box-shadow: 0 0 6rem $color-volcano;
+    background: linear-gradient(90deg, $color-error 0%, $primary-light 100%);
+    box-shadow: 0 0 6rem $color-error;
   }
 }
 
-.volcanoInverted {
+.errorInverted {
 
   .thumb {
-    background-color: $color-volcano;
+    background-color: $color-error;
     box-shadow: 0 0 8rem rgb($color-primary-rgb / 0.5);
   }
 
   .fill {
-    background: linear-gradient(90deg, $color-primary 0%, $color-volcano 100%);
+    background: linear-gradient(90deg, $color-primary 0%, $color-error 100%);
     box-shadow: 0 0 6rem $color-primary;
   }
 }

@@ -36,8 +36,8 @@ const AmountInput: React.FC<AmountInputProps> = (props) => {
   return (
     <input
       className={cx(s.input, className, 'w-full', {
-        'text-moon': !error,
-        'text-volcano': error,
+        'text-dark': !error,
+        'text-error': error,
         'text-h20': isMobile,
         'text-t40m': !isMobile,
       })}

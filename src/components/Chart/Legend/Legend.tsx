@@ -1,77 +1,74 @@
 import React from 'react'
 import cx from 'classnames'
 
-import Icon from '../../Icon/Icon'
+import Time from './Time/Time'
 import Text from '../../Text/Text'
-import Logo from '../../Logo/Logo'
+import Amount from './Amount/Amount'
+import Percentage from './Percentage/Percentage'
+
+import s from './Legend.module.scss'
 
 
 export type LegendProps = {
   className?: string
   token: Tokens
+  chart: Charts.Chart
+  dataArr: Charts.DataArr
   pointType: Charts.PointType
-  fiatTooltipRef: React.RefObject<HTMLDivElement>
-  timeTooltipRef: React.RefObject<HTMLDivElement>
-  percentageTooltipRef: React.RefObject<HTMLDivElement>
-  tokenValueTooltipRef: React.RefObject<HTMLDivElement>
 }
 
 const Legend: React.FC<LegendProps> = (props) => {
-  const {
-    token,
-    pointType,
-    fiatTooltipRef,
-    timeTooltipRef,
-    percentageTooltipRef,
-    tokenValueTooltipRef,
-  } = props
+  const { className, token, chart, pointType, dataArr } = props
+
+  const isPercent = pointType === 'percent'
 
   return (
-    <div className="absolute top-0 left-0 z-1">
+    <div className={cx(className, 'pointer-events-none')}>
       {
-        pointType === 'fiat' ? (
-          <div className="flex items-center gap-4">
-            <Logo name={`token/${token}`} />
-            <Text
-              ref={tokenValueTooltipRef}
-              message=""
-              size="t18m"
-              color="moon"
-            />
-            <Text
-              ref={fiatTooltipRef}
-              className="opacity-50"
-              message=""
-              color="moon"
-              size="t14m"
-            />
+        dataArr.map(({ series, options } , index) => (
+          <div className={cx({ 'mt-4': index }, 'flex items-center justify-start')} key={index}>
+            {
+              Boolean(options?.legendLine) && (
+                <div
+                  className={cx(s.line, 'mr-8 w-32')}
+                  style={{ backgroundColor: options?.legendLine }}
+                />
+              )
+            }
+            {
+              isPercent ? (
+                <Percentage
+                  chart={chart}
+                  series={series}
+                />
+              ) : (
+                <Amount
+                  chart={chart}
+                  token={token}
+                  series={series}
+                />
+              )
+            }
+            {
+              Boolean(options?.legendTitle) && (
+                <Text
+                  className={cx('opacity-50', {
+                    'ml-8': !isPercent,
+                  })}
+                  message={options?.legendTitle || ''}
+                  color="dark"
+                  size="t14m"
+                />
+              )
+            }
           </div>
-        ) : (
-          <Text
-            ref={percentageTooltipRef}
-            className="opacity-80"
-            message=""
-            color="moon"
-            size="t18m"
-          />
-        )
+        ))
       }
-      <div className="flex items-center gap-4 mt-8">
-        <Icon
-          className={cx('opacity-40', {
-            'ml-4': pointType === 'fiat',
-          })}
-          name="icon/calendar"
-          color="moon"
-        />
-        <Text
-          ref={timeTooltipRef}
-          className="opacity-50"
-          message=""
-          color="moon"
-          size="t12m"
-        />
-      </div>
+      <Time
+        chart={chart}
+        series={dataArr[0].series as Charts.Series}
+        pointType={pointType}
+      />
     </div>
   )
 }

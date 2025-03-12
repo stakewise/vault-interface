@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "fast": "next dev -p 5005",
-    "build": "npm run graphql && next build",
+    "build": "next build",
     "dev": "npm run check:env && npm run fast",
     "lint": "next lint",
     "lint:css": "stylelint **/*.scss",
@@ -38,6 +38,7 @@
     "@types/js-cookie": "3.0.6",
     "@types/react": "18.3.3",
     "@types/react-dom": "18.3.0",
+    "@types/ua-parser-js": "0.7.39",
     "css-class-generator": "2.0.0",
     "eslint": "8.57.0",
     "eslint-config-next": "14.2.5",
@@ -61,13 +62,14 @@
     "@ledgerhq/iframe-provider": "0.4.3",
     "@metamask/onboarding": "1.0.1",
     "@reduxjs/toolkit": "2.2.7",
-    "@stakewise/v3-sdk": "3.0.1",
+    "@stakewise/v3-sdk": "3.2.0",
     "@types/react-redux": "7.1.33",
     "@wagmi/connectors": "5.1.10",
     "autoprefixer": "10.4.20",
     "async-mutex": "0.5.0",
     "circular-dependency-plugin": "5.2.2",
     "classnames": "2.5.1",
+    "dayjs": "1.11.12",
     "destyle.css": "4.0.1",
     "ethers": "6.13.2",
     "focus-visible": "5.2.1",
@@ -77,7 +79,9 @@
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "react-redux": "9.1.2",
+    "swiper": "11.1.15",
     "ua-parser-js": "1.0.38",
+    "xlsx": "0.18.5",
     "viem": "2.19.6"
   }
 }

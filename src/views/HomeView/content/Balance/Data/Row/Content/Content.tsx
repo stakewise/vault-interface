@@ -1,10 +1,16 @@
 import React from 'react'
 import { constants } from 'helpers'
+import { useSelector } from 'react-redux'
 
 import { Text, TokenAmount, FiatAmount, Loading, UserApy } from 'components'
 
 import { stakeCtx } from 'views/HomeView/StakeContext/util'
 
+
+const storeSelector = (store: Store) => ({
+  boostedShares: store.vault.user.balances.boost.shares,
+  unboostQueueData: store.vault.user.unboostQueue.data,
+})
 
 type TokenValue = {
   token: Tokens
@@ -16,12 +22,14 @@ export type ContentProps = {
   value: string | TokenValue
   dataTestId?: string
   isMagicValue?: boolean
+  withMinimalValue?: boolean
 }
 
 const Content: React.FC<ContentProps> = (props) => {
-  const { value, isFetching, isMagicValue, dataTestId } = props
+  const { value, isFetching, isMagicValue, withMinimalValue, dataTestId } = props
 
-  const { data, unboostQueue } = stakeCtx.useData()
+  const { data } = stakeCtx.useData()
+  const { boostedShares, unboostQueueData } = useSelector(storeSelector)
 
   if (isFetching) {
     return (
@@ -39,12 +47,13 @@ const Content: React.FC<ContentProps> = (props) => {
           token={token}
           size="sm"
           dataTestId={dataTestId}
+          withMinimalValue={withMinimalValue}
         />
         <FiatAmount
           className="mt-4 opacity-60"
           amount={amount}
           token={token}
-          color="moon"
+          color="dark"
           size="t12m"
         />
       </div>
@@ -58,8 +67,8 @@ const Content: React.FC<ContentProps> = (props) => {
     let isDangerous = false,
         isUnprofitable = false
 
-    const hasBoost = data.boost.shares > constants.blockchain.minimalAmount
-    const hasUnboostQueue = Boolean(unboostQueue.position)
+    const hasBoost = boostedShares > constants.blockchain.minimalAmount
+    const hasUnboostQueue = Boolean(unboostQueueData.position)
 
     if (hasBoost || hasUnboostQueue) {
       isDangerous = userApy < 0
@@ -68,7 +77,7 @@ const Content: React.FC<ContentProps> = (props) => {
 
     return (
       <UserApy
-        type="swap"
+        type="vault"
         userApy={data.apy.user}
         isDangerous={isDangerous}
         isUnprofitable={isUnprofitable}
@@ -81,7 +90,7 @@ const Content: React.FC<ContentProps> = (props) => {
   return (
     <Text
       message={value}
-      color="moon"
+      color="dark"
       size="t14m"
       dataTestId={dataTestId}
     />

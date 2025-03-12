@@ -4,7 +4,7 @@
   border-top-right-radius: 0 !important;
 
   :global(.swiper-pagination-progressbar-fill) {
-    background: $color-moon;
+    background: $color-dark;
   }
 
   @include mobile {

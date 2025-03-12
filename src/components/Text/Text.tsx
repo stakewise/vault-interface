@@ -30,10 +30,11 @@ export type TextProps = {
   htmlFor?: string
   className?: string
   dataTestId?: string
-  children?: React.ReactNode,
+  children?: React.ReactNode
   color: TextColor | 'inherit'
   HrefComponent?: React.FC<any>
   message: Intl.Message | string
+  CustomComponent?: React.FC<any>
   onClick?: React.MouseEventHandler<HTMLDivElement>
 }
 
@@ -43,6 +44,7 @@ const Text = React.forwardRef<HTMLElement, TextProps>((props, ref) => {
     message, size, color, html,
     htmlFor, dataTestId,
     HrefComponent,
+    CustomComponent,
     onClick, ...otherProps
   } = props
 
@@ -83,12 +85,20 @@ const Text = React.forwardRef<HTMLElement, TextProps>((props, ref) => {
   }
 
   if (html) {
-    // TODO Href Doesn't work with other tags
-    if (/<Href/.test(content as string) && HrefComponent) {
-      const children = replaceReactComponents(content as string, { Href: HrefComponent })
-        .map((child, index) => typeof child === 'string' ? child : { ...child, key: child.key || index })
+    const componentsMap = {
+      CustomComponent,
+      Href: HrefComponent,
+    }
 
-      return React.createElement(tag, htmlProps, children)
+    for (const [ componentName, Component ] of Object.entries(componentsMap)) {
+      if (new RegExp(`<${componentName}`).test(content as string) && Component) {
+        const children = replaceReactComponents(content as string, { [componentName]: Component })
+          .map((child, index) =>
+            typeof child === 'string' ? child : { ...child, key: child.key || index }
+          )
+
+        return React.createElement(tag, htmlProps, children)
+      }
     }
 
     if (/<a /.test(content as string)) {

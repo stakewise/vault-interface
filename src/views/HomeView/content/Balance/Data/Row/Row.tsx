@@ -19,10 +19,11 @@ export type RowProps = {
   value: string | Value
   dataTestId?: string
   isMagicValue?: boolean
+  withMinimalValue?: boolean
 }
 
 const Row: React.FC<RowProps> = (props) => {
-  const { className, text, value, tooltip, isFetching, isMagicValue, dataTestId } = props
+  const { className, text, value, tooltip, isFetching, isMagicValue, withMinimalValue, dataTestId } = props
 
   return (
     <div className={cx(className, 'flex justify-between items-center')}>
@@ -30,7 +31,7 @@ const Row: React.FC<RowProps> = (props) => {
         <TextWithTooltip
           text={{
             message: text,
-            color: 'moon',
+            color: 'dark',
             size: 't14m',
           }}
           tooltip={tooltip}
@@ -42,6 +43,7 @@ const Row: React.FC<RowProps> = (props) => {
           isFetching={isFetching}
           dataTestId={dataTestId}
           isMagicValue={isMagicValue}
+          withMinimalValue={withMinimalValue}
         />
       </div>
     </div>
