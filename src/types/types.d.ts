@@ -58,20 +58,4 @@ declare global {
   }
 
   type Config = StakeWise.Config
-
-  declare namespace Charts {
-    type TimePoint = {
-      time: Time
-      value: number
-    }
-
-    type Point = {
-      time: Time | number
-      value: number
-    }
-
-    type Style = 'bar' | 'line'
-
-    type PointType = 'fiat' | 'percent'
-  }
 }

@@ -64,14 +64,14 @@ const useChartTabs = () => {
       dataTestId: 'user-stats-chart-tab',
     },
     {
-      id: Tab.OsToken,
+      id: Tab.Vault,
       title: {
-        ...messages.osTokenStats,
+        ...messages.vaultStats,
         values: {
           mintToken: sdk.config.tokens.mintToken,
         },
       },
-      dataTestId: 'osToken-stats-chart-tab',
+      dataTestId: 'vault-stats-chart-tab',
     },
   ], [ sdk ])
 
@@ -92,9 +92,9 @@ const useChartTabs = () => {
 
   const { values: { type, tab, days } } = forms.useFormValues<Form>(form)
 
-  const { points, isFetching, isExportVisible  } = useChartPoints({
+  const { points, isFetching, isExportVisible } = useChartPoints({
     days: Number(days),
-    tab: tab as Tab || Tab.OsToken,
+    tab: tab as Tab || Tab.Vault,
     type: type as Type || Type.Rewards,
   })
 

@@ -6,5 +6,5 @@ export enum Type {
 
 export enum Tab {
   User = 'user',
-  OsToken = 'osToken',
+  Vault = 'Vault',
 }
