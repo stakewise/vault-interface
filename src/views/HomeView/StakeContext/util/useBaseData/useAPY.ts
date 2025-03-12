@@ -17,9 +17,6 @@ type ApyQueryPayload = {
       ltvPercent: number
     }
   }[]
-  osTokenHolders: {
-    apy: number
-  }[]
 }
 
 const useAPY = (vaultAddress: string) => {
@@ -44,9 +41,6 @@ const useAPY = (vaultAddress: string) => {
                   ltvPercent
                 }
               }
-              osTokenHolders(where: { id: $userAddress }) {
-                apy
-              }
             }
           `,
           variables: {
@@ -58,20 +52,14 @@ const useAPY = (vaultAddress: string) => {
 
       const vaultData = data.vaults[0]
       const mintTokenData = data.osToken
-      const userAPY = Number(data.osTokenHolders[0]?.apy || 0)
 
       const ltvPercent = BigInt(vaultData?.osTokenConfig?.ltvPercent || 0)
       const fee = methods.formatApy((mintTokenData.feePercent + vaultData.feePercent) / 100)
 
       const apy = {
-        user: 0,
         vault: Number(vaultData.apy),
         mintToken: Number(mintTokenData.apy),
         maxBoost: Number(vaultData.osTokenHolderMaxBoostApy),
-      }
-
-      if (address && userAPY) {
-        apy.user = userAPY
       }
 
       return {

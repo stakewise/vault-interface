@@ -10,16 +10,17 @@ import useUserRewards from './useUserRewards'
 
 
 const storeSelector = (store: Store) => ({
+  userAPY: store.vault.user.balances.userAPY,
   totalAssets: store.vault.base.data.totalAssets,
+  isBalancesFetching: store.vault.user.balances.isFetching,
 })
 
-const initialState: Omit<StakePage.Data, 'tvl' | 'refetchData'> = {
+const initialState: StakePage.BaseData = {
   ltvPercent: 0n,
   fee: methods.formatApy(0),
   userRewards: 0n,
   isFetching: true,
   apy: {
-    user: 0,
     vault: 0,
     maxBoost: 0,
     mintToken: 0,
@@ -28,14 +29,18 @@ const initialState: Omit<StakePage.Data, 'tvl' | 'refetchData'> = {
 
 export const baseDataMock: StakePage.Data = {
   ...initialState,
+  apy: {
+    ...initialState.apy,
+    user: 0,
+  },
   tvl: methods.formatApy(0),
   refetchData: () => Promise.resolve(),
 }
 
 const useBaseData = (vaultAddress: string) => {
   const { sdk } = useConfig()
-  const { totalAssets } = useStore(storeSelector)
   const [ state, setState ] = useObjectState(initialState)
+  const { totalAssets, userAPY, isBalancesFetching } = useStore(storeSelector)
 
   const fetchAPY = useAPY(vaultAddress)
   const fetchUserRewards = useUserRewards(vaultAddress)
@@ -79,11 +84,18 @@ const useBaseData = (vaultAddress: string) => {
 
   return useMemo<StakePage.Data>(() => ({
     ...state,
+    apy: {
+      ...state.apy,
+      user: userAPY,
+    },
     tvl,
+    isFetching: state.isFetching || isBalancesFetching,
     refetchData: fetchData,
   }), [
     tvl,
+    userAPY,
     state,
+    isBalancesFetching,
     fetchData,
   ])
 }

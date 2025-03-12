@@ -24,11 +24,9 @@ declare global {
       }
     }
 
-    type Data = {
-      tvl: string
+    type BaseData = {
       fee: string
       apy: {
-        user: number
         vault: number
         mintToken: number
         maxBoost: number
@@ -36,6 +34,13 @@ declare global {
       ltvPercent: bigint
       userRewards: bigint
       isFetching: boolean
+    }
+
+    type Data = BaseData & {
+      tvl: string
+      apy: BaseData['apy'] & {
+        user: number
+      }
       refetchData: () => Promise<void>
     }
 
