@@ -20,6 +20,9 @@ const useMintTokenData = () => {
     try {
       const result = await methods.fetch<ExitStatsQueryPayload>(sdk.config.api.backend, {
         method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
         body: JSON.stringify({
           query: `
             query ExitStats {
