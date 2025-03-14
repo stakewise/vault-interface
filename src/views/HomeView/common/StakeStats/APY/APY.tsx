@@ -33,7 +33,7 @@ const APY: React.FC<APYProps> = (props) => {
           message={methods.formatApy(data.apy.vault)}
           color="dark"
           size="t14"
-          dataTestId="os-token-apy"
+          dataTestId="vault-apy"
         />
         {
           (isEthereum && isProfitable) && (
