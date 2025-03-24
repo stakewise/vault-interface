@@ -17,7 +17,7 @@ type Fields = {
 }
 
 const storeSelector = (store: Store) => ({
-  mintTokenBalance: store.account.balances.data.mintTokenBalance,
+  mintTokenBalance: store.vault.user.balances.withdraw.maxAssets,
   depositTokenBalance: store.account.balances.data.depositTokenBalance,
 })
 
