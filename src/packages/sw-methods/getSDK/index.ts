@@ -1,4 +1,6 @@
 import { Network, StakeWiseSDK } from 'sdk'
+import cookie from 'sw-helpers/cookie'
+import * as constants from 'sw-helpers/constants'
 
 import getUrls from './getUrls'
 
@@ -22,6 +24,15 @@ const getSDK = ({ chainId, library }: Input) => {
 
     if (!library) {
       sdkList[chainId] = sdk
+    }
+
+    const isTestsEnabled = cookie.get(constants.cookieNames.e2e)
+
+    if (isTestsEnabled && typeof window !== 'undefined') {
+      window.e2e = {
+        ...window.e2e,
+        sdk,
+      }
     }
 
     return sdk
