@@ -32,6 +32,17 @@ const Modal = forwardRef<HTMLDivElement, ModalProps>((props, ref) => {
   const { isMobile, isDesktop } = device.useData()
 
   useEffect(() => {
+    // Headless UI Dialog sets the #global-wrapper to inert,
+    // which prevents users from clicking the close button on notifications.
+    // To resolve this issue, we remove the inert property when the modal is opened
+    setTimeout(() => {
+      const root = document.getElementById('global-wrapper')
+
+      if (root) {
+        root.inert = false
+      }
+    })
+
     return () => {
       document.body.style.overflow = ''
     }

@@ -103,8 +103,9 @@ export const [ TxCompletedModal, openTxCompletedModal ] = (
           ))
         }
         <div
-          className={cx('hide-empty flex gap-16 mt-8', {
-            'flex-col': isMobile,
+          className={cx('hide-empty gap-16 mt-8', {
+            'grid': isMobile,
+            'flex': !isMobile,
           })}
         >
           {

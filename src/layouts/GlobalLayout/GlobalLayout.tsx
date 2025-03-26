@@ -78,7 +78,7 @@ const GlobalLayout: React.FC<GlobalLayoutProps> = (values) => {
                   </AppLayout>
                   <div id="tooltips" />
                   <div id="bottomLoader" />
-                  <div id="notifications" />
+                  <output id="notifications" className="block" />
                 </div>
               </ImagesProvider>
             </ConfigProvider>
