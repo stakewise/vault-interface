@@ -1,6 +1,7 @@
 'use client'
 import React from 'react'
 import cx from 'classnames'
+import dynamic from 'next/dynamic'
 import { useViewportHeight, useImagesPrefetch } from 'hooks'
 
 import { imagesUrls } from 'components'
@@ -9,13 +10,13 @@ import Header from './Header/Header'
 
 import {
   useFiatRates,
+  useVaultData,
   useQueryParams,
   useMintTokenData,
   useAutoFetchBalances,
 } from './util'
 
 import s from './AppLayout.module.scss'
-import dynamic from 'next/dynamic'
 
 
 const BottomLoader = dynamic(() => import('./BottomLoader/BottomLoader'), {
@@ -28,6 +29,7 @@ const Notifications = dynamic(() => import('./Notifications/Notifications'), {
 
 const AppLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   useFiatRates()
+  useVaultData()
   useQueryParams()
   useMintTokenData()
   useViewportHeight()

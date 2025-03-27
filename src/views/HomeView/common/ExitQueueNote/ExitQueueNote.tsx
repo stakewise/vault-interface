@@ -30,7 +30,7 @@ const ExitQueueNote: React.FC<ExitQueueNoteProps> = (props) => {
       type="warning"
       text={actionText}
       dataTestId="exit-queue-note"
-      HrefComponent={() => (
+      CustomComponent={() => (
         <Text
           className="underline lowercase align-baseline"
           color="warning"

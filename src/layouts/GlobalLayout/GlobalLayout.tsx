@@ -51,11 +51,16 @@ const GlobalLayout: React.FC<GlobalLayoutProps> = (values) => {
     document.documentElement.lang = locale
   }, [ locale ])
 
-
   const store = useMemo(() => {
-    if (vaultBase) {
+    const skipSSR = window.location.search
+      ? new URLSearchParams(window.location.search).get('skipSSR') === 'true'
+      : false
+
+    if (vaultBase && !skipSSR) {
       return createVaultInterfaceStore({
-        vault: { base: vaultBase },
+        vault: {
+          base: vaultBase,
+        },
       })
     }
 
