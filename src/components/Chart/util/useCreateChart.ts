@@ -32,6 +32,8 @@ const useCreateChart = (input: Input): State => {
     chart: null,
   })
 
+  const isDataEmpty = !data.length || !data.find(({ data }) => data.length)
+
   const initializeChart = useCallback(() => {
     const params = typeof expandSettings === 'function'
       ? {
@@ -70,7 +72,7 @@ const useCreateChart = (input: Input): State => {
   }, [ data, style, container, defaultSettings, defaultSeries, expandSettings, setState ])
 
   useEffect(() => {
-    if (skip) {
+    if (skip || isDataEmpty) {
       return
     }
 
@@ -83,6 +85,7 @@ const useCreateChart = (input: Input): State => {
     }
   }, [
     skip,
+    isDataEmpty,
     initializeChart,
   ])
 

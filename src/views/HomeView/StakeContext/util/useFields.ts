@@ -17,7 +17,10 @@ type Fields = {
 }
 
 const storeSelector = (store: Store) => ({
+  mintedShares: store.vault.user.balances.mintToken.minted.shares,
+  maxMintShares: store.vault.user.balances.mintToken.maxMintShares,
   mintTokenBalance: store.account.balances.data.mintTokenBalance,
+  maxWithdrawAssets: store.vault.user.balances.withdraw.maxAssets,
   depositTokenBalance: store.account.balances.data.depositTokenBalance,
 })
 
@@ -25,16 +28,36 @@ const useFields = (values: Input) => {
   const { tabs } = values
 
   const { address } = useConfig()
-  const { mintTokenBalance, depositTokenBalance } = useStore(storeSelector)
+  const {
+    mintedShares,
+    maxMintShares,
+    mintTokenBalance,
+    maxWithdrawAssets,
+    depositTokenBalance,
+  } = useStore(storeSelector)
 
   const isStake = tabs.value === Tab.Stake
 
   let balance = 0n
 
   if (address || !isStake) {
-    balance = isStake
-      ? depositTokenBalance
-      : mintTokenBalance
+    if (isStake) {
+      balance = depositTokenBalance
+    }
+    else if (tabs.value === Tab.Unstake) {
+      balance = maxWithdrawAssets
+    }
+    else if (tabs.value === Tab.Mint) {
+      balance = maxMintShares
+    }
+    else if (tabs.value === Tab.Burn) {
+      balance = mintedShares > mintTokenBalance
+        ? mintTokenBalance
+        : mintedShares
+    }
+    else {
+      balance = mintTokenBalance
+    }
   }
   else {
     balance = emptyBalance

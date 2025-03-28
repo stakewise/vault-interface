@@ -51,11 +51,16 @@ const GlobalLayout: React.FC<GlobalLayoutProps> = (values) => {
     document.documentElement.lang = locale
   }, [ locale ])
 
-
   const store = useMemo(() => {
-    if (vaultBase) {
+    const skipSSR = window.location.search
+      ? new URLSearchParams(window.location.search).get('skipSSR') === 'true'
+      : false
+
+    if (vaultBase && !skipSSR) {
       return createVaultInterfaceStore({
-        vault: { base: vaultBase },
+        vault: {
+          base: vaultBase,
+        },
       })
     }
 
@@ -78,7 +83,7 @@ const GlobalLayout: React.FC<GlobalLayoutProps> = (values) => {
                   </AppLayout>
                   <div id="tooltips" />
                   <div id="bottomLoader" />
-                  <div id="notifications" />
+                  <output id="notifications" className="block" />
                 </div>
               </ImagesProvider>
             </ConfigProvider>

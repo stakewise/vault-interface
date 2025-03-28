@@ -49,6 +49,7 @@ declare global {
     }
     navigator: Navigator
     onGemReady?: () => void
+    e2e?: Record<string, any>
   }
 
   type Tab = {

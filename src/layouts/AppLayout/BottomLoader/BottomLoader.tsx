@@ -49,7 +49,7 @@ const BottomLoader: React.FC = (): React.ReactPortal | null => {
 
   return createPortal(
     <div
-      className={cx(s.container, 'fixed right-0 overflow-hidden', {
+      className={cx(s.container, 'fixed right-0 bottom-24 overflow-hidden', {
         'z-notification': isDesktop,
         'z-menu': !isDesktop, // Should not overlap the buttons in the modal window
       })}

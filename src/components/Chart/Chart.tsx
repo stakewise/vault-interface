@@ -67,9 +67,27 @@ const Chart: React.FC<ChartProps> = (props) => {
     dataArr,
   })
 
-  const isNotConnectedVisible = isNotConnected && !isFetching && typeof connect === 'function'
-  const isLegendVisible = !isFetching && data.length > 0 && chart && dataArr.length && isShowLegend
-  const isNoItemsVisible = !isFetching && !data.length && !isNotConnectedVisible
+  const isNotConnectedVisible = (
+    isNotConnected
+    && !isFetching
+    && typeof connect === 'function'
+  )
+
+  const isNoItemsVisible = (
+    !isFetching
+    && !data.length
+    && !isNotConnectedVisible
+  )
+
+  const isLegendVisible = (
+    chart
+    && !isFetching
+    && isShowLegend
+    && dataArr.length
+    && data.length > 0
+    && !isNoItemsVisible
+    && !isNotConnectedVisible
+  )
 
   return (
     <div
