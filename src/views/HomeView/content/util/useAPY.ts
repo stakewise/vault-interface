@@ -51,8 +51,6 @@ const useAPY = ({ field, type }: Input) => {
     unboostExitingShares,
   } = useStore(storeSelector)
 
-  console.log({ userAPY, vaultAPY, maxBoostApy })
-
   const initialStateRef = useRef({
     newAPY: userAPY,
     isFetching: false,
