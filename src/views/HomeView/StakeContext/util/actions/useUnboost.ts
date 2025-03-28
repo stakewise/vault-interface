@@ -4,6 +4,7 @@ import { useConfig } from 'config'
 
 
 type Output = {
+  isDisabled: boolean
   submit: (percent: number) => Promise<void>
 }
 
@@ -15,6 +16,7 @@ interface Hook {
 const storeSelector = (store: Store) => ({
   boostedShares: store.vault.user.balances.boost.shares,
   rewardAssets: store.vault.user.balances.boost.rewardAssets,
+  exitingPercent: store.vault.user.balances.boost.exitingPercent,
 })
 
 const useUnboost: Hook = (params) => {
@@ -23,13 +25,15 @@ const useUnboost: Hook = (params) => {
   const { vaultAddress } = params
 
   const { address, chainId, cancelOnChange } = useConfig()
-  const { boostedShares, rewardAssets } = useStore(storeSelector)
+  const { boostedShares, rewardAssets, exitingPercent } = useStore(storeSelector)
 
   const { submit } = useUnboostSubmit({
     rewards: rewardAssets,
     shares: boostedShares,
     vaultAddress,
   })
+
+  const isDisabled = boostedShares === 0n || exitingPercent > 0
 
   const handleSubmit = useCallback(async (percent: number) => {
     const onSuccess = cancelOnChange({
@@ -55,13 +59,16 @@ const useUnboost: Hook = (params) => {
   ])
 
   return useMemo(() => ({
+    isDisabled,
     submit: handleSubmit,
   }), [
+    isDisabled,
     handleSubmit,
   ])
 }
 
 useUnboost.mock = {
+  isDisabled: true,
   submit: async () => {},
 }
 
