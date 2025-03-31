@@ -36,11 +36,11 @@ const _getServerLanguage = (request: NextRequest) => {
 
     languagePreferences.sort((a, b) => b.priority - a.priority)
 
-    const clientLanguage = languagePreferences?.[0]?.language
+    const clientLanguage = languagePreferences?.[0]?.language as Intl.LanguagesKeys
 
-    let result = defaultLanguage
+    let result = defaultLanguage as Intl.LanguagesKeys
 
-    if (clientLanguage && allLanguages.includes(clientLanguage as Intl.LanguagesKeys)) {
+    if (clientLanguage && allLanguages.includes(clientLanguage)) {
       result = clientLanguage
     }
 

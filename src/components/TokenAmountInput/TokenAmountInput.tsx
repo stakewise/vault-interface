@@ -176,7 +176,10 @@ const TokenAmountInput: React.FC<TokenAmountInputProps> = (props) => {
                 title={balanceTitle}
                 value={tokenBalance}
                 dataTestId={dataTestId ? `${dataTestId}-balance` : ''}
-                onClick={onMaxButtonClick}
+                onClick={() => {
+                  setSpecialFormat(null)
+                  onMaxButtonClick()
+                }}
               />
             )
           }

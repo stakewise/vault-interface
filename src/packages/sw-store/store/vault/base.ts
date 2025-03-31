@@ -20,7 +20,7 @@ export interface BaseState {
 export const initialState: BaseState = {
   data: {
     apy: 0,
-    baseApy: 0,
+    // baseApy: 0,
     imageUrl: '',
     createdAt: 0,
     feePercent: 0,
