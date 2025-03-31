@@ -1,3 +1,14 @@
+
+const getEnv = (env) => (
+  env
+    .replace(/["']/g, '')
+    .split(',')
+    .filter(Boolean)
+    .map((val) => val.trim().toLowerCase())
+)
+
+const availableLocales = getEnv(process.env.NEXT_PUBLIC_LOCALES || '')
+
 const allLanguages = [
   'en', // English
   'ru', // Russian
@@ -7,6 +18,7 @@ const allLanguages = [
   'de', // Deutsch
   'zh', // Chinese
 ]
+  .filter((locale) => availableLocales.includes(locale))
 
 
 export {

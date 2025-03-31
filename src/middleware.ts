@@ -11,7 +11,6 @@ const networkMiddleware = createNetworkMiddleware({
   supportedNetworkIds: [
     chains.gnosis.id,
     chains.chiado.id,
-    chains.holesky.id,
     chains.mainnet.id,
   ],
   middlewareFn: async (request) => {

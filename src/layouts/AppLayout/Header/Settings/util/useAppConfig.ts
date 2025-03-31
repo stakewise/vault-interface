@@ -34,8 +34,11 @@ const useAppConfig = () => {
 
       if (isValidCurrency) {
         actions.currency.setData(savedCurrency)
+        return
       }
     }
+
+    actions.currency.setData(currencyOptions[0].value as Currency)
   }, [])
 
   const handleChangeTheme = useCallback((theme: ThemeValue) => {

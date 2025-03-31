@@ -3,6 +3,8 @@ import * as constants from 'sw-helpers/constants'
 import { allLanguages } from 'scripts/collectMessages/languages'
 
 
+const defaultLanguage = allLanguages[0]
+
 const _getServerLanguage = (request: NextRequest) => {
   try {
     const queryLanguage = request.nextUrl.searchParams.get(constants.queryNames.language) || ''
@@ -17,7 +19,7 @@ const _getServerLanguage = (request: NextRequest) => {
       return savedLanguage
     }
     else if (savedLanguage) {
-      return 'en'
+      return defaultLanguage
     }
 
     const acceptLanguageHeader = request.headers.get('accept-language') || ''
@@ -36,7 +38,7 @@ const _getServerLanguage = (request: NextRequest) => {
 
     const clientLanguage = languagePreferences?.[0]?.language
 
-    let result = 'en'
+    let result = defaultLanguage
 
     if (clientLanguage && allLanguages.includes(clientLanguage as Intl.LanguagesKeys)) {
       result = clientLanguage
@@ -47,7 +49,7 @@ const _getServerLanguage = (request: NextRequest) => {
   catch (error) {
     console.error(error)
 
-    return 'en'
+    return defaultLanguage
   }
 }
 
