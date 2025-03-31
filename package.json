@@ -59,7 +59,6 @@
     "@ledgerhq/hw-app-eth": "6.38.0",
     "@ledgerhq/hw-transport-webhid": "6.29.2",
     "@ledgerhq/hw-transport-webusb": "6.29.2",
-    "@ledgerhq/iframe-provider": "0.4.3",
     "@metamask/onboarding": "1.0.1",
     "@reduxjs/toolkit": "2.2.7",
     "@stakewise/v3-sdk": "3.3.0",
