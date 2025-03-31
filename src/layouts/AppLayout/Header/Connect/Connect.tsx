@@ -1,6 +1,6 @@
 import React from 'react'
 import cx from 'classnames'
-import { useConfig } from 'config'
+import { supportedChains, useConfig } from 'config'
 import device from 'sw-modules/device'
 import { commonMessages } from 'helpers'
 
@@ -19,7 +19,6 @@ const networkSizes = {
   mainnet: 160,
   gnosis: 185,
   chiado: 197,
-  holesky: 204,
 }
 
 const Connect: React.FC<Connect> = ({ className }) => {
@@ -32,11 +31,15 @@ const Connect: React.FC<Connect> = ({ className }) => {
 
     return (
       <div className={cx(className, 'flex gap-8')}>
-        <Bone
-          className="rounded-8"
-          w={isMobile ? 44 : networkWidth}
-          h={44}
-        />
+        {
+          supportedChains.length > 1 && (
+            <Bone
+              className="rounded-8"
+              w={isMobile ? 44 : networkWidth}
+              h={44}
+            />
+          )
+        }
         <Bone
           className="rounded-8"
           w={isMobile ? 136 : 180}

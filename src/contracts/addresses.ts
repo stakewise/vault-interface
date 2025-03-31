@@ -17,20 +17,6 @@ const addresses = {
       merkleDistributorV2: '0xa9dc250dF4EE9273D09CFa455da41FB1cAC78d34',
     },
   },
-  [Network.Holesky]: {
-    aave: {
-      poolAddressProvider: ZeroAddress,
-      poolDataProvider: ZeroAddress,
-    },
-    balancer: {
-      vault: ZeroAddress,
-    },
-    base: {
-      oracles: ZeroAddress,
-      merkleDistributor: ZeroAddress,
-      merkleDistributorV2: '0xC8Eb13a2F1799Fd7Eb1cE7393259962EE2cd6514',
-    },
-  },
   [Network.Gnosis]: {
     aave: {
       poolAddressProvider: ZeroAddress,

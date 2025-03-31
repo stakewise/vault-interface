@@ -9,7 +9,7 @@ declare global {
 
   type SDK = StakeWiseSDK
   type Library = StakeWise.Provider
-  type ChainIds = 1 | 100 | 17000 | 10200
+  type ChainIds = 1 | 100 | 10200
   type GenerateMetadata<T = {}> = (props: { params: T & { locale: Intl.LanguagesKeys }}) => Promise<Metadata>
 
   // Helpers

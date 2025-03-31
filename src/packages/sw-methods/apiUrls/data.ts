@@ -2,13 +2,6 @@ import { configs, Network } from 'apps/v3-sdk'
 
 
 const apiUrls = {
-  [Network.Holesky]: {
-    backend: configs[Network.Holesky].api.backend,
-    web3: 'https://ethereum-holesky.publicnode.com/',
-    subgraph: IS_PROD
-      ? configs[Network.Holesky].api.subgraph
-      : 'https://graphs.stakewise.io/holesky/subgraphs/name/stakewise/stage',
-  },
   [Network.Chiado]: {
     backend: configs[Network.Chiado].api.backend,
     web3: 'https://rpc.chiadochain.net/',

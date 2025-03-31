@@ -22,6 +22,5 @@ export default {
     mainnet: '0xAC0F906E433d58FA868F936E8A43230473652885',
     chiado: '0xF82f6E46d0d0a9536b9CA4bc480372EeaFcd9E6c',
     gnosis: '0x4b4406Ed8659D03423490D8b62a1639206dA0A7a',
-    holesky: '0x8A94e1d22D83990205843cda08376d16F150c9bb',
   } as const,
 }

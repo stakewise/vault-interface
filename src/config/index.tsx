@@ -9,17 +9,29 @@ import useActions from '../hooks/data/useActions'
 import connectModalId from '../layouts/modals/ConnectWalletModal/modalId'
 
 
-const supportedChains = [
-  chains.gnosis,
-  chains.chiado,
-  chains.holesky,
-  chains.mainnet,
-]
+type SupportedChain = typeof chains.mainnet | typeof chains.gnosis | typeof chains.chiado
+
+const supportedChains: SupportedChain[] = []
+
+if (process.env.NEXT_PUBLIC_GNOSIS_VAULT_ADDRESS) {
+  supportedChains.push(chains.gnosis)
+}
+if (process.env.NEXT_PUBLIC_CHIADO_VAULT_ADDRESS) {
+  supportedChains.push(chains.chiado)
+}
+if (process.env.NEXT_PUBLIC_MAINNET_VAULT_ADDRESS) {
+  supportedChains.push(chains.mainnet)
+}
 
 const supportedNetworkIds = supportedChains.map((config) => config.id)
 
 const middleware = (ctx: ConfigProvider.Context) => {
-  const { chainId, networkId, library } = ctx
+  const { library } = ctx
+
+  const supportedChain = supportedChains.find((chain) => chain.id === ctx.networkId) || supportedChains[0]
+
+  const networkId = supportedChain.id
+  const chainId = supportedChain.chainId as ConfigProvider.Context['chainId']
 
   const sdk = methods.getSDK({ chainId })
   const signSDK = methods.getSDK({ chainId, library })
@@ -29,20 +41,18 @@ const middleware = (ctx: ConfigProvider.Context) => {
     || networkId === networks.configs.gnosis.id
   )
 
-  const isEthereum = (
-    networkId === networks.configs.holesky.id
-    || networkId === networks.configs.mainnet.id
-  )
+  const isEthereum = networkId === networks.configs.mainnet.id
 
   return {
     ...ctx,
+    networkId,
+    chainId,
     sdk,
     signSDK,
     isGnosis,
     isEthereum,
     isTestnet: sdk.config.network.isTestnet,
     isMainnet: networkId === chains.mainnet.id,
-    isHolesky: networkId === chains.holesky.id,
   }
 }
 
@@ -63,20 +73,6 @@ const ConfigProvider: React.FC<ConfigProviderProps> = (props) => {
   const isActivationMessageVisible = useRef(false)
   const activationMessageTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
-  const resetAccount = useCallback(() => {
-    // actions.account.balances.resetData()
-    // actions.account.vestings.resetData()
-    //
-    // actions.vaults.operate.resetData(false)
-    // actions.vaults.deposits.resetData(false)
-  }, [ actions ])
-
-  const resetAccountAndVaults = useCallback(() => {
-    // actions.vaults.osTokenVaults.resetData()
-    // actions.vaults.all.resetData()
-    resetAccount()
-  }, [ actions, resetAccount ])
-
   const setLoader = useCallback((activationMessage: Intl.Message | string) => {
     activationMessageTimeoutRef.current = setTimeout(() => {
       isActivationMessageVisible.current = true
@@ -95,7 +91,6 @@ const ConfigProvider: React.FC<ConfigProviderProps> = (props) => {
   }, [ actions ])
 
   const handleConnectError = useCallback(() => {
-    resetAccount()
     modal.closeModal(connectModalId)
 
     setTimeout(() => actions.ui.resetBottomLoader())
@@ -105,10 +100,8 @@ const ConfigProvider: React.FC<ConfigProviderProps> = (props) => {
     <InitialConfigProvider
       serverNetworkId={serverNetworkId}
       supportedNetworkIds={supportedNetworkIds}
-      onChangeChain={resetAccountAndVaults}
       onConnectError={handleConnectError}
       onFinishConnect={resetLoader}
-      onDisconnect={resetAccount}
       onStartConnect={setLoader}
     >
       {children}

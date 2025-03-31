@@ -56,6 +56,10 @@ const NetworkSelect: React.FC<NetworkSelectProps> = (props) => {
     }
   }, [ networkId, wallet ])
 
+  if (networkOptions.length === 1) {
+    return null
+  }
+
   return (
     <Dropdown
       className={className}

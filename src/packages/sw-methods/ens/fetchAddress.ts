@@ -10,10 +10,6 @@ type Input = {
 }
 
 const fetchAddress = async ({ chainId, provider, ensName }: Input) => {
-  if (chainId === Network.Holesky) {
-    return null
-  }
-
   const cachedAddress = getCachedAddress({ chainId, ensName })
 
   if (typeof cachedAddress !== 'undefined') {

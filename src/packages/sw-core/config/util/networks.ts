@@ -7,7 +7,6 @@ type Ids = keyof typeof supportedConfigs
 const supportedConfigs = {
   [sdkChains.gnosis.id]: sdkChains.gnosis,
   [sdkChains.chiado.id]: sdkChains.chiado,
-  [sdkChains.holesky.id]: sdkChains.holesky,
   [sdkChains.mainnet.id]: sdkChains.mainnet,
 } as const
 
