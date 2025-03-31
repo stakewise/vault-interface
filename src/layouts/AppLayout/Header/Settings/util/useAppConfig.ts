@@ -30,7 +30,11 @@ const useAppConfig = () => {
     const savedCurrency = localStorage.getItem<Currency>(constants.localStorageNames.currency)
 
     if (savedCurrency && savedCurrency !== currency) {
-      actions.currency.setData(savedCurrency)
+      const isValidCurrency = currencyOptions.some(({ value }) => value === savedCurrency)
+
+      if (isValidCurrency) {
+        actions.currency.setData(savedCurrency)
+      }
     }
   }, [])
 
@@ -103,11 +107,14 @@ const useAppConfig = () => {
       onChange: handleChangeLanguage as DropdownOptionOnChange,
     }
 
-    return [
+    const result = [
       languageOption,
       currencyOption,
       themeOption,
-    ] as MenuDropdownProps['options']
+    ]
+      .filter(({ options }) => options.length > 1)
+
+    return result as MenuDropdownProps['options']
   }, [
     currency,
     themeValue,

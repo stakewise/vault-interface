@@ -27,7 +27,7 @@ export const generateMetadata: GenerateMetadata = async () => {
   let description = owner ? `${owner} | ${metaDescription}` : metaDescription
   let image = '/og-image.png'
 
-  const url = domain ? `https://${domain}/` : 'https://app.stakewise.io/'
+  const url = `https://${domain}/`
 
   try {
     const vaultBase = await getVaultBase()

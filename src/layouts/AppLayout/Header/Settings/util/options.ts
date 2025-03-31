@@ -8,8 +8,19 @@ export type OptionsType = {
   title: Intl.Message | string
 }
 
+const getEnv = (env: string) => (
+  env
+    .replace(/["']/g, '')
+    .split(',')
+    .filter(Boolean)
+    .map((val) => val.trim().toLowerCase())
+)
+
+const enabledLocales = getEnv(process.env.NEXT_PUBLIC_LOCALES || '')
+const enabledCurrencies = getEnv(process.env.NEXT_PUBLIC_CURRENCIES || '')
+
 // https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
-const languageOptions: OptionsType[] = [
+let languageOptions: OptionsType[] = [
   //English
   {
     title: 'English',
@@ -54,7 +65,10 @@ const languageOptions: OptionsType[] = [
   },
 ]
 
-const currencyOptions: OptionsType[] = [
+languageOptions = languageOptions
+  .filter(({ value }) => enabledLocales.includes(value))
+
+let currencyOptions: OptionsType[] = [
   {
     title: 'USD',
     value: 'USD',
@@ -91,6 +105,10 @@ const currencyOptions: OptionsType[] = [
     icon: 'currency/aud',
   },
 ]
+
+currencyOptions = currencyOptions
+  .filter(({ value }) => enabledCurrencies.includes(value.toLowerCase()))
+
 
 export {
   languageOptions,

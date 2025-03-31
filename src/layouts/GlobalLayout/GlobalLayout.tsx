@@ -52,7 +52,7 @@ const GlobalLayout: React.FC<GlobalLayoutProps> = (values) => {
   }, [ locale ])
 
   const store = useMemo(() => {
-    const skipSSR = window.location.search
+    const skipSSR = typeof window !== 'undefined' && window.location.search
       ? new URLSearchParams(window.location.search).get('skipSSR') === 'true'
       : false
 
