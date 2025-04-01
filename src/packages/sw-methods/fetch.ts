@@ -1,4 +1,4 @@
-import { AbortRequest } from 'apps/v3-sdk'
+import { AbortRequest } from 'sdk'
 
 
 const fetchMethod = <T = any>(url: string, options: RequestInit = {}): AbortRequest<T, T> => {

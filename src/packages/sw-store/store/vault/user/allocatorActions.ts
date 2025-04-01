@@ -1,4 +1,4 @@
-import { StakeWiseSDK, AllocatorActionType } from 'apps/v3-sdk'
+import { StakeWiseSDK, AllocatorActionType } from 'sdk'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { createSlice } from '@reduxjs/toolkit'
 import { formatEther } from 'ethers'

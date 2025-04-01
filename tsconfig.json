@@ -31,9 +31,6 @@
       "sdk": [
         "node_modules/@stakewise/v3-sdk"
       ],
-      "apps/v3-sdk": [
-        "node_modules/@stakewise/v3-sdk"
-      ],
     },
     "lib": [
       "dom",

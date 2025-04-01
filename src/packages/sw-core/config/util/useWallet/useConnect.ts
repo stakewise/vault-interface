@@ -3,7 +3,7 @@ import methods from 'sw-methods'
 import intl from 'sw-modules/intl'
 import type { Eip1193Provider } from 'ethers'
 import * as constants from 'sw-helpers/constants'
-import { localStorage } from 'apps/v3-sdk'
+import { localStorage } from 'sdk'
 import notifications from 'sw-modules/notifications'
 import { getAddress, BrowserProvider } from 'ethers'
 

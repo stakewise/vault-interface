@@ -1,4 +1,4 @@
-import { configs, Network } from 'apps/v3-sdk'
+import { configs, Network } from 'sdk'
 
 
 const apiUrls = {

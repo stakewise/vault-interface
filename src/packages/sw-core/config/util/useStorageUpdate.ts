@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import cookie from 'sw-helpers/cookie'
 import * as constants from 'sw-helpers/constants'
-import { localStorage } from 'apps/v3-sdk'
+import { localStorage } from 'sdk'
 
 import networks from './networks'
 

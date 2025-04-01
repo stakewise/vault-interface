@@ -1,5 +1,5 @@
 import { useCallback, useEffect } from 'react'
-import { localStorage } from 'apps/v3-sdk'
+import { localStorage } from 'sdk'
 import * as constants from 'sw-helpers/constants'
 import { isAddress } from 'ethers'
 

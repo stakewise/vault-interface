@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
-import { StakeWiseSDK, OsTokenPositionHealth, BorrowStatus } from 'apps/v3-sdk'
+import { StakeWiseSDK, OsTokenPositionHealth, BorrowStatus } from 'sdk'
 
 import storageNames from '../../../utils/storageNames'
 

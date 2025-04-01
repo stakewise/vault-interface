@@ -1,4 +1,4 @@
-import { StakeWiseSDK } from 'apps/v3-sdk'
+import { StakeWiseSDK } from 'sdk'
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 

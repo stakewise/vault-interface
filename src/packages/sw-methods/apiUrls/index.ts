@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import { Network } from 'apps/v3-sdk'
+import { Network } from 'sdk'
 
 import data from './data'
 
