@@ -108,7 +108,7 @@ class WalletLinkConnector extends WagmiConnector {
 
         const network = networks.configs[networkId]
 
-        const url = apiUrls.getWeb3UrlWithoutQuiknode(chainId)
+        const url = apiUrls.getWeb3Url(chainId)
 
         await (provider as any).request({
           method: 'wallet_addEthereumChain',

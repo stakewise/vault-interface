@@ -1,6 +1,3 @@
-import methods from 'sw-methods'
-
-
 type FileFormat = 'xlsx' | 'csv'
 
 const fetchXlsxFile = async (data: any, format: FileFormat = 'xlsx') => {
@@ -9,19 +6,31 @@ const fetchXlsxFile = async (data: any, format: FileFormat = 'xlsx') => {
     xlsx: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
   }[format]
 
-  const response = await methods.fetch('/api/xlsx-export', {
-    method: 'POST',
-    headers: {
-      'content-type': contentType,
-    },
-    body: JSON.stringify({ data, format }),
+  const { utils, write } = await import('xlsx')
+
+  const workbook = utils.book_new()
+  const workSheet = utils.aoa_to_sheet(data)
+
+  const maxWidths: number[] = []
+
+  data.forEach((row: any) => {
+    row.forEach((cell: any, index: number) => {
+      const cellLength = (cell) ? cell.toString().length : 0
+      maxWidths[index] = Math.max(maxWidths[index] || 0, cellLength)
+    })
   })
 
-  const blob = new Blob([ Buffer.from(response, 'base64') ], {
+  workSheet['!cols'] = maxWidths.map((width) => ({ wch: Math.max(width, 10) }))
+
+  utils.book_append_sheet(workbook, workSheet)
+
+  const result = write(workbook, { type: 'base64', bookType: format })
+
+  const blob = new Blob([ Buffer.from(result, 'base64') ], {
     type: contentType,
   })
 
-  return response ? URL.createObjectURL(blob) : ''
+  return result ? URL.createObjectURL(blob) : ''
 }
 
 

@@ -9,7 +9,7 @@ import messages from '../../messages'
 
 // apiUrls!
 const params = Object.values(networks.configs).reduce((acc, config) => {
-  const url = apiUrls.getWeb3UrlWithoutQuiknode(config.chainId)
+  const url = apiUrls.getWeb3Url(config.chainId)
 
   return {
     ...acc,

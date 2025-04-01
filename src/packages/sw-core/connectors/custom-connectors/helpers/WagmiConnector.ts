@@ -16,12 +16,12 @@ networks.chains.forEach((chainId) => {
 
   if (viemChain) {
     const result: Chain = { ...viemChain }
-    const url = apiUrls.getWeb3UrlWithoutQuiknode(chainId)
+    const url = apiUrls.getWeb3Url(chainId)
 
     // Inside wagmi there is use of contracts as a helper, it looks dangerous, better to remove it
     delete result.contracts
 
-    result.rpcUrls.default.http = [ url ]
+    result.rpcUrls.default.http = Array.isArray(url) ? [ url[0] ] : [ url ]
 
     chains.push(result)
   }
@@ -118,7 +118,7 @@ class WagmiConnector {
 
         const network = networks.configs[networkId]
 
-        const url = apiUrls.getWeb3UrlWithoutQuiknode(chainId)
+        const url = apiUrls.getWeb3Url(chainId)
 
         await (provider as any).request({
           method: 'wallet_addEthereumChain',
