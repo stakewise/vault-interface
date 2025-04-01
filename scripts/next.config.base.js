@@ -8,7 +8,7 @@ const compressCssModules = require('./compressCssModules')
 
 const mainRPC = process.env.NEXT_PUBLIC_MAINNET_NETWORK_URL
 const fallbackRPC = process.env.NEXT_PUBLIC_MAINNET_FALLBACK_URL
-const isProduction = process.env.NEXT_PUBLIC_PROD !== 'false'
+const isProduction = process.env.NEXT_PUBLIC_IS_PROD !== 'false'
 
 console.log('-------------------------------information---------------------------------')
 console.log('Main RPC:', mainRPC)
