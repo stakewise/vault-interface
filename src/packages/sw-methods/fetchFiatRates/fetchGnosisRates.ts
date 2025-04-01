@@ -13,10 +13,7 @@ const fetchGnosisRates = async () => {
 
   return {
     [constants.tokens.gno]: assetValues,
-    [constants.tokens.rGNO]: assetValues,
-    [constants.tokens.sGNO]: assetValues,
     [constants.tokens.xdai]: setValues(1),
-    [constants.tokens.swise]: swiseValues,
     [constants.tokens.osGNO]: mintTokenValues,
   }
 }

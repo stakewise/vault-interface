@@ -22,13 +22,8 @@ export interface FiatRatesState {
     [constants.tokens.gno]: CurrenciesObject
     [constants.tokens.eth]: CurrenciesObject
     [constants.tokens.xdai]: CurrenciesObject
-    [constants.tokens.swise]: CurrenciesObject
     [constants.tokens.osETH]: CurrenciesObject
     [constants.tokens.osGNO]: CurrenciesObject
-    [constants.tokens.sGNO]: CurrenciesObject,
-    [constants.tokens.rGNO]: CurrenciesObject,
-    [constants.tokens.rETH2]: CurrenciesObject,
-    [constants.tokens.sETH2]: CurrenciesObject,
   }
   isFetching: boolean
 }
@@ -38,13 +33,8 @@ export const initialState: FiatRatesState = {
     [constants.tokens.gno]: currencies,
     [constants.tokens.eth]: currencies,
     [constants.tokens.xdai]: currencies,
-    [constants.tokens.swise]: currencies,
     [constants.tokens.osETH]: currencies,
     [constants.tokens.osGNO]: currencies,
-    [constants.tokens.sGNO]: currencies,
-    [constants.tokens.rGNO]: currencies,
-    [constants.tokens.rETH2]: currencies,
-    [constants.tokens.sETH2]: currencies,
   },
   isFetching: true,
 }

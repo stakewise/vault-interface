@@ -11,13 +11,8 @@ export const tokens = [
   'GNO',
   'ETH',
   'xDAI',
-  'sGNO',
-  'rGNO',
-  'SWISE',
   'osETH',
   'osGNO',
-  'rETH2',
-  'sETH2',
 ] as const
 
 export const sizes = [ 'sm', 'md', 'xl' ] as const
