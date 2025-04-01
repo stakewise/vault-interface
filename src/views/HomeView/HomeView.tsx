@@ -1,7 +1,7 @@
 'use client'
 import React from 'react'
 
-import { ConnectWalletModal, SwitchAccountModal, TokenTransactionsModal } from 'layouts/modals'
+import { ConnectWalletModal, SwitchAccountModal } from 'layouts/modals'
 
 import StakeContext from './StakeContext/StakeContext'
 
@@ -12,7 +12,6 @@ const HomeView: React.FC = () => (
       <StakeContext />
       <ConnectWalletModal />
       <SwitchAccountModal />
-      <TokenTransactionsModal />
     </div>
   </div>
 )
