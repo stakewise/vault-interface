@@ -48,7 +48,6 @@ import upload from './icon/upload.svg'
 import loader from './icon/loader.svg'
 import warning from './icon/warning.svg'
 import calendar from './icon/calendar.svg'
-
 import usd from './currency/usd.svg'
 import eur from './currency/eur.svg'
 import gbp from './currency/gbp.svg'
@@ -79,7 +78,6 @@ export default {
   'connector/braveBrowser': braveBrowser.src,
   'connector/walletConnect': walletConnect.src,
   'connector/monitorAddress': monitorAddress.src,
-
   'image/error': error.src,
   'image/magic': magic.src,
   'image/success': success.src,
@@ -100,7 +98,6 @@ export default {
   'arrow/down': up.src,
   'arrow/left': up.src,
   'arrow/right': up.src,
-
   'icon/gas': gas.src,
   'icon/plus': plus.src,
   'icon/info': info.src,
