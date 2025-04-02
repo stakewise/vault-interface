@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useLayoutEffect, useMemo } from 'react'
 import * as constants from 'helpers/constants'
 import initContext from 'sw-helpers/initContext'
-import { useObjectState } from 'sw-hooks'
+import { useObjectState } from 'hooks'
 import cookie from 'sw-helpers/cookie'
 
 import { ThemeClasses, ThemeValue, ThemeColor } from './enum'

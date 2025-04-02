@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo } from 'react'
 import { useConfig } from 'config'
-import { useObjectState } from 'sw-hooks'
+import { useObjectState } from 'hooks'
 
 import useApprove from '../fetch/useApprove'
 import useAllowance from '../fetch/useAllowance'

@@ -1,8 +1,7 @@
 'use client'
 import React from 'react'
 import cx from 'classnames'
-import { useStore } from 'hooks'
-import { useTabButton } from 'sw-hooks'
+import { useStore , useTabButton } from 'hooks'
 import device from 'modules/device'
 
 import { stakeCtx, Tab } from 'views/HomeView/StakeContext/util'

@@ -1,5 +1,5 @@
 import React, { useRef } from 'react'
-import { useIsomorphicLayoutEffect  } from 'sw-hooks'
+import { useIsomorphicLayoutEffect  } from 'hooks'
 import cx from 'classnames'
 
 import s from './AutoHeightToggle.module.scss'

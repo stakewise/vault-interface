@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo } from 'react'
 import { constants } from 'helpers'
 
-import useObjectState from 'sw-hooks/controls/useObjectState'
+import useObjectState from 'hooks/controls/useObjectState'
 
 
 type Input = {

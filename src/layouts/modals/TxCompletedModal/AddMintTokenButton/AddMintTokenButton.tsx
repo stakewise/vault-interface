@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react'
 import methods from 'sw-methods'
 import { useConfig } from 'config'
-import { useAddTokenToWallet } from 'sw-hooks'
+import { useAddTokenToWallet } from 'hooks'
 
 import { imagesUrls, Button } from 'components'
 

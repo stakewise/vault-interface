@@ -1,6 +1,6 @@
 import React from 'react'
 import { formatEther } from 'ethers'
-import { useFiatValues } from 'sw-hooks'
+import { useFiatValues } from 'hooks'
 
 import Text from '../Text/Text'
 import type { TextProps } from '../Text/Text'

@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react'
 import cx from 'classnames'
-import { useTabButton } from 'sw-hooks'
+import { useTabButton } from 'hooks'
 import forms from 'modules/forms'
 
 import Text from '../Text/Text'
