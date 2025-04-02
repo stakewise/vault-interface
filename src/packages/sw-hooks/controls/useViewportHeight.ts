@@ -1,6 +1,6 @@
 'use client'
 import { useEffect } from 'react'
-import device from 'sw-modules/device'
+import device from 'modules/device'
 
 /*
 

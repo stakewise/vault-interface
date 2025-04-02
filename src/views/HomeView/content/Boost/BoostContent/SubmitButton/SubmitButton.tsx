@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react'
-import forms from 'sw-modules/forms'
+import forms from 'modules/forms'
 import { commonMessages } from 'helpers'
 import { useBoostSupplyCapsCheck, useStore } from 'hooks'
 import { useConfig } from 'config'

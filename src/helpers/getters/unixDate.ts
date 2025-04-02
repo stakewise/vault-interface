@@ -1,4 +1,4 @@
-import date from 'sw-modules/date'
+import date from 'modules/date'
 
 
 const day = 24 * 60 * 60

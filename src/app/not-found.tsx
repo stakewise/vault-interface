@@ -1,5 +1,5 @@
 import { commonMessages } from 'helpers'
-import { getLocale } from 'sw-modules/intl/_SSR'
+import { getLocale } from 'modules/intl/_SSR'
 
 
 export const generateMetadata: GenerateMetadata = async () => {

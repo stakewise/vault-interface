@@ -1,8 +1,8 @@
 import React from 'react'
 import { commonMessages } from 'helpers'
-import device from 'sw-modules/device'
+import device from 'modules/device'
 import { useModalClose } from 'hooks'
-import modal from 'sw-modules/modal'
+import modal from 'modules/modal'
 
 import { Input, Modal, Select, FormValid, Button } from 'components'
 

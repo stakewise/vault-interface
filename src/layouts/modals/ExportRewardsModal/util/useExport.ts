@@ -1,6 +1,6 @@
 import { useCallback, useMemo, useState } from 'react'
-import notifications from 'sw-modules/notifications'
-import intl from 'sw-modules/intl'
+import notifications from 'modules/notifications'
+import intl from 'modules/intl'
 
 import useForm from './useForm'
 import useXLSX from './useXLSX'

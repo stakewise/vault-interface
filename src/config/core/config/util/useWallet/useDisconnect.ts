@@ -1,7 +1,7 @@
 import { useCallback } from 'react'
-import intl from 'sw-modules/intl'
+import intl from 'modules/intl'
 import { walletNames } from 'helpers/constants'
-import notifications from 'sw-modules/notifications'
+import notifications from 'modules/notifications'
 
 import connectors from '../../../connectors'
 

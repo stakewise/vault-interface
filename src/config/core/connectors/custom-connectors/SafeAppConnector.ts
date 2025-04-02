@@ -1,5 +1,5 @@
 import { safe } from '@wagmi/connectors'
-import notifications from 'sw-modules/notifications'
+import notifications from 'modules/notifications'
 import type { SafeAppProvider } from '@safe-global/safe-apps-provider'
 import SafeAppsSDK, { TransactionStatus } from '@safe-global/safe-apps-sdk'
 

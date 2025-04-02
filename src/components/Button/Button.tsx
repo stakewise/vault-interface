@@ -1,6 +1,6 @@
 import React, { forwardRef, useMemo } from 'react'
 import cx from 'classnames'
-import device from 'sw-modules/device'
+import device from 'modules/device'
 
 import ButtonBase from '../ButtonBase/ButtonBase'
 import type { ButtonBaseProps } from '../ButtonBase/ButtonBase'

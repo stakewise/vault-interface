@@ -1,4 +1,4 @@
-import date from 'sw-modules/date'
+import date from 'modules/date'
 
 
 const formatDateToNumerical = (value: string | number | Date | ReturnType<Date.Time>, separator: string = '-') => {

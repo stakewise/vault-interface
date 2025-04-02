@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react'
 import { Description } from '@headlessui/react'
-import device from 'sw-modules/device'
+import device from 'modules/device'
 import cx from 'classnames'
 
 import Text from '../../Text/Text'

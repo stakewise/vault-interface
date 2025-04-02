@@ -2,7 +2,7 @@ import React, { ReactNode, RefObject, forwardRef, useRef, useCallback } from 're
 import { useEventListener } from 'sw-hooks'
 import NextLink from 'next/link'
 import methods from 'sw-methods'
-import intl from 'sw-modules/intl'
+import intl from 'modules/intl'
 
 
 export type HrefProps = {

@@ -1,5 +1,5 @@
 import { useCallback, useMemo, useState } from 'react'
-import notifications from 'sw-modules/notifications'
+import notifications from 'modules/notifications'
 import { useConfig } from 'config'
 import { BoostStep } from 'helpers/enums'
 import { commonMessages, getters } from 'helpers'

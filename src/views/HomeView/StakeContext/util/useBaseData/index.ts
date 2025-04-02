@@ -1,6 +1,6 @@
 import { useEffect, useCallback, useMemo } from 'react'
 import { useObjectState, useStore } from 'hooks'
-import notifications from 'sw-modules/notifications'
+import notifications from 'modules/notifications'
 import { commonMessages } from 'helpers'
 import { useConfig } from 'config'
 import methods from 'sw-methods'

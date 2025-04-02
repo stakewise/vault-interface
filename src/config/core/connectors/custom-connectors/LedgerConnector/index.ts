@@ -1,7 +1,7 @@
 import { Network , localStorage } from 'sdk'
 import { AbstractProvider } from 'ethers'
 import { localStorageNames } from 'helpers/constants'
-import EventAggregator from 'sw-modules/event-aggregator'
+import EventAggregator from 'modules/event-aggregator'
 
 import networks from '../../../config/util/networks'
 import LedgerProvider, { PathTypes } from './LedgerProvider'

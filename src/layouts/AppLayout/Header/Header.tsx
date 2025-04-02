@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import cx from 'classnames'
-import device from 'sw-modules/device'
+import device from 'modules/device'
 
 import Connect from './Connect/Connect'
 import Settings from './Settings/Settings'

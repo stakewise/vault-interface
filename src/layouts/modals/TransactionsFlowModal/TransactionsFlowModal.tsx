@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect } from 'react'
 import { useModalClose } from 'hooks'
-import modal from 'sw-modules/modal'
+import modal from 'modules/modal'
 import { commonMessages } from 'helpers'
 
 import { SetTransaction, TransactionsModal, TransactionStatus } from 'components'

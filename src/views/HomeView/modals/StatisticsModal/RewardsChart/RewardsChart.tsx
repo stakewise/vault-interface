@@ -1,6 +1,6 @@
 import React, { useRef } from 'react'
-import device from 'sw-modules/device'
-import forms from 'sw-modules/forms'
+import device from 'modules/device'
+import forms from 'modules/forms'
 import { useConfig } from 'config'
 import cx from 'classnames'
 

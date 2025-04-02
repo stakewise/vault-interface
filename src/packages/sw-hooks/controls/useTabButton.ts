@@ -1,6 +1,6 @@
 import { useCallback, useLayoutEffect, useMemo, useRef } from 'react'
-import device from 'sw-modules/device'
-import intl from 'sw-modules/intl'
+import device from 'modules/device'
+import intl from 'modules/intl'
 
 
 type Input = {

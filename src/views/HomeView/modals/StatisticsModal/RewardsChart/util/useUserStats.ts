@@ -1,7 +1,7 @@
 import { useCallback, useEffect } from 'react'
 import { useConfig } from 'config'
 import { useActions, useStore } from 'hooks'
-import cacheStorage from 'sw-modules/cache-storage'
+import cacheStorage from 'modules/cache-storage'
 
 
 type Cache = Record<string, any>

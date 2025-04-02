@@ -2,7 +2,7 @@ import { useCallback, useMemo, useState } from 'react'
 import { useConfig } from 'config'
 import { AllocatorActionType } from 'sdk'
 import { commonMessages } from 'helpers'
-import notifications from 'sw-modules/notifications'
+import notifications from 'modules/notifications'
 import { useActions, useBalances, useStore, useSubgraphUpdate } from 'hooks'
 
 import { Action, openTxCompletedModal } from 'layouts/modals'

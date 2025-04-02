@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { modifiers } from 'helpers'
-import forms from 'sw-modules/forms'
-import date from 'sw-modules/date'
+import forms from 'modules/forms'
+import date from 'modules/date'
 
 import messages from './messages'
 

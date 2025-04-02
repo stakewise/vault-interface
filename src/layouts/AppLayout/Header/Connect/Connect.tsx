@@ -1,7 +1,7 @@
 import React from 'react'
 import cx from 'classnames'
 import { supportedChains, useConfig } from 'config'
-import device from 'sw-modules/device'
+import device from 'modules/device'
 import { commonMessages } from 'helpers'
 
 import { Button, Bone } from 'components'

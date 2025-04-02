@@ -1,6 +1,6 @@
 import { injected, coinbaseWallet, walletConnect, safe } from '@wagmi/connectors'
 import { mainnet, gnosis, gnosisChiado } from 'viem/chains'
-import EventAggregator from 'sw-modules/event-aggregator'
+import EventAggregator from 'modules/event-aggregator'
 import apiUrls from 'sw-methods/apiUrls'
 import type { Chain } from 'viem/chains'
 

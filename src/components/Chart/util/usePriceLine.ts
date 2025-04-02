@@ -1,6 +1,6 @@
 import { useCallback, useRef, useEffect } from 'react'
 import type { LineWidth } from 'lightweight-charts'
-import theme, { ThemeColor } from 'sw-modules/theme'
+import theme, { ThemeColor } from 'modules/theme'
 import { LineStyle, IPriceLine } from 'lightweight-charts'
 
 

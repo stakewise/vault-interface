@@ -1,10 +1,10 @@
 import { useCallback, useRef } from 'react'
 import methods from 'sw-methods'
-import intl from 'sw-modules/intl'
+import intl from 'modules/intl'
 import type { Eip1193Provider } from 'ethers'
 import * as constants from 'helpers/constants'
 import { localStorage } from 'sdk'
-import notifications from 'sw-modules/notifications'
+import notifications from 'modules/notifications'
 import { getAddress, BrowserProvider } from 'ethers'
 
 import networks from '../networks'

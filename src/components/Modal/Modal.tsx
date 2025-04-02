@@ -1,6 +1,6 @@
 import React, { useEffect, forwardRef, useCallback, useState, Fragment } from 'react'
 import { Dialog, DialogPanel, Transition, TransitionChild } from '@headlessui/react'
-import device from 'sw-modules/device'
+import device from 'modules/device'
 import cx from 'classnames'
 
 import Form from '../Form/Form'

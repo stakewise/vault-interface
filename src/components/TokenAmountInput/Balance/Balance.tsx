@@ -1,6 +1,6 @@
 import React from 'react'
 import methods from 'sw-methods'
-import device from 'sw-modules/device'
+import device from 'modules/device'
 
 import Text from '../../Text/Text'
 import ButtonBase from '../../ButtonBase/ButtonBase'

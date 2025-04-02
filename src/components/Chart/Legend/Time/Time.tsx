@@ -1,6 +1,6 @@
 import React, { useRef, useCallback } from 'react'
 import type { Time } from 'lightweight-charts'
-import date from 'sw-modules/date'
+import date from 'modules/date'
 import cx from 'classnames'
 
 import Icon from '../../../Icon/Icon'

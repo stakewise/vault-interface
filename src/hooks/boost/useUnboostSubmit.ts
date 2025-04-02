@@ -1,6 +1,6 @@
 import { useCallback, useMemo, useState } from 'react'
 import { modifiers, commonMessages } from 'helpers'
-import notifications from 'sw-modules/notifications'
+import notifications from 'modules/notifications'
 import { useConfig } from 'config'
 
 import { Action, openTxCompletedModal } from 'layouts/modals/TxCompletedModal/TxCompletedModal'

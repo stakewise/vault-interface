@@ -1,7 +1,7 @@
 'use client'
 import { useEffect } from 'react'
 
-import cacheStorage from 'sw-modules/cache-storage'
+import cacheStorage from 'modules/cache-storage'
 
 
 const cache = cacheStorage.get<string[]>('PREFETCHED_IMAGES')

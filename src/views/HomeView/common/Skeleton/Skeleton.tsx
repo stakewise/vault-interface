@@ -1,6 +1,6 @@
 import React, { useRef } from 'react'
 import cx from 'classnames'
-import device from 'sw-modules/device'
+import device from 'modules/device'
 import { useSearchParams } from 'next/navigation'
 
 import { Bone, Text, MagicIcon } from 'components'

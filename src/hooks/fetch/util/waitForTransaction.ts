@@ -1,4 +1,4 @@
-import notifications from 'sw-modules/notifications'
+import notifications from 'modules/notifications'
 
 import commonMessages from 'helpers/messages'
 

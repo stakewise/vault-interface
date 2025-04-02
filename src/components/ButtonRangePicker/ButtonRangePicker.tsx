@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react'
 import cx from 'classnames'
 import { useTabButton } from 'sw-hooks'
-import forms from 'sw-modules/forms'
+import forms from 'modules/forms'
 
 import Text from '../Text/Text'
 import ButtonBase from '../ButtonBase/ButtonBase'

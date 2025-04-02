@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useMemo } from 'react'
 import { constants } from 'helpers'
 import { useActions, useStore } from 'hooks'
-import intl from 'sw-modules/intl'
+import intl from 'modules/intl'
 import { localStorage } from 'sdk'
-import theme, { ThemeValue, ThemeColor } from 'sw-modules/theme'
+import theme, { ThemeValue, ThemeColor } from 'modules/theme'
 
 import { MenuDropdownProps } from 'components/MenuDropdown/MenuDropdown'
 

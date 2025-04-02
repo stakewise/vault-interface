@@ -1,6 +1,6 @@
 import React from 'react'
-import modal from 'sw-modules/modal'
-import device from 'sw-modules/device'
+import modal from 'modules/modal'
+import device from 'modules/device'
 import { usePathname } from 'next/navigation'
 import { useModalClose } from 'hooks'
 

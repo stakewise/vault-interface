@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo, useState } from 'react'
 import { usePathname } from 'next/navigation'
-import device from 'sw-modules/device'
+import device from 'modules/device'
 import { constants } from 'helpers'
 import methods from 'sw-methods'
 import { useStore } from 'hooks'

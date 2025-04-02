@@ -1,5 +1,5 @@
 import React from 'react'
-import kit from 'sw-modules/kit-provider'
+import kit from 'modules/kit-provider'
 
 import imagesUrls from './images'
 

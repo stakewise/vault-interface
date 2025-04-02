@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import device from 'sw-modules/device'
+import device from 'modules/device'
 import { constants } from 'helpers'
 import { useConfig } from 'config'
 import { useStore } from 'hooks'

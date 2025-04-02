@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react'
 import { formatEther, parseEther } from 'ethers'
-import forms from 'sw-modules/forms'
+import forms from 'modules/forms'
 
 import InputView, { InputViewProps } from './InputView/InputView'
 

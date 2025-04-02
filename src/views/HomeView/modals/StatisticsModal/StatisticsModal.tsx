@@ -1,5 +1,5 @@
 import React from 'react'
-import modal from 'sw-modules/modal'
+import modal from 'modules/modal'
 import { useModalClose } from 'hooks'
 import { commonMessages } from 'helpers'
 

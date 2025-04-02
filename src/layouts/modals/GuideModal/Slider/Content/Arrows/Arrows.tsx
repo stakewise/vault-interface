@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react'
 import { useSwiper, useSwiperSlide } from 'swiper/react'
-import device from 'sw-modules/device'
+import device from 'modules/device'
 import cx from 'classnames'
 
 import { RoundButton } from 'components'

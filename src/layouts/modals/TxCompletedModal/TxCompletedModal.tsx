@@ -1,7 +1,7 @@
 import React from 'react'
 import cx from 'classnames'
-import modal from 'sw-modules/modal'
-import device from 'sw-modules/device'
+import modal from 'modules/modal'
+import device from 'modules/device'
 import { useConfig } from 'config'
 import useModalClose from 'hooks/controls/useModalClose'
 

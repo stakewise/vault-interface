@@ -1,8 +1,8 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import cx from 'classnames'
 import { useConfig } from 'config'
-import modal from 'sw-modules/modal'
-import device from 'sw-modules/device'
+import modal from 'modules/modal'
+import device from 'modules/device'
 import { constants } from 'helpers'
 import { usePathname } from 'next/navigation'
 

@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useCallback } from 'react'
-import 'sw-modules/notifications' // for get types
+import 'modules/notifications' // for get types
 import cx from 'classnames'
 
 import Icon from '../Icon/Icon'

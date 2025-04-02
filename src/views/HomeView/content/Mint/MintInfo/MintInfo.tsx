@@ -1,5 +1,5 @@
 import React from 'react'
-import froms from 'sw-modules/forms'
+import froms from 'modules/forms'
 import { useConfig } from 'config'
 
 import { Table } from 'views/HomeView/common'

@@ -1,5 +1,5 @@
 import React, { RefObject, useId, useRef } from 'react'
-import device from 'sw-modules/device'
+import device from 'modules/device'
 import cx from 'classnames'
 
 import s from './AmountInput.module.scss'

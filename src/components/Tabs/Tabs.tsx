@@ -1,5 +1,5 @@
 import React from 'react'
-import forms from 'sw-modules/forms'
+import forms from 'modules/forms'
 
 import TabsView, { TabsViewProps } from '../TabsView/TabsView'
 

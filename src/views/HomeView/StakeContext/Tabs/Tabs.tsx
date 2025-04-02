@@ -3,7 +3,7 @@ import React from 'react'
 import cx from 'classnames'
 import { useStore } from 'hooks'
 import { useTabButton } from 'sw-hooks'
-import device from 'sw-modules/device'
+import device from 'modules/device'
 
 import { stakeCtx, Tab } from 'views/HomeView/StakeContext/util'
 

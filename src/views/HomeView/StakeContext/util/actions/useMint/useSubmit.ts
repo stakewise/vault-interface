@@ -1,7 +1,7 @@
 import { useCallback, useMemo, useState } from 'react'
 import { useActions, useBalances, useStore, useSubgraphUpdate } from 'hooks'
 import { getters, commonMessages } from 'helpers'
-import notifications from 'sw-modules/notifications'
+import notifications from 'modules/notifications'
 import { AllocatorActionType } from 'sdk'
 import { useConfig } from 'config'
 

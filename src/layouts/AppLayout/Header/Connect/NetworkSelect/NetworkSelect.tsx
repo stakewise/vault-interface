@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react'
 import { getConfig, supportedChains, useConfig } from 'config'
 import { commonMessages } from 'helpers'
-import device from 'sw-modules/device'
+import device from 'modules/device'
 import { chains } from 'sdk'
 
 import { Button, Dropdown, DropdownProps } from 'components'

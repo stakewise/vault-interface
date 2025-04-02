@@ -1,6 +1,6 @@
 import { useRef, useMemo, useCallback } from 'react'
 import { useStore, useChainChanged, useAddressChanged } from 'hooks'
-import forms from 'sw-modules/forms'
+import forms from 'modules/forms'
 import { useConfig } from 'config'
 
 import { Tab } from './enum'

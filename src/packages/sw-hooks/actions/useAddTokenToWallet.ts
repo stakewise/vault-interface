@@ -1,6 +1,6 @@
 import { useCallback } from 'react'
 import { BrowserProvider } from 'ethers'
-import notifications from 'sw-modules/notifications'
+import notifications from 'modules/notifications'
 
 import messages from './messages'
 

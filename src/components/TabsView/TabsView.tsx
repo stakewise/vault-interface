@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useCallback, Fragment, useId, useRef } from 'react'
 import cx from 'classnames'
-import intl from 'sw-modules/intl'
+import intl from 'modules/intl'
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react'
 
 import ButtonBase from '../ButtonBase/ButtonBase'

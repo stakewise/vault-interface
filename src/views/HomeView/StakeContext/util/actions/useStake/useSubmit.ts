@@ -1,7 +1,7 @@
 import { useCallback, useMemo, useState } from 'react'
 import { useConfig } from 'config'
 import { StakeStep } from 'helpers/enums'
-import notifications from 'sw-modules/notifications'
+import notifications from 'modules/notifications'
 import { commonMessages, getters } from 'helpers'
 import { useActions, useBalances, useSubgraphUpdate } from 'hooks'
 

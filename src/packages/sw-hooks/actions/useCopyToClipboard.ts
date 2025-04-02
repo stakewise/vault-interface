@@ -1,5 +1,5 @@
 import { useCallback } from 'react'
-import notifications from 'sw-modules/notifications'
+import notifications from 'modules/notifications'
 
 import messages from './messages'
 

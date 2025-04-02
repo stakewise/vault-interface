@@ -1,9 +1,9 @@
 'use client'
 import React, { useEffect } from 'react'
 import cx from 'classnames'
-import intl from 'sw-modules/intl'
+import intl from 'modules/intl'
 import { Inter } from 'next/font/google'
-import theme, { ThemeColor } from 'sw-modules/theme'
+import theme, { ThemeColor } from 'modules/theme'
 import { cookie, constants } from 'helpers'
 import messages from 'views/ErrorView/messages'
 

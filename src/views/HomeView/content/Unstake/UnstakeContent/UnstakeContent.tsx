@@ -1,6 +1,6 @@
 import React from 'react'
 import { useConfig } from 'config'
-import forms from 'sw-modules/forms'
+import forms from 'modules/forms'
 
 import { Table } from 'views/HomeView/common'
 import { stakeCtx } from 'views/HomeView/StakeContext/util'

@@ -1,7 +1,7 @@
 import React, { RefObject, useCallback } from 'react'
 import cx from 'classnames'
-import forms from 'sw-modules/forms'
-import device from 'sw-modules/device'
+import forms from 'modules/forms'
+import device from 'modules/device'
 import { commonMessages } from 'helpers'
 
 import Text from '../Text/Text'
