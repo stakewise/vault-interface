@@ -1,6 +1,6 @@
 import { Network } from 'sdk'
 import apiUrls from 'sw-methods/apiUrls'
-import { walletTitles } from 'sw-helpers/constants'
+import { walletTitles } from 'helpers/constants'
 
 import networks from '../../config/util/networks'
 import type { Input } from '../custom-connectors/LedgerConnector'

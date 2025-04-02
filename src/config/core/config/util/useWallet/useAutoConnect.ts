@@ -1,6 +1,6 @@
 import { useCallback, useEffect } from 'react'
 import { localStorage } from 'sdk'
-import * as constants from 'sw-helpers/constants'
+import * as constants from 'helpers/constants'
 import { isAddress } from 'ethers'
 
 import connectors from '../../../connectors'

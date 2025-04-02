@@ -1,4 +1,4 @@
-import { walletNames } from 'sw-helpers/constants'
+import { walletNames } from 'helpers/constants'
 
 import ledgerConfig from './ledger/config'
 import injectedConfig from './injected/config'

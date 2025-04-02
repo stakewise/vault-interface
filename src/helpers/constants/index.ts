@@ -1,4 +1,5 @@
 import tokens from './tokens'
+import colors from './colors'
 import walletList from './walletList'
 import queryNames from './queryNames'
 import blockchain from './blockchain'
@@ -11,6 +12,7 @@ import localStorageNames from './localStorageNames'
 
 export {
   tokens,
+  colors,
   walletList,
   queryNames,
   blockchain,

@@ -1,5 +1,5 @@
 import { useCallback, useMemo } from 'react'
-import { walletNames } from 'sw-helpers/constants'
+import { walletNames } from 'helpers/constants'
 
 import useConnect from './useConnect'
 import useDisconnect from './useDisconnect'

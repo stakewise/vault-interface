@@ -1,6 +1,6 @@
 import { useEffect, useLayoutEffect, useState } from 'react'
 
-import initContext from 'sw-helpers/initContext'
+import initContext from 'helpers/initContext'
 
 
 const initialContext: Device.Context = {

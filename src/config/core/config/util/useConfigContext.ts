@@ -1,7 +1,7 @@
 'use client'
 import { useRef, useMemo, useCallback } from 'react'
 import useObjectState from 'sw-hooks/controls/useObjectState'
-import { walletNames } from 'sw-helpers/constants'
+import { walletNames } from 'helpers/constants'
 
 import networks from './networks'
 import useWallet from './useWallet'

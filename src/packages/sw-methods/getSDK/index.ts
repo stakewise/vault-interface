@@ -1,6 +1,6 @@
 import { Network, StakeWiseSDK } from 'sdk'
 import cookie from 'sw-helpers/cookie'
-import * as constants from 'sw-helpers/constants'
+import * as constants from 'helpers/constants'
 
 import getUrls from './getUrls'
 

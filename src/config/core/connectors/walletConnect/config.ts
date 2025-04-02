@@ -1,4 +1,4 @@
-import { walletNames } from 'sw-helpers/constants'
+import { walletNames } from 'helpers/constants'
 
 import zenGoConfig from './zenGo/config'
 import defaultWalletConnectConfig from './default/config'

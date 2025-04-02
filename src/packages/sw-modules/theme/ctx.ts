@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useLayoutEffect, useMemo } from 'react'
-import * as constants from 'sw-helpers/constants'
+import * as constants from 'helpers/constants'
 import initContext from 'sw-helpers/initContext'
 import { useObjectState } from 'sw-hooks'
 import cookie from 'sw-helpers/cookie'

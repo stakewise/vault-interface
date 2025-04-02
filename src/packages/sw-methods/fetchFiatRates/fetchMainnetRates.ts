@@ -1,5 +1,5 @@
 import { Network } from 'sdk'
-import * as constants from 'sw-helpers/constants'
+import * as constants from 'helpers/constants'
 
 import getSDK from '../getSDK'
 import fetchRates from './fetchRates'

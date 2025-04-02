@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import cookie from 'sw-helpers/cookie'
+import cookie from 'helpers/cookie'
 import * as constants from 'sw-helpers/constants'
 import { localStorage } from 'sdk'
 

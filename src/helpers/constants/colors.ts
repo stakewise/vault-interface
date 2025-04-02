@@ -1,6 +1,3 @@
-import * as constants from 'sw-helpers/constants'
-
-
 const colors = [
   'dark',
   'light',
@@ -20,7 +17,4 @@ const colors = [
 ] as const
 
 
-export default {
-  ...constants,
-  colors,
-}
+export default colors

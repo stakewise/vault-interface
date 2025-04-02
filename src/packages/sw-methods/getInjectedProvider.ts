@@ -1,4 +1,4 @@
-import * as constants from 'sw-helpers/constants'
+import * as constants from 'helpers/constants'
 
 
 const getInjectedProvider = (walletName: WalletIds) => {

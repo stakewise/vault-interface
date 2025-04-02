@@ -1,7 +1,7 @@
 import { useCallback } from 'react'
 import { BrowserProvider } from 'ethers'
 import type { Eip1193Provider } from 'ethers'
-import * as constants from 'sw-helpers/constants'
+import * as constants from 'helpers/constants'
 import notifications from 'sw-modules/notifications'
 
 import networks from '../networks'

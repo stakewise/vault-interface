@@ -1,6 +1,6 @@
 import { cookies } from 'next/headers'
 import { NextRequest } from 'next/server'
-import * as constants from 'sw-helpers/constants'
+import * as constants from 'helpers/constants'
 
 
 const _validateNetwork = (network: any, supportedNetworkIds: NetworkIds[]) => {

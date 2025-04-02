@@ -1,4 +1,4 @@
-import { walletNames } from 'sw-helpers/constants'
+import { walletNames } from 'helpers/constants'
 
 import okxConfig from './okx/config'
 import tahoConfig from './taho/config'

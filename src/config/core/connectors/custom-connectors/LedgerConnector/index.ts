@@ -1,6 +1,6 @@
 import { Network , localStorage } from 'sdk'
 import { AbstractProvider } from 'ethers'
-import { localStorageNames } from 'sw-helpers/constants'
+import { localStorageNames } from 'helpers/constants'
 import EventAggregator from 'sw-modules/event-aggregator'
 
 import networks from '../../../config/util/networks'

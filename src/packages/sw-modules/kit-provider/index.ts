@@ -1,4 +1,4 @@
-import initContext from 'sw-helpers/initContext'
+import initContext from 'helpers/initContext'
 
 
 type Context = {

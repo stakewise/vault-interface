@@ -1,5 +1,5 @@
 import { cookies } from 'next/headers'
-import * as constants from 'sw-helpers/constants'
+import * as constants from 'helpers/constants'
 
 
 const getCookieDevice = () => {

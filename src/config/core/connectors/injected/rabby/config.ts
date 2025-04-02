@@ -1,4 +1,4 @@
-import { walletTitles } from 'sw-helpers/constants'
+import { walletTitles } from 'helpers/constants'
 import methods from 'sw-methods'
 
 import messages from '../../../messages'

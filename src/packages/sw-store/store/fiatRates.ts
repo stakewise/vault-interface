@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import * as constants from 'sw-helpers/constants'
+import * as constants from 'helpers/constants'
 import type { PayloadAction } from '@reduxjs/toolkit'
 
 import storageNames from '../utils/storageNames'
