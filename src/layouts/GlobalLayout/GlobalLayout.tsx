@@ -6,7 +6,7 @@ import { polyfills } from 'helpers'
 import { ConfigProvider } from 'config'
 import { Provider as ReduxProvider } from 'react-redux'
 import device, { onDeviceChange } from 'sw-modules/device'
-import { createVaultInterfaceStore } from 'sw-store/entries/vault-interface'
+import { createVaultInterfaceStore } from 'store/entries/vault-interface'
 
 import { ImagesProvider } from 'components'
 import AppLayout from 'layouts/AppLayout/AppLayout'
