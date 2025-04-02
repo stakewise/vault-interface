@@ -1,5 +1,5 @@
 import { Metadata } from 'next'
-import type { StakeWiseSDK } from 'apps/v3-sdk'
+import type { StakeWiseSDK } from 'sdk'
 
 
 declare global {
