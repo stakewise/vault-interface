@@ -1,5 +1,5 @@
 import * as constants from 'sw-helpers/constants'
-import { getCookie } from 'sw-helpers/_SSR'
+import { getCookie } from 'helpers/_SSR'
 
 
 const getLocale = (): Intl.LanguagesKeys => {

@@ -1,7 +1,7 @@
 import { chains } from 'sdk'
 import { constants } from 'helpers'
 import { NextRequest } from 'next/server'
-import { setCookieBatch } from 'sw-helpers/_SSR'
+import { setCookieBatch } from 'helpers/_SSR'
 import { languageMiddleware } from 'sw-modules/intl/_SSR'
 import { createNetworkMiddleware } from 'config/core/config/_SSR'
 
