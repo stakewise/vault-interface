@@ -5,8 +5,8 @@ import { useObjectState } from 'hooks'
 import { constants } from 'helpers'
 import { useConfig } from 'config'
 
-import type LedgerConnector from 'sw-core/connectors/custom-connectors/LedgerConnector'
-import { PathTypes } from 'sw-core/connectors/custom-connectors/LedgerConnector/LedgerProvider'
+import type LedgerConnector from 'config/core/connectors/custom-connectors/LedgerConnector'
+import { PathTypes } from 'config/core/connectors/custom-connectors/LedgerConnector/LedgerProvider'
 
 import messages from '../messages'
 

@@ -1,11 +1,10 @@
 import React, { useCallback, useRef } from 'react'
-import { createConfig, networks } from 'sw-core'
 import { configs, chains } from 'sdk'
 import modal from 'sw-modules/modal'
 import methods from 'sw-methods'
 
+import { createConfig, networks } from './core'
 import useActions from '../hooks/data/useActions'
-
 import connectModalId from '../layouts/modals/ConnectWalletModal/modalId'
 
 
