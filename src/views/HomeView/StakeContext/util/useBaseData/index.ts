@@ -3,7 +3,7 @@ import { useObjectState, useStore } from 'hooks'
 import notifications from 'modules/notifications'
 import { commonMessages } from 'helpers'
 import { useConfig } from 'config'
-import methods from 'sw-methods'
+import methods from 'helpers/methods'
 
 import useAPY from './useAPY'
 import useUserRewards from './useUserRewards'

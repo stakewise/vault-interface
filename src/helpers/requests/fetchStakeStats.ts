@@ -1,4 +1,4 @@
-import methods from 'sw-methods'
+import methods from 'helpers/methods'
 
 
 type StakeStatsQueryPayload = {

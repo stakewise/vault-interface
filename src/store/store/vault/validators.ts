@@ -1,4 +1,4 @@
-import swMethods from 'sw-methods'
+import swMethods from 'helpers/methods'
 import { StakeWiseSDK } from 'sdk'
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'

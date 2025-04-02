@@ -2,7 +2,7 @@ import React, { useCallback, useMemo, useState } from 'react'
 import { usePathname } from 'next/navigation'
 import device from 'modules/device'
 import { constants } from 'helpers'
-import methods from 'sw-methods'
+import methods from 'helpers/methods'
 import { useStore } from 'hooks'
 import cx from 'classnames'
 

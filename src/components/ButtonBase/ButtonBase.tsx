@@ -1,5 +1,5 @@
 import React, { forwardRef, useCallback } from 'react'
-import methods from 'sw-methods'
+import methods from 'helpers/methods'
 import cx from 'classnames'
 
 import s from './ButtonBase.module.scss'

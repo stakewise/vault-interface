@@ -2,7 +2,7 @@
 import { useCallback } from 'react'
 import { useActions, useAutoFetch, useMintToken, useChainChanged } from 'hooks'
 import { useConfig } from 'config'
-import methods from 'sw-methods'
+import methods from 'helpers/methods'
 
 
 type ExitStatsQueryPayload = {

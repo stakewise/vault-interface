@@ -1,7 +1,7 @@
 import { useCallback } from 'react'
 import { useActions, useAutoFetch } from 'hooks'
 import { useConfig } from 'config'
-import methods from 'sw-methods'
+import methods from 'helpers/methods'
 
 
 const useFiatRates = () => {

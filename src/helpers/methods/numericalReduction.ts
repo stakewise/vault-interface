@@ -1,4 +1,4 @@
-import methods from 'sw-methods'
+import methods from 'helpers/methods'
 
 
 const _reduceValue = (value: number, divider: number = 1, postfix: string = '', decimal = 2) => {

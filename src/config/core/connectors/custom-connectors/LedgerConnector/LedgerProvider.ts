@@ -1,4 +1,4 @@
-import methods from 'sw-methods'
+import methods from 'helpers/methods'
 import { Semaphore } from 'async-mutex'
 import AppEth from '@ledgerhq/hw-app-eth'
 import TransportUSB from '@ledgerhq/hw-transport-webusb'

@@ -1,5 +1,5 @@
 import React from 'react'
-import methods from 'sw-methods'
+import methods from 'helpers/methods'
 import { useStore } from 'hooks'
 import { useConfig } from 'config'
 import { commonMessages } from 'helpers'

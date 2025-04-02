@@ -1,5 +1,5 @@
 import { useCallback, useRef } from 'react'
-import methods from 'sw-methods'
+import methods from 'helpers/methods'
 import intl from 'modules/intl'
 import type { Eip1193Provider } from 'ethers'
 import * as constants from 'helpers/constants'

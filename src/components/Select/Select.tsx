@@ -1,5 +1,5 @@
 import React from 'react'
-import methods from 'sw-methods'
+import methods from 'helpers/methods'
 
 import Text from '../Text/Text'
 import FieldValue from '../FieldValue/FieldValue'

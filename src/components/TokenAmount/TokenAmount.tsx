@@ -1,6 +1,6 @@
 import React from 'react'
 import cx from 'classnames'
-import methods from 'sw-methods'
+import methods from 'helpers/methods'
 
 import Logo from '../Logo/Logo'
 import Text from '../Text/Text'

@@ -1,7 +1,7 @@
 import React, { ReactNode, RefObject, forwardRef, useRef, useCallback } from 'react'
 import { useEventListener } from 'hooks'
 import NextLink from 'next/link'
-import methods from 'sw-methods'
+import methods from 'helpers/methods'
 import intl from 'modules/intl'
 
 

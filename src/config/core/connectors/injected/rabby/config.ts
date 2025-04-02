@@ -1,5 +1,5 @@
 import { walletTitles } from 'helpers/constants'
-import methods from 'sw-methods'
+import methods from 'helpers/methods'
 
 import messages from '../../../messages'
 

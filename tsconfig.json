@@ -23,7 +23,6 @@
     "paths": {
       "*": [
         "src/*",
-        "src/packages/*"
       ],
       "scripts/*": [
         "scripts/*"

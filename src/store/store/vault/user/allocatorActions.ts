@@ -2,7 +2,7 @@ import { StakeWiseSDK, AllocatorActionType } from 'sdk'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { createSlice } from '@reduxjs/toolkit'
 import { formatEther } from 'ethers'
-import swMethods from 'sw-methods'
+import swMethods from 'helpers/methods'
 
 import storageNames from '../../../utils/storageNames'
 

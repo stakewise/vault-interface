@@ -3,7 +3,7 @@ import device from 'modules/device'
 import { constants } from 'helpers'
 import { useConfig } from 'config'
 import { useStore } from 'hooks'
-import methods from 'sw-methods'
+import methods from 'helpers/methods'
 
 import type { LogoProps } from 'components'
 

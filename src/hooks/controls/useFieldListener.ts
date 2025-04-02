@@ -1,6 +1,6 @@
 'use client'
 import { useEffect } from 'react'
-import methods from 'sw-methods'
+import methods from 'helpers/methods'
 
 
 type Procedure = (...args: any[]) => void

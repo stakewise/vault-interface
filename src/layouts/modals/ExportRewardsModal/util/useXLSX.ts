@@ -4,7 +4,7 @@ import forms from 'modules/forms'
 import intl from 'modules/intl'
 import { useConfig } from 'config'
 import { useStore } from 'hooks'
-import methods from 'sw-methods'
+import methods from 'helpers/methods'
 
 import type { ExportForm } from './useForm'
 import messages from './messages'

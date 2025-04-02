@@ -1,4 +1,4 @@
-import methods from 'sw-methods'
+import methods from 'helpers/methods'
 import { useSelector } from 'react-redux'
 import { useMemo, useCallback } from 'react'
 import { createSelector } from '@reduxjs/toolkit'

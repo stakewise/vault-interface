@@ -3,7 +3,7 @@ import type { SafeAppProvider } from '@safe-global/safe-apps-provider'
 import type { WalletConnectParameters } from '@wagmi/connectors'
 import { ChainNotConfiguredError } from '@wagmi/core'
 import { walletConnect } from '@wagmi/connectors'
-import apiUrls from 'sw-methods/apiUrls'
+import apiUrls from 'helpers/methods/apiUrls'
 
 import { WagmiConnector, chains } from './helpers'
 import networks from '../../config/util/networks'

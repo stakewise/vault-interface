@@ -1,7 +1,7 @@
 import { useEffect, useCallback } from 'react'
 import { getAddress, BrowserProvider } from 'ethers'
 import type { Eip1193Provider } from 'ethers'
-import methods from 'sw-methods'
+import methods from 'helpers/methods'
 
 import networks from '../networks'
 

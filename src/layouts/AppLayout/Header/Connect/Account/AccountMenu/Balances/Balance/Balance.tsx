@@ -2,7 +2,7 @@ import React, { useCallback, useMemo } from 'react'
 import { commonMessages, constants } from 'helpers'
 import { useAddTokenToWallet } from 'hooks'
 import { useConfig } from 'config'
-import methods from 'sw-methods'
+import methods from 'helpers/methods'
 import cx from 'classnames'
 
 import { imagesUrls, FiatAmount, TokenAmount, Text, RoundButton, Bone } from 'components'

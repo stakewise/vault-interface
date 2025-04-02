@@ -2,7 +2,7 @@ import { useCallback } from 'react'
 import { initialState } from 'store/store/vault'
 import { constants } from 'helpers'
 import { useConfig } from 'config'
-import methods from 'sw-methods'
+import methods from 'helpers/methods'
 
 
 type OsTokenEnabledQueryPayload = {

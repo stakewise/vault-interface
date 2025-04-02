@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react'
 import cx from 'classnames'
-import methods from 'sw-methods'
+import methods from 'helpers/methods'
 import { useConfig } from 'config'
 import { isAddress } from 'ethers'
 import forms from 'modules/forms'

@@ -1,5 +1,5 @@
 import { useCallback, useMemo } from 'react'
-import methods from 'sw-methods'
+import methods from 'helpers/methods'
 
 import useSeries from './useSeries'
 import useSettings from './useSettings'

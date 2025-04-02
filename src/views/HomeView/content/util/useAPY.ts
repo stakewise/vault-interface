@@ -3,7 +3,7 @@ import { useFieldListener, useObjectState, useStore } from 'hooks'
 import { commonMessages, constants } from 'helpers'
 import { useConfig } from 'config'
 import { BigDecimal } from 'sdk'
-import methods from 'sw-methods'
+import methods from 'helpers/methods'
 
 import type { Input, Position } from './types'
 

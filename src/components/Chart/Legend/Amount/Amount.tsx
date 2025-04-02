@@ -1,7 +1,7 @@
 import React, { useRef, useCallback } from 'react'
 import { createSelector } from '@reduxjs/toolkit'
 import { useSelector } from 'react-redux'
-import methods from 'sw-methods'
+import methods from 'helpers/methods'
 import cx from 'classnames'
 
 import Text from '../../../Text/Text'

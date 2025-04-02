@@ -1,5 +1,5 @@
 import { Network } from 'sdk'
-import apiUrls from 'sw-methods/apiUrls'
+import apiUrls from 'helpers/methods/apiUrls'
 import { walletTitles } from 'helpers/constants'
 
 import networks from '../../config/util/networks'

@@ -1,7 +1,7 @@
 import React, { useCallback, useRef } from 'react'
 import { configs, chains } from 'sdk'
 import modal from 'modules/modal'
-import methods from 'sw-methods'
+import methods from 'helpers/methods'
 
 import { createConfig, networks } from './core'
 import useActions from '../hooks/data/useActions'

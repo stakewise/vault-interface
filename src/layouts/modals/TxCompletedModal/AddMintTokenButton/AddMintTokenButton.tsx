@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react'
-import methods from 'sw-methods'
+import methods from 'helpers/methods'
 import { useConfig } from 'config'
 import { useAddTokenToWallet } from 'hooks'
 
