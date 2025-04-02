@@ -1,5 +1,5 @@
 import * as constants from 'helpers/constants'
-import cookie from 'sw-helpers/cookie'
+import cookie from 'helpers/cookie'
 
 
 const onDeviceChange = (device: Device.Context) => {

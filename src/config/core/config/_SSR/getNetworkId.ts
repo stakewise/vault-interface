@@ -1,5 +1,5 @@
 import * as constants from 'helpers/constants'
-import { getCookie } from 'sw-helpers/_SSR'
+import { getCookie } from 'helpers/_SSR'
 
 
 const getNetworkId = (): NetworkIds => {
