@@ -73,13 +73,17 @@ const SubmitButton: React.FC<SubmitButtonProps> = (props) => {
     }
   }, [ field, boost ])
 
+  const loading = (
+    isFetching
+    || boost.isAllowanceFetching
+  )
+
   const button = (
     <Button
       className={className}
-      title={title}
-      disabled={disabled}
+      title={loading ? commonMessages.enterAmount : title}
+      disabled={disabled || loading}
       color="secondary"
-      loading={boost.isAllowanceFetching}
       onClick={handleClick}
     />
   )
