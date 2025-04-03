@@ -81,7 +81,7 @@ const UnstakeQueue: React.FC<UnstakeQueueProps> = (props) => {
           />
           <QueueDuration
             duration={exitQueueData.duration}
-            isClaimable={!exitQueueData.withdrawable}
+            isClaimable={Boolean(exitQueueData.withdrawable)}
             dataTestId="unstake-queue-duration"
           />
         </div>
