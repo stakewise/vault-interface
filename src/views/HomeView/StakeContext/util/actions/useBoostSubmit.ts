@@ -7,7 +7,6 @@ import { commonMessages, getters } from 'helpers'
 
 import { Transactions, SetTransaction } from 'components'
 import { Action, openTxCompletedModal } from 'layouts/modals/TxCompletedModal/TxCompletedModal'
-
 import useBoostAllowance from './useBoostAllowance'
 
 

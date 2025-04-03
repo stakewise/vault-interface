@@ -7,7 +7,6 @@ import { useConfig } from 'config'
 import { Action, openTxCompletedModal } from 'layouts/modals/TxCompletedModal/TxCompletedModal'
 
 
-
 type Input = {
   shares: bigint
   rewards: bigint
