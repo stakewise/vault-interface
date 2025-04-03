@@ -17,7 +17,6 @@ const Settings: React.FC<SettingsProps> = ({ className }) => {
 
   const settingsOptions = useAppConfig()
 
-  console.log({ settingsOptions })
   if (isMobile) {
     return (
       <div
