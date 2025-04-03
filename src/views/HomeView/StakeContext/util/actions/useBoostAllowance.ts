@@ -3,7 +3,6 @@ import { useConfig } from 'config'
 import { useObjectState, useApprove, useAllowance } from 'hooks'
 
 
-
 type State = {
   permitAddress: null | string
   isFetching: boolean
