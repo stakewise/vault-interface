@@ -1,7 +1,7 @@
 export { BigDecimal, getGas } from 'sdk'
-export * as polyfills from 'sw-helpers/polyfills'
-export { default as cookie } from 'sw-helpers/cookie'
-export { default as initContext } from 'sw-helpers/initContext'
+export * as polyfills from 'helpers/polyfills'
+export { default as cookie } from 'helpers/cookie'
+export { default as initContext } from 'helpers/initContext'
 export { default as replaceReactComponents } from './replaceReactComponents'
 
 export * as getters from './getters'
