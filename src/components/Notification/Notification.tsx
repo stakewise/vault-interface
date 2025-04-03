@@ -73,7 +73,7 @@ const Notification: React.FC<Notifications.NotificationProps> = (props) => {
         size={24}
       />
       <Text
-        className="overflow-hidden ml-16"
+        className="overflow-hidden ml-16 relative"
         id={`${dataTestId}-text`}
         message={text}
         color="dark"
