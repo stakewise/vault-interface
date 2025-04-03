@@ -17,7 +17,9 @@ const allLanguages = [
   'de', // Deutsch
   'zh', // Chinese
 ]
-  .filter((locale) => availableLocales.includes(locale))
+  .filter((locale) => (
+    availableLocales.length ? availableLocales.includes(locale) : true
+  ))
 
 
 export {

@@ -66,7 +66,7 @@ let languageOptions: OptionsType[] = [
 ]
 
 languageOptions = languageOptions
-  .filter(({ value }) => enabledLocales.includes(value))
+  .filter(({ value }) => enabledLocales.length ? enabledLocales.includes(value) : true)
 
 let currencyOptions: OptionsType[] = [
   {
@@ -107,7 +107,7 @@ let currencyOptions: OptionsType[] = [
 ]
 
 currencyOptions = currencyOptions
-  .filter(({ value }) => enabledCurrencies.includes(value.toLowerCase()))
+  .filter(({ value }) => enabledCurrencies.length ? enabledCurrencies.includes(value.toLowerCase()) : true)
 
 
 export {
