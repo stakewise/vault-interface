@@ -1,13 +1,15 @@
 import React, { useCallback } from 'react'
 import forms from 'modules/forms'
 import { commonMessages } from 'helpers'
-import { useBoostSupplyCapsCheck, useStore } from 'hooks'
+import { useStore } from 'hooks'
 import { useConfig } from 'config'
 
 import { openTransactionsFlowModal } from 'layouts/modals'
 import { stakeCtx } from 'views/HomeView/StakeContext/util'
 import { Button } from 'views/HomeView/common'
 import { Tooltip } from 'components'
+
+import { useBoostSupplyCapsCheck } from './util'
 
 import messages from './messages'
 

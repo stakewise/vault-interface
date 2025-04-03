@@ -2,11 +2,12 @@ import {  useMemo } from 'react'
 import { useConfig } from 'config'
 import { formatEther } from 'ethers'
 import { commonMessages } from 'helpers'
-import { useFiatValues, useUnboostGasPrice } from 'hooks'
+import { useFiatValues } from 'hooks'
 
 import { stakeCtx } from 'views/HomeView/StakeContext/util'
 
 import { usePosition, Position } from '../../../../util'
+import useUnboostGasPrice from './useUnboostGasPrice'
 
 
 const useOptions = () => {

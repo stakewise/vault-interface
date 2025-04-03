@@ -1,12 +1,11 @@
 import { useCallback, useMemo, useState } from 'react'
+import { useActions, useSubgraphUpdate } from 'hooks'
 import { modifiers, commonMessages } from 'helpers'
 import notifications from 'modules/notifications'
 import { useConfig } from 'config'
 
 import { Action, openTxCompletedModal } from 'layouts/modals/TxCompletedModal/TxCompletedModal'
 
-import useActions from '../data/useActions'
-import useSubgraphUpdate from '../fetch/useSubgraphUpdate'
 
 
 type Input = {

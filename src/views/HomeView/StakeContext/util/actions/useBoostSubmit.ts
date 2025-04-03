@@ -1,4 +1,5 @@
 import { useCallback, useMemo, useState } from 'react'
+import { useActions, useSubgraphUpdate } from 'hooks'
 import notifications from 'modules/notifications'
 import { useConfig } from 'config'
 import { BoostStep } from 'helpers/enums'
@@ -7,9 +8,7 @@ import { commonMessages, getters } from 'helpers'
 import { Transactions, SetTransaction } from 'components'
 import { Action, openTxCompletedModal } from 'layouts/modals/TxCompletedModal/TxCompletedModal'
 
-import useActions from '../data/useActions'
 import useBoostAllowance from './useBoostAllowance'
-import useSubgraphUpdate from '../fetch/useSubgraphUpdate'
 
 
 type ApproveInput = {

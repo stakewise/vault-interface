@@ -1,9 +1,7 @@
 import { useCallback, useEffect, useMemo } from 'react'
 import { useConfig } from 'config'
-import { useObjectState } from 'hooks'
+import { useObjectState, useApprove, useAllowance } from 'hooks'
 
-import useApprove from '../fetch/useApprove'
-import useAllowance from '../fetch/useAllowance'
 
 
 type State = {
