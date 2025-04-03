@@ -60,7 +60,7 @@ const ConnectorsView: React.FC<ConnectorsViewProps> = (props) => {
   const walletsList = useMemo(() => {
     const wallets = isDesktop ? desktopWallets : mobileWallets
 
-    return wallets
+    const list = wallets
       .map((wallet) => {
         let title: Intl.Message | string = wallet.title
         let logo: LogoProps['name'] = wallet.logo
@@ -78,6 +78,12 @@ const ConnectorsView: React.FC<ConnectorsViewProps> = (props) => {
           isDisabled: setIsDisabled(wallet.id),
         }
       })
+
+    if (!process.env.NEXT_PUBLIC_WALLET_CONNECT_ID) {
+      return list.filter(({ id }) => id !== constants.walletNames.walletConnect)
+    }
+
+    return list
   }, [ isDesktop, isMMI, setDeepLink ])
 
   const [ selectedId, setSelectedId ] = useState<WalletIds | null>(null)

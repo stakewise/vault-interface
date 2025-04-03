@@ -1,4 +1,25 @@
 # vault-interface
+This is an open-source repository for the Vault interface.
+You can customize this UI for your own vault on the
+Mainnet, Gnosis, and Chiado networks.
+
+If you provide vault addresses for multiple networks,
+a dropdown menu will appear in the UI,
+allowing you to select the desired network.
+
+### Demo
+[Genesis vault interface](https://stake.fi/)
+
+### Vault actions
+The vault interface allows you to perform the following actions:
+
+- <b>Deposit</b>: Access this feature under the Stake tab.
+- <b>Mint</b>: Available only if the vault has osToken enabled.
+- <b>Boost</b>: Visible only if minting is enabled, vault is on the Ethereum network, and the vault version is higher than 2.
+- <b>Withdraw</b>: Access this feature under the Unstake tab.
+- <b>Burn</b>: Available only if the vault has osToken enabled.
+- <b>Unboost</b>: Visible only if the vault has osToken enabled.
+- <b>Balance Tab</b>: Displays current user stats, unstake/unboost queue data, and claim actions.
 
 ### Environment Variables
 Add `.env.local` file in the root of the project.
