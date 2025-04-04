@@ -64,6 +64,8 @@ const UnboostQueue: React.FC<UnboostQueueProps> = (props) => {
     unboostQueueData.exitingAssets ? [ shares, rewards ] : [ shares ]
   ), [ shares, rewards, unboostQueueData ])
 
+  const hideDuration = unboostQueueData.isClaimable
+
   if (!exitingPercent || !address) {
     return null
   }
@@ -86,11 +88,14 @@ const UnboostQueue: React.FC<UnboostQueueProps> = (props) => {
             tooltip={commonMessages.tooltip.unboostPenalties}
             text={{ message: commonMessages.buttonTitle.unboostQueue }}
           />
-          <QueueDuration
-            duration={unboostQueueData.duration}
-            isClaimable={unboostQueueData.isClaimable}
-            dataTestId="unboost-queue-duration"
-          />
+          {
+            !hideDuration && (
+              <QueueDuration
+                duration={unboostQueueData.duration}
+                dataTestId="unboost-queue-duration"
+              />
+            )
+          }
         </div>
         <Button
           title={commonMessages.buttonTitle.claim}

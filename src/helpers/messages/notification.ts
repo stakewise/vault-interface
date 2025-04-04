@@ -54,7 +54,7 @@ export default {
     zh: '交易已确认',
   },
   waitingConfirmation: {
-    en: 'Waiting confirmation',
+    en: 'Awaiting confirmation',
     ru: 'Ожидание подтверждения',
     fr: 'En attente de confirmation',
     es: 'Esperando confirmación',
