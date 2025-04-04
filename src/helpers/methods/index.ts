@@ -12,6 +12,7 @@ import downloadFile from './downloadFile'
 import shortenAddress from './shortenAddress'
 import fetchFiatRates from './fetchFiatRates'
 import formatFiatValue from './formatFiatValue'
+import isInjectedWallet from './isInjectedWallet'
 import formatTokenValue from './formatTokenValue'
 import getOriginHostName from './getOriginHostName'
 import getArrUniqueItems from './getArrUniqueItems'
@@ -36,6 +37,7 @@ export default {
   shortenAddress,
   fetchFiatRates,
   formatFiatValue,
+  isInjectedWallet,
   formatTokenValue,
   getOriginHostName,
   getArrUniqueItems,

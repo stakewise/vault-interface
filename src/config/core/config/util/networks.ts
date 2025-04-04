@@ -8,6 +8,7 @@ const supportedConfigs = {
   [sdkChains.gnosis.id]: sdkChains.gnosis,
   [sdkChains.chiado.id]: sdkChains.chiado,
   [sdkChains.mainnet.id]: sdkChains.mainnet,
+  [sdkChains.hoodi.id]: sdkChains.hoodi,
 } as const
 
 const ids: Ids[] = []

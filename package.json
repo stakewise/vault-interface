@@ -61,7 +61,7 @@
     "@ledgerhq/hw-transport-webusb": "6.29.2",
     "@metamask/onboarding": "1.0.1",
     "@reduxjs/toolkit": "2.2.7",
-    "@stakewise/v3-sdk": "3.3.0",
+    "@stakewise/v3-sdk": "3.4.1",
     "@types/react-redux": "7.1.33",
     "@wagmi/connectors": "5.1.10",
     "autoprefixer": "10.4.20",
@@ -81,6 +81,6 @@
     "swiper": "11.1.15",
     "ua-parser-js": "1.0.38",
     "xlsx": "0.18.5",
-    "viem": "2.19.6"
+    "viem": "2.25.0"
   }
 }

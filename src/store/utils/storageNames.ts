@@ -24,5 +24,6 @@ export default {
   currency: 'currency',
   vestings: 'vestings',
   rewards: 'rewards',
+  email: 'email',
   ui: 'ui',
 }

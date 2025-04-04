@@ -1,5 +1,5 @@
 import { injected, coinbaseWallet, walletConnect, safe } from '@wagmi/connectors'
-import { mainnet, gnosis, gnosisChiado } from 'viem/chains'
+import { mainnet, hoodi, gnosis, gnosisChiado } from 'viem/chains'
 import EventAggregator from 'modules/event-aggregator'
 import apiUrls from 'helpers/methods/apiUrls'
 import type { Chain } from 'viem/chains'
@@ -7,7 +7,7 @@ import type { Chain } from 'viem/chains'
 import networks from '../../../config/util/networks'
 
 
-const viemChains = [ mainnet, gnosis, gnosisChiado ]
+const viemChains = [ mainnet, hoodi, gnosis, gnosisChiado ]
 
 const chains: Chain[] = []
 
