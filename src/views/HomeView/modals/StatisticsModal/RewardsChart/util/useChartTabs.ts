@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 import { useConfig } from 'config'
-import forms from 'sw-modules/forms'
+import forms from 'modules/forms'
 import { commonMessages } from 'helpers'
 
 import type { SelectProps, TabsProps } from 'components'

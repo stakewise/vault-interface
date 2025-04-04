@@ -1,11 +1,10 @@
 import React, { useMemo } from 'react'
 import cx from 'classnames'
 import { useConfig } from 'config'
-import { constants, commonMessages } from 'helpers'
+import { constants } from 'helpers'
 
 import MenuItem from './MenuItem/MenuItem'
-import type { MenuItemProps } from './MenuItem/MenuItem'
-import { openSwitchAccountModal, openTokenTransactionsModal } from 'layouts/modals'
+import { openSwitchAccountModal } from 'layouts/modals'
 
 import messages from './messages'
 
@@ -22,24 +21,16 @@ const Menu: React.FC<MenuProps> = (props) => {
   const items = useMemo(() => {
     const isLedger = activeWallet === constants.walletNames.ledger
 
-    const items: MenuItemProps[] = [
-      {
-        title: commonMessages.transactions,
-        dataTestId: 'transactions-button',
-        onClick: () => {
-          openTokenTransactionsModal()
-        },
-      },
-    ]
-
     if (isLedger) {
-      items.push({
-        title: messages.switchAccount,
-        onClick: openSwitchAccountModal,
-      })
+      return [
+        {
+          title: messages.switchAccount,
+          onClick: openSwitchAccountModal,
+        },
+      ]
     }
 
-    return items
+    return []
   }, [ activeWallet ])
 
   if (!items.length) {

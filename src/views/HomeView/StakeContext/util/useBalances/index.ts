@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef } from 'react'
-import notifications from 'sw-modules/notifications'
+import notifications from 'modules/notifications'
 import { useActions, useMountedRef, useStore } from 'hooks'
 import { useConfig } from 'config'
 

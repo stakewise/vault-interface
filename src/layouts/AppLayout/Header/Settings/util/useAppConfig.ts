@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useMemo } from 'react'
 import { constants } from 'helpers'
 import { useActions, useStore } from 'hooks'
-import intl from 'sw-modules/intl'
+import intl from 'modules/intl'
 import { localStorage } from 'sdk'
-import theme, { ThemeValue, ThemeColor } from 'sw-modules/theme'
+import theme, { ThemeValue, ThemeColor } from 'modules/theme'
 
 import { MenuDropdownProps } from 'components/MenuDropdown/MenuDropdown'
 
@@ -30,8 +30,15 @@ const useAppConfig = () => {
     const savedCurrency = localStorage.getItem<Currency>(constants.localStorageNames.currency)
 
     if (savedCurrency && savedCurrency !== currency) {
-      actions.currency.setData(savedCurrency)
+      const isValidCurrency = currencyOptions.some(({ value }) => value === savedCurrency)
+
+      if (isValidCurrency) {
+        actions.currency.setData(savedCurrency)
+        return
+      }
     }
+
+    actions.currency.setData(currencyOptions[0].value as Currency)
   }, [])
 
   const handleChangeTheme = useCallback((theme: ThemeValue) => {
@@ -103,11 +110,14 @@ const useAppConfig = () => {
       onChange: handleChangeLanguage as DropdownOptionOnChange,
     }
 
-    return [
+    const result = [
       languageOption,
       currencyOption,
       themeOption,
-    ] as MenuDropdownProps['options']
+    ]
+      .filter(({ options }) => options.length > 1)
+
+    return result as MenuDropdownProps['options']
   }, [
     currency,
     themeValue,

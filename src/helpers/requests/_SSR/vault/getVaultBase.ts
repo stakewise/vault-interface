@@ -1,6 +1,6 @@
-import methods from 'sw-methods'
+import methods from 'helpers/methods'
 import { cookies } from 'next/headers'
-import { networks } from 'sw-core'
+import { networks } from 'config/core'
 import { constants, getters } from 'helpers'
 
 

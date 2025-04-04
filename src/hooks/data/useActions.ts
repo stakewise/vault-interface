@@ -1,14 +1,14 @@
 import { useMemo } from 'react'
 import { useDispatch } from 'react-redux'
 
-import { wrapDispatchMethods } from 'sw-store'
+import { wrapDispatchMethods } from 'store'
 
-import { uiMethods } from 'sw-store/store/ui'
-import { vaultMethods } from 'sw-store/store/vault'
-import { accountMethods } from 'sw-store/store/account'
-import { currencyMethods } from 'sw-store/store/currency'
-import { fiatRatesMethods } from 'sw-store/store/fiatRates'
-import { mintTokenMethods } from 'sw-store/store/mintToken'
+import { uiMethods } from 'store/store/ui'
+import { vaultMethods } from 'store/store/vault'
+import { accountMethods } from 'store/store/account'
+import { currencyMethods } from 'store/store/currency'
+import { fiatRatesMethods } from 'store/store/fiatRates'
+import { mintTokenMethods } from 'store/store/mintToken'
 
 
 const useActions = () => {

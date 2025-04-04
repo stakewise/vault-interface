@@ -3,12 +3,12 @@ import cx from 'classnames'
 import { Viewport } from 'next'
 import { Inter } from 'next/font/google'
 import { commonMessages } from 'helpers'
-import { getLocale } from 'sw-modules/intl/_SSR'
-import { ThemeColor } from 'sw-modules/theme/enum'
-import { getServerTheme } from 'sw-modules/theme/_SSR'
-import { getServerDevice } from 'sw-modules/device/_SSR'
+import { getLocale } from 'modules/intl/_SSR'
+import { ThemeColor } from 'modules/theme/enum'
+import { getServerTheme } from 'modules/theme/_SSR'
+import { getServerDevice } from 'modules/device/_SSR'
 import GlobalLayout from 'layouts/GlobalLayout/GlobalLayout'
-import { getNetworkId } from 'sw-core/config/_SSR'
+import { getNetworkId } from 'config/core/config/_SSR'
 import { getVaultBase } from 'helpers/requests/_SSR'
 
 import 'focus-visible'
@@ -27,7 +27,7 @@ export const generateMetadata: GenerateMetadata = async () => {
   let description = owner ? `${owner} | ${metaDescription}` : metaDescription
   let image = '/og-image.png'
 
-  const url = domain ? `https://${domain}/` : 'https://app.stakewise.io/'
+  const url = `https://${domain}/`
 
   try {
     const vaultBase = await getVaultBase()

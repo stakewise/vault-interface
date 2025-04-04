@@ -1,13 +1,15 @@
 import React, { useCallback } from 'react'
-import forms from 'sw-modules/forms'
+import forms from 'modules/forms'
 import { commonMessages } from 'helpers'
-import { useBoostSupplyCapsCheck, useStore } from 'hooks'
+import { useStore } from 'hooks'
 import { useConfig } from 'config'
 
 import { openTransactionsFlowModal } from 'layouts/modals'
 import { stakeCtx } from 'views/HomeView/StakeContext/util'
 import { Button } from 'views/HomeView/common'
 import { Tooltip } from 'components'
+
+import { useBoostSupplyCapsCheck } from './util'
 
 import messages from './messages'
 
@@ -71,13 +73,17 @@ const SubmitButton: React.FC<SubmitButtonProps> = (props) => {
     }
   }, [ field, boost ])
 
+  const loading = (
+    isFetching
+    || boost.isAllowanceFetching
+  )
+
   const button = (
     <Button
       className={className}
-      title={title}
-      disabled={disabled}
+      title={loading ? commonMessages.enterAmount : title}
+      disabled={disabled || loading}
       color="secondary"
-      loading={boost.isAllowanceFetching}
       onClick={handleClick}
     />
   )

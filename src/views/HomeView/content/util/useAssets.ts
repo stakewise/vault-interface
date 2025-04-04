@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 import { useStore } from 'hooks'
 import { useConfig } from 'config'
 import { commonMessages } from 'helpers'
-import forms from 'sw-modules/forms'
+import forms from 'modules/forms'
 
 import type { Input, Position } from './types'
 

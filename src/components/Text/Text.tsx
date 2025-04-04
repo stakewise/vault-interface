@@ -1,7 +1,7 @@
 import React from 'react'
 import cx from 'classnames'
-import methods from 'sw-methods'
-import intl from 'sw-modules/intl'
+import methods from 'helpers/methods'
+import intl from 'modules/intl'
 
 import { constants, replaceReactComponents } from '../../helpers'
 

@@ -1,6 +1,8 @@
 import { useCallback, useMemo } from 'react'
-import { useBalances, useBoostSubmit } from 'hooks'
+import { useBalances } from 'hooks'
 import { useConfig } from 'config'
+
+import useBoostSubmit from './useBoostSubmit'
 
 
 type SubmitInput = Omit<Parameters<ReturnType<typeof useBoostSubmit>['submit']>[0], 'onSuccess'>

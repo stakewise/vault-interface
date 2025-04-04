@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useActions, useSubgraphUpdate, useMountedRef, useAutoFetch, useBalances } from 'hooks'
 import { Action, openTxCompletedModal } from 'layouts/modals'
-import notifications from 'sw-modules/notifications'
+import notifications from 'modules/notifications'
 import { commonMessages } from 'helpers'
 import { AllocatorActionType } from 'sdk'
 import { useConfig } from 'config'

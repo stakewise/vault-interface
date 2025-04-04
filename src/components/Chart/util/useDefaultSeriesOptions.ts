@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import theme, { ThemeColor } from 'sw-modules/theme'
+import theme, { ThemeColor } from 'modules/theme'
 import type { AreaSeriesPartialOptions, HistogramSeriesPartialOptions } from 'lightweight-charts'
 
 

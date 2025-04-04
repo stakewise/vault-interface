@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react'
 import { commonMessages } from 'helpers'
-import device from 'sw-modules/device'
+import device from 'modules/device'
 import { useConfig } from 'config'
 import cx from 'classnames'
 

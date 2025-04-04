@@ -1,6 +1,6 @@
 import React from 'react'
 import cx from 'classnames'
-import device from 'sw-modules/device'
+import device from 'modules/device'
 
 import { stakeCtx } from 'views/HomeView/StakeContext/util'
 
@@ -23,13 +23,17 @@ const StakeStats: React.FC<StakeStatsProps> = (props) => {
 
   return (
     <Box className={cx(className, 'flex justify-between items-start p-12')}>
-      <APY className="pr-12" />
-      <Block
-        className="pr-12"
-        value={data.tvl}
-        text={isMobile ? 'TVL' : messages.tvl}
-        dataTestId="stake-tvl"
-      />
+      <div className="flex-1 flex justify-center">
+        <APY className="flex flex-col items-center text-center" />
+      </div>
+      <div className="flex-1 flex justify-center">
+        <Block
+          className="flex flex-col items-center text-center"
+          value={data.tvl}
+          text={isMobile ? 'TVL' : messages.tvl}
+          dataTestId="stake-tvl"
+        />
+      </div>
     </Box>
   )
 }

@@ -1,5 +1,5 @@
 import { MaxUint256, parseEther } from 'ethers'
-import methods from 'sw-methods'
+import methods from 'helpers/methods'
 
 
 type Input = {

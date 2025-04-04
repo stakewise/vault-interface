@@ -1,8 +1,8 @@
 import React from 'react'
 import cx from 'classnames'
-import methods from 'sw-methods'
+import methods from 'helpers/methods'
 import { useConfig } from 'config'
-import intl from 'sw-modules/intl'
+import intl from 'modules/intl'
 import { commonMessages } from 'helpers'
 
 import Logo from '../../Logo/Logo'

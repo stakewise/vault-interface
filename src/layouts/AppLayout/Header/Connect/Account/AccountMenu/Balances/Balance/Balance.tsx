@@ -2,7 +2,7 @@ import React, { useCallback, useMemo } from 'react'
 import { commonMessages, constants } from 'helpers'
 import { useAddTokenToWallet } from 'hooks'
 import { useConfig } from 'config'
-import methods from 'sw-methods'
+import methods from 'helpers/methods'
 import cx from 'classnames'
 
 import { imagesUrls, FiatAmount, TokenAmount, Text, RoundButton, Bone } from 'components'
@@ -10,12 +10,12 @@ import { imagesUrls, FiatAmount, TokenAmount, Text, RoundButton, Bone } from 'co
 
 type BalanceProps = {
   className?: string
-  token: Extract<Tokens, 'osETH' | 'osGNO' | 'GNO' | 'ETH' | 'xDAI' | 'SWISE'>
+  token: Extract<Tokens, 'osETH' | 'osGNO' | 'GNO' | 'ETH' | 'xDAI'>
   value: bigint
   isFetching?: boolean
 }
 
-type Params = Record<'osETH' | 'osGNO' | 'GNO' | 'SWISE', {
+type Params = Record<'osETH' | 'osGNO' | 'GNO', {
   image: string
   address: string
 }>
@@ -38,10 +38,6 @@ const Balance: React.FC<BalanceProps> = (props) => {
     [constants.tokens.osETH]: {
       image: imagesUrls[`token/osETH`],
       address: sdk.config.addresses.tokens.mintToken,
-    },
-    [constants.tokens.swise]: {
-      image: imagesUrls['token/SWISE'],
-      address: sdk.config.addresses.tokens.swise,
     },
   }), [ sdk ])
 

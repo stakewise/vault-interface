@@ -1,6 +1,6 @@
 import { useCallback, useEffect } from 'react'
 import { createChart } from 'lightweight-charts'
-import { useObjectState } from 'sw-hooks'
+import { useObjectState } from 'hooks'
 
 import useDefaultSettings from './useDefaultSettings'
 import useDefaultSeriesOptions from './useDefaultSeriesOptions'

@@ -1,6 +1,6 @@
 import React, { useMemo, forwardRef } from 'react'
 import cx from 'classnames'
-import kit from 'sw-modules/kit-provider'
+import kit from 'modules/kit-provider'
 
 import { constants } from '../../helpers'
 import getImageStyle from './util/getImageStyle'

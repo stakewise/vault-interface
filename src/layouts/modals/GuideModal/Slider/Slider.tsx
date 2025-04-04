@@ -1,6 +1,6 @@
 import React from 'react'
 import cx from 'classnames'
-import device from 'sw-modules/device'
+import device from 'modules/device'
 import { StaticImageData } from 'next/image'
 import { Swiper, SwiperSlide } from 'swiper/react'
 

@@ -1,5 +1,5 @@
 import { useCallback, useMemo } from 'react'
-import theme, { ThemeColor } from 'sw-modules/theme'
+import theme, { ThemeColor } from 'modules/theme'
 import { LineStyle } from 'lightweight-charts'
 import type { AreaSeriesPartialOptions, HistogramSeriesPartialOptions, CreatePriceLineOptions, LineWidth } from 'lightweight-charts'
 

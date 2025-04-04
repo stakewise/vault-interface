@@ -1,5 +1,5 @@
 import { useCallback } from 'react'
-import { initialState } from 'sw-store/store/vault'
+import { initialState } from 'store/store/vault'
 import { useConfig } from 'config'
 
 

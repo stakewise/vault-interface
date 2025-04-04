@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
-import intl from 'sw-modules/intl'
-import theme, { ThemeColor } from 'sw-modules/theme'
+import intl from 'modules/intl'
+import theme, { ThemeColor } from 'modules/theme'
 
 import type { DeepPartial, ChartOptionsBase } from 'lightweight-charts'
 import { LineStyle, LineWidth, CrosshairMode } from 'lightweight-charts'

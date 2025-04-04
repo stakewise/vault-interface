@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import cx from 'classnames'
 import { createPortal } from 'react-dom'
 import { commonMessages } from 'helpers'
-import device from 'sw-modules/device'
+import device from 'modules/device'
 import { useStore } from 'hooks'
 
 import { RoundButton, Text, Loading } from 'components'

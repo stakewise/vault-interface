@@ -1,6 +1,8 @@
 import { useCallback, useMemo } from 'react'
-import { useBalances, useStore, useUnboostSubmit } from 'hooks'
+import { useBalances, useStore } from 'hooks'
 import { useConfig } from 'config'
+
+import useUnboostSubmit from './useUnboostSubmit'
 
 
 type Output = {

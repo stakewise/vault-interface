@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react'
-import { useEventListener } from 'sw-hooks'
+import { useEventListener } from 'hooks'
 
 
 type Input = {

@@ -1,5 +1,5 @@
 import React, { RefObject, useCallback } from 'react'
-import methods from 'sw-methods'
+import methods from 'helpers/methods'
 
 import AmountInput from '../../AmountInput/AmountInput'
 

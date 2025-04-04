@@ -1,10 +1,10 @@
 import { useCallback, useMemo } from 'react'
 import { requests, modifiers } from 'helpers'
-import forms from 'sw-modules/forms'
-import intl from 'sw-modules/intl'
+import forms from 'modules/forms'
+import intl from 'modules/intl'
 import { useConfig } from 'config'
 import { useStore } from 'hooks'
-import methods from 'sw-methods'
+import methods from 'helpers/methods'
 
 import type { ExportForm } from './useForm'
 import messages from './messages'

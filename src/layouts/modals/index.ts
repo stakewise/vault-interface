@@ -1,4 +1,3 @@
-export * from './TokenTransactionsModal/TokenTransactionsModal'
 export * from './TransactionsFlowModal/TransactionsFlowModal'
 export * from './SwitchAccountModal/SwitchAccountModal'
 export * from './ConnectWalletModal/ConnectWalletModal'

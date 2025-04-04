@@ -1,12 +1,12 @@
 'use client'
 import React, { useEffect, useMemo } from 'react'
-import intl from 'sw-modules/intl'
-import theme from 'sw-modules/theme'
+import intl from 'modules/intl'
+import theme from 'modules/theme'
 import { polyfills } from 'helpers'
 import { ConfigProvider } from 'config'
 import { Provider as ReduxProvider } from 'react-redux'
-import device, { onDeviceChange } from 'sw-modules/device'
-import { createVaultInterfaceStore } from 'sw-store/entries/vault-interface'
+import device, { onDeviceChange } from 'modules/device'
+import { createVaultInterfaceStore } from 'store/entries/vault-interface'
 
 import { ImagesProvider } from 'components'
 import AppLayout from 'layouts/AppLayout/AppLayout'
@@ -52,7 +52,7 @@ const GlobalLayout: React.FC<GlobalLayoutProps> = (values) => {
   }, [ locale ])
 
   const store = useMemo(() => {
-    const skipSSR = window.location.search
+    const skipSSR = typeof window !== 'undefined' && window.location.search
       ? new URLSearchParams(window.location.search).get('skipSSR') === 'true'
       : false
 

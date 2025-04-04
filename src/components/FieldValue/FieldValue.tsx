@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react'
 
-import forms from 'sw-modules/forms'
+import forms from 'modules/forms'
 
 
 export type FieldValueProps = {

@@ -1,6 +1,6 @@
 import React from 'react'
-import date from 'sw-modules/date'
-import intl from 'sw-modules/intl'
+import date from 'modules/date'
+import intl from 'modules/intl'
 import { commonMessages } from 'helpers'
 
 import { Text } from 'components'

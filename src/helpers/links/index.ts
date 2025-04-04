@@ -1,4 +1,5 @@
-import { generateAbsoluteLinks, generateRouteMeta } from 'sw-helpers/links'
+import generateAbsoluteLinks from './generateAbsoluteLinks'
+import generateRouteMeta from './generateRouteMeta'
 
 import base from './base'
 

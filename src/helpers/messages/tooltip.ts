@@ -101,4 +101,58 @@ export default {
       当前的取消提升请求必须是<CustomComponent />后才能再次取消提升
     `,
   },
+  unstakeQueueV1: {
+    en: `
+      Currently it takes up to {queueDays} days for the validator(s) to exit and {depositToken} to become claimable.
+      You continue to earn staking rewards while the validators are in exit queue.
+    `,
+    ru: `
+      В настоящее время выход валидатора(ов) может занять до {queueDays} дней,
+      прежде чем {depositToken} станет доступным для получения. Вы продолжаете получать награды за стейкинг,
+      пока валидаторы находятся в очереди на выход.
+    `,
+    fr: `
+      Actuellement, il faut jusqu'à {queueDays} jours pour que le(s) validateur(s) sorte(nt) et que le {depositToken} devienne réclamable.
+      Vous continuez à gagner des récompenses de staking tant que les validateurs sont dans la file d'attente de sortie.
+    `,
+    es: `
+      Actualmente, tomar hasta {queueDays} días para que el/los validador(es) salgan y el {depositToken} se pueda reclamar.
+      Continúa ganando recompensas de staking mientras los validadores están en la cola de salida.
+    `,
+    pt: `
+      Atualmente, leva até {queueDays} dias para que o(s) validador(es) saia(m) e o {depositToken} se torne disponível para reivindicação.
+      Você continua a ganhar recompensas de staking enquanto os validadores estão na fila de saída.
+    `,
+    de: `
+      Derzeit dauert es bis zu {queueDays} Tage, bis die Validatoren austreten und {depositToken} eingefordert werden kann.
+      Sie verdienen weiterhin Staking-Belohnungen, während sich die Validatoren in der Austrittswarteschlange befinden.
+    `,
+    zh: `
+      当前，验证器退出并且 {depositToken} 可被领取可能需要长达 {queueDays} 天
+      在验证器处于退出队列时，您将继续获得质押奖励。
+    `,
+  },
+  unstakeQueueV2: {
+    en: `
+      Currently it takes up to {queueDays} days for the validator(s) to exit and {depositToken} to become claimable.
+    `,
+    ru: `
+      В настоящее время выход валидатора(ов) занимает до {queueDays} дней, и {depositToken} становится доступным для получения.
+    `,
+    fr: `
+      Actuellement, il faut jusqu'à {queueDays} jours pour que le(s) validateur(s) se retire(nt) et que {depositToken} devienne réclamable.
+    `,
+    es: `
+      Actualmente se tarda hasta {queueDays} días para que el/los validador(es) salgan y {depositToken} se pueda reclamar.
+    `,
+    pt: `
+      Atualmente, leva até {queueDays} dias para que o(s) validador(es) saia(m) e {depositToken} se torne disponível para reivindicação.
+    `,
+    de: `
+      Derzeit dauert es bis zu {queueDays} Tage, bis der/die Validator(en) aussteigt/aussteigen und {depositToken} beansprucht werden kann.
+    `,
+    zh: `
+      目前，验证器退出并让 {depositToken} 可申领需要最多 {queueDays} 天。
+    `,
+  },
 }

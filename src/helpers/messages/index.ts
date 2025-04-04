@@ -145,15 +145,6 @@ export default {
     de: 'Ausgetreten {token}',
     zh: '已退出 {token}',
   },
-  transactions: {
-    en: 'Transactions',
-    ru: 'Транзакции',
-    fr: 'Transactions',
-    es: 'Transacciones',
-    pt: 'Transações',
-    de: 'Transaktionen',
-    zh: '交易',
-  },
   earnedRewards: {
     en: 'Earned rewards',
     ru: 'Заработанные награды',

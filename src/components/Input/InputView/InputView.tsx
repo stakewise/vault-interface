@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useRef, useId, useEffect, ChangeEventHandler } from 'react'
 import cx from 'classnames'
-import methods from 'sw-methods'
+import methods from 'helpers/methods'
 
 import Text from '../../Text/Text'
 import Icon from '../../Icon/Icon'

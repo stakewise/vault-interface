@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useMemo, useRef } from 'react'
 import { useConfig } from 'config'
 import { ZeroAddress } from 'ethers'
-import { useObjectState } from 'sw-hooks'
+import { useObjectState } from 'hooks'
 import { commonMessages } from 'helpers'
-import notifications from 'sw-modules/notifications'
+import notifications from 'modules/notifications'
 import waitForTransaction from 'hooks/fetch/util/waitForTransaction'
 
 

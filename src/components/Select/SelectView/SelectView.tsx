@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react'
-import methods from 'sw-methods'
+import methods from 'helpers/methods'
 
 import Dropdown, { DropdownProps } from '../../Dropdown/Dropdown'
 

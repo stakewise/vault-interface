@@ -1,7 +1,7 @@
 import { useMemo, useCallback } from 'react'
-import theme, { ThemeColor } from 'sw-modules/theme'
-import intl from 'sw-modules/intl'
-import methods from 'sw-methods'
+import theme, { ThemeColor } from 'modules/theme'
+import intl from 'modules/intl'
+import methods from 'helpers/methods'
 
 import { LineStyle, LineWidth, CrosshairMode } from 'lightweight-charts'
 

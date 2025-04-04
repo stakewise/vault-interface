@@ -1,9 +1,9 @@
 import { chains } from 'sdk'
 import { constants } from 'helpers'
 import { NextRequest } from 'next/server'
-import { setCookieBatch } from 'sw-helpers/_SSR'
-import { languageMiddleware } from 'sw-modules/intl/_SSR'
-import { createNetworkMiddleware } from 'sw-core/config/_SSR'
+import { setCookieBatch } from 'helpers/_SSR'
+import { languageMiddleware } from 'modules/intl/_SSR'
+import { createNetworkMiddleware } from 'config/core/config/_SSR'
 
 
 const networkMiddleware = createNetworkMiddleware({
@@ -11,7 +11,6 @@ const networkMiddleware = createNetworkMiddleware({
   supportedNetworkIds: [
     chains.gnosis.id,
     chains.chiado.id,
-    chains.holesky.id,
     chains.mainnet.id,
   ],
   middlewareFn: async (request) => {

@@ -1,6 +1,6 @@
 import React from 'react'
 import { useConfig } from 'config'
-import forms from 'sw-modules/forms'
+import forms from 'modules/forms'
 import { commonMessages } from 'helpers'
 
 import { Button as ButtonComponent } from 'components'

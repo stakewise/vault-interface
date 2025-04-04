@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useCallback } from 'react'
-import 'sw-modules/notifications' // for get types
+import 'modules/notifications' // for get types
 import cx from 'classnames'
 
 import Icon from '../Icon/Icon'
@@ -73,7 +73,7 @@ const Notification: React.FC<Notifications.NotificationProps> = (props) => {
         size={24}
       />
       <Text
-        className="overflow-hidden ml-16"
+        className="overflow-hidden ml-16 relative"
         id={`${dataTestId}-text`}
         message={text}
         color="dark"

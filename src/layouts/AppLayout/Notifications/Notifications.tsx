@@ -1,7 +1,7 @@
 import React from 'react'
 import cx from 'classnames'
 import { createPortal } from 'react-dom'
-import notifications from 'sw-modules/notifications'
+import notifications from 'modules/notifications'
 
 import { Notification } from 'components'
 

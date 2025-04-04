@@ -1,8 +1,8 @@
 import React from 'react'
 import cx from 'classnames'
-import methods from 'sw-methods'
+import methods from 'helpers/methods'
 import { useConfig } from 'config'
-import device from 'sw-modules/device'
+import device from 'modules/device'
 
 import { Text } from 'components'
 import { stakeCtx } from 'views/HomeView/StakeContext/util'

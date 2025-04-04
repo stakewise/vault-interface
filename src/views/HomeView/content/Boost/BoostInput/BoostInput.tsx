@@ -1,9 +1,9 @@
 import React, { useCallback } from 'react'
 import { useConfig } from 'config'
+import { useStore } from 'hooks'
 
 import { Input } from 'views/HomeView/common'
 import { stakeCtx } from 'views/HomeView/StakeContext/util'
-import { useStore } from 'hooks'
 
 
 const storeSelector = (store: Store) => ({
