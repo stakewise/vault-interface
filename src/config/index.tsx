@@ -45,7 +45,7 @@ const middleware = (ctx: ConfigProvider.Context) => {
 
   const isEthereum = (
     networkId === networks.configs.mainnet.id
-    || networkId === networks.configs.chiado.id
+    || networkId === networks.configs.hoodi.id
   )
 
   return {
