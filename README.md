@@ -1,7 +1,7 @@
 # vault-interface
 This is an open-source repository for the Vault interface.
 You can customize this UI for your own vault on the
-Mainnet, Gnosis, and Chiado networks.
+Mainnet, Gnosis, Hoodi, and Chiado networks.
 
 If you provide vault addresses for multiple networks,
 a dropdown menu will appear in the UI,
