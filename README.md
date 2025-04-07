@@ -32,7 +32,7 @@ allowing you to select the desired network.
   - Testnet networks will only be displayed in the network selection if `NEXT_PUBLIC_IS_PROD` is set to `false`. In a production environment, you can switch to the testnet only through the wallet interface.
 
 - <b>Vault Ownership</b>:
-  - Add your vault owner’s address in `NEXT_PUBLIC_OWNER`.
+  - Add your vault owner’s title in `NEXT_PUBLIC_OWNER`.
   - Specify the owner’s domain in `NEXT_PUBLIC_OWNER_DOMAIN`.
   - Add the X account for metadata as `NEXT_PUBLIC_OWNER_X_ACCOUNT`.
 
