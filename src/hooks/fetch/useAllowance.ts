@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef } from 'react'
 import { useConfig } from 'config'
 import { ZeroAddress } from 'ethers'
+
 import { commonMessages } from 'helpers'
 import notifications from 'modules/notifications'
 
