@@ -19,6 +19,7 @@ const networkSizes = {
   mainnet: 160,
   gnosis: 185,
   chiado: 197,
+  hoodi: 178,
 }
 
 const Connect: React.FC<Connect> = ({ className }) => {
