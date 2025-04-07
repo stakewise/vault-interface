@@ -1,7 +1,9 @@
 import React from 'react'
 import cx from 'classnames'
 
-import { Text, Icon, ButtonBase } from 'components'
+import Text from '../../Text/Text'
+import Icon from '../../Icon/Icon'
+import ButtonBase from '../../ButtonBase/ButtonBase'
 
 
 type BackButtonProps = {

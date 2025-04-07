@@ -3,7 +3,7 @@ import date from 'modules/date'
 import intl from 'modules/intl'
 import { commonMessages } from 'helpers'
 
-import { Text } from 'components'
+import Text from '../Text/Text'
 
 import messages from './messages'
 

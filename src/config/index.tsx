@@ -8,18 +8,21 @@ import useActions from '../hooks/data/useActions'
 import connectModalId from '../layouts/modals/ConnectWalletModal/modalId'
 
 
-type SupportedChain = typeof chains.mainnet | typeof chains.gnosis | typeof chains.chiado
+type SupportedChain = typeof chains.mainnet | typeof chains.hoodi | typeof chains.gnosis | typeof chains.chiado
 
 const supportedChains: SupportedChain[] = []
 
+if (process.env.NEXT_PUBLIC_MAINNET_VAULT_ADDRESS) {
+  supportedChains.push(chains.mainnet)
+}
 if (process.env.NEXT_PUBLIC_GNOSIS_VAULT_ADDRESS) {
   supportedChains.push(chains.gnosis)
 }
+if (process.env.NEXT_PUBLIC_HOODI_VAULT_ADDRESS) {
+  supportedChains.push(chains.hoodi)
+}
 if (process.env.NEXT_PUBLIC_CHIADO_VAULT_ADDRESS) {
   supportedChains.push(chains.chiado)
-}
-if (process.env.NEXT_PUBLIC_MAINNET_VAULT_ADDRESS) {
-  supportedChains.push(chains.mainnet)
 }
 
 const supportedNetworkIds = supportedChains.map((config) => config.id)
@@ -40,7 +43,10 @@ const middleware = (ctx: ConfigProvider.Context) => {
     || networkId === networks.configs.gnosis.id
   )
 
-  const isEthereum = networkId === networks.configs.mainnet.id
+  const isEthereum = (
+    networkId === networks.configs.mainnet.id
+    || networkId === networks.configs.chiado.id
+  )
 
   return {
     ...ctx,

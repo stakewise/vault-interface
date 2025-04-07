@@ -1,14 +1,14 @@
-import methods from 'helpers/methods'
+import addNumberSeparator from './addNumberSeparator'
 
 
 const _reduceValue = (value: number, divider: number = 1, postfix: string = '', decimal = 2) => {
   const [ integer, remainder ] = (value / divider).toFixed(2).split('.')
 
   if (!decimal) {
-    return `${methods.addNumberSeparator(integer)}${postfix}`
+    return `${addNumberSeparator(integer)}${postfix}`
   }
 
-  return `${methods.addNumberSeparator(integer)}.${remainder?.slice(0, decimal)}${postfix}`
+  return `${addNumberSeparator(integer)}.${remainder?.slice(0, decimal)}${postfix}`
 }
 
 const numericalReduction = (value: number, decimal?: 0 | 2): string => {

@@ -1,10 +1,11 @@
 import { useCallback, useEffect, useMemo, useRef } from 'react'
 import { useConfig } from 'config'
 import { ZeroAddress } from 'ethers'
-import { useObjectState } from 'hooks'
 import { commonMessages } from 'helpers'
 import notifications from 'modules/notifications'
-import waitForTransaction from 'hooks/fetch/util/waitForTransaction'
+
+import useObjectState from '../controls/useObjectState'
+import waitForTransaction from './util/waitForTransaction'
 
 
 type State = {
