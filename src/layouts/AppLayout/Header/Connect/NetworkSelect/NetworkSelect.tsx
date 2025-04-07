@@ -15,7 +15,6 @@ type NetworkSelectProps = {
 }
 
 const networkOptions = Object.values(supportedChains)
-  .sort((config) => config.isTestnet ? 1 : -1)
   .reduce((acc, config) => {
     if (IS_PROD && config.isTestnet) {
       return acc

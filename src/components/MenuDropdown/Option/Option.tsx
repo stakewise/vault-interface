@@ -1,7 +1,10 @@
 import React from 'react'
 import cx from 'classnames'
 
-import { Icon, Logo, Text, IconName, LogoName } from 'components'
+import Text from '../../Text/Text'
+import Icon from '../../Icon/Icon'
+import Logo from '../../Logo/Logo'
+import { IconName, LogoName } from '../../Image/Image'
 
 import OptionTitle from './OptionTitle/OptionTitle'
 

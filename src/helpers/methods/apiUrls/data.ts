@@ -2,13 +2,6 @@ import { configs, Network } from 'sdk'
 
 
 const apiUrls = {
-  [Network.Chiado]: {
-    backend: configs[Network.Chiado].api.backend,
-    web3: 'https://rpc.chiadochain.net/',
-    subgraph: IS_PROD
-      ? configs[Network.Chiado].api.subgraph
-      : 'https://graphs.stakewise.io/chiado/subgraphs/name/stakewise/stage',
-  },
   [Network.Gnosis]: {
     backend: configs[Network.Gnosis].api.backend,
     web3: [
@@ -32,6 +25,20 @@ const apiUrls = {
         'https://graphs.stakewise.io/mainnet-a/subgraphs/name/stakewise/stage',
         'https://graphs.stakewise.io/mainnet-b/subgraphs/name/stakewise/stage',
       ],
+  },
+  [Network.Chiado]: {
+    backend: configs[Network.Chiado].api.backend,
+    web3: 'https://rpc.chiadochain.net/',
+    subgraph: IS_PROD
+      ? configs[Network.Chiado].api.subgraph
+      : 'https://graphs.stakewise.io/chiado/subgraphs/name/stakewise/stage',
+  },
+  [Network.Hoodi]: {
+    backend: configs[Network.Hoodi].api.backend,
+    web3: 'https://ethereum-hoodi-rpc.publicnode.com',
+    subgraph: IS_PROD
+      ? configs[Network.Hoodi].api.subgraph
+      : 'https://graphs.stakewise.io/hoodi/subgraphs/name/stakewise/stage',
   },
 } as const
 

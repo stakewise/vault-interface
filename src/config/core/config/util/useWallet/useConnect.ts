@@ -55,16 +55,22 @@ const useConnect = (values: Input) => {
       throw new Error(`The ${walletName} wallet does not have a connector`)
     }
 
-    const isMM = walletName === constants.walletNames.metaMask
+    const isInjected = methods.isInjectedWallet(walletName)
     const isGnosisSafe = walletName === constants.walletNames.gnosisSafe
     const isWalletConnect = walletName === constants.walletNames.walletConnect
 
     try {
-      if (activationMessage) {
-        onStartConnect(activationMessage)
-      }
+      if (isInjected) {
+        const injectedProvider = methods.getInjectedProvider(walletName)
 
-      if (isMM) {
+        if (!injectedProvider) {
+          inProgressRef.current = false
+          setData({ autoConnectChecked: true })
+          localStorage.removeItem(constants.localStorageNames.walletName)
+
+          return
+        }
+
         // Sometimes MM may not react to autoconnect
         resetConnectTimer = setTimeout(() => {
           notifications.open({
@@ -78,6 +84,10 @@ const useConnect = (values: Input) => {
 
           window.location.reload()
         }, 10_000)
+      }
+
+      if (activationMessage) {
+        onStartConnect(activationMessage)
       }
 
       const connectorChainId = await connector.getChainId()
@@ -119,6 +129,7 @@ const useConnect = (values: Input) => {
         setData({ autoConnectChecked: true })
 
         localStorage.removeItem(constants.localStorageNames.walletName)
+        inProgressRef.current = false
 
         notifications.open({
           text: messages.connectErrors.noAddress,

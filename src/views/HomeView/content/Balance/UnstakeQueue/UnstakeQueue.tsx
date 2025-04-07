@@ -57,6 +57,8 @@ const UnstakeQueue: React.FC<UnstakeQueueProps> = (props) => {
 
   const amounts = useMemo(() => [ exiting, exited ], [ exiting, exited ])
 
+  const hideDuration = exitQueueData.total === exitQueueData.withdrawable
+
   if (!exitQueueData.total || !address) {
     return null
   }
@@ -79,11 +81,14 @@ const UnstakeQueue: React.FC<UnstakeQueueProps> = (props) => {
             color="dark"
             size="t14m"
           />
-          <QueueDuration
-            duration={exitQueueData.duration}
-            isClaimable={Boolean(exitQueueData.withdrawable)}
-            dataTestId="unstake-queue-duration"
-          />
+          {
+            !hideDuration && (
+              <QueueDuration
+                duration={exitQueueData.duration}
+                dataTestId="unstake-queue-duration"
+              />
+            )
+          }
         </div>
         <Button
           title={commonMessages.buttonTitle.claim}

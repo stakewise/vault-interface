@@ -10,6 +10,10 @@ type Input = {
 }
 
 const fetchAddress = async ({ chainId, provider, ensName }: Input) => {
+  if (chainId === Network.Hoodi) {
+    return null
+  }
+
   const cachedAddress = getCachedAddress({ chainId, ensName })
 
   if (typeof cachedAddress !== 'undefined') {

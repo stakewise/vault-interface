@@ -3,19 +3,18 @@ import date from 'modules/date'
 import intl from 'modules/intl'
 import { commonMessages } from 'helpers'
 
-import { Text } from 'components'
+import Text from '../Text/Text'
 
 import messages from './messages'
 
 
 export type QueueDurationProps = {
   duration: null | number
-  isClaimable: boolean
   dataTestId?: string
 }
 
 const QueueDuration: React.FC<QueueDurationProps> = (props) => {
-  const { duration, isClaimable, dataTestId } = props
+  const { duration, dataTestId } = props
 
   const now = date.time()
   const intlRef = intl.useIntlRef()
@@ -58,7 +57,7 @@ const QueueDuration: React.FC<QueueDurationProps> = (props) => {
     )
   }
 
-  if (duration === 0 && !isClaimable) {
+  if (duration === 0) {
     return (
       <Text
         className="flex-1 opacity-50"
