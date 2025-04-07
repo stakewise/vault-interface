@@ -19,7 +19,7 @@ const UnstakeInput: React.FC = () => {
   return (
     <Input
       balance={maxWithdrawAssets}
-      token={sdk.config.tokens.mintToken}
+      token={sdk.config.tokens.depositToken}
       isLoading={unstake.isSubmitting}
       onMaxButtonClick={() => field.setValue(maxWithdrawAssets)}
     />
