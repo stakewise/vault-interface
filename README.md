@@ -29,6 +29,7 @@ allowing you to select the desired network.
 
 - <b>Testnet Vaults</b>:
   - Add the vault address to `NEXT_PUBLIC_HOODI_VAULT_ADDRESS` and/or `NEXT_PUBLIC_CHIADO_VAULT_ADDRESS`.
+  - Set the RPC URL in `NEXT_PUBLIC_HOODI_NETWORK_URL` and/or `NEXT_PUBLIC_CHIADO_NETWORK_URL`.
   - Testnet networks will only be displayed in the network selection if `NEXT_PUBLIC_IS_PROD` is set to `false`. In a production environment, you can switch to the testnet only through the wallet interface.
 
 - <b>Vault Ownership</b>:
