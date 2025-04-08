@@ -37,6 +37,7 @@ const Data: React.FC = () => {
   const isPopupEnabled = (isBoostProfitable && isMoreV2) || Boolean(apyDetails?.length)
 
   const items = useMemo(() => {
+    const mintToken = sdk.config.tokens.mintToken
     const depositToken = sdk.config.tokens.depositToken
 
     return [
@@ -66,11 +67,11 @@ const Data: React.FC = () => {
         title: messages.mint,
         tooltip: {
           ...messages.tooltips.mint,
-          values: { depositToken },
+          values: { mintToken },
         },
         value: {
           amount: mintedShares,
-          token: sdk.config.tokens.mintToken,
+          token: mintToken,
         },
         dataTestId: 'user-mint',
       },
@@ -127,7 +128,7 @@ const Data: React.FC = () => {
                     <PopupInfo
                       headNode={(
                         <div>
-                          <div>
+                          <div className="flex justify-end">
                             {contentNode}
                           </div>
                           <Text
