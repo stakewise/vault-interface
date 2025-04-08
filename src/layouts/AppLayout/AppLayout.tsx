@@ -9,6 +9,7 @@ import { imagesUrls } from 'components'
 import Header from './Header/Header'
 
 import {
+  useAccount,
   useFiatRates,
   useVaultData,
   useQueryParams,
@@ -28,6 +29,7 @@ const Notifications = dynamic(() => import('./Notifications/Notifications'), {
 })
 
 const AppLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  useAccount()
   useFiatRates()
   useVaultData()
   useQueryParams()
