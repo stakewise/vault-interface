@@ -1,0 +1,12 @@
+@include desktop {
+  .container {
+    min-width: 347rem;
+  }
+}
+
+@include except-desktop {
+  .container {
+    min-width: 270rem;
+    max-width: 100%;
+  }
+}

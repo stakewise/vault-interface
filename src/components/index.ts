@@ -82,6 +82,9 @@ export type { PaginationProps } from './Pagination/Pagination'
 export { default as PercentInput } from './PercentInput/PercentInput'
 export type { PercentInputProps } from './PercentInput/PercentInput'
 
+export { default as PopupInfo } from './PopupInfo/PopupInfo'
+export type { PopupInfoProps } from './PopupInfo/PopupInfo'
+
 export { default as QueueDuration } from './QueueDuration/QueueDuration'
 export type { QueueDurationProps } from './QueueDuration/QueueDuration'
 

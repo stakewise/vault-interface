@@ -8,6 +8,15 @@ export default {
     de: 'Gesamt gestaked',
     zh: '总质押',
   },
+  mint: {
+    en: 'Total minted',
+    ru: 'Всего сминчено',
+    fr: 'Total frappé',
+    es: 'Total acuñado',
+    pt: 'Total cunhado',
+    de: 'Insgesamt geprägt',
+    zh: '总铸造',
+  },
   queue: {
     en: 'Total exiting',
     ru: 'Всего выходят',
@@ -37,6 +46,15 @@ export default {
       zh: '扣除费用后，您在质押的 {depositToken} 上赚取的百分比。',
     },
     stake: {
+      en: 'The total amount of {depositToken} that is earning rewards.',
+      ru: 'Общая сумма {depositToken}, которая приносит награды.',
+      fr: 'Le montant total de {depositToken} qui génère des récompenses.',
+      es: 'La cantidad total de {depositToken} que está ganando recompensas.',
+      pt: 'O montante total de {depositToken} que está ganhando recompensas.',
+      de: 'Der Gesamtbetrag von {depositToken}, der Belohnungen verdient.',
+      zh: '正在赚取奖励的 {depositToken} 总量。',
+    },
+    mint: {
       en: 'The total amount of {depositToken} that is earning rewards.',
       ru: 'Общая сумма {depositToken}, которая приносит награды.',
       fr: 'Le montant total de {depositToken} qui génère des récompenses.',

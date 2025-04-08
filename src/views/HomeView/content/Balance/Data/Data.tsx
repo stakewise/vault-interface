@@ -1,69 +1,151 @@
-import React from 'react'
+import React, { useMemo } from 'react'
+import cx from 'classnames'
 import methods from 'helpers/methods'
 import { useStore } from 'hooks'
 import { useConfig } from 'config'
 import { commonMessages } from 'helpers'
 
+import { Icon, PopupInfo, TextWithTooltip } from 'components'
 import { stakeCtx } from 'views/HomeView/StakeContext/util'
 
-import Row from './Row/Row'
+import Details from './Details/Details'
+import Content from './Content/Content'
+
+import { useApyDetails } from './util'
 
 import messages from './messages'
 
 
 const storeSelector = (store: Store) => ({
+  apy: store.vault.base.data.apy,
+  isMoreV2: store.vault.base.data.versions.isMoreV2,
+  maxBoostApy: store.vault.base.data.allocatorMaxBoostApy,
   stakedAssets: store.vault.user.balances.stake.assets,
+  mintedShares: store.vault.user.balances.mintToken.minted.shares,
   boostedShares: store.vault.user.balances.boost.shares,
 })
+
 
 const Data: React.FC = () => {
   const { sdk } = useConfig()
   const { data } = stakeCtx.useData()
 
-  const { stakedAssets, boostedShares } = useStore(storeSelector)
+  const { data: apyDetails, isFetching } = useApyDetails()
+  const { apy, isMoreV2, maxBoostApy, stakedAssets, mintedShares, boostedShares } = useStore(storeSelector)
 
-  const depositToken = sdk.config.tokens.depositToken
+  const isBoostProfitable = maxBoostApy > apy
+  const isPopupEnabled = (isBoostProfitable && isMoreV2) || Boolean(apyDetails?.length)
+
+  const items = useMemo(() => {
+    const depositToken = sdk.config.tokens.depositToken
+
+    return [
+      {
+        title: commonMessages.yourApy,
+        tooltip: {
+          ...messages.tooltips.apy,
+          values: { depositToken },
+        },
+        value: methods.formatApy(data.apy.user),
+        isMagicValue: Boolean(boostedShares),
+        dataTestId: 'user-apy',
+      },
+      {
+        title: messages.stake,
+        tooltip: {
+          ...messages.tooltips.stake,
+          values: { depositToken },
+        },
+        value: {
+          amount: stakedAssets,
+          token: depositToken,
+        },
+        dataTestId: 'user-stake',
+      },
+      {
+        title: messages.mint,
+        tooltip: {
+          ...messages.tooltips.mint,
+          values: { depositToken },
+        },
+        value: {
+          amount: mintedShares,
+          token: sdk.config.tokens.mintToken,
+        },
+        dataTestId: 'user-mint',
+      },
+      {
+        title: commonMessages.earnedRewards,
+        tooltip: commonMessages.tooltip.earnedRewards,
+        value: {
+          amount: data.userRewards,
+          token: depositToken,
+        },
+        withMinimalValue: true,
+        dataTestId: 'user-rewards',
+      },
+    ]
+  }, [ sdk, data, stakedAssets, mintedShares, boostedShares ])
 
   return (
     <>
-      <Row
-        className="pb-12"
-        text={commonMessages.yourApy}
-        tooltip={{
-          ...messages.tooltips.apy,
-          values: { depositToken },
-        }}
-        isFetching={data.isFetching}
-        value={methods.formatApy(data.apy.user)}
-        isMagicValue={Boolean(boostedShares)}
-        dataTestId="user-apy"
-      />
-      <Row
-        className="py-12 border-top border-dark/10"
-        text={messages.stake}
-        tooltip={{
-          ...messages.tooltips.stake,
-          values: { depositToken },
-        }}
-        isFetching={data.isFetching}
-        dataTestId="user-stake"
-        value={{
-          amount: stakedAssets,
-          token: sdk.config.tokens.depositToken,
-        }}
-      />
-      <Row
-        className="py-12 border-top border-dark/10"
-        text={commonMessages.earnedRewards}
-        tooltip={commonMessages.tooltip.earnedRewards}
-        isFetching={data.isFetching}
-        dataTestId="user-rewards"
-        withMinimalValue
-        value={{
-          amount: data.userRewards,
-          token: sdk.config.tokens.depositToken,
-        }}
-      />
+      {
+        items.map(({ title, tooltip, value, isMagicValue, withMinimalValue, dataTestId }, index) => {
+          const contentNode = (
+            <Content
+              value={value}
+              isFetching={isFetching}
+              dataTestId={dataTestId}
+              isMagicValue={isMagicValue}
+              withMinimalValue={withMinimalValue}
+            />
+          )
+
+          return (
+            <div
+              key={index}
+              className={cx('flex justify-between items-center', {
+                'pb-12': !index,
+                'py-12 border-top border-dark/10': index,
+              })}
+            >
+              <div>
+                <TextWithTooltip
+                  text={{
+                    message: title,
+                    color: 'dark',
+                    size: 't14m',
+                  }}
+                  tooltip={tooltip}
+                />
+              </div>
+              <div className="flex justify-end items-center">
+                {
+                  index || !isPopupEnabled ? (
+                    contentNode
+                  ) : (
+                    <PopupInfo
+                      headNode={(
+                        <div className="flex items-center gap-4">
+                          {contentNode}
+                          <Icon
+                            className="opacity-50"
+                            color="secondary"
+                            size={16}
+                            name="icon/info"
+                          />
+                        </div>
+                      )}
+                    >
+                      <Details data={apyDetails} />
+                    </PopupInfo>
+                  )
+                }
+              </div>
+            </div>
+          )
+        })
+      }
     </>
   )
 }
