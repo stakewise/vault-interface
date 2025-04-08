@@ -1,1 +1,0 @@
-export type { MerkleDistributorV2 } from './MerkleDistributorV2'

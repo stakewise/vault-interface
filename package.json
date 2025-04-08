@@ -6,12 +6,13 @@
   "private": true,
   "scripts": {
     "fast": "next dev -p 5005",
-    "build": "next build",
-    "dev": "npm run check:env && npm run fast",
+    "build": "npm run typechain && next build",
+    "dev": "npm run check:env && npm run typechain && npm run fast",
     "lint": "next lint",
     "lint:css": "stylelint **/*.scss",
     "lint:css:fix": "stylelint **/*.scss --fix",
-    "check:env": "node ./scripts/checkLocalEnv.js"
+    "check:env": "node ./scripts/checkLocalEnv.js",
+    "typechain": "typechain --target ethers-v6 --out-dir src/helpers/contracts/types 'src/helpers/contracts/abis/*.json'"
   },
   "engines": {
     "node": "=20.12.2",
@@ -35,6 +36,7 @@
   },
   "license": "MIT",
   "devDependencies": {
+    "@typechain/ethers-v6": "0.5.1",
     "@types/js-cookie": "3.0.6",
     "@types/react": "18.3.3",
     "@types/react-dom": "18.3.0",
@@ -52,6 +54,7 @@
     "stylelint-scss": "6.5.0",
     "tailwindcss": "3.4.10",
     "terser-webpack-plugin": "5.3.11",
+    "typechain": "8.3.2",
     "typescript": "5.5.4"
   },
   "dependencies": {
