@@ -20,6 +20,7 @@ export { default as useActions } from './data/useActions'
 export { default as useBalances } from './data/useBalances'
 export { default as useMintToken } from './data/useMintToken'
 export { default as useFiatValues } from './data/useFiatValues'
+export { default as useClaimsTotal } from './data/useClaimsTotal'
 
 export { default as useApprove } from './fetch/useApprove'
 export { default as useAllowance } from './fetch/useAllowance'

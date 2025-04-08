@@ -1,3 +1,4 @@
+export { default as useAccount } from './useAccount'
 export { default as useFiatRates } from './useFiatRates'
 export { default as useVaultData } from './useVaultData'
 export { default as useQueryParams } from './useQueryParams'

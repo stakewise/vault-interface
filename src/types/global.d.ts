@@ -12,6 +12,22 @@ declare global {
   type ChainIds = 1 | 100 | 10200 | 560048
   type GenerateMetadata<T = {}> = (props: { params: T & { locale: Intl.LanguagesKeys }}) => Promise<Metadata>
 
+  interface Window {
+    e2e: any
+    rabby: EthereumProvider
+    taho: EthereumProvider
+    okxwallet: EthereumProvider
+    trustwallet: EthereumProvider
+    braveEthereum: EthereumProvider
+    ethereum?: EthereumProvider
+    device: {
+      isMobile: boolean
+      isDesktop:boolean
+    }
+    navigator: Navigator
+    onGemReady?: () => void
+  }
+
   // Helpers
   type OneOfArray <T extends ReadonlyArray<unknown>> = T extends ReadonlyArray<infer OneOfArray> ? OneOfArray : never
 

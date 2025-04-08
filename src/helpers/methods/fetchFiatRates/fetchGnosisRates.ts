@@ -9,11 +9,12 @@ import { cacheWrapper } from './helpers'
 const fetchGnosisRates = async () => {
   const sdk = getSDK({ chainId: Network.Gnosis })
 
-  const { mintTokenValues, assetValues, setValues } = await fetchRates(sdk)
+  const { mintTokenValues, assetValues, swiseValues, setValues } = await fetchRates(sdk)
 
   return {
     [constants.tokens.gno]: assetValues,
     [constants.tokens.xdai]: setValues(1),
+    [constants.tokens.swise]: swiseValues,
     [constants.tokens.osGNO]: mintTokenValues,
   }
 }

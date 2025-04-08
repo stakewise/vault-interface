@@ -1,6 +1,11 @@
 import methods from 'helpers/methods'
 
 
+type Input = {
+  url: string | readonly string[]
+  variables: StakeStatsVariables
+}
+
 type StakeStatsQueryPayload = {
   osTokenHolder: {
     apy: string
@@ -19,7 +24,7 @@ type StakeStatsVariables = {
   }
 }
 
-const fetchStakeStats = ({ url, variables }: { url: string, variables: StakeStatsVariables }) => {
+const fetchStakeStats = ({ url, variables }: Input) => {
   return methods.fetch<StakeStatsQueryPayload>(url, {
     method: 'POST',
     body: JSON.stringify({

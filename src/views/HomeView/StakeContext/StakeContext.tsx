@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { TxCompletedModal, ExportRewardsModal, TransactionsFlowModal } from 'layouts/modals'
+import { TxCompletedModal, ExportRewardsModal, TransactionsFlowModal, DistributorClaimsModal } from 'layouts/modals'
 
 import Tabs from './Tabs/Tabs'
 import { Skeleton } from '../common'
@@ -42,6 +42,7 @@ const StakeContext: React.FC = () => {
       <TxCompletedModal />
       <ExportRewardsModal />
       <TransactionsFlowModal />
+      <DistributorClaimsModal />
     </stakeCtx.Provider>
   )
 }
