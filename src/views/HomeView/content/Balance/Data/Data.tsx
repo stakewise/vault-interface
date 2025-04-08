@@ -34,7 +34,7 @@ const Data: React.FC = () => {
   const { apy, isMoreV2, maxBoostApy, stakedAssets, mintedShares, boostedShares } = useStore(storeSelector)
 
   const isBoostProfitable = maxBoostApy > apy
-  const isPopupEnabled = (isBoostProfitable && isMoreV2) || Boolean(apyDetails?.length)
+  const isPopupEnabled = Boolean(isBoostProfitable && isMoreV2 && apyDetails?.length)
 
   const items = useMemo(() => {
     const mintToken = sdk.config.tokens.mintToken
@@ -133,7 +133,7 @@ const Data: React.FC = () => {
                           </div>
                           <Text
                             className="underline opacity-60"
-                            message={messages.details}
+                            message={messages.breakdown}
                             size="t12m"
                             color="dark"
                           />
