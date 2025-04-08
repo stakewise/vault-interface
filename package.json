@@ -61,7 +61,7 @@
     "@ledgerhq/hw-transport-webusb": "6.29.2",
     "@metamask/onboarding": "1.0.1",
     "@reduxjs/toolkit": "2.2.7",
-    "@stakewise/v3-sdk": "3.4.1",
+    "@stakewise/v3-sdk": "3.5.0",
     "@types/react-redux": "7.1.33",
     "@wagmi/connectors": "5.1.10",
     "autoprefixer": "10.4.20",
