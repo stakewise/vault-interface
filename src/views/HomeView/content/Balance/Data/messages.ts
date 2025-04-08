@@ -1,4 +1,13 @@
 export default {
+  details: {
+    en: 'Show details',
+    ru: 'Показать детали',
+    fr: 'Afficher les détails',
+    es: 'Mostrar detalles',
+    pt: 'Mostrar detalhes',
+    de: 'Details anzeigen',
+    zh: '显示详细信息',
+  },
   stake: {
     en: 'Total staked',
     ru: 'Всего в стейкинге',

@@ -5,7 +5,7 @@ import { useStore } from 'hooks'
 import { useConfig } from 'config'
 import { commonMessages } from 'helpers'
 
-import { Icon, PopupInfo, TextWithTooltip } from 'components'
+import { Text, PopupInfo, TextWithTooltip } from 'components'
 import { stakeCtx } from 'views/HomeView/StakeContext/util'
 
 import Details from './Details/Details'
@@ -126,13 +126,15 @@ const Data: React.FC = () => {
                   ) : (
                     <PopupInfo
                       headNode={(
-                        <div className="flex items-center gap-4">
-                          {contentNode}
-                          <Icon
-                            className="opacity-50"
-                            color="secondary"
-                            size={16}
-                            name="icon/info"
+                        <div>
+                          <div>
+                            {contentNode}
+                          </div>
+                          <Text
+                            className="underline opacity-60"
+                            message={messages.details}
+                            size="t12m"
+                            color="dark"
                           />
                         </div>
                       )}
