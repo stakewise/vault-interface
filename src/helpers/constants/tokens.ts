@@ -9,5 +9,7 @@ export default {
   osETH: 'osETH',
 
   // common
+  ssv: 'SSV',
+  swise: 'SWISE',
   osToken: 'osToken',
 } as const

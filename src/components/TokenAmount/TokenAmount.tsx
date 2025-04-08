@@ -10,7 +10,9 @@ import { constants } from '../../helpers'
 export const tokens = [
   'GNO',
   'ETH',
+  'SSV',
   'xDAI',
+  'SWISE',
   'osETH',
   'osGNO',
 ] as const

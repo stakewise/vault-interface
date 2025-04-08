@@ -24,9 +24,11 @@ const useAPY = (vaultAddress: string) => {
 
   return useCallback(async () => {
     try {
-      const url = `${sdk.config.api.subgraph}?opName=Apy`
+      const url = Array.isArray(sdk.config.api.subgraph)
+        ? sdk.config.api.subgraph[0]
+        : sdk.config.api.subgraph
 
-      const data = await methods.fetch<ApyQueryPayload>(url, {
+      const data = await methods.fetch<ApyQueryPayload>(`${url}?opName=Apy`, {
         method: 'POST',
         body: JSON.stringify({
           query: `
