@@ -4,7 +4,6 @@ import { useConfig } from 'config'
 import date from 'modules/date'
 import intl from 'modules/intl'
 import methods from 'helpers/methods'
-import { useStore } from 'hooks'
 import cx from 'classnames'
 
 import { Text, Logo } from 'components'
@@ -23,19 +22,11 @@ type DetailsProps = {
   data: Data[]
 }
 
-const storeSelector = (store: Store) => ({
-  vaultApy: store.vault.base.data.apy,
-  isMoreV2: store.vault.base.data.versions.isMoreV2,
-  maxBoostApy: store.vault.base.data.allocatorMaxBoostApy,
-})
-
 const Details: React.FC<DetailsProps> = (props) => {
   const { className, data } = props
 
-  const { sdk } = useConfig()
-  const { vaultApy, maxBoostApy, isMoreV2 } = useStore(storeSelector)
-
   const now = date.time()
+  const { sdk } = useConfig()
   const intlRef = intl.useIntlRef()
 
   const tokenList = useMemo(() => {
@@ -51,8 +42,6 @@ const Details: React.FC<DetailsProps> = (props) => {
       [depositToken]: sdk.config.tokens.depositToken,
     })
   }, [ sdk ])
-
-  const isBoostProfitable = maxBoostApy > vaultApy
 
   return (
     <div className={className}>
@@ -114,24 +103,6 @@ const Details: React.FC<DetailsProps> = (props) => {
             </div>
           )
         })
-      }
-      {
-        (isBoostProfitable && isMoreV2) && (
-         <Text
-           className={cx('border-dark/20 text-center opacity-70', {
-             'pt-12 mt-12 border-top': data.length,
-           })}
-           size="t14m"
-           color="dark"
-            message={{
-              ...messages.tooltip,
-              values: {
-                percent: methods.formatApy(maxBoostApy),
-                mintToken: sdk.config.tokens.mintToken,
-              },
-            }}
-         />
-        )
       }
     </div>
   )
