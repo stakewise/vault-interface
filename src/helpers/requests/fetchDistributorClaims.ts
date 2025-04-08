@@ -3,7 +3,7 @@ import methods from 'helpers/methods'
 
 
 type Input = {
-  url: string
+  url: string | readonly string[]
   address: string
 }
 
