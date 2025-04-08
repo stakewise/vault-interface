@@ -8,7 +8,7 @@ a dropdown menu will appear in the UI,
 allowing you to select the desired network.
 
 ### Demo
-[Genesis vault interface](https://stake.fi/)
+[Genesis vault interface](https://vault-interface-lemon.vercel.app/)
 
 ### Setup and Launch
 1. Clone the repository.
