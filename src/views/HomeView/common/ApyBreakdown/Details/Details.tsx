@@ -1,15 +1,20 @@
 import React, { useMemo } from 'react'
-import { commonMessages } from 'helpers'
-import { useConfig } from 'config'
+import cx from 'classnames'
 import date from 'modules/date'
 import intl from 'modules/intl'
 import methods from 'helpers/methods'
-import cx from 'classnames'
+import { useConfig } from 'config'
+import { useSelector } from 'react-redux'
+import { commonMessages } from 'helpers'
 
 import { Text, Logo } from 'components'
 
 import messages from './messages'
 
+
+const storeSelector = (store: Store) => ({
+  maxBoostApy: store.vault.base.data.allocatorMaxBoostApy,
+})
 
 type Data = {
   apy: string
@@ -20,14 +25,16 @@ type Data = {
 type DetailsProps = {
   className?: string
   data: Data[]
+  withText?: boolean
 }
 
 const Details: React.FC<DetailsProps> = (props) => {
-  const { className, data } = props
+  const { className, data, withText } = props
 
   const now = date.time()
   const { sdk } = useConfig()
   const intlRef = intl.useIntlRef()
+  const { maxBoostApy } = useSelector(storeSelector)
 
   const tokenList = useMemo(() => {
     const SSV = sdk.config.addresses.tokens.ssv.toLocaleLowerCase()
@@ -103,6 +110,24 @@ const Details: React.FC<DetailsProps> = (props) => {
             </div>
           )
         })
+      }
+      {
+        withText && (
+          <Text
+            className={cx('border-dark/20 text-center opacity-70', {
+              'pt-12 mt-12 border-top': data.length,
+            })}
+            size="t14m"
+            color="dark"
+            message={{
+              ...messages.tooltip,
+              values: {
+                percent: methods.formatApy(maxBoostApy),
+                mintToken: sdk.config.tokens.mintToken,
+              },
+            }}
+          />
+        )
       }
     </div>
   )

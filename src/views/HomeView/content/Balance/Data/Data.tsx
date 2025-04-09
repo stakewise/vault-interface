@@ -5,36 +5,26 @@ import { useStore } from 'hooks'
 import { useConfig } from 'config'
 import { commonMessages } from 'helpers'
 
-import { Text, PopupInfo, TextWithTooltip } from 'components'
 import { stakeCtx } from 'views/HomeView/StakeContext/util'
+import { ApyBreakdown } from 'views/HomeView/common'
+import { Text, TextWithTooltip } from 'components'
 
-import Details from './Details/Details'
 import Content from './Content/Content'
-
-import { useApyDetails } from './util'
 
 import messages from './messages'
 
 
 const storeSelector = (store: Store) => ({
-  apy: store.vault.base.data.apy,
-  isMoreV2: store.vault.base.data.versions.isMoreV2,
-  maxBoostApy: store.vault.base.data.allocatorMaxBoostApy,
   stakedAssets: store.vault.user.balances.stake.assets,
   mintedShares: store.vault.user.balances.mintToken.minted.shares,
   boostedShares: store.vault.user.balances.boost.shares,
 })
 
-
 const Data: React.FC = () => {
   const { sdk } = useConfig()
   const { data } = stakeCtx.useData()
 
-  const { data: apyDetails, isFetching } = useApyDetails()
-  const { apy, isMoreV2, maxBoostApy, stakedAssets, mintedShares, boostedShares } = useStore(storeSelector)
-
-  const isBoostProfitable = maxBoostApy > apy
-  const isPopupEnabled = Boolean(isBoostProfitable && isMoreV2 && apyDetails?.length)
+  const { stakedAssets, mintedShares, boostedShares } = useStore(storeSelector)
 
   const items = useMemo(() => {
     const mintToken = sdk.config.tokens.mintToken
@@ -95,7 +85,6 @@ const Data: React.FC = () => {
           const contentNode = (
             <Content
               value={value}
-              isFetching={isFetching}
               dataTestId={dataTestId}
               isMagicValue={isMagicValue}
               withMinimalValue={withMinimalValue}
@@ -120,28 +109,20 @@ const Data: React.FC = () => {
                   tooltip={tooltip}
                 />
               </div>
-              <div className="flex justify-end items-center">
+              <div>
+                <div className="flex justify-end">
+                  {contentNode}
+                </div>
                 {
-                  index || !isPopupEnabled ? (
-                    contentNode
-                  ) : (
-                    <PopupInfo
-                      headNode={(
-                        <div>
-                          <div className="flex justify-end">
-                            {contentNode}
-                          </div>
-                          <Text
-                            className="underline opacity-60"
-                            message={messages.breakdown}
-                            size="t12m"
-                            color="dark"
-                          />
-                        </div>
-                      )}
-                    >
-                      <Details data={apyDetails} />
-                    </PopupInfo>
+                  !index && (
+                    <ApyBreakdown>
+                      <Text
+                        className="underline opacity-60"
+                        message={messages.breakdown}
+                        size="t12m"
+                        color="dark"
+                      />
+                    </ApyBreakdown>
                   )
                 }
               </div>
