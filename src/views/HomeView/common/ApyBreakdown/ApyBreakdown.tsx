@@ -16,7 +16,7 @@ const storeSelector = (store: Store) => ({
 
 type ApyBreakdownProps = {
   children: ReactNode
-  withText?: string
+  withText?: boolean
 }
 
 const ApyBreakdown: React.FC<ApyBreakdownProps> = (props) => {
