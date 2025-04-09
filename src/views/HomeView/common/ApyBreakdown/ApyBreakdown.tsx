@@ -28,7 +28,7 @@ const ApyBreakdown: React.FC<ApyBreakdownProps> = (props) => {
   const isBoostProfitable = maxBoostApy > apy && isMoreV2
   const isPopupEnabled = isBoostProfitable && withText || Boolean(data.length)
 
-  if (isPopupEnabled || true) {
+  if (isPopupEnabled) {
     return (
       <PopupInfo
         headNode={children}
