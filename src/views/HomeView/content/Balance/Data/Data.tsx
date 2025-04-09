@@ -57,7 +57,10 @@ const Data: React.FC = () => {
         title: messages.mint,
         tooltip: {
           ...messages.tooltips.mint,
-          values: { mintToken },
+          values: {
+            mintToken,
+            depositToken,
+          },
         },
         value: {
           amount: mintedShares,
