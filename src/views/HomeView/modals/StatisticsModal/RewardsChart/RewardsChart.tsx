@@ -38,7 +38,7 @@ const RewardsChart: React.FC<RewardsChartProps> = (props) => {
   const { values: { type, tab } } = forms.useFormValues(form)
 
   const withExport = tab === Tab.User && type === Type.Rewards && isExportVisible
-
+  const isNotConnected = tab === Tab.User && !address
   const isFetchedRef = useRef(false)
   isFetchedRef.current = isFetchedRef.current || !isFetching
 
@@ -60,14 +60,14 @@ const RewardsChart: React.FC<RewardsChartProps> = (props) => {
     <Chart
       className="mt-24"
       data={points}
-      isFetching={isFetching}
+      isFetching={isFetching && !isNotConnected}
       hideRightScale={isMobile}
       token={sdk.config.tokens.depositToken}
       noItemsDescription={messages.description}
       dataTestId={`stake-chart-${tab}-${type}`}
       style={type === Type.Rewards ? 'bar' : 'line'}
       pointType={type === Type.APY ? 'percent' : 'fiat'}
-      isNotConnected={tab === Tab.User && !address}
+      isNotConnected={isNotConnected}
       connect={openConnectWalletModal}
     />
   )
