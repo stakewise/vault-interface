@@ -4,10 +4,11 @@ import methods from 'helpers/methods'
 import { useConfig } from 'config'
 import device from 'modules/device'
 
-import { Text } from 'components'
+import { Text, Icon } from 'components'
 import { stakeCtx } from 'views/HomeView/StakeContext/util'
+import { ApyBreakdown } from 'views/HomeView/common'
 
-import MagicPercent from '../../MagicPercent/MagicPercent'
+import MagicPercent from './MagicPercent/MagicPercent'
 
 import messages from './messages'
 
@@ -55,12 +56,26 @@ const APY: React.FC<APYProps> = (props) => {
           )
         }
       </div>
-      <Text
-        className={cx('opacity-40', { 'mt-4': isMobile })}
-        message={messages.apy}
-        color="dark"
-        size={isMobile ? 't12m' : 't14m'}
-      />
+      <div
+        className={cx('flex items-center gap-4', { 'mt-4': isMobile })}
+      >
+        <Text
+          className="opacity-40"
+          message={messages.apy}
+          color="dark"
+          size={isMobile ? 't12m' : 't14m'}
+        />
+        <ApyBreakdown
+          withText={isEthereum && isProfitable}
+        >
+          <Icon
+            className="opacity-20"
+            name="icon/info"
+            color="dark"
+            size={16}
+          />
+        </ApyBreakdown>
+      </div>
     </div>
   )
 }

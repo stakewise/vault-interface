@@ -8,6 +8,15 @@ export default {
     de: 'Gesamt gestaked',
     zh: '总质押',
   },
+  mint: {
+    en: 'Total minted',
+    ru: 'Всего сминчено',
+    fr: 'Total frappé',
+    es: 'Total acuñado',
+    pt: 'Total cunhado',
+    de: 'Insgesamt geprägt',
+    zh: '总铸造',
+  },
   queue: {
     en: 'Total exiting',
     ru: 'Всего выходят',
@@ -44,6 +53,15 @@ export default {
       pt: 'O montante total de {depositToken} que está ganhando recompensas.',
       de: 'Der Gesamtbetrag von {depositToken}, der Belohnungen verdient.',
       zh: '正在赚取奖励的 {depositToken} 总量。',
+    },
+    mint: {
+      en: 'The amount of {mintToken} you have minted. The {mintToken} can be used across DeFi platforms while your {depositToken} remains staked.',
+      ru: 'Количество заминченных вами {mintToken}. {mintToken} можно использовать на различных DeFi платформах, пока ваш {depositToken} остаётся застейканным.',
+      fr: 'Le montant de {mintToken} que vous avez minté. Le {mintToken} peut être utilisé sur les plateformes DeFi tandis que votre {depositToken} reste staké.',
+      es: 'La cantidad de {mintToken} que ha mintado. El {mintToken} se puede utilizar en plataformas DeFi mientras su {depositToken} permanece staked.',
+      pt: 'A quantidade de {mintToken} que você mintou. O {mintToken} pode ser usado em plataformas DeFi enquanto seu {depositToken} permanece staked.',
+      de: 'Die Menge an {mintToken}, die Sie gemintet haben. Der {mintToken} kann auf DeFi-Plattformen verwendet werden, während Ihr {depositToken} gestaked bleibt.',
+      zh: '您铸造的{mintToken}数量。 在您的{depositToken}保持质押状态时，{mintToken}可以在DeFi平台上使用。',
     },
     queue: {
       en: 'The total amount of {depositToken} that is exiting from the validators.',

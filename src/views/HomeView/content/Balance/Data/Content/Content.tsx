@@ -18,7 +18,6 @@ type TokenValue = {
 }
 
 export type ContentProps = {
-  isFetching?: boolean
   value: string | TokenValue
   dataTestId?: string
   isMagicValue?: boolean
@@ -26,16 +25,10 @@ export type ContentProps = {
 }
 
 const Content: React.FC<ContentProps> = (props) => {
-  const { value, isFetching, isMagicValue, withMinimalValue, dataTestId } = props
+  const { value, isMagicValue, withMinimalValue, dataTestId } = props
 
   const { data } = stakeCtx.useData()
   const { boostedShares, unboostQueueData } = useSelector(storeSelector)
-
-  if (isFetching) {
-    return (
-      <Loading />
-    )
-  }
 
   if (typeof value === 'object') {
     const { amount, token } = value
