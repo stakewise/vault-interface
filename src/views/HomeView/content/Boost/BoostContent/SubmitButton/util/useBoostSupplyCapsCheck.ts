@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo } from 'react'
-import { constants } from 'helpers'
-
-import useObjectState from 'hooks/controls/useObjectState'
+import { constants, requests } from 'helpers'
+import { useObjectState } from 'hooks'
+import { useConfig } from 'config'
 
 
 type Input = {
@@ -19,6 +19,8 @@ const borrowLtv = 930000000000000000n
 const useBoostSupplyCapsCheck = (values: Input) => {
   const { ltvPercent, skip } = values
 
+  const { sdk } = useConfig()
+
   const [ state, setState ] = useObjectState({
     isFetching: !skip,
     hasError: false,
@@ -27,15 +29,13 @@ const useBoostSupplyCapsCheck = (values: Input) => {
 
   const fetchSupplyDiff = useCallback(async () => {
     try {
-      const response = await fetch('https://app.stakewise.io/api/boost-supply-diff')
+      const supplyDiff = await requests.fetchBoostSupplyCaps({
+        url: sdk.config.api.subgraph,
+      })
 
-      if (response?.status !== 200) {
-        throw new Error('checkSupplyCap: Failed to request data from aave')
+      if (supplyDiff === null) {
+        throw new Error('Fetch supply diff error: Failed to request data')
       }
-
-      const result = await response.json() as string
-
-      const supplyDiff = BigInt(result)
 
       setState({
         supplyDiff,
@@ -50,7 +50,7 @@ const useBoostSupplyCapsCheck = (values: Input) => {
         hasError: true,
       })
     }
-  }, [ setState ])
+  }, [ sdk, setState ])
 
   const checkSupplyCap = useCallback((value: bigint) => {
     if (!value) {
