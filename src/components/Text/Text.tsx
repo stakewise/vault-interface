@@ -35,13 +35,14 @@ export type TextProps = {
   HrefComponent?: React.FC<any>
   message: Intl.Message | string
   CustomComponent?: React.FC<any>
+  ref?: React.RefObject<HTMLElement | null>
   onClick?: React.MouseEventHandler<HTMLDivElement>
 }
 
-const Text = React.forwardRef<HTMLElement, TextProps>((props, ref) => {
+const Text: React.FC<TextProps> = (props) => {
   const {
     children, className, id, tag = 'div',
-    message, size, color, html,
+    message, size, color, html, ref,
     htmlFor, dataTestId,
     HrefComponent,
     CustomComponent,
@@ -55,8 +56,43 @@ const Text = React.forwardRef<HTMLElement, TextProps>((props, ref) => {
   }
 
   const rootClassName = cx(className, {
-    [`text-${size}`]: size,
-    [`text-${color}`]: color !== 'inherit',
+    'text-h100': size === 'h100',
+    'text-h90': size === 'h90',
+    'text-h60': size === 'h60',
+    'text-h48': size === 'h48',
+    'text-h40': size === 'h40',
+    'text-h32': size === 'h32',
+    'text-h24': size === 'h24',
+    'text-h22': size === 'h22',
+    'text-h20': size === 'h20',
+    'text-t20b': size === 't20b',
+    'text-t18m': size === 't18m',
+    'text-t18b': size === 't18b',
+    'text-t16m': size === 't16m',
+    'text-t16b': size === 't16b',
+    'text-t14': size === 't14',
+    'text-t14m': size === 't14m',
+    'text-t14b': size === 't14b',
+    'text-t12': size === 't12',
+    'text-t12m': size === 't12m',
+    'text-t12b': size === 't12b',
+    'text-n10': size === 'n10',
+    'text-n10m': size === 'n10m',
+    'text-n10b': size === 'n10b',
+
+    'text-light': color === 'light',
+    'text-dark': color === 'dark',
+    'text-black': color === 'black',
+    'text-white': color === 'white',
+    'text-primary': color === 'primary',
+    'text-secondary': color === 'secondary',
+    'text-smoke': color === 'smoke',
+    'text-warning': color === 'warning',
+    'text-success-light': color === 'success-light',
+    'text-success': color === 'success',
+    'text-error': color === 'error',
+    'text-titanium': color === 'titanium',
+    'text-dark-opacity': color === 'dark-opacity',
   })
 
   const htmlAttrs = methods.getGlobalHtmlAttrs(otherProps)
@@ -114,7 +150,7 @@ const Text = React.forwardRef<HTMLElement, TextProps>((props, ref) => {
   }
 
   return React.createElement(tag, htmlProps, content)
-})
+}
 
 Text.displayName = 'Text'
 

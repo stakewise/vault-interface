@@ -1,0 +1,36 @@
+@theme inline {
+  --*: initial;
+
+  /* Colors */
+  --color-light: var(--light);
+  --color-black: var(--black);
+  --color-white: var(--white);
+  --color-dark: var(--dark);
+  --color-secondary: var(--secondary);
+  --color-secondary-start: var(--secondary-start);
+  --color-secondary-end: var(--secondary-end);
+  --color-primary: var(--primary);
+  --color-primary-start: var(--primary-start);
+  --color-primary-end: var(--primary-end);
+  --color-warning: var(--warning);
+  --color-success-light: var(--success-light);
+  --color-success: var(--success);
+  --color-background: var(--background);
+  --color-error: var(--error);
+
+  /* Border radius */
+  --radius-2: 2rem;
+  --radius-4: 4rem;
+  --radius-6: 6rem;
+  --radius-8: 8rem;
+  --radius-12: 12rem;
+  --radius-16: 16rem;
+  --radius-24: 24rem;
+  --radius-72: 72rem;
+
+  /* Animation */
+  --animate-spin: spin 1s linear infinite;
+
+  /* Other */
+  --spacing: 1rem;
+}

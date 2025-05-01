@@ -17,7 +17,6 @@ const NoItems: React.FC<NoItemsProps> = (props) => {
     <div className={className}>
       <div className="absolute h-full w-full flex items-center flex-col justify-center">
         <Text
-          className="mt-16"
           message={messages.noItems}
           color="dark"
           size="t18m"

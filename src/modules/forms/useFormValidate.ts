@@ -4,7 +4,7 @@ import { useState, useCallback, useEffect, useRef } from 'react'
 const useFormValidate = <F extends Forms.FormValues>(form: Forms.Form<F>) => {
   const [ isValid, setValid ] = useState<boolean>(form.validateWithoutError())
 
-  const savedValidStatusRef = useRef<boolean>()
+  const savedValidStatusRef = useRef<boolean>(null)
   savedValidStatusRef.current = isValid
 
   const handleChange = useCallback(() => {

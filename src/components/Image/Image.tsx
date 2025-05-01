@@ -1,4 +1,4 @@
-import React, { useMemo, forwardRef } from 'react'
+import React, { useMemo } from 'react'
 import cx from 'classnames'
 import kit from 'modules/kit-provider'
 
@@ -21,10 +21,11 @@ export type ImageProps = {
   size?: number
   color?: Color | 'inherit'
   dataTestId?: string
+  ref?: React.RefObject<HTMLDivElement>
 }
 
-const Image = forwardRef<HTMLDivElement, ImageProps>((props, ref) => {
-  const { className, name, color, size = 32, dataTestId } = props
+const Image: React.FC<ImageProps> = (props) => {
+  const { className, name, color, size = 32, ref, dataTestId } = props
 
   const { imagesUrls = {} } = kit.useData()
 
@@ -49,13 +50,25 @@ const Image = forwardRef<HTMLDivElement, ImageProps>((props, ref) => {
     <div
       ref={ref}
       className={cx(className, s.image, 'inline-block', {
-        [`bg-${color}`]: Boolean(color),
+        'bg-light': color === 'light',
+        'bg-dark': color === 'dark',
+        'bg-black': color === 'black',
+        'bg-white': color === 'white',
+        'bg-primary': color === 'primary',
+        'bg-secondary': color === 'secondary',
+        'bg-smoke': color === 'smoke',
+        'bg-warning': color === 'warning',
+        'bg-success-light': color === 'success-light',
+        'bg-success': color === 'success',
+        'bg-error': color === 'error',
+        'bg-titanium': color === 'titanium',
+        'bg-dark-opacity': color === 'dark-opacity',
       })}
       style={style}
       data-testid={dataTestId}
     />
   )
-})
+}
 
 Image.displayName = 'Image'
 

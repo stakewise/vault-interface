@@ -25,7 +25,7 @@ const ToggleBox: React.FC<ToggleBoxProps> = (props) => {
   return (
     <AutoHeightToggle
       className={containerClassName}
-      contentClassName="mt-12 pt-12 border-top border-dark/05"
+      contentClassName="mt-12 pt-12 border-top border-dark/5"
       toggleContent={toggleContent}
       padding={24}
       isOpen={isOpen}

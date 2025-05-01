@@ -1,0 +1,138 @@
+@layer utilities {
+
+  /* Borders */
+  .border {
+    border-style: solid;
+    border-width: 1px;
+  }
+
+  .border-2 {
+    border-style: solid;
+    border-width: 2px;
+  }
+
+  .border-top {
+    border-top-width: 1px;
+    border-top-style: solid;
+  }
+
+  .border-bottom {
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+  }
+
+  .border-left {
+    border-left-width: 1px;
+    border-left-style: solid;
+  }
+
+  .border-right {
+    border-right-width: 1px;
+    border-right-style: solid;
+  }
+
+  /* Radius */
+  .rounded-full {
+    border-radius: 100%;
+  }
+
+  .rounded-2 {
+    border-radius: var(--radius-2);
+  }
+
+  .rounded-4 {
+    border-radius: var(--radius-4);
+  }
+
+  .rounded-6 {
+    border-radius: var(--radius-6);
+  }
+
+  .rounded-8 {
+    border-radius: var(--radius-8);
+  }
+
+  .rounded-12 {
+    border-radius: var(--radius-12);
+  }
+
+  .rounded-16 {
+    border-radius: var(--radius-16);
+  }
+
+  .rounded-24 {
+    border-radius: var(--radius-24);
+  }
+
+  .rounded-72 {
+    border-radius: var(--radius-72);
+  }
+
+  /* Colors */
+  .body-light-theme .text-fancy-sunset {
+    background-image: linear-gradient(to right, #4d2b70, #f16ebd);
+  }
+
+  .body-dark-theme .text-fancy-sunset {
+    background-image: linear-gradient(to right, #7540aa, #f16ebd);
+  }
+
+  /* Other */
+  .bg-cover {
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+  }
+
+  .wrap-word {
+    word-wrap: break-word;
+    hyphens: auto;
+  }
+
+  .word-break {
+    word-break: break-word;
+  }
+
+  .flex-2 {
+    flex: 2 1 0;
+  }
+
+  .flex-auto {
+    flex: 1 1 auto;
+    min-width: 1px;
+  }
+
+  .scroll-x {
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+
+  .z-minus {
+    z-index: -1;
+  }
+
+  .z-1 {
+    z-index: 1;
+  }
+
+  .vh100 {
+    height: 100vh;
+  }
+
+  .hover-underline:hover {
+    text-decoration: underline;
+  }
+
+  .hide-empty:empty {
+    display: none;
+  }
+
+  .button:focus-visible {
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .transparent {
+    color: rgba(255, 255, 255, 0);
+  }
+}

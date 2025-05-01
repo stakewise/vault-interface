@@ -28,14 +28,14 @@ const baseConfig = {
     'sw-helpers',
     'sw-components',
   ],
-  sassOptions: {
-    additionalData: `
-      @import 'sw-components/scss/index.scss';
-    `,
-    includePaths: [
-      path.join(__dirname, 'src/scss'),
-    ],
-  },
+  // sassOptions: {
+  //   additionalData: `
+  //     @import 'sw-components/scss/index.scss';
+  //   `,
+  //   includePaths: [
+  //     path.join(__dirname, 'src/scss'),
+  //   ],
+  // },
   images: {
     remotePatterns: [
       {

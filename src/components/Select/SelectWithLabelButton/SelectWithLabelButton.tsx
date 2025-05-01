@@ -1,4 +1,4 @@
-import React, { forwardRef, useId } from 'react'
+import React, { useId } from 'react'
 import cx from 'classnames'
 
 import Text from '../../Text/Text'
@@ -15,10 +15,11 @@ type SelectWithLabelButtonProps = ButtonProps & {
   disabled?: boolean
   isError?: boolean
   label: Intl.Message | string
+  ref?: React.RefObject<HTMLButtonElement>
 }
 
-const SelectWithLabelButton = forwardRef<HTMLButtonElement, SelectWithLabelButtonProps>((props, ref) => {
-  const { className, title, label, arrow = 'down', disabled, isError, ...rest } = props
+const SelectWithLabelButton: React.FC<SelectWithLabelButtonProps> = (props) => {
+  const { className, title, label, arrow = 'down', disabled, isError, ref, ...rest } = props
 
   const isFilled = title !== undefined
 
@@ -66,7 +67,7 @@ const SelectWithLabelButton = forwardRef<HTMLButtonElement, SelectWithLabelButto
       </div>
     </ButtonBase>
   )
-})
+}
 
 SelectWithLabelButton.displayName = 'SelectWithLabelButton'
 

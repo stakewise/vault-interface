@@ -7,7 +7,7 @@ $success-light-light-rgba: rgba(49, 212, 139, 0.3);
   height: 6rem;
 
   @include dark-theme {
-    background-color: rgb($color-white-rgb / 0.2);
+    background-color: rgba($color-white-rgb, .2);
   }
 
   @include light-theme {
@@ -86,7 +86,7 @@ $success-light-light-rgba: rgba(49, 212, 139, 0.3);
 
   .thumb {
     background-color: $primary-light;
-    box-shadow: 0 0 8rem rgb($color-error-rgb / 0.5);
+    box-shadow: 0 0 8rem rgba($color-error-rgb, .5);
   }
 
   .fill {
@@ -99,7 +99,7 @@ $success-light-light-rgba: rgba(49, 212, 139, 0.3);
 
   .thumb {
     background-color: $color-error;
-    box-shadow: 0 0 8rem rgb($color-primary-rgb / 0.5);
+    box-shadow: 0 0 8rem rgba($color-primary-rgb, .5);
   }
 
   .fill {

@@ -1,0 +1,40 @@
+@use 'sass:map';
+
+$color-primary: var(--primary);
+$color-primary-start: var(--primary-start);
+$color-primary-end: var(--primary-end);
+$color-secondary-start: var(--secondary-start);
+$color-secondary-end: var(--secondary-end);
+$color-warning: var(--warning);
+$color-success-light: var(--success-light);
+$color-success: var(--success);
+$color-error: var(--error);
+$color-secondary: var(--secondary);
+$color-dark: var(--dark);
+$color-light: var(--light);
+$color-black: var(--black);
+$color-white: var(--white);
+$color-background: var(--background);
+
+// RGB COLORS: color: rgba($color-{...}-rgb, .24);
+$color-primary-rgb: var(--primary-rgb);
+$color-primary-start-rgb: var(--primary-start-rgb);
+$color-primary-end-rgb: var(--primary-end-rgb);
+$color-secondary-start-rgb: var(--secondary-start-rgb);
+$color-secondary-end-rgb: var(--secondary-end-rgb);
+$color-warning-rgb: var(--warning-rgb);
+$color-success-light-rgb: var(--success-light-rgb);
+$color-success-rgb: var(--success-rgb);
+$color-error-rgb: var(--error-rgb);
+$color-secondary-rgb: var(--secondary-rgb);
+$color-dark-rgb: var(--dark-rgb);
+$color-light-rgb: var(--light-rgb);
+$color-black-rgb: var(--black-rgb);
+$color-white-rgb: var(--white-rgb);
+$color-background-rgb: var(--background-rgb);
+
+// Z-index
+$layer-header: 100;
+$layer-menu: 200;
+$layer-modal: 500;
+$layer-notification: 600;

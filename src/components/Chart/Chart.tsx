@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React from 'react'
 import cx from 'classnames'
 
 import Legend from './Legend/Legend'
@@ -6,7 +6,7 @@ import NoItems from './NoItems/NoItems'
 import Skeleton from './Skeleton/Skeleton'
 import NotConnected from './NotConnected/NotConnected'
 
-import { useCreateChart, usePriceLine, useShowLegend } from './util'
+import { useChart, Views } from './util'
 
 
 export type ChartProps = {
@@ -28,70 +28,20 @@ export type ChartProps = {
 }
 
 const Chart: React.FC<ChartProps> = (props) => {
+  const { className, token, height, pointType, dataTestId, legendClassName, noItemsDescription, connect } = props
+
   const {
-    className,
-    data,
-    token,
-    style,
-    height,
-    pointType,
-    dataTestId,
-    isFetching,
-    isNotConnected,
-    hideRightScale,
-    legendClassName,
-    showLegendOnHover,
-    noItemsDescription,
-    expandSettings,
-    connect,
-  } = props
-
-  const chartContainerRef = useRef<HTMLDivElement>(null)
-
-  const { isShowLegend, showLegend, hideLegend } = useShowLegend({
-    skip: !showLegendOnHover,
-  })
-
-  const { chart, dataArr } = useCreateChart({
-    skip: isFetching || !data.length,
-    container: chartContainerRef,
-    hideRightScale,
-    expandSettings,
-    pointType,
-    style,
-    data,
-  })
-
-  usePriceLine({
-    container: chartContainerRef,
+    view,
+    chart,
     dataArr,
-  })
-
-  const isNotConnectedVisible = (
-    isNotConnected
-    && !isFetching
-    && typeof connect === 'function'
-  )
-
-  const isNoItemsVisible = (
-    !isFetching
-    && !data.length
-    && !isNotConnectedVisible
-  )
-
-  const isLegendVisible = (
-    chart
-    && !isFetching
-    && isShowLegend
-    && dataArr.length
-    && data.length > 0
-    && !isNoItemsVisible
-    && !isNotConnectedVisible
-  )
+    containerRef,
+    showLegend,
+    hideLegend,
+  } = useChart(props)
 
   return (
     <div
-      ref={chartContainerRef}
+      ref={containerRef}
       className={cx(className, 'relative w-full')}
       style={{ minHeight: `${height || 340}rem` }}
       data-testid={dataTestId}
@@ -101,28 +51,28 @@ const Chart: React.FC<ChartProps> = (props) => {
       onTouchEnd={hideLegend}
     >
       {
-        isFetching && (
+        view === Views.Skeleton && (
           <Skeleton />
         )
       }
       {
-        isNoItemsVisible && (
+        view === Views.NoItem && (
           <NoItems description={noItemsDescription} />
         )
       }
       {
-        isNotConnectedVisible && (
+        view === Views.NotConnected && (
           <NotConnected onClick={connect} />
         )
       }
       {
-        isLegendVisible && (
+        view === Views.Legend && (
           <div className="absolute top-6 left-6 z-10">
             <Legend
               className={legendClassName}
+              chart={chart as Charts.Chart}
               pointType={pointType}
               dataArr={dataArr}
-              chart={chart}
               token={token}
             />
           </div>

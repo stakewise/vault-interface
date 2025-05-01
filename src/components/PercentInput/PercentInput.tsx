@@ -106,7 +106,7 @@ const PercentInput: React.FC<PercentInputProps> = ({ field, isDisabled, dataTest
 
   return (
     <div
-      className="pt-16 px-16 pb-12 flex flex-col justify-between bg-dark/05 rounded-8 h-[108rem]"
+      className="pt-16 px-16 pb-12 flex flex-col justify-between bg-dark/5 rounded-8 h-[108rem]"
       data-testid={dataTestId}
     >
       <div

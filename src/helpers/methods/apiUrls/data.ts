@@ -7,7 +7,6 @@ const apiUrls = {
     web3: [
       'https://rpc.gnosis.gateway.fm',
       'https://rpc.gnosischain.com',
-      'https://rpc.ankr.com/gnosis',
     ],
     subgraph: IS_PROD
       ? (process.env.NEXT_PUBLIC_GNOSIS_SUBGRAPH_URL as string || configs[Network.Gnosis].api.subgraph)

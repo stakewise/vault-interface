@@ -49,8 +49,8 @@ const Buttons: React.FC<ButtonsProps> = (props) => {
       }
       {
         React.isValidElement(customPrimaryButton) && (
-          React.cloneElement(customPrimaryButton as React.ReactElement, {
-            className: cx(s.button, customPrimaryButton.props?.className, 'px-16', {
+          React.cloneElement(customPrimaryButton as any, {
+            className: cx(s.button, (customPrimaryButton as any).props?.className, 'px-16', {
               'flex-1': isNarrow,
             }),
           })

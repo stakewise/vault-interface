@@ -1,8 +1,8 @@
 .notification {
   min-width: 210rem;
   max-width: 560rem;
-  animation: openNotification 500ms ease;
   background-color: $color-light;
+  animation: openNotification 500ms ease;
 
   &::before {
     position: absolute;
@@ -15,15 +15,15 @@
   }
 
   &.error::before {
-    background-color: rgb($color-error-rgb / 0.2);
+    background-color: rgba($color-error-rgb, .2);
   }
 
   &.info::before {
-    background-color: rgb($color-primary-rgb / 0.2);
+    background-color: rgba($color-primary-rgb, .2);
   }
 
   &.success::before {
-    background-color: rgb($color-success-light-rgb / 0.2);
+    background-color: rgba($color-success-light-rgb, .2);
   }
 
   &.closed {
@@ -36,7 +36,7 @@
   top: 50%;
   right: 16rem;
   margin-top: -12rem;
-  background-color: rgb($color-dark-rgb / 0.05);
+  background-color: rgba($color-dark-rgb, .05);
   pointer-events: auto;
 }
 

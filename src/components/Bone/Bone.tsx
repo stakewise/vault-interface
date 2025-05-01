@@ -18,7 +18,7 @@ export type BoneProps = {
   styles?: CSSProperties
 }
 
-const Bone: React.FC<BoneProps> = (props) => {
+const Bone: React.FC<BoneProps> = (props: any) => {
   const {
     className, children,
     w: width, h: height, styles = {},

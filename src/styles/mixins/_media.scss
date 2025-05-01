@@ -1,0 +1,63 @@
+@mixin mobile {
+  @media (max-width: 568px) {
+    @content;
+  }
+}
+
+@mixin except-mobile {
+  @media (min-width: 569px) {
+    @content;
+  }
+}
+
+@mixin tablet-portrait {
+  @media (min-width: 569px) and (max-width: 768px) {
+    @content;
+  }
+}
+
+@mixin media-tablet-portrait-and-lower {
+  @media (max-width: 768px) {
+    @content;
+  }
+}
+
+@mixin media-tablet-landscape-and-higher {
+  @media (min-width: 769px) {
+    @content;
+  }
+}
+
+@mixin tablet-landscape {
+  @media (min-width: 769px) and (max-width: 999px) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (min-width: 569px) and (max-width: 999px) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: 1000px) {
+    @content;
+  }
+}
+
+@mixin except-desktop {
+  @media (max-width: 999px) {
+    @content;
+  }
+}
+
+@mixin retina {
+  $retina-variable: 'only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min-resolution: 144dpi)';
+  @media #{$retina-variable} { @content; }
+}
+
+@mixin retina-3x {
+  $retina-variable: 'only screen and (-webkit-min-device-pixel-ratio: 2.5), only screen and (min-resolution: 288dpi)';
+  @media #{$retina-variable} { @content; }
+}

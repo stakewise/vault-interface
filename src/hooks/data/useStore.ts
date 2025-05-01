@@ -5,7 +5,7 @@ import equal from 'fast-deep-equal'
 
 
 const useStore = <Result extends object>(selector: (store: Store) => Result): Result => {
-  const resultRef = useRef<Result>()
+  const resultRef = useRef<Result>(null)
 
   const deepEqualSelector = useCallback((store: Store) => {
     const result = selector(store)

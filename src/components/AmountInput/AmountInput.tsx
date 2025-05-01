@@ -13,7 +13,7 @@ export type AmountInputProps = {
   dataTestId?: string
   isRequired?: boolean
   onBlur?: () => void
-  onChange: (value: string, inputRef: RefObject<HTMLInputElement>) => void
+  onChange: (value: string, inputRef: RefObject<HTMLInputElement | null>) => void
 }
 
 const AmountInput: React.FC<AmountInputProps> = (props) => {

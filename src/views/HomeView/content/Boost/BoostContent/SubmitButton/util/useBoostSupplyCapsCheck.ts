@@ -82,7 +82,7 @@ const useBoostSupplyCapsCheck = (values: Input) => {
     }
 
     fetchSupplyDiff()
-  }, [ skip ])
+  }, [ skip, fetchSupplyDiff ])
 
   return useMemo(() => ({
     checkSupplyCap,

@@ -111,7 +111,7 @@ const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement, ButtonProps>((p
     [gradientClassName]: color === 'primary' || color === 'secondary',
     'from-primary-start to-primary-end': color === 'primary',
     'from-secondary-start to-secondary-end': color === 'secondary',
-    'bg-dark/05 hover:bg-dark/10 active:bg-dark/15': color === 'light',
+    'bg-dark/5 hover:bg-dark/10 active:bg-dark/15': color === 'light',
   })
 
   const buttonClassName = cx(

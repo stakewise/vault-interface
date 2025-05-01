@@ -6,10 +6,10 @@ import messages from '../../../messages'
 const getSpecialErrors = (error: any) => {
   const errorMessage = (error as Error)?.message
 
-  if ('method wallet_switchEthereumChain not found') {
+  if (/method wallet_switchEthereumChain not found/i.test(errorMessage)) {
     return messages.connectErrors.switchError
   }
-  if ('method wallet_addEthereumChain not found') {
+  if (/method wallet_addEthereumChain not found/i.test(errorMessage)) {
     return messages.connectErrors.addError
   }
   if (/unsupported chain id/i.test(errorMessage)) {

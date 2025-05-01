@@ -1,0 +1,218 @@
+@layer base {
+
+  /* Reset base styles */
+  @import './destyle.css';
+
+  /* Theme colors */
+  :root {
+    color-scheme: light dark;
+  }
+
+  :root .body-light-theme {
+    --light: #ffffff;
+    --light-rgb: 255, 255, 255;
+    --dark: #00060f;
+    --dark-rgb: 0, 6, 15;
+    --black: #00060f;
+    --black-rgb: 0, 6, 15;
+    --white: #ffffff;
+    --white-rgb: 255, 255, 255;
+    --primary: #3559e4;
+    --primary-rgb: 53, 89, 228;
+    --primary-start: #3559e4;
+    --primary-start-rgb: 53, 89, 228;
+    --primary-end: #3559e4;
+    --primary-end-rgb: 53, 89, 228;
+    --secondary: #6b6b94;
+    --secondary-rgb: 107, 107, 148;
+    --secondary-start: #6b6b94;
+    --secondary-start-rgb: 107, 107, 148;
+    --secondary-end: #6b6b94;
+    --secondary-end-rgb: 107, 107, 148;
+    --warning: #ee8f20;
+    --warning-rgb: 238, 143, 32;
+    --success-light: #97c86f;
+    --success-light-rgb: 151, 200, 111;
+    --success: #2eac69;
+    --success-rgb: 46, 172, 105;
+    --background: #f1f2fd;
+    --background-rgb: 241, 242, 253;
+    --error: #ff4f38;
+    --error-rgb: 255, 79, 56;
+  }
+
+  :root .body-dark-theme {
+    --light: #313131;
+    --light-rgb: 49, 49, 49;
+    --dark: #ffffff;
+    --dark-rgb: 255, 255, 255;
+    --black: #00060f;
+    --black-rgb: 0, 6, 15;
+    --white: #e6e6e6;
+    --white-rgb: 230, 230, 230;
+    --primary: #627eea;
+    --primary-rgb: 98, 126, 234;
+    --primary-start: #627eea;
+    --primary-start-rgb: 98, 126, 234;
+    --primary-end: #627eea;
+    --primary-end-rgb: 98, 126, 234;
+    --secondary: #787887;
+    --secondary-rgb: 120, 120, 135;
+    --secondary-start: #787887;
+    --secondary-start-rgb: 120, 120, 135;
+    --secondary-end: #787887;
+    --secondary-end-rgb: 120, 120, 135;
+    --warning: #ee8f20;
+    --warning-rgb: 238, 143, 32;
+    --success-light: #4d7e26;
+    --success-light-rgb: 77, 126, 38;
+    --success: #4cd48b;
+    --success-rgb: 76, 212, 139;
+    --background: #181618;
+    --background-rgb: 24, 22, 24;
+    --error: #c64e50;
+    --error-rgb: 198, 78, 80;
+  }
+
+  :root .body-dark-theme .bg-white-theme {
+    background-color: rgba(var(--white-rgb), .05);
+  }
+
+  :root .body-light-theme .bg-white-theme {
+    background-color: rgba(var(--white-rgb), .5);
+  }
+
+  ::-moz-selection {
+    color: #47347e;
+    background: #c8bfe3;
+  }
+
+  ::selection {
+    color: #47347e;
+    background: #c8bfe3;
+  }
+
+  /* Tags */
+  html,
+  body {
+    width: 100%;
+    min-height: 100vh;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  html {
+    font-size: 1px;
+    line-height: 0;
+  }
+
+  body {
+    position: relative;
+    background-color: var(--background);
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .body-light-theme input::placeholder,
+  .body-light-theme textarea::placeholder {
+    color: #9ca3af;
+  }
+
+  .body-dark-theme input::placeholder,
+  .body-dark-theme textarea::placeholder {
+    color: #4b4f57;
+  }
+
+  *:focus {
+    outline: none;
+  }
+
+  input,
+  textarea,
+  button,
+  select {
+    background: none;
+    border: none;
+    border-radius: 0;
+  }
+
+  legend,
+  fieldset {
+    display: block;
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+
+  button,
+  input[type='button'] {
+    text-align: center;
+    user-select: none;
+  }
+
+  textarea {
+    resize: none;
+  }
+
+  input::-webkit-contacts-auto-fill-button,
+  select::-webkit-contacts-auto-fill-button,
+  textarea::-webkit-contacts-auto-fill-button {
+    visibility: hidden;
+  }
+
+  input:-webkit-autofill,
+  select:-webkit-autofill,
+  textarea:-webkit-autofill,
+  input:-webkit-autofill:focus,
+  select:-webkit-autofill:focus,
+  textarea:-webkit-autofill:focus {
+    background-color: #fff;
+    -webkit-box-shadow: inset 0 0 0 100rem #fff;
+  }
+
+  select:-moz-focusring {
+    color: transparent;
+    text-shadow: 0 0 0 #000;
+    -webkit-appearance: none;
+    -moz-appearance: radio-container;
+    appearance: normal;
+  }
+
+  select::-ms-expand {
+    display: none;
+  }
+
+  hr {
+    height: 1px;
+    border: none;
+  }
+
+  b,
+  strong {
+    font-weight: 600;
+  }
+
+  svg:not([fill]) {
+    fill: currentColor;
+  }
+
+  svg:not(:root) {
+    overflow: hidden;
+  }
+
+  :where([aria-busy='true' i]) {
+    cursor: progress;
+  }
+
+  :where([aria-disabled='true' i], [disabled]) {
+    cursor: not-allowed;
+  }
+
+  :where([aria-hidden='false' i][hidden]) {
+    display: initial;
+  }
+
+  :where([aria-hidden='false' i][hidden]:not(:focus)) {
+    position: absolute;
+    clip: rect(0, 0, 0, 0);
+  }
+}

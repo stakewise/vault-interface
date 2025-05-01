@@ -10,7 +10,9 @@ import messages from 'views/ErrorView/messages'
 import { Button, Text } from 'components'
 import { allLanguages } from 'scripts/collectMessages/languages'
 
-import 'scss/globals.scss'
+// import 'scss/globals.scss'
+import 'styles/globals.scss'
+import 'styles/tailwind/config.css'
 
 
 type GlobalErrorViewProps = {

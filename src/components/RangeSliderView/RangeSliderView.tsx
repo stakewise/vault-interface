@@ -56,7 +56,7 @@ const RangeSliderView: React.FC<RangeSliderViewProps> = (props: RangeSliderViewP
         'cursor-grabbing': isGrabbing && !disabled,
       })}
     >
-      <div className={cx(s.trackLine, 'bg-white/05 rounded-2 relative')}>
+      <div className={cx(s.trackLine, 'bg-white/5 rounded-2 relative')}>
         <div
           className={cx(s.fill, 'absolute left-0 top-0 rounded-2')}
           style={{ width: `${percent}%` }}

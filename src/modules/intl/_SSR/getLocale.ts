@@ -2,10 +2,10 @@ import * as constants from 'helpers/constants'
 import { getCookie } from 'helpers/_SSR'
 
 
-const getLocale = (): Intl.LanguagesKeys => {
-  const localeCookie = getCookie(constants.cookieNames.language)?.value || 'en'
+const getLocale = async (): Promise<Intl.LanguagesKeys> => {
+  const result = await getCookie(constants.cookieNames.language)
 
-  return localeCookie as Intl.LanguagesKeys
+  return (result?.value || 'en') as Intl.LanguagesKeys
 }
 
 

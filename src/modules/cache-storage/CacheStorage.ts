@@ -5,7 +5,7 @@ export class Cache<T> {
     time: number | null
   }
 
-  private timeout: NodeJS.Timeout | null
+  private timeout: number | null
   private listeners: Array<() => void>
 
   constructor() {
@@ -20,7 +20,7 @@ export class Cache<T> {
   }
 
   callTimer(time: number) {
-    clearTimeout(this.timeout as NodeJS.Timeout)
+    clearTimeout(this.timeout as number)
     // Need to save "this", so don't do this - setTimeout(this.resetData, time)
     this.timeout = setTimeout(() => this.resetData(), time)
   }
@@ -32,7 +32,7 @@ export class Cache<T> {
       changed: false,
     }
 
-    clearTimeout(this.timeout as NodeJS.Timeout)
+    clearTimeout(this.timeout as number)
     this.callListeners()
   }
 

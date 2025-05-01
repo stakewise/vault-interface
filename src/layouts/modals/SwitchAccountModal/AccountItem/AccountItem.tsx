@@ -25,7 +25,7 @@ const AccountItem: React.FC<AccountItemProps> = (props) => {
   return (
     <ButtonBase
       className={cx('flex flex-col items-center justify-center p-24 rounded-8', {
-        'bg-dark/05': !isActive,
+        'bg-dark/5': !isActive,
         'bg-primary/20 border border-primary': isActive,
       })}
       onClick={handleClick}

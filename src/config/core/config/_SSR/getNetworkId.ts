@@ -2,10 +2,10 @@ import * as constants from 'helpers/constants'
 import { getCookie } from 'helpers/_SSR'
 
 
-const getNetworkId = (): NetworkIds => {
-  const networkId = getCookie(constants.cookieNames.networkId)?.value || 'mainnet'
+const getNetworkId = async (): Promise<NetworkIds> => {
+  const result = await getCookie(constants.cookieNames.networkId)
 
-  return networkId as NetworkIds
+  return (result?.value || 'mainnet') as NetworkIds
 }
 
 

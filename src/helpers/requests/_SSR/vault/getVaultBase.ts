@@ -4,8 +4,9 @@ import { networks } from 'config/core'
 import { constants, getters } from 'helpers'
 
 
-const getNetworkData = () => {
-  const cookieNetworkId = cookies().get(constants.cookieNames.networkId)?.value as NetworkIds
+const getNetworkData = async () => {
+  const cookieStore = await cookies()
+  const cookieNetworkId = cookieStore.get(constants.cookieNames.networkId)?.value as NetworkIds
   const vaultAddressByCookie = getters.getVaultAddress(cookieNetworkId)
 
   if (vaultAddressByCookie) {
@@ -25,7 +26,7 @@ const getNetworkData = () => {
 }
 
 const getVaultBase = async () => {
-  const { networkId, vaultAddress } = getNetworkData()
+  const { networkId, vaultAddress } = await getNetworkData()
 
   if (!networkId || !vaultAddress) {
     return null

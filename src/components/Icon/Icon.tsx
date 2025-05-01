@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react'
+import React from 'react'
 import cx from 'classnames'
 
 import Image from '../Image/Image'
@@ -17,11 +17,12 @@ export type IconProps = {
   name: IconName
   size?: typeof sizes[number]
   color?: Color | 'inherit'
+  ref?: React.RefObject<HTMLDivElement>
   dataTestId?: string
 }
 
-const Icon = forwardRef<HTMLDivElement, IconProps>((props, ref) => {
-  const { className, name, size = 16, color = 'dark', dataTestId } = props
+const Icon: React.FC<IconProps> = (props) => {
+  const { className, name, size = 16, color = 'dark', ref, dataTestId } = props
 
   const arrowDirection = /arrows?\//.test(name)
     ? name.replace(/(new-)?arrows?\/(up)?/, '')
@@ -37,7 +38,7 @@ const Icon = forwardRef<HTMLDivElement, IconProps>((props, ref) => {
       dataTestId={dataTestId}
     />
   )
-})
+}
 
 Icon.displayName = 'Icon'
 

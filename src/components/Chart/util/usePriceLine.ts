@@ -6,7 +6,7 @@ import { LineStyle, IPriceLine } from 'lightweight-charts'
 
 type Input = {
   dataArr: Charts.DataArr
-  container: React.RefObject<HTMLDivElement>
+  container: React.RefObject<HTMLDivElement | null>
 }
 
 type SavedParams = {

@@ -1,4 +1,4 @@
-@import "../settings";
+@import '../settings';
 
 $themes: (
   'body-light-theme': $colors-light-theme,
@@ -26,7 +26,7 @@ $color-white: var(--color-white);
 
 // RGB COLORS: color: rgb($color-...-rgb / 0.24);
 $color-primary-rgb: var(--color-primary-rgb);
-$color-background-rgb: var(--color-background-rgm);
+$color-background-rgb: var(--color-background-rgb);
 
 $color-button1-start-rgb: var(--color-button1-start-rgb);
 $color-button1-end-rgb: var(--color-button1-end-rgb);

@@ -132,7 +132,7 @@ const TokenAmountInput: React.FC<TokenAmountInputProps> = (props) => {
           />
         )
       }
-      <div className="pt-16 px-16 pb-8 flex flex-col bg-dark/05 rounded-8">
+      <div className="pt-16 px-16 pb-8 flex flex-col bg-dark/5 rounded-8">
         <div
           className={cx('flex justify-between items-center w-full', {
             'pt-8': isMobile,

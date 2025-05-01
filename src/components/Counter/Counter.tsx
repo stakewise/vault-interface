@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react'
+import React from 'react'
 import cx from 'classnames'
 
 import Text from '../Text/Text'
@@ -12,10 +12,11 @@ export type CounterProps = {
   className?: string
   count?: number
   isFetching?: boolean
+  ref?: React.RefObject<HTMLAnchorElement>
 }
 
-const Counter = forwardRef<HTMLAnchorElement | HTMLDivElement, CounterProps>((props, ref) => {
-  const { className, count, disabled = false, isFetching } = props
+const Counter: React.FC<CounterProps> = (props) => {
+  const { className, count, disabled = false, ref, isFetching } = props
 
   const textColor = disabled ? 'secondary' : 'inherit'
   const counterClassName = cx(className, s.counter, 'px-6 rounded-24 inline-flex items-center justify-center', {
@@ -46,7 +47,7 @@ const Counter = forwardRef<HTMLAnchorElement | HTMLDivElement, CounterProps>((pr
       }
     </span>
   )
-})
+}
 
 Counter.displayName = 'Counter'
 
