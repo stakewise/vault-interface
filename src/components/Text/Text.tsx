@@ -86,12 +86,10 @@ const Text: React.FC<TextProps> = (props) => {
     'text-white': color === 'white',
     'text-primary': color === 'primary',
     'text-secondary': color === 'secondary',
-    'text-smoke': color === 'smoke',
     'text-warning': color === 'warning',
     'text-success-light': color === 'success-light',
     'text-success': color === 'success',
     'text-error': color === 'error',
-    'text-titanium': color === 'titanium',
     'text-dark-opacity': color === 'dark-opacity',
   })
 

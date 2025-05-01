@@ -56,12 +56,10 @@ const Image: React.FC<ImageProps> = (props) => {
         'bg-white': color === 'white',
         'bg-primary': color === 'primary',
         'bg-secondary': color === 'secondary',
-        'bg-smoke': color === 'smoke',
         'bg-warning': color === 'warning',
         'bg-success-light': color === 'success-light',
         'bg-success': color === 'success',
         'bg-error': color === 'error',
-        'bg-titanium': color === 'titanium',
         'bg-dark-opacity': color === 'dark-opacity',
       })}
       style={style}
