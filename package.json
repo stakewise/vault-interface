@@ -10,6 +10,7 @@
     "dev": "npm run check:env && npm run typechain && npm run fast",
     "lint": "next lint",
     "lint:css": "stylelint **/*.scss",
+    "colors": "node ./scripts/generateColors",
     "lint:css:fix": "stylelint **/*.scss --fix",
     "check:env": "node ./scripts/checkLocalEnv.js",
     "typechain": "typechain --target ethers-v6 --out-dir src/helpers/contracts/types 'src/helpers/contracts/abis/*.json'"

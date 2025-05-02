@@ -1,0 +1,5 @@
+@use '../mixins/animation';
+
+.transition {
+  @include animation.basic-transition;
+}

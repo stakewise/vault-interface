@@ -1,0 +1,17 @@
+@use '../variables';
+
+.z-header {
+  z-index: variables.$layer-header;
+}
+
+.z-menu {
+  z-index: variables.$layer-menu;
+}
+
+.z-modal {
+  z-index: variables.$layer-modal;
+}
+
+.z-notification {
+  z-index: variables.$layer-notification;
+}

@@ -1,0 +1,22 @@
+@use '../mixins/media';
+
+@include media.mobile {
+
+  html {
+    font-size: 0.267vw; // 1px for mobiles with 374px screen width
+  }
+}
+
+@include media.tablet-portrait {
+
+  html {
+    font-size: 0.1758vw; // 1px for tablet with > 568px screen width
+  }
+}
+
+@include media.tablet-landscape {
+
+  html {
+    font-size: 0.1301vw; // 1px for tablet with > 768px screen width
+  }
+}

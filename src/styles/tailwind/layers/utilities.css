@@ -68,15 +68,6 @@
     border-radius: var(--radius-72);
   }
 
-  /* Colors */
-  .body-light-theme .text-fancy-sunset {
-    background-image: linear-gradient(to right, #4d2b70, #f16ebd);
-  }
-
-  .body-dark-theme .text-fancy-sunset {
-    background-image: linear-gradient(to right, #7540aa, #f16ebd);
-  }
-
   /* Other */
   .bg-cover {
     background-repeat: no-repeat;

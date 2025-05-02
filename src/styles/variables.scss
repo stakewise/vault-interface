@@ -1,10 +1,18 @@
 @use 'sass:map';
 
+$gradients: (
+  'fancy-primary': (#394cf6, #74aafc),
+  'fancy-lightset-light-theme': (#6900d6, #f16ebd),
+  'fancy-lightset-dark-theme': (#7540aa, #f16ebd),
+);
+
+$fancy-dark: map.get($gradients, 'fancy-dark');
+$fancy-primary: map.get($gradients, 'fancy-primary');
+$fancy-success-light: map.get($gradients, 'fancy-success-light');
+$fancy-lightset-dark-theme: map.get($gradients, 'fancy-lightset-dark-theme');
+$fancy-lightset-light-theme: map.get($gradients, 'fancy-lightset-light-theme');
+
 $color-primary: var(--primary);
-$color-primary-start: var(--primary-start);
-$color-primary-end: var(--primary-end);
-$color-secondary-start: var(--secondary-start);
-$color-secondary-end: var(--secondary-end);
 $color-warning: var(--warning);
 $color-success-light: var(--success-light);
 $color-success: var(--success);
@@ -14,14 +22,12 @@ $color-dark: var(--dark);
 $color-light: var(--light);
 $color-black: var(--black);
 $color-white: var(--white);
+$color-smoke: var(--smoke);
 $color-background: var(--background);
+$color-titanium: var(--titanium);
 
 // RGB COLORS: color: rgba($color-{...}-rgb, .24);
 $color-primary-rgb: var(--primary-rgb);
-$color-primary-start-rgb: var(--primary-start-rgb);
-$color-primary-end-rgb: var(--primary-end-rgb);
-$color-secondary-start-rgb: var(--secondary-start-rgb);
-$color-secondary-end-rgb: var(--secondary-end-rgb);
 $color-warning-rgb: var(--warning-rgb);
 $color-success-light-rgb: var(--success-light-rgb);
 $color-success-rgb: var(--success-rgb);
@@ -31,7 +37,9 @@ $color-dark-rgb: var(--dark-rgb);
 $color-light-rgb: var(--light-rgb);
 $color-black-rgb: var(--black-rgb);
 $color-white-rgb: var(--white-rgb);
+$color-smoke-rgb: var(--smoke-rgb);
 $color-background-rgb: var(--background-rgb);
+$color-titanium-rgb: var(--titanium-rgb);
 
 // Z-index
 $layer-header: 100;

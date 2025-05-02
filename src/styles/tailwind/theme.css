@@ -2,21 +2,21 @@
   --*: initial;
 
   /* Colors */
-  --color-light: var(--light);
-  --color-black: var(--black);
-  --color-white: var(--white);
-  --color-dark: var(--dark);
-  --color-secondary: var(--secondary);
-  --color-secondary-start: var(--secondary-start);
-  --color-secondary-end: var(--secondary-end);
+  --color-background: var(--background);
   --color-primary: var(--primary);
   --color-primary-start: var(--primary-start);
   --color-primary-end: var(--primary-end);
-  --color-warning: var(--warning);
+  --color-secondary: var(--secondary);
+  --color-secondary-start: var(--secondary-start);
+  --color-secondary-end: var(--secondary-end);
   --color-success-light: var(--success-light);
   --color-success: var(--success);
-  --color-background: var(--background);
+  --color-warning: var(--warning);
   --color-error: var(--error);
+  --color-dark: var(--dark);
+  --color-black: var(--black);
+  --color-light: var(--light);
+  --color-white: var(--white);
 
   /* Border radius */
   --radius-2: 2rem;
