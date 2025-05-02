@@ -60,7 +60,6 @@ const Image: React.FC<ImageProps> = (props) => {
         'bg-success-light': color === 'success-light',
         'bg-success': color === 'success',
         'bg-error': color === 'error',
-        'bg-dark-opacity': color === 'dark-opacity',
       })}
       style={style}
       data-testid={dataTestId}

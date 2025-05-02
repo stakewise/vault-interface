@@ -90,7 +90,6 @@ const Text: React.FC<TextProps> = (props) => {
     'text-success-light': color === 'success-light',
     'text-success': color === 'success',
     'text-error': color === 'error',
-    'text-dark-opacity': color === 'dark-opacity',
   })
 
   const htmlAttrs = methods.getGlobalHtmlAttrs(otherProps)
