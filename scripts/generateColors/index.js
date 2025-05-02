@@ -3,9 +3,9 @@ const path = require('path')
 const hexToRgb = require('./hexToRgb')
 
 
-const destBase = path.resolve(__dirname, `../../src/styles/tailwind/layers/base.css`)
-const destTheme = path.resolve(__dirname, `../../src/styles/tailwind/theme.css`)
 const destColors = path.resolve(__dirname, `../../src/styles/settings.scss`)
+const destTheme = path.resolve(__dirname, `../../src/styles/tailwind/theme.css`)
+const destBase = path.resolve(__dirname, `../../src/styles/tailwind/layers/base.css`)
 
 const getColors = (theme) => {
   const colorsFile = fs.readFileSync(destColors, 'utf8')
