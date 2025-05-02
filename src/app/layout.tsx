@@ -12,7 +12,6 @@ import { getNetworkId } from 'config/core/config/_SSR'
 import { getVaultBase } from 'helpers/requests/_SSR'
 
 import 'focus-visible'
-// import 'scss/globals.scss'
 import 'styles/globals.scss'
 import 'styles/tailwind/config.css'
 
