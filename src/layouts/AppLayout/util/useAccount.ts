@@ -11,7 +11,7 @@ const useAccount = () => {
   const actions = useActions()
   const { sdk, address } = useConfig()
 
-  const addressRef = useRef<string>()
+  const addressRef = useRef<string>(null)
 
   const fetchDistributorClaims = useCallback(async (address: string) => {
     try {

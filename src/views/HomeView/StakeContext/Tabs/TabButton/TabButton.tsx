@@ -13,10 +13,11 @@ type TabButtonProps = Pick<ButtonBaseProps, 'dataTestId' | 'onClick'> & {
   title: Intl.Message | string
   withLabel?: boolean
   withMagicIcon?: boolean
+  ref?: React.RefObject<HTMLButtonElement>
 }
 
-const TabButton = forwardRef<HTMLButtonElement, TabButtonProps>((props, ref) => {
-  const { className, contentClassName, title, dataTestId, withLabel, withMagicIcon, onClick } = props
+const TabButton: React.FC<TabButtonProps> = (props) => {
+  const { className, contentClassName, title, ref, dataTestId, withLabel, withMagicIcon, onClick } = props
 
   return (
     <ButtonBase
@@ -44,9 +45,7 @@ const TabButton = forwardRef<HTMLButtonElement, TabButtonProps>((props, ref) => 
       </div>
     </ButtonBase>
   )
-})
-
-TabButton.displayName = 'TabButton'
+}
 
 
 export default React.memo(TabButton)
