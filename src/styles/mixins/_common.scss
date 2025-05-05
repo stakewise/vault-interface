@@ -191,7 +191,7 @@
 }
 
 @mixin button-decrease-opacity-color($color, $child: null) {
-  @include get-rule(background-color, rgba($color), $child);
+  @include get-rule(background-color, rgb($color), $child);
 
   &:not([disabled]) {
 

@@ -60,7 +60,7 @@ $success-light-light-rgba: rgba(49, 212, 139, 0.3);
   .thumb {
     background: linear-gradient(90deg, $success-light-light 5.26%, $primary-light 94.74%);
     background-color: $primary-light;
-    box-shadow: 0 0 8rem rgba($success-light-light-rgba, 0.3);
+    box-shadow: 0 0 8rem $success-light-light-rgba;
   }
 
   .fill {
