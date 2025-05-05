@@ -9,35 +9,41 @@ const destColors = path.resolve(__dirname, `../../src/styles/settings.scss`)
 const destTheme = path.resolve(__dirname, `../../src/styles/tailwind/theme.css`)
 const destBase = path.resolve(__dirname, `../../src/styles/tailwind/layers/base.css`)
 
-const getColors = (theme) => {
+const getColors = () => {
   const colorsFile = fs.readFileSync(destColors, 'utf8')
-  const colors = {}
+  const colors = {
+    light: {},
+    dark: {},
+  }
 
-  const colorsString = theme === 'light'
-    ? colorsFile.replace(/\$colors-light-theme: \(\n|\);(.|\n)*/g, '')
-    : colorsFile.replace(/(.|\n)*\$colors-dark-theme: \(\n|\);\n?/, '')
+  const colorsStrings = {
+    light: colorsFile.replace(/\$colors-light-theme: \(\n|\);(.|\n)*/g, ''),
+    dark: colorsFile.replace(/(.|\n)*\$colors-dark-theme: \(\n|\);\n?/, ''),
+  }
 
-  colorsString.split(',').forEach((colorString) => {
-    const [ title, value ] = colorString.split(': ')
+  Object.keys(colorsStrings).forEach((theme) => {
+    const colorsString = colorsStrings[theme]
 
-    const formattedTitle = title.replace(/\n|\s|'/g, '')
+    colorsString.split(',').forEach((colorString) => {
+      const [ title, value ] = colorString.split(': ')
 
-    if (formattedTitle && value) {
-      colors[formattedTitle] = {
-        hex: value,
-        rgb: hexToRgb(value),
+      const formattedTitle = title.replace(/\n|\s|'/g, '')
+
+      if (formattedTitle && value) {
+        colors[theme][formattedTitle] = {
+          hex: value,
+          rgb: hexToRgb(value),
+          isGradientColor: /-(start|end)$/.test(formattedTitle)
+        }
       }
-    }
+    })
   })
 
   return colors
 }
 
 const generateThemeColors = () => {
-  const themeColors = {
-    light: getColors('light'),
-    dark: getColors('dark'),
-  }
+  const themeColors = getColors()
 
   const baseColors = {
     light: '',
@@ -51,24 +57,7 @@ const generateThemeColors = () => {
     const colors = themeColors[theme]
 
     Object.keys(colors).forEach((color) => {
-      const { hex, rgb } = colors[color]
-
-      const isGradientColor = /-(start|end)$/.test(color)
-
-      if (isGradientColor) {
-        const colorTitle = color.replace(/-(start|end)$/, '')
-        const isThemeColor = (
-          themeColors.dark[`${colorTitle}-start`].hex !== themeColors.light[`${colorTitle}-start`].hex
-          || themeColors.dark[`${colorTitle}-end`].hex !== themeColors.light[`${colorTitle}-end`].hex
-        )
-
-        if (isThemeColor) {
-          variablesColorsString += `$color-${color}-${theme}: ${hex};\n`
-        }
-        else if (!index) {
-          variablesColorsString += `$color-${color}: ${hex};\n`
-        }
-      }
+      const { hex, rgb, isGradientColor } = colors[color]
 
       baseColors[theme] += `    --${color}-rgb: ${rgb};\n`
       baseColors[theme] += `    --${color}: rgb(${rgb});\n`
@@ -76,8 +65,14 @@ const generateThemeColors = () => {
       if (!index) {
         themeColorsString += `  --color-${color}: var(--${color});\n`
 
-        variablesColorsString += `$color-${color}: var(--${color});\n`
-        variablesColorsString += `$color-${color}-rgb: var(--${color}-rgb);\n`
+        if (!isGradientColor) {
+          variablesColorsString += `$color-${color}: var(--${color});\n`
+          variablesColorsString += `$color-${color}-rgb: var(--${color}-rgb);\n`
+        }
+      }
+
+      if (isGradientColor) {
+        variablesColorsString += `$color-${color}-${theme}: ${hex};\n`
       }
     })
   })
