@@ -1,4 +1,4 @@
-import React, { forwardRef, useMemo } from 'react'
+import React, { useMemo } from 'react'
 import cx from 'classnames'
 import device from 'modules/device'
 
@@ -46,7 +46,7 @@ export type ButtonProps = (
   & Omit<ButtonContentProps, 'color' | 'iconSize' | 'titleSize'>
 )
 
-const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement, ButtonProps>((props, ref) => {
+const Button: React.FC<ButtonProps> = (props) => {
   const {
     className,
     icon,
@@ -129,7 +129,6 @@ const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement, ButtonProps>((p
 
   return (
     <ButtonBase
-      ref={ref}
       className={cx(buttonClassName, className)}
       disabled={disabled || loading}
       dataTestId={dataTestId}
@@ -148,7 +147,7 @@ const Button = forwardRef<HTMLAnchorElement | HTMLButtonElement, ButtonProps>((p
       />
     </ButtonBase>
   )
-})
+}
 
 Button.displayName = 'Button'
 
