@@ -75,7 +75,7 @@ const PercentInput: React.FC<PercentInputProps> = ({ field, isDisabled, dataTest
     field.setValue(formattedValue)
   }, [ field, formatValue ])
 
-  const handleChange = useCallback((value: string, inputRef: RefObject<HTMLInputElement>) => {
+  const handleChange = useCallback((value: string, inputRef: RefObject<HTMLInputElement | null>) => {
     const oldValue = field.value || ''
     const newValue = formatValue(value)
     const cursorPosition = inputRef.current?.selectionStart || 0
