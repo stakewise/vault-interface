@@ -6,8 +6,8 @@
   "private": true,
   "scripts": {
     "fast": "next dev -p 5005",
-    "build": "npm run typechain && next build",
-    "dev": "npm run check:env && npm run typechain && npm run fast",
+    "build": "npm run typechain && npm run colors && next build",
+    "dev": "npm run check:env && npm run typechain && npm run colors && npm run fast",
     "lint": "next lint",
     "lint:css": "stylelint **/*.scss",
     "colors": "node ./scripts/generateColors",
