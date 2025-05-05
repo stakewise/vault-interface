@@ -69,16 +69,15 @@ const generateThemeColors = () => {
           variablesColorsString += `$color-${color}: ${hex};\n`
         }
       }
-      else {
-        baseColors[theme] += `    --${color}-rgb: ${rgb};\n`
-        baseColors[theme] += `    --${color}: rgb(${rgb});\n`
 
-        if (!index) {
-          themeColorsString += `  --color-${color}: var(--${color});\n`
+      baseColors[theme] += `    --${color}-rgb: ${rgb};\n`
+      baseColors[theme] += `    --${color}: rgb(${rgb});\n`
 
-          variablesColorsString += `$color-${color}: var(--${color});\n`
-          variablesColorsString += `$color-${color}-rgb: var(--${color}-rgb);\n`
-        }
+      if (!index) {
+        themeColorsString += `  --color-${color}: var(--${color});\n`
+
+        variablesColorsString += `$color-${color}: var(--${color});\n`
+        variablesColorsString += `$color-${color}-rgb: var(--${color}-rgb);\n`
       }
     })
   })
