@@ -21,7 +21,7 @@ const domain = process.env.NEXT_PUBLIC_OWNER_DOMAIN || ''
 const ownerTwitter = process.env.NEXT_PUBLIC_OWNER_X_ACCOUNT || ''
 
 export const generateMetadata: GenerateMetadata = async () => {
-  const locale = getLocale()
+  const locale = await getLocale()
   const metaDescription = commonMessages.meta.home.description[locale] || ''
 
   let title = commonMessages.meta.home.title[locale]
