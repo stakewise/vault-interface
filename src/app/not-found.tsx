@@ -3,7 +3,7 @@ import { getLocale } from 'modules/intl/_SSR'
 
 
 export const generateMetadata: GenerateMetadata = async () => {
-  const locale = getLocale()
+  const locale = await getLocale()
 
   return {
     title: commonMessages.meta['404'][locale],
