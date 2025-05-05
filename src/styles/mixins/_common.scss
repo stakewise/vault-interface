@@ -87,9 +87,7 @@
   }
 }
 
-@mixin bg-linear-gradient($colors) {
-  $color1: list.nth($colors, 1);
-  $color2: list.nth($colors, 2);
+@mixin bg-linear-gradient($color1, $color2) {
   background: linear-gradient(90deg, $color1 0%, $color2 100%);
 }
 
@@ -140,17 +138,13 @@
   @return color.scale($h, $saturation: $s, $lightness: $l);
 }
 
-@mixin button-linear-gradient($colors) {
-  $color1: list.nth($colors, 1);
-  $color2: list.nth($colors, 2);
-
+@mixin button-linear-gradient($color1, $color2) {
   $hover-color1: getHsl($color1, -5%, -16%);
   $hover-color2: getHsl($color2, 0%, -14%);
 
   $active-color1: getHsl($color1, -11%, -32%);
   $active-color2: getHsl($color2, 0%, -18%);
   background: linear-gradient(90deg, $color1 0%, $color2 100%);
-
 
   @media (hover: hover) {
     &:hover {

@@ -1,20 +1,6 @@
 @use '../variables';
 @use '../mixins/common';
 
-.bg-fancy-primary {
-  @include common.bg-linear-gradient(variables.$fancy-primary);
-}
-
-.bg-fancy-lightset {
-  @include common.dark-theme {
-    @include common.bg-linear-gradient(variables.$fancy-lightset-dark-theme);
-  }
-
-  @include common.light-theme {
-    @include common.bg-linear-gradient(variables.$fancy-lightset-light-theme);
-  }
-}
-
 .body-light-theme .bg-modal {
   background: rgba(variables.$color-white, .5);
   border: solid 1px rgba(variables.$color-dark-rgb, .1);

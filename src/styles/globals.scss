@@ -3,11 +3,12 @@
 @use './mixins/common';
 @use './mixins/animation';
 
-@import './scss/size';
-@import './scss/color';
-@import './scss/focus';
-@import './scss/resize';
-@import './scss/shadow';
-@import './scss/z-index';
-@import './scss/background';
-@import './scss/transition';
+@use './scss/size';
+@use './scss/text';
+@use './scss/color';
+@use './scss/focus';
+@use './scss/resize';
+@use './scss/shadow';
+@use './scss/z-index';
+@use './scss/background';
+@use './scss/transition';

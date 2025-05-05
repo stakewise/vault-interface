@@ -2,6 +2,5 @@
 
 @import './theme.css';
 @import './layers/base.css';
-@import './layers/colors.css';
 @import './layers/utilities.css';
 @import './layers/components.css';

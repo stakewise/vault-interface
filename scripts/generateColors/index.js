@@ -2,7 +2,9 @@ const fs = require('fs')
 const path = require('path')
 const hexToRgb = require('./hexToRgb')
 
+const themes = [ 'light', 'dark' ]
 
+const destVariables = path.resolve(__dirname, `../../src/styles/variables.scss`)
 const destColors = path.resolve(__dirname, `../../src/styles/settings.scss`)
 const destTheme = path.resolve(__dirname, `../../src/styles/tailwind/theme.css`)
 const destBase = path.resolve(__dirname, `../../src/styles/tailwind/layers/base.css`)
@@ -21,51 +23,99 @@ const getColors = (theme) => {
     const formattedTitle = title.replace(/\n|\s|'/g, '')
 
     if (formattedTitle && value) {
-      colors[formattedTitle] = hexToRgb(value)
+      colors[formattedTitle] = {
+        hex: value,
+        rgb: hexToRgb(value),
+      }
     }
   })
 
   return colors
 }
 
-const generateThemeColors = (theme) => {
-  const colors = getColors(theme)
+const generateThemeColors = () => {
+  const themeColors = {
+    light: getColors('light'),
+    dark: getColors('dark'),
+  }
 
-  let baseColorsString = ''
+  const baseColors = {
+    light: '',
+    dark: '',
+  }
+
   let themeColorsString = ''
+  let variablesColorsString = ''
 
-  Object.keys(colors).forEach((color) => {
-    const baseColor = colors[color]
+  themes.forEach((theme, index) => {
+    const colors = themeColors[theme]
 
-    baseColorsString += `    --${color}-rgb: ${baseColor};\n`
-    baseColorsString += `    --${color}: rgb(${baseColor});\n`
-    themeColorsString += `  --color-${color}: var(--${color});\n`
+    Object.keys(colors).forEach((color) => {
+      const { hex, rgb } = colors[color]
+
+      const isGradientColor = /-(start|end)$/.test(color)
+
+      if (isGradientColor) {
+        const colorTitle = color.replace(/-(start|end)$/, '')
+        const isThemeColor = (
+          themeColors.dark[`${colorTitle}-start`].hex !== themeColors.light[`${colorTitle}-start`].hex
+          || themeColors.dark[`${colorTitle}-end`].hex !== themeColors.light[`${colorTitle}-end`].hex
+        )
+
+        if (isThemeColor) {
+          variablesColorsString += `$color-${color}-${theme}: ${hex};\n`
+        }
+        else if (!index) {
+          variablesColorsString += `$color-${color}: ${hex};\n`
+        }
+      }
+      else {
+        baseColors[theme] += `    --${color}-rgb: ${rgb};\n`
+        baseColors[theme] += `    --${color}: rgb(${rgb});\n`
+
+        if (!index) {
+          themeColorsString += `  --color-${color}: var(--${color});\n`
+
+          variablesColorsString += `$color-${color}: var(--${color});\n`
+          variablesColorsString += `$color-${color}-rgb: var(--${color}-rgb);\n`
+        }
+      }
+    })
   })
 
   return [
-    `:root .body-${theme}-theme {\n${baseColorsString}  }`,
+    baseColors,
     themeColorsString,
+    variablesColorsString,
   ]
 }
 
-const themes = [ 'light', 'dark' ]
-
 const generateColors = () => {
-  themes.forEach((theme) => {
-    const [ colorsBase, colorsTheme ] = generateThemeColors(theme)
+  const [ colorsBase, colorsTheme, colorsVariables ] = generateThemeColors()
 
-    const baseFile = fs.readFileSync(destBase, 'utf8')
-    const themeFile = fs.readFileSync(destTheme, 'utf8')
+  const baseFile = fs.readFileSync(destBase, 'utf8')
+  const themeFile = fs.readFileSync(destTheme, 'utf8')
+  const variablesFile = fs.readFileSync(destVariables, 'utf8')
 
-    const newBaseFile = baseFile
-      .replace(new RegExp(`:root .body-${theme}-theme {[^}]*}`), colorsBase)
+  let newBaseFile = baseFile
 
-    const newThemeFile = themeFile
-      .replace(/\/\* Colors \*\/(.|\n)*\/\* Border radius \*\//, `/* Colors */\n${colorsTheme}\n  /* Border radius */`)
-
-    fs.writeFileSync(destBase, newBaseFile, 'utf8')
-    fs.writeFileSync(destTheme, newThemeFile, 'utf8')
+  Object.keys(colorsBase).forEach((theme, index) => {
+    newBaseFile = newBaseFile
+      .replace(
+        new RegExp(`:root .body-${theme}-theme {[^}]*}\n`, 'g'),
+        `:root .body-${theme}-theme {\n${colorsBase[theme]}  }\n`,
+      )
   })
+
+  const newThemeFile = themeFile
+    .replace(/\/\* Colors \*\/(.|\n)*\/\* Border radius \*\//, `/* Colors */\n${colorsTheme}\n  /* Border radius */`)
+
+  const newVariablesFile = variablesFile
+    .replace(/\/\/ Colors\n(.|\n)*/, `// Colors\n${colorsVariables}`)
+
+  fs.writeFileSync(destBase, newBaseFile, 'utf8')
+  fs.writeFileSync(destTheme, newThemeFile, 'utf8')
+  fs.writeFileSync(destVariables, newVariablesFile, 'utf8')
 }
 
 
