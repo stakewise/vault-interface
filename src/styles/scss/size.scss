@@ -1,4 +1,6 @@
-@include desktop {
+@use '../mixins/media';
+
+@include media.desktop {
 
   .width-container {
     width: 100%;
@@ -10,7 +12,7 @@
   }
 }
 
-@include tablet {
+@include media.tablet {
 
   .width-container {
     width: 100%;
@@ -19,7 +21,7 @@
   }
 }
 
-@include mobile {
+@include media.mobile {
 
   .width-container {
     width: 100%;

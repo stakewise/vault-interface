@@ -36,7 +36,7 @@ const Input: React.FC<InputProps> = (props) => {
     onChange,
   } = props
 
-  const handleChange = useCallback((value: string, inputRef: RefObject<HTMLInputElement>) => {
+  const handleChange = useCallback((value: string, inputRef: RefObject<HTMLInputElement | null>) => {
     const valueWithOutCommas = value.replace(/,/g, '')
     const cursorPositionBeforeChange = inputRef.current?.selectionStart || 0
     const newValue = formatValue(valueWithOutCommas)

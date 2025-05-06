@@ -1,0 +1,14 @@
+@use '../variables';
+@use '../mixins/common';
+
+.shadow-md {
+  @include common.shadow-md;
+}
+
+.shadow-black {
+  box-shadow: 0 0 40rem 0 rgba(variables.$color-black-rgb, .15);
+}
+
+.shadow-secondary {
+  box-shadow: 0 0 40rem 0 rgba(variables.$color-secondary-rgb, .1);
+}

@@ -2,8 +2,9 @@ import { cookies } from 'next/headers'
 import * as constants from 'helpers/constants'
 
 
-const getCookieDevice = () => {
-  const cookieDevice = cookies().get(constants.cookieNames.device)?.value
+const getCookieDevice = async () => {
+  const cookiesState = await cookies()
+  const cookieDevice = cookiesState.get(constants.cookieNames.device)?.value
 
   if (cookieDevice) {
     try {

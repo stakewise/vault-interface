@@ -5,9 +5,10 @@ import { ThemeColor } from '../enum'
 
 const availableThemes = [ ThemeColor.Light, ThemeColor.Dark ]
 
-const getServerTheme = () => {
-  const theme = cookies().get(constants.cookieNames.themeColor)?.value as ThemeColor
-  const isSystemTheme = cookies().get(constants.cookieNames.isSystemTheme)?.value !== 'false'
+const getServerTheme = async () => {
+  const cookiesStore = await cookies()
+  const theme = cookiesStore.get(constants.cookieNames.themeColor)?.value as ThemeColor
+  const isSystemTheme = cookiesStore.get(constants.cookieNames.isSystemTheme)?.value !== 'false'
 
   const isValid = availableThemes.includes(theme)
 

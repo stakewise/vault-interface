@@ -76,7 +76,13 @@ There are light and dark themes available.
 The default user will see theme that is the same as system. It will be light if the system theme is light and dark if the system theme is dark.
 Theme can be changed in the settings menu.
 
-Colors are defined in `src/scss/settings.scss` file and can be updated to your own.
+Colors are defined in the `src/styles/settings.scss` file and can be customized to your preferences.
+After updating the colors, run `npm run colors` — this script will generate RGB versions from your hex codes and update the following files:
+
+- `src/styles/tailwind/layers/base.css`
+- `src/styles/tailwind/theme.css`
+- `src/styles/variables.scss`
+
 
 ### Favicon
 The favicon is a 16x16 image that is displayed in the browser tab. It is located in the `public` folder.

@@ -3,7 +3,7 @@ import Onboarding from '@metamask/onboarding'
 
 
 const useMetaMaskOnboarding = () => {
-  const onboarding = useRef<Onboarding>()
+  const onboarding = useRef<Onboarding>(null)
 
   useEffect(() => {
     onboarding.current = new Onboarding()

@@ -9,8 +9,8 @@ type Input = {
 }
 
 type Output = {
-  trackRef: RefObject<HTMLDivElement>
-  thumbRef: RefObject<HTMLDivElement>
+  trackRef: RefObject<HTMLDivElement | null>
+  thumbRef: RefObject<HTMLDivElement | null>
   isGrabbing: boolean
 }
 

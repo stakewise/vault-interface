@@ -1,16 +1,16 @@
-$border-color-default: rgb($color-secondary-rgb / 0.10);
-$border-color-hover: rgb($color-dark-rgb / 0.30);
-$border-color-error: rgb($color-error-rgb / 0.10);
-$border-color-error-hover: rgb($color-error-rgb / 0.50);
+$border-color-default: rgba($color-secondary-rgb, .10);
+$border-color-hover: rgba($color-dark-rgb, .30);
+$border-color-error: rgba($color-error-rgb, .10);
+$border-color-error-hover: rgba($color-error-rgb, .50);
 
-$bg-color-default: rgb($color-secondary-rgb / 0.10);
-$bg-color-hover: rgb($color-secondary-rgb / 0.15);
-$bg-color-error: rgb($color-error-rgb / 0.10);
-$bg-color-error-hover: rgb($color-error-rgb / 0.15);
+$bg-color-default: rgba($color-secondary-rgb, .10);
+$bg-color-hover: rgba($color-secondary-rgb, .15);
+$bg-color-error: rgba($color-error-rgb, .10);
+$bg-color-error-hover: rgba($color-error-rgb, .15);
 
 @mixin field-colors($border-color, $bg-color) {
-  border-color: $border-color;
   background-color: $bg-color;
+  border-color: $border-color;
 }
 
 .container {

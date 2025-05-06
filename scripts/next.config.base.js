@@ -1,4 +1,3 @@
-const path = require('path')
 const webpack = require('webpack')
 const TerserPlugin = require('terser-webpack-plugin')
 const CircularDependencyPlugin = require('circular-dependency-plugin')
@@ -28,14 +27,6 @@ const baseConfig = {
     'sw-helpers',
     'sw-components',
   ],
-  sassOptions: {
-    additionalData: `
-      @import 'sw-components/scss/index.scss';
-    `,
-    includePaths: [
-      path.join(__dirname, 'src/scss'),
-    ],
-  },
   images: {
     remotePatterns: [
       {

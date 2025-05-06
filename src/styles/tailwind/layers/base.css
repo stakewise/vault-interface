@@ -1,0 +1,218 @@
+@layer base {
+
+  /* Reset base styles */
+  @import './destyle.css';
+
+  /* Theme colors */
+  :root {
+    color-scheme: light dark;
+  }
+
+  :root .body-light-theme {
+    --background-rgb: 247, 249, 252;
+    --background: rgb(247, 249, 252);
+    --primary-rgb: 58, 142, 234;
+    --primary: rgb(58, 142, 234);
+    --primary-start-rgb: 53, 132, 216;
+    --primary-start: rgb(53, 132, 216);
+    --primary-end-rgb: 165, 201, 246;
+    --primary-end: rgb(165, 201, 246);
+    --secondary-rgb: 117, 117, 117;
+    --secondary: rgb(117, 117, 117);
+    --secondary-start-rgb: 199, 21, 133;
+    --secondary-start: rgb(199, 21, 133);
+    --secondary-end-rgb: 255, 153, 204;
+    --secondary-end: rgb(255, 153, 204);
+    --success-light-rgb: 174, 213, 129;
+    --success-light: rgb(174, 213, 129);
+    --success-rgb: 76, 175, 80;
+    --success: rgb(76, 175, 80);
+    --warning-rgb: 255, 152, 0;
+    --warning: rgb(255, 152, 0);
+    --error-rgb: 244, 67, 54;
+    --error: rgb(244, 67, 54);
+    --dark-rgb: 0, 6, 15;
+    --dark: rgb(0, 6, 15);
+    --black-rgb: 0, 6, 15;
+    --black: rgb(0, 6, 15);
+    --light-rgb: 255, 255, 255;
+    --light: rgb(255, 255, 255);
+    --white-rgb: 255, 255, 255;
+    --white: rgb(255, 255, 255);
+  }
+
+  :root .body-dark-theme {
+    --background-rgb: 13, 27, 42;
+    --background: rgb(13, 27, 42);
+    --primary-rgb: 92, 135, 246;
+    --primary: rgb(92, 135, 246);
+    --primary-start-rgb: 61, 103, 213;
+    --primary-start: rgb(61, 103, 213);
+    --primary-end-rgb: 124, 187, 244;
+    --primary-end: rgb(124, 187, 244);
+    --secondary-rgb: 176, 190, 197;
+    --secondary: rgb(176, 190, 197);
+    --secondary-start-rgb: 156, 39, 176;
+    --secondary-start: rgb(156, 39, 176);
+    --secondary-end-rgb: 255, 111, 145;
+    --secondary-end: rgb(255, 111, 145);
+    --success-light-rgb: 133, 227, 158;
+    --success-light: rgb(133, 227, 158);
+    --success-rgb: 102, 187, 106;
+    --success: rgb(102, 187, 106);
+    --warning-rgb: 255, 179, 0;
+    --warning: rgb(255, 179, 0);
+    --error-rgb: 229, 115, 115;
+    --error: rgb(229, 115, 115);
+    --dark-rgb: 255, 255, 255;
+    --dark: rgb(255, 255, 255);
+    --black-rgb: 0, 6, 15;
+    --black: rgb(0, 6, 15);
+    --light-rgb: 49, 49, 49;
+    --light: rgb(49, 49, 49);
+    --white-rgb: 230, 230, 230;
+    --white: rgb(230, 230, 230);
+  }
+
+  :root .body-dark-theme .bg-white-theme {
+    background-color: rgba(var(--white), .05);
+  }
+
+  :root .body-light-theme .bg-white-theme {
+    background-color: rgba(var(--white), .5);
+  }
+
+  ::-moz-selection {
+    color: #47347e;
+    background: #c8bfe3;
+  }
+
+  ::selection {
+    color: #47347e;
+    background: #c8bfe3;
+  }
+
+  /* Tags */
+  html,
+  body {
+    width: 100%;
+    min-height: 100vh;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  html {
+    font-size: 1px;
+    line-height: 0;
+  }
+
+  body {
+    position: relative;
+    background-color: var(--background);
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .body-light-theme input::placeholder,
+  .body-light-theme textarea::placeholder {
+    color: #9ca3af;
+  }
+
+  .body-dark-theme input::placeholder,
+  .body-dark-theme textarea::placeholder {
+    color: #4b4f57;
+  }
+
+  *:focus {
+    outline: none;
+  }
+
+  input,
+  textarea,
+  button,
+  select {
+    background: none;
+    border: none;
+    border-radius: 0;
+  }
+
+  legend,
+  fieldset {
+    display: block;
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+
+  button,
+  input[type='button'] {
+    text-align: center;
+    user-select: none;
+  }
+
+  textarea {
+    resize: none;
+  }
+
+  input::-webkit-contacts-auto-fill-button,
+  select::-webkit-contacts-auto-fill-button,
+  textarea::-webkit-contacts-auto-fill-button {
+    visibility: hidden;
+  }
+
+  input:-webkit-autofill,
+  select:-webkit-autofill,
+  textarea:-webkit-autofill,
+  input:-webkit-autofill:focus,
+  select:-webkit-autofill:focus,
+  textarea:-webkit-autofill:focus {
+    background-color: #fff;
+    -webkit-box-shadow: inset 0 0 0 100rem #fff;
+  }
+
+  select:-moz-focusring {
+    color: transparent;
+    text-shadow: 0 0 0 #000;
+    -webkit-appearance: none;
+    -moz-appearance: radio-container;
+    appearance: normal;
+  }
+
+  select::-ms-expand {
+    display: none;
+  }
+
+  hr {
+    height: 1px;
+    border: none;
+  }
+
+  b,
+  strong {
+    font-weight: 600;
+  }
+
+  svg:not([fill]) {
+    fill: currentColor;
+  }
+
+  svg:not(:root) {
+    overflow: hidden;
+  }
+
+  :where([aria-busy='true' i]) {
+    cursor: progress;
+  }
+
+  :where([aria-disabled='true' i], [disabled]) {
+    cursor: not-allowed;
+  }
+
+  :where([aria-hidden='false' i][hidden]) {
+    display: initial;
+  }
+
+  :where([aria-hidden='false' i][hidden]:not(:focus)) {
+    position: absolute;
+    clip: rect(0, 0, 0, 0);
+  }
+}

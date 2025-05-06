@@ -29,7 +29,7 @@ const TransactionView: React.FC<StepProps> = (props) => {
   const isLoaderVisible = [ TransactionStatus.Waiting, TransactionStatus.Confirm ].includes(status)
 
   const iconClassName = cx('flex items-center justify-center flex-none rounded-full w-32 h-32', {
-    'bg-dark/05': status === TransactionStatus.Pending || isLoaderVisible,
+    'bg-dark/5': status === TransactionStatus.Pending || isLoaderVisible,
     'bg-success-light': status === TransactionStatus.Success,
     'bg-error': status === TransactionStatus.Fail,
   })

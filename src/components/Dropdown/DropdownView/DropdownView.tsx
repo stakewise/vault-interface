@@ -62,7 +62,8 @@ const DropdownView: DropdownViewComponent = (props) => {
                 setTimeout(onClose)
               }
 
-              return React.cloneElement(button as ReactElement, {
+              return React.cloneElement<HTMLButtonElement>(button as any, {
+                // @ts-ignore
                 ref: refs.setReference,
                 arrow: withArrow ? arrow : undefined,
               })

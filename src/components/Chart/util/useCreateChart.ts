@@ -12,7 +12,7 @@ type Input = {
   data: Charts.MainData
   hideRightScale?: boolean
   pointType: Charts.PointType
-  container: React.RefObject<HTMLDivElement>
+  container: React.RefObject<HTMLDivElement | null>
   expandSettings?: Charts.ExpandSettings
 }
 

@@ -38,7 +38,7 @@ const TextWithTooltip: React.FC<TextWithTooltipProps> = (props) => {
         Boolean(tooltip) && (
           <Tooltip content={tooltip}>
             <Icon
-              className="ml-4 opacity-50"
+              className="ml-4 opacity-50 cursor-pointer"
               color={icon?.color || 'secondary'}
               size={icon?.size || 16}
               name="icon/info"

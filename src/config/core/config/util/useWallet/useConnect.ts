@@ -29,10 +29,10 @@ const useConnect = (values: Input) => {
   const intlRef = intl.useIntlRef()
   const inProgressRef = useRef(false)
   const { dataRef, setData } = configState
-  const timerRef = useRef<NodeJS.Timeout>()
+  const timerRef = useRef<number>(null)
 
   const connectWallet = useCallback(async (walletName: WalletIds): Promise<void> => {
-    let resetConnectTimer: NodeJS.Timeout | null = null
+    let resetConnectTimer: number | null = null
 
     if (inProgressRef.current) {
       return
@@ -47,7 +47,8 @@ const useConnect = (values: Input) => {
       getConnector,
     } = connectors[walletName]
 
-    let { chainId, name: chainName } = networks.configs[dataRef.current.networkId]
+    const { name: chainName } = networks.configs[dataRef.current.networkId]
+    let { chainId } = networks.configs[dataRef.current.networkId]
 
     const connector = await getConnector(chainId) as Connectors
 
@@ -176,7 +177,10 @@ const useConnect = (values: Input) => {
       })
 
       inProgressRef.current = false
-      clearTimeout(timerRef.current)
+
+      if (timerRef.current) {
+        clearTimeout(timerRef.current)
+      }
     }
     catch (error: any) {
       console.log(error)

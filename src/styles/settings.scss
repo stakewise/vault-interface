@@ -1,18 +1,15 @@
 $colors-light-theme: (
-  'primary': #3a8eea,
   'background': #f7f9fc,
-
+  'primary': #3a8eea,
   'primary-start': #3584d8,
   'primary-end': #a5c9f6,
-
+  'secondary': #757575,
   'secondary-start': #c71585,
   'secondary-end': #ff99cc,
-
-  'warning': #ff9800,
   'success-light': #aed581,
   'success': #4caf50,
+  'warning': #ff9800,
   'error': #f44336,
-  'secondary': #757575,
   'dark': #00060f,
   'black': #00060f,
   'light': #ffffff,
@@ -20,20 +17,17 @@ $colors-light-theme: (
 );
 
 $colors-dark-theme: (
-  'primary': #5c87f6,
   'background': #0d1b2a,
-
+  'primary': #5c87f6,
   'primary-start': #3d67d5,
   'primary-end': #7cbbf4,
-
+  'secondary': #b0bec5,
   'secondary-start': #9c27b0,
   'secondary-end': #ff6f91,
-
-  'warning': #ffb300,
   'success-light': #85e39e,
   'success': #66bb6a,
+  'warning': #ffb300,
   'error': #e57373,
-  'secondary': #b0bec5,
   'dark': #ffffff,
   'black': #00060f,
   'light': #313131,

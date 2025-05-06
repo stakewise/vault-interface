@@ -2,8 +2,9 @@ import UAParser from 'ua-parser-js'
 import { headers } from 'next/headers'
 
 
-const getUserAgentDevice = () => {
-  const userAgent = headers().get('user-agent') || ''
+const getUserAgentDevice = async () => {
+  const headersList = await headers()
+  const userAgent = headersList.get('user-agent') || ''
   const serverUI = new UAParser(userAgent)
 
   const device = serverUI.getDevice().type

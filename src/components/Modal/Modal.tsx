@@ -1,4 +1,4 @@
-import React, { useEffect, forwardRef, useCallback, useState, Fragment } from 'react'
+import React, { useEffect, useCallback, useState, Fragment } from 'react'
 import { Dialog, DialogPanel, Transition, TransitionChild } from '@headlessui/react'
 import device from 'modules/device'
 import cx from 'classnames'
@@ -13,15 +13,15 @@ import s from './Modal.module.scss'
 
 export type ModalProps = Omit<ContentProps, 'handleClose'> & {
   className?: string
-  ref?: HTMLDivElement
   withForm?: boolean
   isOverlayDisabled?: boolean
+  ref?: React.RefObject<HTMLDivElement | null>
   closeModal: Modals.VisibilityProps['closeModal'] | null
 }
 
-const Modal = forwardRef<HTMLDivElement, ModalProps>((props, ref) => {
+const Modal: React.FC<ModalProps> = (props) => {
   const {
-    children, title, subTitle, description, dataTestId, size = 'wide',
+    children, title, subTitle, description, dataTestId, size = 'wide', ref,
     primaryButton, secondaryButton, bottomNode, className, contentClassName, withForm,
     isOverlayDisabled, isCloseButtonDisabled, customPrimaryButton, closeModal, onBackButtonClick,
   } = props
@@ -136,7 +136,7 @@ const Modal = forwardRef<HTMLDivElement, ModalProps>((props, ref) => {
       </Dialog>
     </Transition>
   )
-})
+}
 
 Modal.displayName = 'Modal'
 

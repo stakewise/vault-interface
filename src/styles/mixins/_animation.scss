@@ -189,24 +189,24 @@ $ease-out-quadratic: cubic-bezier(0.25, 0.46, 0.45, 0.94);
 
 @keyframes fade-in-and-scale {
   0% {
-    opacity: 0;
     transform: scale(0.90);
+    opacity: 0;
   }
 
   100% {
-    opacity: 1;
     transform: scale(1);
+    opacity: 1;
   }
 }
 
 @keyframes fade-out-and-reduce {
   0% {
-    opacity: 1;
     transform: scale(1);
+    opacity: 1;
   }
 
   100% {
-    opacity: 0;
     transform: scale(0.95);
+    opacity: 0;
   }
 }

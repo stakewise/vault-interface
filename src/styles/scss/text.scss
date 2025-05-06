@@ -1,0 +1,15 @@
+@use '../variables';
+
+.text-secondary-gradient {
+  max-width: max-content;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.body-light-theme .text-secondary-gradient {
+  background-image: linear-gradient(to right, variables.$color-secondary-start-light, variables.$color-secondary-end-light);
+}
+
+.body-dark-theme .text-secondary-gradient {
+  background-image: linear-gradient(to right, variables.$color-secondary-start-dark, variables.$color-secondary-end-dark);
+}

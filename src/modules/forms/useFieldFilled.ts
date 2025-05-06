@@ -4,7 +4,7 @@ import { useState, useCallback, useEffect, useRef } from 'react'
 const useFieldFilled = <V extends Forms.FieldValue>(field: Forms.Field<V>) => {
   const [ isFilled, setFilled ] = useState<boolean>(false)
 
-  const savedFilledStatusRef = useRef<boolean>()
+  const savedFilledStatusRef = useRef<boolean>(null)
   savedFilledStatusRef.current = isFilled
 
   const handleFilledate = useCallback((field: Forms.Field<V>) => {

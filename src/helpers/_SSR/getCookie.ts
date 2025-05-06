@@ -6,11 +6,13 @@ import { parseCookie } from 'next/dist/compiled/@edge-runtime/cookies'
 // You need to either redirect with already installed cookies to the same url,
 // so that the request already contains installed cookies, or do as here.
 // https://github.com/vercel/next.js/issues/49442#issuecomment-1679807704
-const getCookie = (cookieName: string) => {
-  const allCookiesAsString = headers().get('Set-Cookie')
+const getCookie = async (cookieName: string) => {
+  const headersList = await headers()
+  const cookieStore = await cookies()
+  const allCookiesAsString = headersList.get('Set-Cookie')
 
   if (!allCookiesAsString) {
-    return cookies().get(cookieName)
+    return cookieStore.get(cookieName)
   }
 
   const allCookiesAsObjects = allCookiesAsString
@@ -22,7 +24,7 @@ const getCookie = (cookieName: string) => {
   )
 
   if (!targetCookieAsObject) {
-    return cookies().get(cookieName)
+    return cookieStore.get(cookieName)
   }
 
   return {

@@ -39,7 +39,7 @@ const Balance: React.FC<BalanceProps> = (props) => {
         color="secondary"
       />
       {
-        value && typeof onClick === 'function' && (
+        Boolean(value) && typeof onClick === 'function' && (
           <ButtonBase
             className="ml-8 hover:opacity-90"
             disabled={loading}

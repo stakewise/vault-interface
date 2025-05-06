@@ -65,7 +65,7 @@ const ButtonRangePicker: React.FC<ButtonRangePickerProps> = (props) => {
         ref={tabButtonRef}
         className={cx(
           s.rounded,
-          'bg-dark/03 py-4 px-8',
+          'bg-dark/3 py-4 px-8',
           'absolute top-0 left-0 transition-all duration-200 pointer-events-none'
         )}
       />

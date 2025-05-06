@@ -58,7 +58,7 @@ const Balance: React.FC<BalanceProps> = (props) => {
   const containerClassName = cx(
     className,
     'px-12 py-4 flex items-center justify-between',
-    'rounded-8 bg-dark/03 border border-dark/03'
+    'rounded-8 bg-dark/3 border border-dark/3'
   )
 
   const withAddTokenButton = Boolean(

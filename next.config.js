@@ -9,9 +9,14 @@ const baseConfig = require('./scripts/next.config.base')
 let nextConfig = {
   ...baseConfig,
   sassOptions: {
-    additionalData: `@import 'scss/index.scss';`,
+    additionalData: `
+      @use 'src/styles/variables' as *;
+      @use 'src/styles/mixins/media' as *;
+      @use 'src/styles/mixins/common' as *;
+      @use 'src/styles/mixins/animation' as *;
+    `,
     includePaths: [
-      path.join(__dirname, 'src/scss'),
+      path.join(__dirname, 'src', 'styles'),
     ],
   },
 }

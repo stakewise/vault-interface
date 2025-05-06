@@ -1,4 +1,4 @@
-import React, { ReactNode, RefObject, forwardRef, useRef, useCallback } from 'react'
+import React, { ReactNode, RefObject, useRef, useCallback } from 'react'
 import { useEventListener } from 'hooks'
 import NextLink from 'next/link'
 import methods from 'helpers/methods'
@@ -13,16 +13,17 @@ export type HrefProps = {
   dataTestId?: string
   targetBlank?: boolean
   ariaLabel?: string | Intl.Message
+  ref?: React.RefObject<HTMLAnchorElement>
   onClick?: () => void
 }
 
-const Href = forwardRef<HTMLAnchorElement, HrefProps>((props, ref) => {
-  const { children, className, to, targetBlank, dataTestId, ariaLabel, onClick, ...otherProps } = props
+const Href: React.FC<HrefProps> = (props) => {
+  const { children, className, to, ref, targetBlank, dataTestId, ariaLabel, onClick, ...otherProps } = props
 
   const htmlAttrs = methods.getGlobalHtmlAttrs(otherProps)
   const isInternal = to && !/^(http|mailto)/.test(to)
 
-  const componentRef = useRef<HTMLAnchorElement>()
+  const componentRef = useRef<HTMLAnchorElement>(null)
   const _ref = (ref || componentRef) as RefObject<HTMLAnchorElement>
 
   const translations = intl.useIntl()
@@ -74,7 +75,7 @@ const Href = forwardRef<HTMLAnchorElement, HrefProps>((props, ref) => {
       {children}
     </a>
   )
-})
+}
 
 Href.displayName = 'Href'
 

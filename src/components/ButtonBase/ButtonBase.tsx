@@ -1,4 +1,4 @@
-import React, { forwardRef, useCallback } from 'react'
+import React, { useCallback } from 'react'
 import methods from 'helpers/methods'
 import cx from 'classnames'
 
@@ -21,14 +21,15 @@ export type ButtonBaseProps = {
   disabled?: boolean
   dataTestId?: string
   ariaLabel?: string | Intl.Message
+  ref?: React.RefObject<HTMLAnchorElement | HTMLButtonElement>
   onClick?: React.MouseEventHandler<HTMLAnchorElement | HTMLButtonElement>
 }
 
-const ButtonBase = forwardRef<HTMLAnchorElement | HTMLButtonElement, ButtonBaseProps>((props, ref) => {
+const ButtonBase: React.FC<ButtonBaseProps> = (props) => {
   const {
     children, id, className, disabled,
     dataTestId, ariaLabel, tabIndex, href, target,
-    tag, rel, download,
+    tag, rel, ref, download,
     type = 'button',
 
     onClick,
@@ -41,7 +42,7 @@ const ButtonBase = forwardRef<HTMLAnchorElement | HTMLButtonElement, ButtonBaseP
   const translations = intl.useIntl()
 
   const _ariaLabel = typeof ariaLabel === 'object'
-    ? translations.formatMessage(ariaLabel)
+    ? translations.formatMessage(ariaLabel, ariaLabel.values)
     : ariaLabel
 
   const handleClick = useCallback((event: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => {
@@ -84,7 +85,7 @@ const ButtonBase = forwardRef<HTMLAnchorElement | HTMLButtonElement, ButtonBaseP
     nodeProps,
     children
   )
-})
+}
 
 ButtonBase.displayName = 'ButtonBase'
 

@@ -20,7 +20,8 @@ const _getNetwork = async (
 ): Promise<NetworkIds> => {
   let network: NetworkIds = defaultNetworkId
 
-  const cookieValue = cookies().get(constants.cookieNames.networkId)?.value
+  const cookiesStore = await cookies()
+  const cookieValue = cookiesStore.get(constants.cookieNames.networkId)?.value
   const queryValue = request.nextUrl.searchParams.get(constants.queryNames.networkId)
 
   const queryNetwork = _validateNetwork(queryValue, supportedNetworkIds)

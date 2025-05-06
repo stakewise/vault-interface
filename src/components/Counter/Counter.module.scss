@@ -1,10 +1,10 @@
 .counter {
-  height: 20rem;
   min-width: 20rem;
+  height: 20rem;
 
   @include dark-theme {
-    background-color: rgb($color-dark-rgb / 0.2);
     color: $color-dark;
+    background-color: rgba($color-dark-rgb, .2);
 
     :global(.bg-inherit) {
       background-color: $color-dark;
@@ -12,8 +12,8 @@
   }
 
   @include light-theme {
-    background-color: rgb($color-primary-rgb / 0.1);
     color: $color-primary;
+    background-color: rgba($color-primary-rgb, .1);
 
     :global(.bg-inherit) {
       background-color: $color-primary;
@@ -21,6 +21,6 @@
   }
 
   &.disabled {
-    background-color: rgb($color-secondary-rgb / 0.2);
+    background-color: rgba($color-secondary-rgb, .2);
   }
 }

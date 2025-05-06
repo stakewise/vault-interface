@@ -12,7 +12,8 @@ import { getNetworkId } from 'config/core/config/_SSR'
 import { getVaultBase } from 'helpers/requests/_SSR'
 
 import 'focus-visible'
-import 'scss/globals.scss'
+import 'styles/globals.scss'
+import 'styles/tailwind/config.css'
 
 
 const owner = process.env.NEXT_PUBLIC_OWNER || ''
@@ -20,7 +21,7 @@ const domain = process.env.NEXT_PUBLIC_OWNER_DOMAIN || ''
 const ownerTwitter = process.env.NEXT_PUBLIC_OWNER_X_ACCOUNT || ''
 
 export const generateMetadata: GenerateMetadata = async () => {
-  const locale = getLocale()
+  const locale = await getLocale()
   const metaDescription = commonMessages.meta.home.description[locale] || ''
 
   let title = commonMessages.meta.home.title[locale]
@@ -129,11 +130,13 @@ const font = Inter({
 const RootLayout = async (props: RootLayoutProps) => {
   const { children } = props
 
-  const locale = getLocale()
-  const device = getServerDevice()
-  const networkId = getNetworkId()
-  const serverTheme = getServerTheme()
-  const vaultBase = await getVaultBase()
+  const [ locale, networkId, vaultBase, serverTheme, device ] = await Promise.all([
+    getLocale(),
+    getNetworkId(),
+    getVaultBase(),
+    getServerTheme(),
+    getServerDevice(),
+  ])
 
   return (
     <html lang={locale}>

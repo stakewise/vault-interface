@@ -45,7 +45,6 @@ const Dropdown: React.FC<DropdownProps> = (props) => {
       {
         options.map(({ title, subTitle, value, logo, icon, isError, onClick, ...rest }, index) => (
           <ListboxOption
-            className="data-[focus]:bg-primary/05"
             key={index}
             as="div"
             value={value}

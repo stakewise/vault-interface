@@ -1,0 +1,12 @@
+@use '../variables';
+@use '../mixins/common';
+
+.body-light-theme .bg-modal {
+  background: rgba(variables.$color-white-rgb, .5);
+  border: solid 1px rgba(variables.$color-dark-rgb, .1);
+}
+
+.body-dark-theme .bg-modal {
+  background: rgba(variables.$color-white-rgb, .05);
+  border: solid 1px rgba(variables.$color-white-rgb, .05);
+}

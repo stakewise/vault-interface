@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react'
+import React from 'react'
 import cx from 'classnames'
 
 import Text from '../../Text/Text'
@@ -18,10 +18,11 @@ type SelectButtonProps = ButtonProps & {
   disabled?: boolean
   isError?: boolean
   isActive?: boolean
+  ref?: React.RefObject<HTMLButtonElement>
 }
 
-const SelectButton = forwardRef<HTMLButtonElement, SelectButtonProps>((props, ref) => {
-  const { className, logo, title, disabled, isError, isActive, arrow = 'down', ...rest } = props
+const SelectButton: React.FC<SelectButtonProps> = (props) => {
+  const { className, logo, title, disabled, isError, isActive, arrow = 'down', ref, ...rest } = props
 
   const defaultClassName = isActive ? 'text-primary': 'interaction-color-dark'
 
@@ -67,7 +68,7 @@ const SelectButton = forwardRef<HTMLButtonElement, SelectButtonProps>((props, re
       }
     </ButtonBase>
   )
-})
+}
 
 SelectButton.displayName = 'SelectButton'
 

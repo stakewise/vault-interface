@@ -5,7 +5,7 @@ import cacheStorage from './CacheStorage'
 type Output<T> = [ T, <D extends T>(data: D, time?: number) => void, boolean ]
 
 const useCacheListener = <T = any>(cacheId: string): Output<T> => {
-  const lastCacheId = useRef<string>()
+  const lastCacheId = useRef<string>(null)
   const cache = cacheStorage.get<T>(cacheId)
   const [ data, setData ] = useState<T>(cache.getData() as T)
 

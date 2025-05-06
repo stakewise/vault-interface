@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react'
+import React from 'react'
 
 import useIntl from './useIntl'
 
@@ -7,12 +7,13 @@ type MessageProps = {
   html?: boolean
   className?: string
   dataTestId?: string
-  tag?: keyof React.ReactHTML
+  tag?: React.HTMLElementType
+  ref?: React.RefObject<HTMLElement>
   value: string | Intl.Message
 }
 
-const Message = forwardRef<HTMLElement, MessageProps>((props, ref) => {
-  const { className, value, dataTestId, tag = 'div', html } = props
+const Message: React.FC<MessageProps> = (props) => {
+  const { className, value, dataTestId, tag = 'div', ref, html } = props
 
   const intl = useIntl()
 
@@ -48,7 +49,7 @@ const Message = forwardRef<HTMLElement, MessageProps>((props, ref) => {
     className,
     'data-testid': dataTestId,
   }, content)
-})
+}
 
 Message.displayName = 'Message'
 

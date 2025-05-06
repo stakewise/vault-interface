@@ -1,0 +1,26 @@
+@use '../variables';
+@use '../mixins/common';
+
+.interaction-color-light {
+  @include common.interaction-color(variables.$color-light, variables.$color-primary);
+}
+
+.interaction-color-secondary {
+  @include common.interaction-color(variables.$color-secondary, variables.$color-dark);
+}
+
+.interaction-color-dark {
+  @include common.interaction-color(variables.$color-dark, variables.$color-primary);
+}
+
+.interaction-color-error {
+  @include common.interaction-color(rgba(variables.$color-error-rgb, .7), variables.$color-error);
+}
+
+.interaction-color-primary {
+  @include common.interaction-color(variables.$color-primary, variables.$color-dark);
+}
+
+.interaction-bg-dark {
+  @include common.interaction-bg(variables.$color-dark, variables.$color-primary);
+}

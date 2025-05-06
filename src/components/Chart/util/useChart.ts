@@ -1,39 +1,82 @@
-import { useCallback, useMemo } from 'react'
-import methods from 'helpers/methods'
+import { useRef, useMemo } from 'react'
 
-import useSeries from './useSeries'
-import useSettings from './useSettings'
+import useView from './useView'
+import { ChartProps } from '../Chart'
+import usePriceLine from './usePriceLine'
+import useShowLegend from './useShowLegend'
+import useCreateChart from './useCreateChart'
 
 
-type Input = {
-  style: Charts.Style
-  pointType: Charts.PointType
-  hideRightPriceScale?: boolean
-}
+type Input = Pick<ChartProps, 'data'
+| 'style'
+| 'pointType'
+| 'isFetching'
+| 'isNotConnected'
+| 'hideRightScale'
+| 'showLegendOnHover'
+| 'expandSettings'
+| 'connect'
+>
 
-const useChart = (input: Input) => {
-  const { style, pointType, hideRightPriceScale } = input
+const useChart = (values: Input) => {
+  const {
+    data,
+    style,
+    pointType,
+    isFetching,
+    isNotConnected,
+    hideRightScale,
+    showLegendOnHover,
+    expandSettings,
+    connect,
+  } = values
 
-  const formatLabel = useCallback((value: number) => {
-    if (pointType === 'percent') {
-      return methods.formatApy(value)
-    }
+  const containerRef = useRef<HTMLDivElement>(null)
 
-    if (value) {
-      return methods.formatTokenValue(String(value))
-    }
+  const { isShowLegend, showLegend, hideLegend } = useShowLegend({
+    skip: !showLegendOnHover,
+  })
 
-    return '0'
-  }, [ pointType ])
+  const { chart, dataArr } = useCreateChart({
+    skip: isFetching || !data.length,
+    container: containerRef,
+    hideRightScale,
+    expandSettings,
+    pointType,
+    style,
+    data,
+  })
 
-  const settings = useSettings({ formatLabel, style, hideRightPriceScale })
-  const { defaultSeries, getPriceLineSeries } = useSeries({ style })
+  usePriceLine({
+    container: containerRef,
+    dataArr,
+  })
+
+  const view = useView({
+    data,
+    chart,
+    dataArr,
+    isFetching,
+    isShowLegend,
+    isNotConnected,
+    connect,
+  })
 
   return useMemo(() => ({
-    settings,
-    defaultSeries,
-    getPriceLineSeries,
-  }), [ settings, defaultSeries, getPriceLineSeries ])
+    view,
+    chart,
+    dataArr,
+    hideLegend,
+    showLegend,
+    containerRef,
+  }), [
+    view,
+    chart,
+    dataArr,
+    hideLegend,
+    showLegend,
+    containerRef,
+  ])
 }
 
 

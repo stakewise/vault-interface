@@ -1,11 +1,11 @@
 .bone {
+  background: rgba($color-dark-rgb, .03);
   opacity: 1;
-  background: rgb($color-dark-rgb / 0.03);
   animation-name: fade-out, bone;
-  animation-fill-mode: forwards, forwards;
-  animation-direction: normal, alternate;
-  animation-iteration-count: 1, infinite;
   animation-timing-function: ease-in-out, ease-in-out;
+  animation-iteration-count: 1, infinite;
+  animation-direction: normal, alternate;
+  animation-fill-mode: forwards, forwards;
 }
 
 @for $i from 0 through 3 {
