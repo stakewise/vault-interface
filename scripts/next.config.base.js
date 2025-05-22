@@ -18,15 +18,6 @@ console.log('-------------------------------------------------------------------
 const baseConfig = {
   optimizeFonts: isProduction,
   reactStrictMode: false,
-  transpilePackages: [
-    'sw-core',
-    'sw-hooks',
-    'sw-store',
-    'sw-methods',
-    'sw-modules',
-    'sw-helpers',
-    'sw-components',
-  ],
   images: {
     remotePatterns: [
       {
@@ -90,6 +81,7 @@ const baseConfig = {
     config.plugins.push(
       new webpack.DefinePlugin({
         'IS_PROD': isProduction,
+        'IS_LIGHTWEIGHT_MODE': false,
         // Creates a unique identifier where this variable is used in code
         'UNIQUE_FILE_ID': webpack.DefinePlugin.runtimeValue(
           (compiler) => {
