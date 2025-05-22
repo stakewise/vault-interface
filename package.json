@@ -60,6 +60,7 @@
     "typescript": "5.8.3"
   },
   "dependencies": {
+    "@binance/w3w-ethereum-provider": "1.1.8-alpha.0",
     "@headlessui/react": "2.2.1",
     "@ledgerhq/hw-app-eth": "6.38.0",
     "@ledgerhq/hw-transport-webhid": "6.29.2",
