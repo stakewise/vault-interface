@@ -17,6 +17,7 @@ export const logos = [
   'connector/zengo',
   'connector/ledger',
   'connector/portis',
+  'connector/binance',
   'connector/coinbase',
   'connector/metamask',
   'connector/gnosisSafe',

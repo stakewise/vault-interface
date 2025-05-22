@@ -1,4 +1,3 @@
-import type { Time } from 'lightweight-charts'
 import { createVaultInterfaceStore } from 'store/entries/vault-interface'
 
 

@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import { Network } from 'sdk'
 
 import data from './data'

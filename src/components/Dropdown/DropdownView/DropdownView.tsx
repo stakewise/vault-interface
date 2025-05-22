@@ -27,7 +27,7 @@ type DropdownViewComponent = React.FC<DropdownViewProps> & {
   Option: typeof ListboxOption
 }
 
-const DropdownView: DropdownViewComponent = (props) => {
+const DropdownView: DropdownViewComponent = (props: DropdownViewProps) => {
   const {
     className, children, button, value, disabled, withArrow,
     placement = 'bottom-end', dataTestId, onClose, onChange, onOptionsClick, onOptionsKeyDown,

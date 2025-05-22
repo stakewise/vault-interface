@@ -1,9 +1,8 @@
-import { walletNames, tokens } from './constants'
+import { tokens } from './constants'
 
 
 declare global {
   type Tokens = Exclude<typeof tokens[keyof typeof tokens], 'osToken'>
-  type WalletIds = keyof typeof walletNames
 
   type FiatRates = {
     usdEthRate: number

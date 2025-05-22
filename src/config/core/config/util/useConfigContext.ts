@@ -1,14 +1,13 @@
 'use client'
 import { useRef, useMemo, useCallback } from 'react'
 import useObjectState from 'hooks/controls/useObjectState'
-import { walletNames } from 'helpers/constants'
 
 import networks from './networks'
 import useWallet from './useWallet'
+import wallets from '../../wallets'
 import getInitialState from './getInitialState'
 import useStorageUpdate from './useStorageUpdate'
 import useCancelOnChange from './useCancelOnChange'
-import InjectedConnector from '../../connectors/custom-connectors/InjectedConnector'
 
 
 export type BaseInput = ConfigProvider.Callbacks & {
@@ -87,15 +86,13 @@ const useConfigContext = <T extends {}>(values: Input<T>): ConfigProvider.Contex
 
   return useMemo(() => {
     const chainId = config.chainId
-    const isInjectedWallet = data.connector instanceof InjectedConnector
-    const isReadOnlyMode = data.activeWallet === walletNames.monitorAddress
+    const isReadOnlyMode = data.activeWallet === wallets.monitorAddress.id
 
     const ctx = {
       ...state,
       wallet,
       chainId,
       isReadOnlyMode,
-      isInjectedWallet,
       cancelOnChange,
     }
 

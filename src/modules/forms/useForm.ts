@@ -26,6 +26,7 @@ const useForm = <F extends Forms.FormValues>(config: Forms.FieldsConfig<F>): For
       fields,
       ...methods,
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []) // ATTN The form is initialised only once, to keep event subscribers from dropping out!
 
   formRef.current = form

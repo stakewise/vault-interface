@@ -32,6 +32,8 @@ declare global {
 
       isValidValue(value: V | undefined): boolean
 
+      changeValidators(value: Validator<FormValues>[]): void
+
       subscribe(event: Events, handler: EventHandler<V>): Field<V>
 
       unsubscribe(event: Events, handler: EventHandler<V>): Field<V>

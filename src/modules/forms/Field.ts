@@ -17,7 +17,7 @@ class Field<V extends Forms.FieldValue> implements Forms.Field<V> {
   readonly #events: EventAggregator
   readonly #formRef?: Forms.FieldConfig<V>['formRef']
   readonly #valueType: Forms.FieldConfig<V>['valueType']
-  readonly #validators?: Forms.FieldConfig<V>['validators']
+  #validators?: Forms.FieldConfig<V>['validators']
 
   constructor(values: Forms.FieldConfig<V>) {
     let typeParams = {} as Forms.TypeParams
@@ -42,6 +42,10 @@ class Field<V extends Forms.FieldValue> implements Forms.Field<V> {
     ]
 
     this.#isRequired = this.#validators.includes(validators.required)
+  }
+
+  public changeValidators(value: Forms.FieldConfig<V>['validators']) {
+    this.#validators = value || []
   }
 
   public validate(value: V | undefined): boolean {

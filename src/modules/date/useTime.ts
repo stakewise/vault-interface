@@ -14,6 +14,7 @@ const useTime = () => {
       .then(() => setDep((value) => ++value))
   }, [ locale ])
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   return useMemo(() => dayjs.bind({}), [ dep ])
 }
 

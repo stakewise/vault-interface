@@ -2,7 +2,7 @@ import React from 'react'
 import cx from 'classnames'
 import modal from 'modules/modal'
 import device from 'modules/device'
-import { useConfig } from 'config'
+import { useConfig, wallets } from 'config'
 import useModalClose from 'hooks/controls/useModalClose'
 
 import { Button, Modal } from 'components'
@@ -41,11 +41,12 @@ export const [ TxCompletedModal, openTxCompletedModal ] = (
     const { tokens, fails, hash, closeModal } = props
 
     const { isMobile } = device.useData()
-    const { isInjectedWallet } = useConfig()
+    const { activeWallet } = useConfig()
 
     useModalClose({ closeModal })
 
     const withAddMintToken = tokens.some((item) => item.action === Action.Mint)
+    const isInjectedWallet = activeWallet && wallets[activeWallet].isInjectedWallet
 
     return (
       <Modal

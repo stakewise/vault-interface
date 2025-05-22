@@ -55,9 +55,9 @@ const ButtonBase: React.FC<ButtonBaseProps> = (props) => {
     }
   }, [ onClick, disabled ])
 
-  let node: string | React.ElementType = tag || defaultTag
+  const node: string | React.ElementType = tag || defaultTag
 
-  let nodeProps: any = {
+  const nodeProps: any = {
     ref,
     className: cx(className, s.wrapper, {
       'inline-flex items-center justify-center': !className?.split(' ').includes('flex'),

@@ -13,7 +13,7 @@ const useFormValidate = <F extends Forms.FormValues>(form: Forms.Form<F>) => {
     if (savedValidStatusRef.current !== isValid) {
       setValid(isValid)
     }
-  }, [])
+  }, [ form ])
 
   useEffect(() => {
     form.subscribe('change', handleChange)
@@ -21,7 +21,7 @@ const useFormValidate = <F extends Forms.FormValues>(form: Forms.Form<F>) => {
     return () => {
       form.unsubscribe('change', handleChange)
     }
-  }, [])
+  }, [ form, handleChange ])
 
   return isValid
 }

@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo } from 'react'
 import { commonMessages, constants } from 'helpers'
 import { useAddTokenToWallet } from 'hooks'
-import { useConfig } from 'config'
+import { useConfig, wallets } from 'config'
 import methods from 'helpers/methods'
 import cx from 'classnames'
 
@@ -23,8 +23,10 @@ type Params = Record<'osETH' | 'osGNO' | 'GNO', {
 const Balance: React.FC<BalanceProps> = (props) => {
   const { className, token, value, isFetching } = props
 
-  const { sdk, activeWallet, library, isInjectedWallet } = useConfig()
+  const { sdk, activeWallet, library } = useConfig()
   const addToken = useAddTokenToWallet(library)
+
+  const isInjectedWallet = activeWallet && wallets[activeWallet].isInjectedWallet
 
   const params = useMemo<Params>(() => ({
     [constants.tokens.gno]: {
@@ -62,7 +64,7 @@ const Balance: React.FC<BalanceProps> = (props) => {
   )
 
   const withAddTokenButton = Boolean(
-    typeof addToken === 'function'
+    isInjectedWallet
     && token !== sdk.config.tokens.nativeToken
     && activeWallet !== constants.walletNames.monitorAddress
   )

@@ -11,7 +11,7 @@ const useFormValues = <F extends Forms.FormValues>(form: Forms.Form<F>) => {
 
     setHasErrors(hasErrors)
     setValues(values)
-  }, [])
+  }, [ form ])
 
   useEffect(() => {
     form.subscribe('change', handleValues)
@@ -19,7 +19,7 @@ const useFormValues = <F extends Forms.FormValues>(form: Forms.Form<F>) => {
     return () => {
       form.unsubscribe('change', handleValues)
     }
-  }, [])
+  }, [ form, handleValues ])
 
   return useMemo(() => ({
     values,

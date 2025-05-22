@@ -26,18 +26,6 @@ const useInfo = () => {
   const transactionPrice = useTransactionPrice()
   const { isV2Version, queueDays, isCollateralized } = useStore(storeSelector)
 
-  const message = isV2Version
-    ? commonMessages.tooltip.unstakeQueueV2
-    : commonMessages.tooltip.unstakeQueueV1
-
-  const tooltip = {
-    ...message,
-    values: {
-      queueDays,
-      depositToken: sdk.config.tokens.depositToken,
-    },
-  }
-
   const position = usePosition({
     type: 'unstake',
     field,
@@ -52,6 +40,18 @@ const useInfo = () => {
   })
 
   return useMemo<Position[]>(() => {
+    const message = isV2Version
+      ? commonMessages.tooltip.unstakeQueueV2
+      : commonMessages.tooltip.unstakeQueueV1
+
+    const tooltip = {
+      ...message,
+      values: {
+        queueDays,
+        depositToken: sdk.config.tokens.depositToken,
+      },
+    }
+
     return [
       ...position,
       {
@@ -81,7 +81,7 @@ const useInfo = () => {
         isFetching: !transactionPrice,
       },
     ] as Position[]
-  }, [ sdk, value, tooltip, fiatGas, transactionPrice, position, isCollateralized ])
+  }, [ sdk, value, isV2Version, queueDays, fiatGas, transactionPrice, position, isCollateralized ])
 }
 
 

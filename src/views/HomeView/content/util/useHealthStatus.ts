@@ -112,13 +112,13 @@ const useHealthStatus = ({ field, type }: Input) => {
 
       const nextStatus = formatStatus(newStakedAssets, newMintedAssets)
 
-      let prev: NonNullable<Item['textValue']>['prev'] = {
+      const prev: NonNullable<Item['textValue']>['prev'] = {
         message: prevStatus.message,
         color: prevStatus.color,
         dataTestId: 'health',
       }
 
-      let next: NonNullable<Item['textValue']>['next'] = {
+      const next: NonNullable<Item['textValue']>['next'] = {
         dataTestId: 'health',
       }
 

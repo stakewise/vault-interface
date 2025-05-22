@@ -28,6 +28,15 @@
   --radius-24: 24rem;
   --radius-72: 72rem;
 
+  /* Blur */
+  --blur-xs: 4rem;
+  --blur-sm: 8rem;
+  --blur-md: 12rem;
+  --blur-lg: 16rem;
+  --blur-xl: 24rem;
+  --blur-2xl: 40rem;
+  --blur-3xl: 64rem;
+
   /* Animation */
   --animate-spin: spin 1s linear infinite;
 

@@ -3,7 +3,7 @@
 
   @media (hover: hover) {
     &:hover {
-      background: rgb($color-dark-rgb / .05);
+      background: rgba($color-dark-rgb, .05);
     }
   }
 }

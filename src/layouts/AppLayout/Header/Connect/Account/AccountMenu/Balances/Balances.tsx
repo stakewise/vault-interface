@@ -1,8 +1,7 @@
 import React, { useMemo } from 'react'
-import cx from 'classnames'
-import { useStore } from 'hooks'
 import { useConfig } from 'config'
-import { constants } from 'helpers'
+import { useStore } from 'hooks'
+import cx from 'classnames'
 
 import Balance from './Balance/Balance'
 

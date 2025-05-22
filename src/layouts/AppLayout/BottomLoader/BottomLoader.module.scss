@@ -20,7 +20,7 @@
   }
 
   &::before {
-    background-color: rgb($color-primary-rgb / 0.2);
+    background-color: rgba($color-primary-rgb, 0.2);
   }
 }
 

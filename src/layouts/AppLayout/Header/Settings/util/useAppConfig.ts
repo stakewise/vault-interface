@@ -39,6 +39,7 @@ const useAppConfig = () => {
     }
 
     actions.currency.setData(currencyOptions[0].value as Currency)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const handleChangeTheme = useCallback((theme: ThemeValue) => {

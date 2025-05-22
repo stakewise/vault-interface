@@ -5,6 +5,8 @@ import type { StakeWiseSDK } from 'sdk'
 declare global {
   const IS_PROD: boolean
   const IS_BEFORE_PROD: boolean
+  const IS_LIGHTWEIGHT_MODE: boolean
+
   const UNIQUE_FILE_ID: string
 
   type SDK = StakeWiseSDK
@@ -13,13 +15,14 @@ declare global {
   type GenerateMetadata<T = {}> = (props: { params: T & { locale: Intl.LanguagesKeys }}) => Promise<Metadata>
 
   interface Window {
-    e2e: any
-    rabby: EthereumProvider
-    taho: EthereumProvider
-    okxwallet: EthereumProvider
-    trustwallet: EthereumProvider
-    braveEthereum: EthereumProvider
-    ethereum?: EthereumProvider
+    e2e?: any
+    taho?: any
+    rabby?: any
+    ethereum?: any
+    okxwallet?: any
+    trustwallet?: any
+    braveEthereum?: any
+
     device: {
       isMobile: boolean
       isDesktop:boolean

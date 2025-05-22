@@ -17,7 +17,7 @@ const createContext = <T extends {}>(values: Input<T> = {}): (
 
   const selectedChain = networks.chainById[initialState.networkId]
 
-  let mockContext: any = {
+  const mockContext: any = {
     ...initialState,
 
     chainId: selectedChain,
@@ -40,7 +40,7 @@ const createContext = <T extends {}>(values: Input<T> = {}): (
     context = middleware(mockContext)
   }
 
-  return React.createContext<ConfigProvider.Context<T>>(mockContext)
+  return React.createContext<ConfigProvider.Context<T>>(context)
 }
 
 

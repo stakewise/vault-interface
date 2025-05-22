@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef } from 'react'
-import notifications from 'modules/notifications'
 import { useActions, useMountedRef, useStore } from 'hooks'
+import notifications from 'modules/notifications'
 import { useConfig } from 'config'
 
 import useStake from './useStake'
@@ -122,6 +122,7 @@ const useBalances = (vaultAddress: string) => {
     return () => {
       actions.vault.user.balances.resetData()
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return fetchBalances

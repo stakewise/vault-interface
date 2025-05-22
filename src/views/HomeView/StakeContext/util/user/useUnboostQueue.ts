@@ -129,6 +129,7 @@ const useUnboostQueue = (values: Input) => {
     return () => {
       actions.vault.user.unboostQueue.resetData()
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useAutoFetch({

@@ -21,7 +21,7 @@ const useFieldValidate = <V extends Forms.FieldValue>(field: Forms.Field<V>) => 
     return () => {
       field.unsubscribe('change', handleValidate)
     }
-  }, [])
+  }, [ field, handleValidate ])
 
   return isValid
 }

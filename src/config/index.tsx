@@ -3,8 +3,8 @@ import { configs, chains } from 'sdk'
 import modal from 'modules/modal'
 import methods from 'helpers/methods'
 
-import { createConfig, networks } from './core'
 import useActions from '../hooks/data/useActions'
+import { createConfig, networks, wallets } from './core'
 import connectModalId from '../layouts/modals/ConnectWalletModal/modalId'
 
 
@@ -99,7 +99,7 @@ const ConfigProvider: React.FC<ConfigProviderProps> = (props) => {
     modal.closeModal(connectModalId)
 
     setTimeout(() => actions.ui.resetBottomLoader())
-  }, [])
+  }, [ actions ])
 
   return (
     <InitialConfigProvider
@@ -131,4 +131,5 @@ export {
   useConfig,
   ConfigProvider,
   supportedChains,
+  wallets,
 }

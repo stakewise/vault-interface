@@ -21,7 +21,7 @@ const useCacheListener = <T = any>(cacheId: string): Output<T> => {
     cache.addListener(handler)
 
     return () => cache.removeListener(handler)
-  }, [ cacheId ])
+  }, [ cache, cacheId ])
 
   return [ data, cache.setData.bind(cache), cache.isChanged ]
 }

@@ -14,7 +14,7 @@ const useFormFilled = <F extends Forms.FormValues>(form: Forms.Form<F>) => {
     if (savedFilledStatusRef.current !== isFilled) {
       setFilled(isFilled)
     }
-  }, [])
+  }, [ form ])
 
   useEffect(() => {
     form.subscribe('change', handleChange)
@@ -22,7 +22,7 @@ const useFormFilled = <F extends Forms.FormValues>(form: Forms.Form<F>) => {
     return () => {
       form.unsubscribe('change', handleChange)
     }
-  }, [])
+  }, [ form, handleChange ])
 
   return isFilled
 }

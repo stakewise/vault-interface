@@ -17,7 +17,7 @@ const apiUrls = {
     web3: [
       process.env.NEXT_PUBLIC_MAINNET_NETWORK_URL || '',
       process.env.NEXT_PUBLIC_MAINNET_FALLBACK_URL || '',
-    ],
+    ].filter(Boolean),
     subgraph: IS_PROD
       ? configs[Network.Mainnet].api.subgraph
       : [
