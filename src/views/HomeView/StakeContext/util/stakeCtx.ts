@@ -1,7 +1,8 @@
-import { useEffect, useMemo } from 'react'
-import { ZeroAddress } from 'ethers'
+import { useMemo } from 'react'
+import { useStore, useAutoFetch } from 'hooks'
 import { initContext } from 'helpers'
-import { useStore } from 'hooks'
+import { ZeroAddress } from 'ethers'
+import { useConfig } from 'config'
 
 import useFields from './useFields'
 import useTabs, { tabsMock } from './useTabs'
@@ -53,6 +54,7 @@ export const {
   useInit,
 } = initContext<StakePage.Context>(initialContext, () => {
   const tabs = useTabs()
+  const { address } = useConfig()
   const vaultAddress = useVaultAddress()
   const fetchBalances = useBalances(vaultAddress)
   const { isVaultFetching } = useStore(storeSelector)
@@ -71,9 +73,11 @@ export const {
     fetchUnboostQueue,
   ])
 
-  useEffect(() => {
-    fetchBalances()
-  }, [ fetchBalances ])
+  useAutoFetch({
+    action: fetchBalances,
+    interval: 15 * 60 * 1000,
+    skip: !address,
+  })
 
   const params = useMemo(() => ({
     vaultAddress,

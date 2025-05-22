@@ -21,7 +21,7 @@ networks.chains.forEach((chainId) => {
     // Inside wagmi there is use of contracts as a helper, it looks dangerous, better to remove it
     delete result.contracts
 
-    result.rpcUrls.default.http = Array.isArray(url) ? [ url[0] ] : [ url ]
+    result.rpcUrls.default.http = (Array.isArray(url) ? [ url[0] ] : [ url ]) as string[]
 
     chains.push(result)
   }

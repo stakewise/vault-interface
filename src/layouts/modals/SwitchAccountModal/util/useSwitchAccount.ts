@@ -5,7 +5,7 @@ import { useObjectState } from 'hooks'
 import { constants } from 'helpers'
 import { useConfig } from 'config'
 
-import type LedgerConnector from 'config/core//connectors/LedgerConnector'
+import type LedgerConnector from 'config/core/connectors/LedgerConnector'
 import { PathTypes } from 'config/core/connectors/LedgerConnector/enum'
 
 import messages from '../messages'
