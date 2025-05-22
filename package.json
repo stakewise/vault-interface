@@ -13,7 +13,8 @@
     "colors": "node ./scripts/generateColors",
     "lint:css:fix": "stylelint **/*.scss --fix",
     "check:env": "node ./scripts/checkLocalEnv.js",
-    "typechain": "typechain --target ethers-v6 --out-dir src/helpers/contracts/types 'src/helpers/contracts/abis/*.json'"
+    "typechain": "typechain --target ethers-v6 --out-dir src/helpers/contracts/types 'src/helpers/contracts/abis/*.json'",
+    "prepare": "husky"
   },
   "engines": {
     "node": "=20.12.2",
@@ -77,6 +78,7 @@
     "destyle.css": "4.0.1",
     "ethers": "6.13.2",
     "focus-visible": "5.2.1",
+    "husky": "^9.1.7",
     "js-cookie": "3.0.5",
     "lightweight-charts": "4.2.0",
     "next": "15.3.0",
