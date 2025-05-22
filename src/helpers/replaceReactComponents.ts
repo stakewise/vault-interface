@@ -34,7 +34,10 @@ export const getComponentProps = (message: string): Record<string, any> | undefi
 
   valuedProps?.forEach((match) => {
     // class="test" || class='test' || class=\test\
-    let [ key, value ] = match.trim().split(/=(?=["'\\])/) as [ any, any ]
+    const data = match.trim().split(/=(?=["'\\])/) as [ any, any ]
+
+    const key = data[0]
+    let value = data[1]
 
     if (value) {
       value = value.replace(/['"]/g, '')
@@ -110,8 +113,7 @@ const replaceReactComponents = (message: string, components: Record<string, Reac
   const splitRegexStr = `${componentNames}|${elementRegexStr}` // Link|Icon|Button|span|div|br|a
   const splitRegex = new RegExp(`(<\\s*(?:${splitRegexStr})(?:[^>]+?\/>|.+?(?:${splitRegexStr}\\s*)>))`, 'g')
 
-  let messageArr = message.split(splitRegex)
-
+  const messageArr = message.split(splitRegex)
   const componentRegExp = new RegExp(`<(${compoRegexStr})`)
   const elementRegExp = new RegExp(`<(${elementRegexStr})`)
 

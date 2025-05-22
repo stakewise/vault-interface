@@ -8,11 +8,12 @@ import osGNO from './token/osGNO.svg'
 
 import okx from './connector/okx.svg'
 import MMI from './connector/MMI.svg'
-import rabby from './connector/rabby.svg'
 import taho from './connector/taho.svg'
+import rabby from './connector/rabby.svg'
 import zengo from './connector/zengo.svg'
 import ledger from './connector/ledger.svg'
 import portis from './connector/portis.svg'
+import binance from './connector/binance.svg'
 import coinbase from './connector/coinbase.svg'
 import metamask from './connector/metamask.svg'
 import gnosisSafe from './connector/gnosisSafe.svg'
@@ -78,6 +79,7 @@ export default {
   'connector/zengo': zengo.src,
   'connector/ledger': ledger.src,
   'connector/portis': portis.src,
+  'connector/binance': binance.src,
   'connector/coinbase': coinbase.src,
   'connector/metamask': metamask.src,
   'connector/gnosisSafe': gnosisSafe.src,

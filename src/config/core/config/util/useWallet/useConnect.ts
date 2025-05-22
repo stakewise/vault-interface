@@ -1,14 +1,14 @@
 import { useCallback, useRef } from 'react'
-import methods from 'helpers/methods'
 import intl from 'modules/intl'
+import { localStorage } from 'sdk'
 import type { Eip1193Provider } from 'ethers'
 import * as constants from 'helpers/constants'
-import { localStorage } from 'sdk'
 import notifications from 'modules/notifications'
 import { getAddress, BrowserProvider } from 'ethers'
 
 import networks from '../networks'
-import connectors from '../../../connectors'
+import wallets from '../../../wallets'
+import getSpecialErrors from '../getSpecialErrors'
 
 import messages from '../../../messages'
 
@@ -41,11 +41,10 @@ const useConnect = (values: Input) => {
     inProgressRef.current = true
 
     const {
-      name,
+      title,
       activationMessage,
-      getSpecialErrors,
       getConnector,
-    } = connectors[walletName]
+    } = wallets[walletName]
 
     const { name: chainName } = networks.configs[dataRef.current.networkId]
     let { chainId } = networks.configs[dataRef.current.networkId]
@@ -56,13 +55,13 @@ const useConnect = (values: Input) => {
       throw new Error(`The ${walletName} wallet does not have a connector`)
     }
 
-    const isInjected = methods.isInjectedWallet(walletName)
-    const isGnosisSafe = walletName === constants.walletNames.gnosisSafe
-    const isWalletConnect = walletName === constants.walletNames.walletConnect
+    const isInjected = wallets[walletName].isInjectedWallet
+    const isGnosisSafe = walletName === wallets.gnosisSafe.id
+    const isWalletConnect = walletName === wallets.walletConnect.id
 
     try {
       if (isInjected) {
-        const injectedProvider = methods.getInjectedProvider(walletName)
+        const injectedProvider = wallets[walletName].getProvider()
 
         if (!injectedProvider) {
           inProgressRef.current = false
@@ -109,7 +108,7 @@ const useConnect = (values: Input) => {
         }
       }
 
-      const data = await connector.activate(dataRef.current.networkId)
+      const data = await connector.activate(dataRef.current.networkId, intlRef.current.locale)
 
       if (Number(connectorChainId) !== chainId) {
         await connector.changeChainId(chainId)
@@ -148,7 +147,7 @@ const useConnect = (values: Input) => {
         chainId,
       })
 
-      const wallet = intlRef.current.formatMessage(name as Intl.MessageTranslation)
+      const wallet = intlRef.current.formatMessage(title as Intl.MessageTranslation)
 
       notifications.open({
         type: 'success',
@@ -203,7 +202,7 @@ const useConnect = (values: Input) => {
         localStorage.clearAll()
       }
 
-      const injectedProvider = methods.getInjectedProvider(walletName)
+      const injectedProvider = isInjected && wallets[walletName].getProvider()
 
       // @ts-ignore
       const isLocked = !injectedProvider?._state?.isUnlocked
@@ -238,9 +237,7 @@ const useConnect = (values: Input) => {
         })
       }
 
-      const specialError = typeof getSpecialErrors === 'function'
-        ? getSpecialErrors(error)
-        : null
+      const specialError = getSpecialErrors(error)
 
       let errorMessage = messages.connectErrors.unknown
 

@@ -1,7 +1,7 @@
 import { useCallback, useMemo } from 'react'
-import { walletNames } from 'helpers/constants'
 
 import useConnect from './useConnect'
+import wallets from '../../../wallets'
 import useDisconnect from './useDisconnect'
 import useChangeChain from './useChangeChain'
 import useAutoConnect from './useAutoConnect'
@@ -43,7 +43,7 @@ const useWallet = (values: Input): ConfigProvider.Wallet => {
     setData({
       address,
       autoConnectChecked: true,
-      activeWallet: walletNames.monitorAddress,
+      activeWallet: wallets.monitorAddress.id,
     })
   }, [ setData ])
 

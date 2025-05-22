@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 export default {
   404: {
     en: 'Page not found',

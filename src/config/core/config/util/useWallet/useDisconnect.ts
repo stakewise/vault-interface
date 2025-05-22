@@ -1,9 +1,8 @@
 import { useCallback } from 'react'
 import intl from 'modules/intl'
-import { walletNames } from 'helpers/constants'
 import notifications from 'modules/notifications'
 
-import connectors from '../../../connectors'
+import wallets from '../../../wallets'
 
 import messages from '../../../messages'
 
@@ -24,7 +23,7 @@ const useDisconnect = (values: Input) => {
     try {
       const { activeWallet, connector } = dataRef.current
 
-      if (activeWallet !== walletNames.monitorAddress) {
+      if (activeWallet !== wallets.monitorAddress.id) {
         await connector?.deactivate()
       }
 
@@ -32,7 +31,7 @@ const useDisconnect = (values: Input) => {
         onDisconnect()
       }
 
-      const { networkId, ...rest } = initialData
+      const { networkId: _, ...rest } = initialData
 
       setData({
         ...rest,
@@ -41,8 +40,8 @@ const useDisconnect = (values: Input) => {
       })
 
       if (activeWallet) {
-        const { name } = connectors[activeWallet]
-        const wallet = intlRef.current.formatMessage(name as Intl.MessageTranslation)
+        const { title } = wallets[activeWallet]
+        const wallet = intlRef.current.formatMessage(title as Intl.MessageTranslation)
 
         notifications.open({
           type: 'success',

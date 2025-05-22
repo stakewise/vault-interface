@@ -1,16 +1,21 @@
 import { useCallback, useEffect } from 'react'
-import { localStorage } from 'sdk'
 import * as constants from 'helpers/constants'
+import { localStorage } from 'sdk'
 import { isAddress } from 'ethers'
 
-import connectors from '../../../connectors'
+import wallets from '../../../wallets'
 
 
 const _getSavedActiveWallet = (): WalletIds | null => {
   const localStorageName = constants.localStorageNames.walletName
   const savedActiveWallet = localStorage.getItem<WalletIds>(localStorageName)
 
-  if (savedActiveWallet && Object.values(constants.walletNames).includes(savedActiveWallet)) {
+  const isValid = savedActiveWallet && Object
+    .values(wallets)
+    .map(({ id }) => id)
+    .includes(savedActiveWallet)
+
+  if (isValid) {
     return savedActiveWallet
   }
   else {
@@ -46,7 +51,7 @@ const _getSavedState = (initialState: ConfigProvider.State): ConfigProvider.Stat
   if (savedActiveWallet) {
     savedState.activeWallet = savedActiveWallet
 
-    const isMonitorAddress = savedActiveWallet === constants.walletNames.monitorAddress
+    const isMonitorAddress = savedActiveWallet === wallets.monitorAddress.id
 
     if (isMonitorAddress) {
       if (savedReadOnlyAddress) {
@@ -85,24 +90,28 @@ const useAutoConnect = (values: UseAutoConnectProps) => {
 
     const isDesktop = window.innerWidth >= 1000
     const isDAppBrowser = !isDesktop && hasInjectedProvider
-    const isLedger = activeWallet === constants.walletNames.ledger
-    const isMonitorAddress = activeWallet === constants.walletNames.monitorAddress
+    const isLedger = activeWallet === wallets.ledger.id
+    const isBinance = hasInjectedProvider && window.ethereum?.isBinance
+    const isMonitorAddress = activeWallet === wallets.monitorAddress.id
 
     // ATTN: The order in this code is important!
 
     if (isFrame) {
-      const gnosisConnector = await connectors.gnosisSafe.getConnector()
+      const gnosisConnector = await wallets.gnosisSafe.getConnector()
       const isGnosisSafeApp = await gnosisConnector.isSafeApp()
 
       if (isGnosisSafeApp) {
-        connect(constants.walletNames.gnosisSafe)
+        connect(wallets.gnosisSafe.id)
       }
     }
+    else if (isBinance) {
+      connect(wallets.binance.id)
+    }
     else if (isDAppBrowser) {
-      connect(constants.walletNames.dAppBrowser)
+      connect(wallets.dAppBrowser.id)
     }
     else if (isLedger) {
-      connect(constants.walletNames.ledger)
+      connect(wallets.ledger.id)
     }
     else if (isMonitorAddress) {
       setData(savedState)

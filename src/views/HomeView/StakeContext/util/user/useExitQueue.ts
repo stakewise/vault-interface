@@ -138,6 +138,7 @@ const useExitQueue = (vaultAddress: string) => {
     return () => {
       actions.vault.user.exitQueue.resetData()
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useAutoFetch({

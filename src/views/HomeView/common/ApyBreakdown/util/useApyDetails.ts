@@ -1,6 +1,6 @@
 import { useCallback, useEffect } from 'react'
-import { useConfig } from 'config'
 import { useObjectState, useStore } from 'hooks'
+import { useConfig } from 'config'
 
 
 type ApiData = {
@@ -58,7 +58,7 @@ const useApyDetails = () => {
 
       setState({ isFetching: false })
     }
-    catch (error) {
+    catch {
       setState(initialState)
     }
   }, [ sdk, baseApy, vaultAddress, setState ])

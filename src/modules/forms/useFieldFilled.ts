@@ -21,7 +21,7 @@ const useFieldFilled = <V extends Forms.FieldValue>(field: Forms.Field<V>) => {
     return () => {
       field.unsubscribe('change', handleFilledate)
     }
-  }, [])
+  }, [ field, handleFilledate ])
 
   return isFilled
 }

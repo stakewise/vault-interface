@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react'
+import React from 'react'
 import cx from 'classnames'
 
 import { ButtonBase, Text, MagicIcon } from 'components'

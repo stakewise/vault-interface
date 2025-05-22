@@ -13,9 +13,7 @@ const networkMiddleware = createNetworkMiddleware({
     chains.chiado.id,
     chains.mainnet.id,
   ],
-  middlewareFn: async (request) => {
-    return null
-  },
+  middlewareFn: async () => null,
 })
 
 const middleware = async (request: NextRequest) => {

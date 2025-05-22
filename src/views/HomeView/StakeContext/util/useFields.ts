@@ -87,7 +87,7 @@ const useFields = (values: Input) => {
     tabRef.current = tabs.value
   }
 
-  const resetFrom = useCallback(() => form.reset(), [])
+  const resetFrom = useCallback(() => form.reset(), [ form ])
 
   useChainChanged(resetFrom)
   useAddressChanged(resetFrom)
@@ -95,9 +95,7 @@ const useFields = (values: Input) => {
   return useMemo(() => ({
     field: form.fields.field,
     percentField: form.fields.percentField,
-  }), [
-    form,
-  ])
+  }), [ form ])
 }
 
 

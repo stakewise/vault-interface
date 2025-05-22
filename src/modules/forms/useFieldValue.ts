@@ -23,7 +23,7 @@ const useFieldValue = <V extends Forms.FieldValue>(field: Forms.Field<V>) => {
         .unsubscribe('change', handleSetValue)
         .unsubscribe('error', handleSetError)
     }
-  }, [])
+  }, [ field, handleSetValue, handleSetError ])
 
   return useMemo(() => ({
     value,

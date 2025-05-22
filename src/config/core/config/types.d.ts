@@ -44,7 +44,6 @@ declare global {
       wallet: Wallet
       chainId: ChainIds
       isReadOnlyMode: boolean
-      isInjectedWallet: boolean
       cancelOnChange: (values: CancelOnChangeInput) => any
     }
 

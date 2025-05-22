@@ -9,10 +9,6 @@ import {
 } from 'swiper/modules'
 
 
-type Input = {
-  autoHeight: SwiperProps['autoHeight']
-}
-
 const getConfig = (values: Partial<SwiperProps>): SwiperProps => ({
   effect: 'fade',
   slidesPerView: 1,

@@ -42,6 +42,7 @@ const useAccountItem = (values: AccountItemProps): Output => {
           })
         })
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const handleClick = useCallback(() => {

@@ -87,11 +87,11 @@ const TabsView: React.FC<TabsViewProps> = (props) => {
 
       onChange(selectedId as string)
     }
-  }, [ tabsList, onChange ])
+  }, [ tabsList, onChange, handleLine ])
 
   useEffect(() => {
     handleLine(selectedIndex)
-  }, [ tabsList, selectedIndex, locale ])
+  }, [ tabsList, selectedIndex, locale, handleLine ])
 
   return (
     <div className={className}>

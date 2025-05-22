@@ -1,3 +1,5 @@
+type Function = (...args: Array<any>) => void
+
 class Event {
 
   private handlers: Array<Function> = []

@@ -21,6 +21,7 @@ const useActions = () => {
     currency: wrapDispatchMethods(currencyMethods, dispatch),
     fiatRates: wrapDispatchMethods(fiatRatesMethods, dispatch),
     mintToken: wrapDispatchMethods(mintTokenMethods, dispatch),
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }), [])
 }
 

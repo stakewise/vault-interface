@@ -104,7 +104,7 @@ const InputView: React.FC<InputViewProps> = (props) => {
     if (isFocused && !disabled && ref.current) {
       ref.current.focus()
     }
-  }, [ isFocused, disabled ])
+  }, [ ref, isFocused, disabled ])
 
   const controlId = useId()
   const htmlAttrs = methods.getGlobalHtmlAttrs(otherProps)

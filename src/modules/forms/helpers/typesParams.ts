@@ -36,7 +36,7 @@ const getDateParams = (values: Forms.GetTypesInput = {}): Forms.TypeParams => {
     validators: [
       validators.validDate,
     ],
-    mask: 'date' as 'date',
+    mask: 'date' as const,
   }
 
   if (isRequired) {

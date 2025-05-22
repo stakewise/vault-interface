@@ -18,6 +18,7 @@ export type TokenAmountInputProps = {
   loading?: boolean
   dataTestId?: string
   tokenBalance?: bigint
+  withoutBalance?: boolean
   balanceTitle?: Intl.Message
   bottomNode?: React.ReactNode
   label?: Intl.Message | string
@@ -34,10 +35,11 @@ const TokenAmountInput: React.FC<TokenAmountInputProps> = (props) => {
     field,
     token,
     loading,
+    bottomNode,
     dataTestId,
     tokenBalance,
-    bottomNode,
     balanceTitle,
+    withoutBalance,
     onChange,
     onMaxButtonClick,
   } = props
@@ -142,7 +144,7 @@ const TokenAmountInput: React.FC<TokenAmountInputProps> = (props) => {
             className="flex-1"
             value={formattedValue}
             error={Boolean(error)}
-            disabled={loading || !tokenBalance}
+            disabled={loading || (!tokenBalance && !withoutBalance)}
             isRequired={field.isRequired}
             dataTestId={dataTestId}
             onChange={handleChange}

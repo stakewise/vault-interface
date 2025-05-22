@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import { createContract } from 'sdk'
 
 import addresses from './addresses'

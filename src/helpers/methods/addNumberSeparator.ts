@@ -1,5 +1,5 @@
 const addNumberSeparator = (value: string) => {
-  var reverseArray = value.split('').reverse()
+  const reverseArray = value.split('').reverse()
 
   const changedArray = reverseArray.reduce((acc, number, index) => {
     if (index && index % 3 === 0) {

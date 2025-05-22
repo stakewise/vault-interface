@@ -3,7 +3,7 @@ import { useActions, useBalances } from 'hooks'
 import { useConfig } from 'config'
 
 
-let skipRequest: Record<string, boolean> = {} // If the request is too slow, you need to block the next request
+const skipRequest: Record<string, boolean> = {} // If the request is too slow, you need to block the next request
 const timeout = 1000 * 15
 
 const useAutoFetchBalances = () => {

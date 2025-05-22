@@ -1,9 +1,10 @@
 import { useEffect } from 'react'
+import { localStorage } from 'sdk'
 import cookie from 'helpers/cookie'
 import * as constants from 'helpers/constants'
-import { localStorage } from 'sdk'
 
 import networks from './networks'
+import wallets from '../../wallets'
 
 
 const useStorageUpdate = (configState: ConfigProvider.ConfigState) => {
@@ -25,17 +26,8 @@ const useStorageUpdate = (configState: ConfigProvider.ConfigState) => {
   // Update localStorage wallet name
   useEffect(() => {
     if (autoConnectChecked) {
-      if (activeWallet) {
-        const isCustomBrowsers = [
-          constants.walletNames.walletConnect,
-          constants.walletNames.dAppBrowser,
-          constants.walletNames.gnosisSafe,
-          // @ts-ignore
-        ].includes(activeWallet)
-
-        if (!isCustomBrowsers) {
-          localStorage.setItem(constants.localStorageNames.walletName, activeWallet)
-        }
+      if (activeWallet && wallets[activeWallet].isLocalStorageSave) {
+        localStorage.setItem(constants.localStorageNames.walletName, activeWallet)
       }
       else {
         localStorage.removeItem(constants.localStorageNames.walletName)
@@ -45,7 +37,7 @@ const useStorageUpdate = (configState: ConfigProvider.ConfigState) => {
 
   // Update localStorage readonly address
   useEffect(() => {
-    const isMonitorAddress = activeWallet === constants.walletNames.monitorAddress
+    const isMonitorAddress = activeWallet === wallets.monitorAddress.id
 
     if (!autoConnectChecked) {
       return

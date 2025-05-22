@@ -2,21 +2,19 @@
   --*: initial;
 
   /* Colors */
-  --color-background: var(--background);
-  --color-primary: var(--primary);
-  --color-primary-start: var(--primary-start);
-  --color-primary-end: var(--primary-end);
-  --color-secondary: var(--secondary);
-  --color-secondary-start: var(--secondary-start);
-  --color-secondary-end: var(--secondary-end);
-  --color-success-light: var(--success-light);
-  --color-success: var(--success);
-  --color-warning: var(--warning);
-  --color-error: var(--error);
+  --color-light: var(--light);
   --color-dark: var(--dark);
   --color-black: var(--black);
-  --color-light: var(--light);
   --color-white: var(--white);
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-warning: var(--warning);
+  --color-success-light: var(--success-light);
+  --color-success: var(--success);
+  --color-background: var(--background);
+  --color-error: var(--error);
+  --color-primary-start: var(--primary-start);
+  --color-primary-end: var(--primary-end);
 
   /* Border radius */
   --radius-2: 2rem;
@@ -27,6 +25,15 @@
   --radius-16: 16rem;
   --radius-24: 24rem;
   --radius-72: 72rem;
+
+  /* Blur */
+  --blur-xs: 4rem;
+  --blur-sm: 8rem;
+  --blur-md: 12rem;
+  --blur-lg: 16rem;
+  --blur-xl: 24rem;
+  --blur-2xl: 40rem;
+  --blur-3xl: 64rem;
 
   /* Animation */
   --animate-spin: spin 1s linear infinite;

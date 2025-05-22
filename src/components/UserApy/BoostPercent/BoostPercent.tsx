@@ -1,9 +1,8 @@
 import React from 'react'
 import cx from 'classnames'
-import methods from 'helpers/methods'
-import { useConfig } from 'config'
 import intl from 'modules/intl'
-import { commonMessages } from 'helpers'
+import { useConfig } from 'config'
+import methods from 'helpers/methods'
 
 import Logo from '../../Logo/Logo'
 import Icon from '../../Icon/Icon'

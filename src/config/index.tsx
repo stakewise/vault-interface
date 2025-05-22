@@ -99,7 +99,7 @@ const ConfigProvider: React.FC<ConfigProviderProps> = (props) => {
     modal.closeModal(connectModalId)
 
     setTimeout(() => actions.ui.resetBottomLoader())
-  }, [])
+  }, [ actions ])
 
   return (
     <InitialConfigProvider

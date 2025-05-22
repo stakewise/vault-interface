@@ -8,6 +8,7 @@ const useField = <V extends Forms.FieldValue>(params: Forms.FieldConfig<V>): For
     const field = new Field(params)
 
     return field
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []) // ATTN The field is initialised only once, to keep event subscribers from dropping out!
 }
 

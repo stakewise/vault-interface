@@ -2,7 +2,7 @@ import React from 'react'
 import { constants } from 'helpers'
 import { useSelector } from 'react-redux'
 
-import { Text, TokenAmount, FiatAmount, Loading, UserApy } from 'components'
+import { Text, TokenAmount, FiatAmount, UserApy } from 'components'
 
 import { stakeCtx } from 'views/HomeView/StakeContext/util'
 

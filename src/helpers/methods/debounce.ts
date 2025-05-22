@@ -5,6 +5,7 @@ function debounce<F extends Procedure>(func: F, wait: number, immediate?: boolea
   let timeout: ReturnType<typeof setTimeout> | undefined
 
   return function (this: ThisParameterType<F>, ...args: Parameters<F>): void {
+    // eslint-disable-next-line @typescript-eslint/no-this-alias
     const context = this
 
     const later = function () {

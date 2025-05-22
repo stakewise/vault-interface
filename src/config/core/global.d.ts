@@ -1,11 +1,14 @@
 import networks from './config/util/networks'
-import connectors from './connectors'
+import wallets from './wallets'
 
+
+const walletsIds = Object.values(wallets).map(({ id }) => id)
 
 declare global {
+  type WalletIds = typeof walletsIds[number]
   type ReadOnlyConnector = ReadOnlyConnectorType
   type NetworkIds = OneOfArray<typeof networks.ids>
-  type Connectors = Unpromise<ReturnType<typeof connectors[WalletIds]['getConnector']>>
+  type Connectors = Unpromise<ReturnType<typeof wallets[WalletIds]['getConnector']>>
 
   namespace LocalStorageData {
 

@@ -1,10 +1,10 @@
 import { useCallback } from 'react'
 import { BrowserProvider } from 'ethers'
 import type { Eip1193Provider } from 'ethers'
-import * as constants from 'helpers/constants'
 import notifications from 'modules/notifications'
 
 import networks from '../networks'
+import wallets from '../../../wallets'
 
 import messages from '../../../messages'
 
@@ -35,8 +35,16 @@ const useChangeChain = (values: Input) => {
       return Promise.reject(`Network ${networkId} is not supported`)
     }
 
+    const isWalletSupportedChain = activeWallet
+      ? wallets[activeWallet].networks.includes(networks.chainById[networkId])
+      : true
+
+    if (!isWalletSupportedChain) {
+      return Promise.reject(`The ${activeWallet} wallet does not support the ${networkId} network`)
+    }
+
     const chainId = networks.chainById[networkId]
-    const isMonitorAddress = activeWallet === constants.walletNames.monitorAddress
+    const isMonitorAddress = activeWallet === wallets.monitorAddress.id
 
     if (!dataRef.current.address || isMonitorAddress) {
       setData({ networkId })
@@ -49,9 +57,9 @@ const useChangeChain = (values: Input) => {
     }
 
     const appConnectorNames: WalletIds[] = [
-      constants.walletNames.walletConnect,
-      constants.walletNames.coinbase,
-      constants.walletNames.zenGo,
+      wallets.walletConnect.id,
+      wallets.coinbase.id,
+      wallets.zenGo.id,
     ]
 
     const needAppConfirmation = appConnectorNames.includes(activeWallet as WalletIds)

@@ -44,7 +44,7 @@ const formatTokenValue = (value: bigint | string, isMinimalValueShow: boolean = 
     const isNegative = /^-/.test(result)
     const formattedValue = isNegative ? result.replace(/^-/, '') : result
 
-    let [ integer, remainder ] = formattedValue.split('.')
+    const [ integer, remainder ] = formattedValue.split('.')
 
     // 0001 => 1
     const numberInteger = Number(integer)
