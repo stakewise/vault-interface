@@ -17,8 +17,8 @@
     "prepare": "husky"
   },
   "engines": {
-    "node": "=20.12.2",
-    "npm": "=10.5.0"
+    "node": "=22.14.0",
+    "npm": "=10.9.2"
   },
   "sideEffects": [
     "*.css",
@@ -87,7 +87,7 @@
     "react-dom": "19.1.0",
     "react-redux": "9.2.0",
     "swiper": "11.1.15",
-    "ua-parser-js": "1.0.38",
+    "ua-parser-js": "2.0.3",
     "viem": "2.25.0",
     "xlsx": "0.18.5"
   }
