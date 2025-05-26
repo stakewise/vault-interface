@@ -9,7 +9,6 @@
     "build": "npm run typechain && npm run colors && next build",
     "dev": "npm run check:env && npm run typechain && npm run colors && npm run fast",
     "lint": "next lint",
-    "lint:css": "stylelint **/*.scss",
     "colors": "node ./scripts/generateColors",
     "lint:css:fix": "stylelint **/*.scss --fix",
     "check:env": "node ./scripts/checkLocalEnv.js",
