@@ -20,7 +20,7 @@ const dAppBrowser = {
   isAddTokenEnabled: false,
   isInjectedWallet: true,
   isLocalStorageSave: false,
-  isDisableSwitchChain: true,
+  isDisableSwitchChain: false,
   activationMessage: messages.authMessages.waitingAuth,
   networks: [
     Network.Mainnet,
