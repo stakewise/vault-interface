@@ -1,5 +1,5 @@
 import { useCallback, useEffect } from 'react'
-import { createChart } from 'lightweight-charts'
+import { createChart, AreaSeries, HistogramSeries } from 'lightweight-charts'
 import { useObjectState } from 'hooks'
 
 import useDefaultSettings from './useDefaultSettings'
@@ -55,8 +55,8 @@ const useCreateChart = (input: Input): State => {
       }
 
       const series = style === 'line'
-        ? chart.addAreaSeries(params)
-        : chart.addHistogramSeries(params)
+        ? chart.addSeries(AreaSeries, params)
+        : chart.addSeries(HistogramSeries, params)
 
       series.setData(data as Charts.TimePoint[])
 
