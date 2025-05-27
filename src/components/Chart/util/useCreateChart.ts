@@ -61,7 +61,7 @@ const useCreateChart = (input: Input): State => {
       series.setData(data as Charts.TimePoint[])
 
       return {
-        series: series as Charts.Series,
+        series,
         options,
       }
     })
