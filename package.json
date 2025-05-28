@@ -42,7 +42,7 @@
     ]
   },
   "overrides": {
-    "@playwright/test": "~"
+    "@playwright/test": "1.33.0"
   },
   "devDependencies": {
     "@guardianui/test": "1.0.4",
