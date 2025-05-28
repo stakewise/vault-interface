@@ -17,8 +17,7 @@ console.log('-------------------------------------------------------------------
 /**
  * @type {import('next').NextConfig}
  */
-let nextConfig = {
-  optimizeFonts: isProduction,
+const nextConfig = {
   reactStrictMode: false,
   sassOptions: {
     additionalData: `
