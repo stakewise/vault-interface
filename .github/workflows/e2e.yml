@@ -6,7 +6,7 @@ on:
 
 jobs:
   audit:
-    name: Test
+    name: E2E testing
     permissions:
       contents: read
       packages: read
