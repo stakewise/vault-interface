@@ -15,12 +15,12 @@ jobs:
     steps:
       - name: Get preview link
         uses: zentered/vercel-preview-url@v1.1.9
-        id: build
+        id: preview
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
         with:
           vercel_team_id: ${{ secrets.VERCEL_ORG_ID }}
-          vercel_project_id: ${{ secrets.VERCEL_WEB_ID }}
+          vercel_project_id: ${{ secrets.VERCEL_PROJ_ID }}
 
       - name: Checkout 🛎️
         uses: actions/checkout@v2
@@ -43,7 +43,7 @@ jobs:
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEl_TOKEN }}
         with:
-          deployment-url: ${{ steps.build.outputs.preview_url }}
+          deployment-url: ${{ steps.preview.outputs.preview_url }}
           timeout: 600
 
       - name: Install Foundry
@@ -52,11 +52,11 @@ jobs:
       - name: Run tests
         env:
           CI: true
-          URL: https://${{ steps.build.outputs.preview_url }}
-          RPC_URL: ${{ secrets.RPC_URL }}
           WITH_ANVIL: true
-          GUARDIAN_UI_INFURA_API_KEY: 84842078b09946638c03157f83405213
-          GUARDIAN_UI_ALCHEMY_API_KEY: _gg7wSSi0KMBsdKnGVfHDueq6xMB9EkC
+          URL: https://${{ steps.preview.outputs.preview_url }}
+          RPC_URL: ${{ secrets.RPC_URL }}
+          GUARDIAN_UI_INFURA_API_KEY: ${{ secrets.GUARDIAN_UI_INFURA_API_KEY }}
+          GUARDIAN_UI_ALCHEMY_API_KEY: ${{ secrets.GUARDIAN_UI_ALCHEMY_API_KEY }}
           VERCEL_AUTOMATION_BYPASS_SECRET: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}
         run: npm run e2e
 
