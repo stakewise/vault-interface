@@ -1,5 +1,6 @@
 {
   "name": "vault-interface",
+  "license": "MIT",
   "version": "1.0.1",
   "description": "Vault Interface",
   "homepage": ".",
@@ -40,7 +41,9 @@
       "last 1 safari version"
     ]
   },
-  "license": "MIT",
+  "overrides": {
+    "@playwright/test": "~"
+  },
   "devDependencies": {
     "@guardianui/test": "1.0.4",
     "@playwright/test": "1.33.0",
