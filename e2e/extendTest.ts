@@ -14,7 +14,6 @@ import {
   guardian,
   transactions,
 } from './fixtures'
-import './types'
 
 
 const baseTest = base.extend<E2E.ExtendedTest>({
