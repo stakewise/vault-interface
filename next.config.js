@@ -85,6 +85,7 @@ const nextConfig = {
     config.plugins.push(
       new webpack.DefinePlugin({
         'IS_PROD': isProduction,
+        // Technical variable
         'IS_LIGHTWEIGHT_MODE': false,
         // Creates a unique identifier where this variable is used in code
         'UNIQUE_FILE_ID': webpack.DefinePlugin.runtimeValue(
