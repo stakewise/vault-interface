@@ -6,7 +6,7 @@ import device from 'modules/device'
 
 import { Text, Icon } from 'components'
 import { stakeCtx } from 'views/HomeView/StakeContext/util'
-import { ApyBreakdown } from 'views/HomeView/common'
+import ApyBreakdown from 'views/HomeView/common/ApyBreakdown/ApyBreakdown'
 
 import MagicPercent from './MagicPercent/MagicPercent'
 

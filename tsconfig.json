@@ -45,8 +45,10 @@
   },
   "include": [
     "src/**/*.ts",
+    "e2e/**/*.ts",
     "src/**/*.tsx",
     "src/**/*.d.ts",
+    "e2e/**/*.d.ts",
     ".next/types/**/*.ts"
   ],
   "exclude": [

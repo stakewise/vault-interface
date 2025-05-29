@@ -8,10 +8,9 @@ import { Provider as ReduxProvider } from 'react-redux'
 import device, { onDeviceChange } from 'modules/device'
 import { createVaultInterfaceStore } from 'store/entries/vault-interface'
 
+import languages from 'scripts/languages'
 import { ImagesProvider } from 'components'
 import AppLayout from 'layouts/AppLayout/AppLayout'
-
-import { allLanguages } from 'scripts/collectMessages/languages'
 
 
 polyfills.promiseAllSettled()
@@ -32,7 +31,7 @@ const GlobalLayout: React.FC<GlobalLayoutProps> = (values) => {
   const { children, networkId, locale: initialLocale, serverDevice, serverTheme, vaultBase } = values
 
   // Strange "_next" type values may come in
-  const isValidLocale = allLanguages.includes(initialLocale)
+  const isValidLocale = languages.includes(initialLocale)
   const locale = isValidLocale ? initialLocale : 'en'
 
   const themeContext = theme.useInit(serverTheme)
@@ -72,7 +71,7 @@ const GlobalLayout: React.FC<GlobalLayoutProps> = (values) => {
       <device.Provider value={deviceContext}>
         <intl.IntlProvider
           locale={locale as Intl.LanguagesKeys}
-          locales={allLanguages as unknown as Intl.LanguagesKeys[]}
+          locales={languages as unknown as Intl.LanguagesKeys[]}
         >
           <ReduxProvider store={store}>
             <ConfigProvider serverNetworkId={networkId}>
