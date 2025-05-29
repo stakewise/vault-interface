@@ -8,7 +8,7 @@ import { cookie, constants } from 'helpers'
 import messages from 'views/ErrorView/messages'
 
 import { Button, Text } from 'components'
-import { allLanguages } from 'scripts/collectMessages/languages'
+import languages from 'scripts/languages'
 
 import 'styles/globals.scss'
 import 'styles/tailwind/config.css'
@@ -31,7 +31,7 @@ const GlobalError = ({ error, reset }: GlobalErrorViewProps) => {
   const isSystemTheme = cookie.get(constants.cookieNames.isSystemTheme) !== 'false'
   const initialLocale = cookie.get(constants.cookieNames.language) as Intl.LanguagesKeys
 
-  const isValidLocale = allLanguages.includes(initialLocale)
+  const isValidLocale = languages.includes(initialLocale)
 
   const locale = isValidLocale ? initialLocale : 'en'
 
@@ -77,7 +77,7 @@ const GlobalError = ({ error, reset }: GlobalErrorViewProps) => {
       <theme.Provider value={themeContext}>
         <intl.IntlProvider
           locale={locale as Intl.LanguagesKeys}
-          locales={allLanguages as unknown as Intl.LanguagesKeys[]}
+          locales={languages as unknown as Intl.LanguagesKeys[]}
         >
           <div className='width-container flex flex-1'>
             <div className="flex flex-col items-center justify-center m-auto max-w-[520rem]">
