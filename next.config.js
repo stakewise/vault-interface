@@ -134,7 +134,6 @@ const nextConfig = {
 
     config.optimization = {
       ...config.optimization,
-      usedExports: true,
       minimize: true,
       minimizer: [
         new TerserPlugin({
