@@ -62,7 +62,7 @@ const nextConfig = {
           {
             key: "Content-Security-Policy",
             // https://ethereum.stackexchange.com/questions/145491/getting-the-app-doesnt-support-safe-app-functionality
-            value: "frame-ancestors 'self' https://app.safe.global https://holesky-safe.protofire.io https://*.blockscout.com;",
+            value: `frame-ancestors 'self' ${process.env.NEXT_PUBLIC_CONTENT_SECURITY_POLICY};`,
           },
         ],
       },

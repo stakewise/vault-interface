@@ -48,6 +48,10 @@ allowing you to select the desired network.
 
 - <b>Currency Configuration</b>:
   - The UI supports 7 currencies by default (USD, EUR, GBP, JPY, CNY, CHF, AUD). To exclude currencies, set the `NEXT_PUBLIC_CURRENCIES` variable. For example, for USD and EUR only, use `NEXT_PUBLIC_CURRENCIES=USD, EUR`.
+
+- <b>Content-Security-Policy Configuration</b>:
+  - If you want your site to open in a frame, you can list sites where this is possible. `NEXT_PUBLIC_CONTENT_SECURITY_POLICY=https://app.safe.global https://*.blockscout.com`.
+
 - Set `NEXT_PUBLIC_IS_PROD=false` for development and `NEXT_PUBLIC_IS_PROD=true` for production. It will make code optimizations for production build.
 5. Verify Node Version: Ensure your Node.js version is `20.12.2` or higher.
 6. Run `npm install` to install the necessary dependencies.
