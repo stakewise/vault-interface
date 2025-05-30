@@ -14,7 +14,7 @@ export type HrefProps = {
   targetBlank?: boolean
   ariaLabel?: string | Intl.Message
   ref?: React.RefObject<HTMLAnchorElement>
-  onClick?: () => void
+  onClick?: (event: any) => void
 }
 
 const Href: React.FC<HrefProps> = (props) => {
@@ -35,7 +35,7 @@ const Href: React.FC<HrefProps> = (props) => {
   // Handle enter click on focused link
   const handler = useCallback((event: any) => {
     if (event.keyCode === 13 && typeof onClick === 'function') {
-      onClick()
+      onClick(event)
     }
   }, [ onClick ])
 

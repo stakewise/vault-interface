@@ -6,6 +6,29 @@ import SWISE from './token/swise.svg'
 import osETH from './token/osETH.svg'
 import osGNO from './token/osGNO.svg'
 
+// https://raw.githubusercontent.com/api3dao/logos/refs/heads/main/raw/symbols/usdc.svg
+import WETH from './token/swap/WETH.svg'
+import eETH from './token/swap/eETH.svg'
+import ETHx from './token/swap/ETHx.svg'
+import mETH from './token/swap/mETH.svg'
+import USDC from './token/swap/USDC.svg'
+import USDT from './token/swap/USDT.svg'
+import wBTC from './token/swap/wBTC.svg'
+import rETH from './token/swap/rETH.svg'
+import USDS from './token/swap/USDS.svg'
+import EURe from './token/swap/EURe.svg'
+import sDAI from './token/swap/sDAI.svg'
+import rsETH from './token/swap/rsETH.svg'
+import cbETH from './token/swap/cbETH.svg'
+import cmETH from './token/swap/cmETH.svg'
+import egETH from './token/swap/egETH.svg'
+import ezETH from './token/swap/ezETH.svg'
+import lsETH from './token/swap/lsETH.svg'
+import stETH from './token/swap/stETH.svg'
+import wbETH from './token/swap/wbETH.svg'
+import wstETH from './token/swap/wstETH.svg'
+import frxETH from './token/swap/frxETH.svg'
+
 import okx from './connector/okx.svg'
 import MMI from './connector/MMI.svg'
 import taho from './connector/taho.svg'
@@ -72,6 +95,29 @@ export default {
   'token/SWISE': SWISE.src,
   'token/osETH': osETH.src,
   'token/osGNO': osGNO.src,
+
+  'token/WETH': WETH.src,
+  'token/eETH': eETH.src,
+  'token/ETHx': ETHx.src,
+  'token/mETH': mETH.src,
+  'token/USDC': USDC.src,
+  'token/USDT': USDT.src,
+  'token/wBTC': wBTC.src,
+  'token/rETH': rETH.src,
+  'token/USDS': USDS.src,
+  'token/USDC.e': USDC.src,
+  'token/sDAI': sDAI.src,
+  'token/EURe': EURe.src,
+  'token/rsETH': rsETH.src,
+  'token/cbETH': cbETH.src,
+  'token/cmETH': cmETH.src,
+  'token/egETH': egETH.src,
+  'token/ezETH': ezETH.src,
+  'token/lsETH': lsETH.src,
+  'token/stETH': stETH.src,
+  'token/wbETH': wbETH.src,
+  'token/wstETH': wstETH.src,
+  'token/frxETH': frxETH.src,
 
   'connector/MMI': MMI.src,
   'connector/okx': okx.src,

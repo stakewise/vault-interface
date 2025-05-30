@@ -18,4 +18,6 @@ const fetchFiatRates = async (network: Network) => {
 }
 
 
+export { createSetValues } from './helpers'
+
 export default fetchFiatRates

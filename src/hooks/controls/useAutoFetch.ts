@@ -25,6 +25,18 @@ const useAutoFetch = (values: UseAutoFetchProps) => {
     setLastFetched(Date.now())
   }, [ action ])
 
+  const isSkipped = skip && isActive
+
+  useEffect(() => {
+    setLastFetched(null)
+  }, [ action ])
+
+  useEffect(() => {
+    if (isSkipped) {
+      setLastFetched(null)
+    }
+  }, [ isSkipped ])
+
   useEffect(() => {
     if (!skip && isActive) {
       let timeLeft = 0

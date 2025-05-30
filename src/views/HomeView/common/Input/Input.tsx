@@ -50,11 +50,13 @@ const Input: React.FC<InputProps> = (props) => {
   return (
     <TokenAmountInput
       className={className}
-      token={token}
       field={field}
       loading={isSubmitting}
-      balanceTitle={balanceTitle}
-      tokenBalance={tokenBalance}
+      balance={{
+        token,
+        title: balanceTitle,
+        value: tokenBalance,
+      }}
       dataTestId="amount-input"
       onMaxButtonClick={address ? onMaxButtonClick : undefined}
     />

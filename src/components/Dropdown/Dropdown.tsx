@@ -28,7 +28,6 @@ type DropdownOption = LinkProps & {
 
 export type DropdownProps = Omit<DropdownViewProps, 'children'> & {
   className?: string
-  dataTestId?: string
   options: DropdownOption[]
   onChange?: (value: DropdownOption['value']) => void
 }

@@ -24,4 +24,5 @@ export { default as useClaimsTotal } from './data/useClaimsTotal'
 
 export { default as useApprove } from './fetch/useApprove'
 export { default as useAllowance } from './fetch/useAllowance'
+export { default as useTransaction } from './fetch/useTransaction'
 export { default as useSubgraphUpdate } from './fetch/useSubgraphUpdate'

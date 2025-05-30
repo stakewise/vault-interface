@@ -109,11 +109,17 @@ export type { TextProps } from './Text/Text'
 export { default as TextWithTooltip } from './TextWithTooltip/TextWithTooltip'
 export type { TextWithTooltipProps } from './TextWithTooltip/TextWithTooltip'
 
+export { default as Token } from './Token/Token'
+export type { TokenProps } from './Token/Token'
+
 export { default as TokenAmount } from './TokenAmount/TokenAmount'
 export type { TokenAmountProps } from './TokenAmount/TokenAmount'
 
 export { default as TokenAmountInput } from './TokenAmountInput/TokenAmountInput'
 export type { TokenAmountInputProps } from './TokenAmountInput/TokenAmountInput'
+
+export { default as TokenAmountInputView } from './TokenAmountInputView/TokenAmountInputView'
+export type { TokenAmountInputViewProps } from './TokenAmountInputView/TokenAmountInputView'
 
 export { default as Tooltip } from './Tooltip/Tooltip'
 export type { TooltipProps } from './Tooltip/Tooltip'

@@ -1,4 +1,5 @@
 export default {
+  swapTokenBalances: 'swapTokenBalances',
   distributorClaims: 'distributorClaims',
   vaultUserRewards: 'vaultUserRewards',
   allocatorActions: 'allocatorActions',
@@ -9,6 +10,7 @@ export default {
   depositsVaults: 'depositsVaults',
   vaultExitQueue: 'vaultExitQueue',
   rewardSplitter: 'rewardSplitter',
+  swapTokenRates: 'swapTokenRates',
   osTokenVaults: 'osTokenVaults',
   operateVaults: 'operateVaults',
   vaultBalances: 'vaultBalances',
