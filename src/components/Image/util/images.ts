@@ -53,6 +53,7 @@ export const icons = [
   'icon/gear',
   'icon/copy',
   'icon/link',
+  'icon/home',
   'icon/money',
   'icon/earth',
   'icon/theme',

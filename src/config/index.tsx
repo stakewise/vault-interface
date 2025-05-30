@@ -76,7 +76,7 @@ const ConfigProvider: React.FC<ConfigProviderProps> = (props) => {
 
   const actions = useActions()
   const isActivationMessageVisible = useRef(false)
-  const activationMessageTimeoutRef = useRef<number>(null)
+  const activationMessageTimeoutRef = useRef<NodeJS.Timeout>(null)
 
   const setLoader = useCallback((activationMessage: Intl.Message | string) => {
     activationMessageTimeoutRef.current = setTimeout(() => {

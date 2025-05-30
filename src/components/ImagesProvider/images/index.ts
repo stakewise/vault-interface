@@ -45,6 +45,7 @@ import info from './icon/info.svg'
 import gear from './icon/gear.svg'
 import copy from './icon/copy.svg'
 import link from './icon/link.svg'
+import home from './icon/home.svg'
 import money from './icon/money.svg'
 import earth from './icon/earth.svg'
 import theme from './icon/theme.svg'
@@ -113,6 +114,7 @@ export default {
   'icon/gear': gear.src,
   'icon/link': link.src,
   'icon/copy': copy.src,
+  'icon/home': home.src,
   'icon/money': money.src,
   'icon/earth': earth.src,
   'icon/theme': theme.src,

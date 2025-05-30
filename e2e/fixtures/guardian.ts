@@ -3,7 +3,11 @@ import path from 'path'
 import { Wallet } from 'ethers'
 
 
-const scriptPath = path.resolve(__dirname, '../../node_modules/@guardianui/test/dist/provider/provider.js')
+const entryPoint = require.resolve('@guardianui/test')
+const distDir = path.dirname(entryPoint)
+const pkgRoot = path.dirname(distDir)
+
+const scriptPath = path.join(pkgRoot, 'dist', 'provider', 'provider.js')
 
 const fixScript = `
   const updateBigNumber = (data) => {

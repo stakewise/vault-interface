@@ -11,7 +11,7 @@ jobs:
       contents: read
       packages: read
     runs-on: ubuntu-latest
-    container: mcr.microsoft.com/playwright:v1.33.0-jammy
+    container: mcr.microsoft.com/playwright:v1.52.0-jammy
     steps:
       - name: Get preview link
         uses: zentered/vercel-preview-url@v1.1.9
