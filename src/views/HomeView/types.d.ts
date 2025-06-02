@@ -16,7 +16,7 @@ declare global {
 
     namespace Tabs {
 
-      type SetTab = (tab: TabsIds) => void
+      type SetTab = (tab: Tab) => void
 
       type Data = {
         value: Tab
@@ -70,6 +70,12 @@ declare global {
     type Params = {
       fetch: Fetch
       vaultAddress: string
+    }
+
+    type SwapTokens = {
+      list: SwapToken[]
+      selected: SwapToken
+      setSelected: (address: string | null) => void
     }
   }
 }

@@ -1,8 +1,8 @@
 import { useMemo } from 'react'
-import { useStore, useAutoFetch } from 'hooks'
-import { initContext } from 'helpers'
-import { ZeroAddress } from 'ethers'
 import { useConfig } from 'config'
+import { ZeroAddress } from 'ethers'
+import { initContext } from 'helpers'
+import { useStore, useAutoFetch, useSwapQuote, useSwapTokens } from 'hooks'
 
 import useFields from './useFields'
 import useTabs, { tabsMock } from './useTabs'
@@ -55,6 +55,7 @@ export const {
 } = initContext<StakePage.Context>(initialContext, () => {
   const tabs = useTabs()
   const { address } = useConfig()
+  const swapTokens = useSwapTokens()
   const vaultAddress = useVaultAddress()
   const fetchBalances = useBalances(vaultAddress)
   const { isVaultFetching } = useStore(storeSelector)
@@ -62,6 +63,13 @@ export const {
   const { refetchData, ...data } = useBaseData(vaultAddress)
   const { fetchExitQueue, claimExitQueue } = useExitQueue(vaultAddress)
   const { fetchUnboostQueue, claimUnboostQueue } = useUnboostQueue({ vaultAddress, fetchBalances })
+
+  const swapToken = swapTokens.selected
+
+  const { fee, getBuyAmount, isFetching: isSwapQuoteFetching } = useSwapQuote({
+    amount: swapToken.balance,
+    fromToken: swapToken.address,
+  })
 
   const fetch = useMemo(() => ({
     data: refetchData,
@@ -94,7 +102,7 @@ export const {
   const burn = useBurn(params)
   const mint = useMint(params)
   const boost = useBoost(params)
-  const stake = useStake(params)
+  const stake = useStake({ ...params, swapTokens })
   const unboost = useUnboost(params)
   const unstake = useUnstake(params)
 

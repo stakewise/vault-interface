@@ -1,6 +1,7 @@
 export { default as useCopyToClipboard } from './actions/useCopyToClipboard'
 export { default as useAddTokenToWallet } from './actions/useAddTokenToWallet'
 
+export { default as useDeepMemo } from './controls/useDeepMemo'
 export { default as useTabButton } from './controls/useTabButton'
 export { default as useAutoFetch } from './controls/useAutoFetch'
 export { default as useMountedRef } from './controls/useMountedRef'
@@ -26,3 +27,7 @@ export { default as useApprove } from './fetch/useApprove'
 export { default as useAllowance } from './fetch/useAllowance'
 export { default as useTransaction } from './fetch/useTransaction'
 export { default as useSubgraphUpdate } from './fetch/useSubgraphUpdate'
+
+export { default as useSwap } from './stake/useSwap'
+export { default as useSwapQuote } from './stake/useSwapQuote'
+export { default as useSwapTokens } from './stake/useSwapTokens'

@@ -98,7 +98,17 @@ const nextConfig = {
       }),
       new webpack.NormalModuleReplacementPlugin(/(.*\.graphql)$/m, (resource) => {
         resource.request = resource.request.replace(/(.*\.graphql)$/m, '$1.ts')
-      })
+      }),
+      // Cow SDK used 5 version of the "ethers" lib. Special for this we have ethers-5 pkg.
+      new webpack.NormalModuleReplacementPlugin(
+        /ethers/m, (resource) => {
+          const isCowProtocol = /@cowprotocol/.test(resource.context)
+
+          if (isCowProtocol) {
+            resource.request = resource.request.replace(/^ethers(\/lib)?/, 'ethers-5/lib.esm')
+          }
+        }
+      )
     )
 
     const prefix = config.assetPrefix || ''

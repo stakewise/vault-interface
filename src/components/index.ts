@@ -25,6 +25,9 @@ export type { CounterProps } from './Counter/Counter'
 export { default as Dropdown } from './Dropdown/Dropdown'
 export type { DropdownProps } from './Dropdown/Dropdown'
 
+export { default as DropdownView } from './Dropdown/DropdownView/DropdownView'
+export type { DropdownViewProps } from './Dropdown/DropdownView/DropdownView'
+
 export { default as FiatAmount } from './FiatAmount/FiatAmount'
 export type { FiatAmountProps } from './FiatAmount/FiatAmount'
 
@@ -94,6 +97,9 @@ export type { RangeSliderViewProps } from './RangeSliderView/RangeSliderView'
 export { default as RoundButton } from './RoundButton/RoundButton'
 export type { RoundButtonProps } from './RoundButton/RoundButton'
 
+export { default as ScrollableContainer } from './ScrollableContainer/ScrollableContainer'
+export type { ScrollableContainerProps } from './ScrollableContainer/ScrollableContainer'
+
 export { default as Select } from './Select/Select'
 export type { SelectProps } from './Select/Select'
 
@@ -120,6 +126,9 @@ export type { TokenAmountInputProps } from './TokenAmountInput/TokenAmountInput'
 
 export { default as TokenAmountInputView } from './TokenAmountInputView/TokenAmountInputView'
 export type { TokenAmountInputViewProps } from './TokenAmountInputView/TokenAmountInputView'
+
+export { default as TokenDropdown } from './TokenDropdown/TokenDropdown'
+export type { TokenDropdownProps } from './TokenDropdown/TokenDropdown'
 
 export { default as Tooltip } from './Tooltip/Tooltip'
 export type { TooltipProps } from './Tooltip/Tooltip'
