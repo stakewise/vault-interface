@@ -10,7 +10,7 @@ type SetNotificationTimeoutProps = {
 }
 
 const useNotificationTimeout = ({ handlersOnly }: { handlersOnly?: boolean } = {}) => {
-  const timeout = useRef<number>(null)
+  const timeout = useRef<NodeJS.Timeout>(null)
 
   const setNotificationTimeout = useCallback(({ text, type = 'info', time }: SetNotificationTimeoutProps) => {
     timeout.current = setTimeout(() => {

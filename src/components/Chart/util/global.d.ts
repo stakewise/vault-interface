@@ -1,4 +1,11 @@
-import type { Time, ISeriesApi, IChartApi, AreaSeriesPartialOptions, DeepPartial, ChartOptionsBase } from 'lightweight-charts'
+import type {
+  Time,
+  IChartApi,
+  ISeriesApi,
+  DeepPartial,
+  ChartOptionsBase,
+  AreaSeriesPartialOptions,
+} from 'lightweight-charts'
 
 
 declare global {
@@ -30,7 +37,7 @@ declare global {
 
     type PointType = 'fiat' | 'percent'
 
-    type Series = ISeriesApi<'Area', Time, Charts.Point> | ISeriesApi<'Histogram', Time, Charts.Point>
+    type Series = ISeriesApi<SeriesType, Time>
 
     type MainData = Array<{
       data: Point[]

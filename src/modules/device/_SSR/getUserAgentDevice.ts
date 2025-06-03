@@ -5,9 +5,10 @@ import { headers } from 'next/headers'
 const getUserAgentDevice = async () => {
   const headersList = await headers()
   const userAgent = headersList.get('user-agent') || ''
-  const { device } = UAParser(userAgent)
+  const serverUI = new UAParser(userAgent)
 
-  const isMobile = device.is('mobile') || device.is('tablet')
+  const device = serverUI.getDevice().type
+  const isMobile = device === 'mobile' || device === 'tablet'
 
   return {
     isMobile: isMobile,
