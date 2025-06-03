@@ -64,6 +64,7 @@ export const {
   const { fetchExitQueue, claimExitQueue } = useExitQueue(vaultAddress)
   const { fetchUnboostQueue, claimUnboostQueue } = useUnboostQueue({ vaultAddress, fetchBalances })
 
+  // TODO
   const swapToken = swapTokens.selected
 
   const { fee, getBuyAmount, isFetching: isSwapQuoteFetching } = useSwapQuote({
