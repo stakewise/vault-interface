@@ -59,7 +59,7 @@ export const initialState: BalancesState = {
     osTokenHolderMaxBoostApy: 0,
     borrowStatus: BorrowStatus.Healthy,
   },
-  isFetching: true,
+  isFetching: false, // TODO investigate why it is not working with true
 }
 
 export const balancesSlice = createSlice({

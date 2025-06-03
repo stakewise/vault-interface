@@ -43,7 +43,6 @@ const useBalances = (vaultAddress: string) => {
     }
 
     if (address && vaultAddress) {
-      console.log('try')
       try {
         actions.vault.user.balances.setFetching(true)
 
@@ -86,9 +85,7 @@ const useBalances = (vaultAddress: string) => {
           mintToken,
         }
 
-        console.log('can set', mountedRef.current)
         if (mountedRef.current) {
-          console.log('set data')
           actions.vault.user.balances.setData(result)
         }
       }
@@ -117,15 +114,12 @@ const useBalances = (vaultAddress: string) => {
 
   useEffect(() => {
     if (!address && autoConnectChecked) {
-      console.log('reset data 1')
-
       actions.vault.user.balances.resetData()
     }
   }, [ actions, address, autoConnectChecked ])
 
   useEffect(() => {
     return () => {
-      console.log('reset data 2')
       actions.vault.user.balances.resetData()
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
