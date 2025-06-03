@@ -3,8 +3,9 @@ import forms from 'modules/forms'
 import device from 'modules/device'
 import { useConfig } from 'config'
 
-import { ButtonBase, DropdownView, Icon } from 'components'
-import type { DropdownViewProps } from 'components'
+import Icon from '../Icon/Icon'
+import ButtonBase from '../ButtonBase/ButtonBase'
+import DropdownView, { DropdownViewProps } from '../Dropdown/DropdownView/DropdownView'
 
 import TokenBase from './TokenBase/TokenBase'
 

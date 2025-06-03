@@ -2,7 +2,9 @@ import React, { ReactElement, ReactNode, useEffect, useRef, useState } from 'rea
 import cx from 'classnames'
 import observer from 'modules/intersection-observer'
 
-import { ButtonBase, Icon, Text } from 'components'
+import Icon from '../Icon/Icon'
+import Text from '../Text/Text'
+import ButtonBase from '../ButtonBase/ButtonBase'
 
 import messages from './messages'
 

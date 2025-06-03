@@ -1,7 +1,8 @@
 import React from 'react'
 import cx from 'classnames'
 
-import { Loading, Token } from 'components'
+import Token from '../../Token/Token'
+import Loading from '../../Loading/Loading'
 
 
 export type TokenBaseProps = {

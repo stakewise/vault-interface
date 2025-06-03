@@ -3,7 +3,8 @@ import cx from 'classnames'
 import intl from 'modules/intl'
 import forms from 'modules/forms'
 
-import { Icon, RoundButton } from 'components'
+import Icon from '../../../Icon/Icon'
+import RoundButton from '../../../RoundButton/RoundButton'
 
 import messages from './messages'
 import s from './TokenSearch.module.scss'

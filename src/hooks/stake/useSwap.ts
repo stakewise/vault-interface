@@ -8,7 +8,8 @@ import type {
 } from '@cowprotocol/cow-sdk'
 import { StakeStep } from 'helpers/enums'
 
-import { SetTransaction, Transactions } from 'components'
+import type { SetTransaction } from '../../components/Transactions/types'
+import Transactions from '../../components/Transactions/Transactions'
 
 import useActions from '../data/useActions'
 import useBalances from '../data/useBalances'

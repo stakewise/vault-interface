@@ -4,7 +4,7 @@ import forms from 'modules/forms'
 import device from 'modules/device'
 import { useConfig } from 'config'
 
-import { Text } from 'components'
+import Text from '../../Text/Text'
 
 import Option from './Option/Option'
 import TokenSearch from './TokenSearch/TokenSearch'
