@@ -83,6 +83,7 @@ export const icons = [
   'icon/close',
   'icon/check',
   'icon/loader',
+  'icon/search',
   'icon/upload',
   'icon/warning',
   'icon/calendar',

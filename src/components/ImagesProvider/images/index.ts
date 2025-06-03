@@ -76,6 +76,7 @@ import close from './icon/close.svg'
 import check from './icon/check.svg'
 import upload from './icon/upload.svg'
 import loader from './icon/loader.svg'
+import search from './icon/search.svg'
 import warning from './icon/warning.svg'
 import calendar from './icon/calendar.svg'
 import usd from './currency/usd.svg'
@@ -166,6 +167,7 @@ export default {
   'icon/theme': theme.src,
   'icon/close': close.src,
   'icon/check': check.src,
+  'icon/search': search.src,
   'icon/loader': loader.src,
   'icon/upload': upload.src,
   'icon/warning': warning.src,

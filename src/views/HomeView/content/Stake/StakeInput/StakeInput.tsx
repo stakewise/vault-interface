@@ -19,13 +19,18 @@ const StakeInput: React.FC = () => {
   const { isSwapTokenRatesFetching, isSwapTokenBalancesFetching } = useStore(storeSelector)
 
   const handleMaxClick = useCallback(async () => {
-    setFetching(true)
+    if (stake.swapTokens.selected.address) {
+      field.setValue(stake.swapTokens.selected.balance)
+    }
+    else {
+      setFetching(true)
 
-    const maxStake = await stake.getMaxStake()
+      const maxStake = await stake.getMaxStake()
 
-    field.setValue(maxStake)
+      field.setValue(maxStake)
 
-    setFetching(false)
+      setFetching(false)
+    }
   }, [ field, stake ])
 
   const dataTestId = 'amount-input'

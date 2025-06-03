@@ -71,7 +71,6 @@ export const balancesSlice = createSlice({
       isFetching: false,
     }),
     setFetching: (state, action: PayloadAction<BalancesState['isFetching']>) => {
-      console.log('dispatch!', state.isFetching)
       state.isFetching = action.payload
     },
     resetData: () => ({
