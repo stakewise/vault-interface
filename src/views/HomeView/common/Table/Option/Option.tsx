@@ -26,7 +26,10 @@ const Option: React.FC<OptionProps> = (props) => {
         />
         {
           Boolean(tooltip) && (
-            <Tooltip content={tooltip}>
+            <Tooltip
+              content={tooltip}
+              wrapperClassName="flex"
+            >
               <Icon
                 className="ml-4 opacity-20"
                 name="icon/info"

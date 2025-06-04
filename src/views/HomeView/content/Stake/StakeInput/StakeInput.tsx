@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react'
+import React from 'react'
 import { useStore } from 'hooks'
 import { useConfig } from 'config'
 
@@ -14,54 +14,33 @@ const storeSelector = (store: Store) => ({
 const StakeInput: React.FC = () => {
   const { stake, field } = stakeCtx.useData()
   const { address, isReadOnlyMode } = useConfig()
-
-  const [ isFetching, setFetching ] = useState(false)
   const { isSwapTokenRatesFetching, isSwapTokenBalancesFetching } = useStore(storeSelector)
-
-  const handleMaxClick = useCallback(async () => {
-    if (stake.swapTokens.selected.address) {
-      field.setValue(stake.swapTokens.selected.balance)
-    }
-    else {
-      setFetching(true)
-
-      const maxStake = await stake.getMaxStake()
-
-      field.setValue(maxStake)
-
-      setFetching(false)
-    }
-  }, [ field, stake ])
-
-  const dataTestId = 'amount-input'
-
-  const tokenNode = (
-    <TokenDropdown
-      value={stake.swapTokens.selected.name as Tokens}
-      tokens={stake.swapTokens.list}
-      dataTestId="token-select"
-      isFetching={isSwapTokenRatesFetching || isSwapTokenBalancesFetching}
-      onChange={(token) => {
-        if (token !== stake.swapTokens.selected.address) {
-          field.reset()
-          stake.swapTokens.setSelected(token)
-        }
-      }}
-    />
-  )
 
   return (
     <TokenAmountInputView
       field={field}
-      loading={stake.isSubmitting || isReadOnlyMode || isFetching}
+      loading={stake.isSubmitting || isReadOnlyMode}
       balance={{
         value: address ? stake.swapTokens.selected.balance : stake.swapTokens.selected.emptyBalance,
         token: stake.swapTokens.selected.name as Tokens,
         units: stake.swapTokens.selected.units,
       }}
-      tokenNode={tokenNode}
-      dataTestId={dataTestId}
-      onMaxButtonClick={address ? handleMaxClick : undefined}
+      tokenNode={(
+        <TokenDropdown
+          value={stake.swapTokens.selected.name as Tokens}
+          tokens={stake.swapTokens.list}
+          dataTestId="token-select"
+          isFetching={isSwapTokenRatesFetching || isSwapTokenBalancesFetching}
+          onChange={(token) => {
+            if (token !== stake.swapTokens.selected.address) {
+              field.reset()
+              stake.swapTokens.setSelected(token)
+            }
+          }}
+        />
+      )}
+      dataTestId="amount-input"
+      onMaxButtonClick={address ? stake.onMaxButtonClick : undefined}
     />
   )
 }

@@ -8,12 +8,9 @@ import { useActions, useBalances, useSubgraphUpdate } from 'hooks'
 import { Action, openTxCompletedModal } from 'layouts/modals'
 import { SetTransaction, Transactions } from 'components'
 
-import useDepositTokenApprove from './useDepositTokenApprove'
-
 
 type ApproveInput = {
   assets: bigint
-  depositToken: ReturnType<typeof useDepositTokenApprove>
   setTransaction: SetTransaction
 }
 

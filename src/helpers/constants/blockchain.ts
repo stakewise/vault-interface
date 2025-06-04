@@ -1,4 +1,5 @@
 export default {
+  gwei: 1000000000n,
   amount0: 0n,
   amount1: 1000000000000000000n,
   amount100: 100000000000000000000n,

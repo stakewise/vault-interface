@@ -3,20 +3,20 @@ import { useSwapTokens } from 'hooks'
 
 import useSubmit from './useSubmit'
 import useMaxStake from './useMaxStake'
-import useDepositTokenApprove from './useDepositTokenApprove'
-import useEstimateGas, { Type } from '../useEstimateGas'
+import useTransactionGas from './useTransactionGas'
 
 
 type Input = StakePage.Params & {
   swapTokens: StakePage.SwapTokens
 }
 
-type Output = ReturnType<typeof useSubmit> & {
-  swapTokens: ReturnType<typeof useSwapTokens>
-  getDepositGas: ReturnType<typeof useEstimateGas>
-  getMaxStake: ReturnType<typeof useMaxStake>
-  depositToken: ReturnType<typeof useDepositTokenApprove>
-}
+type Output =
+  ReturnType<typeof useSubmit>
+  & {
+    gas: ReturnType<typeof useTransactionGas>['gas']
+    swapTokens: ReturnType<typeof useSwapTokens>
+    onMaxButtonClick: ReturnType<typeof useMaxStake>
+  }
 
 interface Hook {
   (params: Input): Output
@@ -24,36 +24,46 @@ interface Hook {
 }
 
 const useStake: Hook = ({ swapTokens, ...params }) => {
-  const depositToken = useDepositTokenApprove(params.vaultAddress)
+  const { field, vaultAddress } = params
 
   const { submit, isSubmitting } = useSubmit(params)
-  const getDepositGas = useEstimateGas(Type.Deposit)
-  const getMaxStake = useMaxStake({ getDepositGas })
+
+  const { gas, swapApprove, stakeApprove } = useTransactionGas({
+    field,
+    vaultAddress,
+    swapToken: swapTokens.selected,
+  })
+
+  const onMaxButtonClick = useMaxStake({
+    gas,
+    field,
+    swapToken: swapTokens.selected,
+  })
 
   return useMemo(() => ({
+    gas,
     swapTokens,
     isSubmitting,
-    depositToken,
     submit,
-    getMaxStake,
-    getDepositGas,
+    onMaxButtonClick,
   }), [
+    gas,
     swapTokens,
     isSubmitting,
-    depositToken,
     submit,
-    getMaxStake,
-    getDepositGas,
+    onMaxButtonClick,
   ])
 }
 
 useStake.mock = {
+  gas: {
+    deposit: 0n,
+    approve: 0n,
+  },
   isSubmitting: false,
   swapTokens: useSwapTokens.mock,
-  depositToken: useDepositTokenApprove.mock,
-  getDepositGas: useEstimateGas.mock,
-  getMaxStake: () => Promise.resolve(0n),
   submit: () => Promise.resolve(undefined),
+  onMaxButtonClick: () => Promise.resolve(0n),
 }
 
 

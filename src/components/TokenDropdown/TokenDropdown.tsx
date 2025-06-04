@@ -88,21 +88,19 @@ const TokenDropdown: React.FC<TokenDropdownProps> = (props) => {
       onOptionsKeyDown={(event) => {
         const isCombination = event.ctrlKey || event.metaKey
 
-        if (event.key.length === 1) {
+        if (event.key.length === 1 && !isCombination) {
           event.preventDefault()
 
-          if (!isCombination) {
-            const input = event.target as HTMLInputElement
-            const cursorPosition = input.selectionStart || 0
-            const before = input.value.slice(0, cursorPosition)
-            const after = input.value.slice(cursorPosition)
+          const input = event.target as HTMLInputElement
+          const cursorPosition = input.selectionStart || 0
+          const before = input.value.slice(0, cursorPosition)
+          const after = input.value.slice(cursorPosition)
 
-            field.setValue(`${before}${event.key}${after}`)
+          field.setValue(`${before}${event.key}${after}`)
 
-            setTimeout(() => {
-              input.selectionStart = input.selectionEnd = cursorPosition + 1
-            })
-          }
+          setTimeout(() => {
+            input.selectionStart = input.selectionEnd = cursorPosition + 1
+          })
         }
       }}
       onClose={field.reset}

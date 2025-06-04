@@ -1,59 +1,50 @@
 import { useMemo } from 'react'
-import { commonMessages } from 'helpers'
-import { useFiatValues } from 'hooks'
 import { useConfig } from 'config'
+import { useSwapQuote } from 'hooks'
+import { commonMessages } from 'helpers'
 
 import { stakeCtx } from 'views/HomeView/StakeContext/util'
 
-import { usePosition, Position } from '../../../util'
-import useTransactionPrice from './useTransactionPrice'
+import { Position } from '../../../util'
+
+import useStakeApy from './useStakeApy'
+import useStakeAssets from './useStakeAssets'
+import useStakeNetworkCost from './useStakeNetworkCost'
 
 
 const useOptions = () => {
-  const { field } = stakeCtx.useData()
-  const { address, sdk } = useConfig()
+  const { address } = useConfig()
+  const { stake } = stakeCtx.useData()
 
-  const transactionPrice = useTransactionPrice()
+  const swapToken = stake.swapTokens.selected
 
-  const { fiatGas } = useFiatValues({
-    fiatGas: {
-      token: sdk.config.tokens.nativeToken,
-      value: transactionPrice,
-      isMinimal: true,
-    },
+  const { isFetching: isSwapQuoteFetching, getBuyAmount } = useSwapQuote({
+    amount: swapToken.balance,
+    fromToken: swapToken.address,
   })
 
-  const position = usePosition({
-    type: 'stake',
-    field,
+  const params = {
+    getBuyAmount,
+    isSwapQuoteFetching,
+  }
+
+  const stakeApy = useStakeApy(params)
+  const stakeAssets = useStakeAssets(params)
+  const stakeNetworkCost = useStakeNetworkCost({
+    isSwapQuoteFetching,
   })
 
   return useMemo<Position[]>(() => {
     if (address) {
       return [
-        ...position,
-        {
-          title: commonMessages.transaction.networkCost,
-          textValue: {
-            prev: {
-              message: fiatGas.formattedValue,
-              icon: 'icon/gas',
-            },
-            next: {},
-          },
-          tooltip: {
-            ...commonMessages.tooltip.gas,
-            values: {
-              nativeToken: sdk.config.tokens.nativeToken,
-            },
-          },
-          isFetching: !transactionPrice,
-        },
+        stakeApy,
+        stakeAssets,
+        stakeNetworkCost,
       ]
     }
 
-    return position
-  }, [ sdk, fiatGas, address, transactionPrice, position ])
+    return []
+  }, [ address, stakeApy, stakeAssets, stakeNetworkCost ])
 }
 
 
