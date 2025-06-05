@@ -49,8 +49,8 @@ const useStakeApprove = ({ step, field, tokenAddress, recipient, skip }: Input) 
     }
     catch (error) {
       const failedSteps = step === StakeStep.SwapApprove
-        ? [ StakeStep.SwapApprove, StakeStep.Swap, StakeStep.Approve, StakeStep.Stake ]
-        : [ StakeStep.Approve, StakeStep.Stake ]
+        ? [ StakeStep.SwapApprove, StakeStep.Swap, StakeStep.Approve, StakeStep.Stake, StakeStep.StakeAndMint ]
+        : [ StakeStep.Approve, StakeStep.Stake, StakeStep.StakeAndMint ]
 
       failedSteps.forEach((step) => {
         setTransaction(step, Transactions.Status.Fail)

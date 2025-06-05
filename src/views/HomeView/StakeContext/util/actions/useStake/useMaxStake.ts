@@ -2,19 +2,15 @@ import { useCallback } from 'react'
 import { constants } from 'helpers'
 import { useConfig } from 'config'
 
-import useTransactionGas from './useTransactionGas'
-
-
 
 type Input = {
-  gas: ReturnType<typeof useTransactionGas>['gas']
+  approveGas: bigint
+  depositGas: bigint
   field: Forms.Field<bigint>
   swapToken: SwapToken
 }
 
-const useMaxStake = (values: Input) => {
-  const { gas, field, swapToken } = values
-
+const useMaxStake = ({ approveGas, depositGas, field, swapToken }: Input) => {
   const { isGnosis, activeWallet } = useConfig()
 
   const isGnosisSafeWallet = activeWallet === constants.walletNames.gnosisSafe
@@ -30,7 +26,7 @@ const useMaxStake = (values: Input) => {
       const hasAmount = assets > 0
 
       if (hasAmount) {
-        const total = assets - gas.approve - (gas.deposit * 2n)
+        const total = assets - approveGas - (depositGas * 2n)
 
         field.setValue(total > 0 ? total : 0n)
       }
@@ -38,7 +34,7 @@ const useMaxStake = (values: Input) => {
         field.setValue(0n)
       }
     }
-  }, [ gas, field, swapToken, isNoGasTransaction ])
+  }, [ field, approveGas, depositGas, swapToken, isNoGasTransaction ])
 }
 
 

@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useConfig } from 'config'
 import { constants } from 'helpers'
 import { useAutoFetch, useStore } from 'hooks'
@@ -7,22 +7,19 @@ import useEstimateGas, { Type } from '../useEstimateGas'
 
 
 const storeSelector = (store: Store) => ({
+  vaultAddress: store.vault.base.data.vaultAddress,
   depositTokenBalance: store.account.balances.data.depositTokenBalance,
 })
 
-type Input = {
-  vaultAddress: string | null
-}
-
-const useDepositGas = ({ vaultAddress }: Input) => {
+const useStakeGas = () => {
   const { address } = useConfig()
-  const { depositTokenBalance } = useStore(storeSelector)
-  const [ depositGas, setDepositGas ] = useState<bigint>(0n)
+  const [ gas, setGas ] = useState<bigint>(0n)
+  const { vaultAddress, depositTokenBalance } = useStore(storeSelector)
 
   const getDepositGas = useEstimateGas(Type.Deposit)
 
   const handleGetDepositGas = useCallback(async () => {
-    let depositGas = 0n
+    let gas = 0n
 
     const isValidBalance = depositTokenBalance > constants.blockchain.gwei
 
@@ -30,17 +27,17 @@ const useDepositGas = ({ vaultAddress }: Input) => {
       if (isValidBalance && vaultAddress) {
         const amount = depositTokenBalance / 2n // try to check half of balance to get gas
 
-        depositGas = await getDepositGas(amount)
+        gas = await getDepositGas(amount)
       }
     }
     catch {}
 
-    setDepositGas(depositGas)
+    setGas(gas)
   }, [ vaultAddress, depositTokenBalance, getDepositGas ])
 
   useEffect(() => {
     if (!address) {
-      setDepositGas(0n)
+      setGas(0n)
     }
   }, [ address ])
 
@@ -50,12 +47,8 @@ const useDepositGas = ({ vaultAddress }: Input) => {
     skip: !address,
   })
 
-  return useMemo(() => ({
-    depositGas,
-  }), [
-    depositGas,
-  ])
+  return gas
 }
 
 
-export default useDepositGas
+export default useStakeGas
