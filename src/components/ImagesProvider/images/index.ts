@@ -79,6 +79,7 @@ import loader from './icon/loader.svg'
 import search from './icon/search.svg'
 import warning from './icon/warning.svg'
 import calendar from './icon/calendar.svg'
+import scrollUp from './icon/scrollUp.svg'
 import usd from './currency/usd.svg'
 import eur from './currency/eur.svg'
 import gbp from './currency/gbp.svg'
@@ -172,6 +173,7 @@ export default {
   'icon/upload': upload.src,
   'icon/warning': warning.src,
   'icon/calendar': calendar.src,
+  'icon/scrollUp': scrollUp.src,
 
   'currency/usd': usd.src,
   'currency/eur': eur.src,

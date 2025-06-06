@@ -87,6 +87,7 @@ export const icons = [
   'icon/upload',
   'icon/warning',
   'icon/calendar',
+  'icon/scrollUp',
 
   'currency/usd',
   'currency/eur',
