@@ -68,8 +68,10 @@ declare global {
     }
 
     type Params = {
-      fetch: Fetch
+      field: Forms.Field<bigint>
+      percentField: Forms.Field<string>
       vaultAddress: string
+      fetch: Fetch
     }
 
     type SwapTokens = {

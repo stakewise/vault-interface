@@ -47,7 +47,7 @@ type Input = {
   onSwap?: (buyAmount: bigint) => void
   onSuccess?: (values: OnSuccessInput) => void
   openTransactionsFlowModal: (props: {
-    flow: string
+    flow: 'stake'
     stepTitles: Record<string, Intl.Message>
     availableSteps: string[]
     onStart: (values: { setTransaction: SetTransaction }) => Promise<void>
@@ -85,11 +85,9 @@ const useStakeSubmit = ({ field, swapToken, stakeStep, onSwap, onSuccess, openTr
       },
     })
   }, [
-    sdk,
+    field,
     chainId,
     address,
-    actions,
-    vaultAddress,
     onSuccess,
     cancelOnChange,
     refetchNativeTokenBalance,
@@ -223,9 +221,9 @@ const useStakeSubmit = ({ field, swapToken, stakeStep, onSwap, onSuccess, openTr
     finally {
       setSubmitting(false)
     }
-  }, [ field, actions, swapToken, availableSteps, swapApprove, stakeApprove, swap, stake, onSwap ])
+  }, [ actions, swapToken, availableSteps, swapApprove, stakeApprove, swap, stake, onSwap ])
 
-  const submit = useCallback(async (values?: SubmitInput) => {
+  const submit = useCallback((values?: SubmitInput) => {
     const { closeModal = () => {} } = values || {}
 
     const assets = field.value
@@ -233,11 +231,6 @@ const useStakeSubmit = ({ field, swapToken, stakeStep, onSwap, onSuccess, openTr
     if (!address || !assets || !vaultAddress) {
       return
     }
-
-    console.log({
-      category: 'action',
-      message: 'Stake',
-    })
 
     if (availableSteps.length > 1) {
       openTransactionsFlowModal({
@@ -248,9 +241,9 @@ const useStakeSubmit = ({ field, swapToken, stakeStep, onSwap, onSuccess, openTr
       })
     }
     else {
-      onStart({ assets, closeModal, openTransactionsFlowModal })
+      onStart({ assets, closeModal })
     }
-  }, [ field, address, vaultAddress, stepTitles, availableSteps, onStart ])
+  }, [ field, address, vaultAddress, stepTitles, availableSteps, onStart, openTransactionsFlowModal ])
 
   const isAllowanceFetching = swapApprove.isFetching || stakeApprove.isFetching
 

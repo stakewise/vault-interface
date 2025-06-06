@@ -8,7 +8,7 @@ import useSwapTokenBalances from './useSwapTokenBalances'
 
 type Output = {
   refetchMintTokenBalance: () => Promise<void>
-  refetchSwapTokenBalance: () => Promise<void>
+  refetchSwapTokenBalances: () => Promise<void>
   refetchNativeTokenBalance: () => Promise<void>
   refetchDepositTokenBalance: () => Promise<void>
 }

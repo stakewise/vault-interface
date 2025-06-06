@@ -1,7 +1,6 @@
 import { useMemo } from 'react'
 import { useConfig } from 'config'
 import { useSwapQuote } from 'hooks'
-import { commonMessages } from 'helpers'
 
 import { stakeCtx } from 'views/HomeView/StakeContext/util'
 
@@ -40,7 +39,7 @@ const useOptions = () => {
         stakeApy,
         stakeAssets,
         stakeNetworkCost,
-      ]
+      ] as Position[]
     }
 
     return []

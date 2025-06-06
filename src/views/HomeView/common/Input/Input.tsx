@@ -3,7 +3,7 @@ import { useStore } from 'hooks'
 import { useConfig } from 'config'
 
 import { stakeCtx, emptyBalance, Tab } from 'views/HomeView/StakeContext/util'
-import { TokenAmountInput, TokenAmountInputProps } from 'components'
+import { TokenAmountInput } from 'components'
 
 
 const storeSelector = (store: Store) => ({
@@ -15,7 +15,7 @@ type InputProps = {
   balance: bigint
   token: Tokens
   isLoading?: boolean
-  balanceTitle?: TokenAmountInputProps['balanceTitle']
+  balanceTitle?: Intl.Message
   onMaxButtonClick?: () => void
 }
 
@@ -36,7 +36,7 @@ const Input: React.FC<InputProps> = (props) => {
     || unboost.isSubmitting
   )
 
-  let tokenBalance: TokenAmountInputProps['tokenBalance'] = 0n
+  let tokenBalance: bigint | undefined = 0n
 
   if (!address) {
     tokenBalance = tabs.value === Tab.Stake

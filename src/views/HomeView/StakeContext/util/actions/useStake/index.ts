@@ -40,11 +40,11 @@ const useStake: Hook = ({ swapTokens, ...params }) => {
   const swapToken = swapTokens.selected
 
   const onSwap = useCallback((buyAmount: bigint) => {
-    swapTokens.setSelected('')
     field.setValue(buyAmount)
+    swapTokens.setSelected('')
   }, [ field, swapTokens ])
 
-  const onSuccess = useCallback(({ hash, assets }) => {
+  const onSuccess = useCallback(({ hash, assets }: { hash: string, assets?: bigint }) => {
     fetch.data()
 
     if (assets) {
