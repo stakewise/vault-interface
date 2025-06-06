@@ -31,9 +31,7 @@ interface Hook {
   mock: Output
 }
 
-const useStake: Hook = ({ swapTokens, ...params }) => {
-  const { field, fetch, vaultAddress } = params
-
+const useStake: Hook = ({ swapTokens, field, fetch }) => {
   const { sdk } = useConfig()
   const actions = useActions()
 
