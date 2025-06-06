@@ -21,6 +21,7 @@ import {
   useUnboostQueue,
 } from './user'
 
+import { Tab } from './enum'
 import useBalances from './useBalances'
 import useVaultAddress from './useVaultAddress'
 
@@ -59,7 +60,6 @@ export const {
   const vaultAddress = useVaultAddress()
   const fetchBalances = useBalances(vaultAddress)
   const { isVaultFetching } = useStore(storeSelector)
-  const { field, percentField } = useFields({ tabs })
   const { refetchData, ...data } = useBaseData(vaultAddress)
   const { fetchExitQueue, claimExitQueue } = useExitQueue(vaultAddress)
   const { fetchUnboostQueue, claimUnboostQueue } = useUnboostQueue({ vaultAddress, fetchBalances })
@@ -69,6 +69,13 @@ export const {
   const { fee, getBuyAmount, isFetching: isSwapQuoteFetching } = useSwapQuote({
     amount: swapToken.balance,
     fromToken: swapToken.address,
+  })
+
+  const { field, percentField } = useFields({
+    tabs,
+    minBalance: tabs.value === Tab.Stake ? fee / 100n * 120n : 0n, // 20% more than fee
+    depositTokenBalance: address ? swapToken.balance : swapToken.emptyBalance,
+    getDepositAmount: tabs.value === Tab.Stake && swapToken.address ? getBuyAmount : undefined,
   })
 
   const fetch = useMemo(() => ({

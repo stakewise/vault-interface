@@ -1,46 +1,42 @@
 import { useRef, useMemo, useCallback } from 'react'
-import { useStore, useChainChanged, useAddressChanged } from 'hooks'
+import { useStore, useChainChanged, useAddressChanged, useStakeField } from 'hooks'
 import forms from 'modules/forms'
-import { useConfig } from 'config'
 
 import { Tab } from './enum'
-import emptyBalance from './emptyBalance'
 
 
 type Input = {
   tabs: StakePage.Tabs.Data
+  minBalance: bigint
+  depositTokenBalance: bigint
+  getDepositAmount?: (value: bigint) => bigint
 }
 
-type Fields = {
-  field: bigint
-  percentField: string
-}
 
 const storeSelector = (store: Store) => ({
   mintedShares: store.vault.user.balances.mintToken.minted.shares,
   maxMintShares: store.vault.user.balances.mintToken.maxMintShares,
   mintTokenBalance: store.account.balances.data.mintTokenBalance,
   maxWithdrawAssets: store.vault.user.balances.withdraw.maxAssets,
-  depositTokenBalance: store.account.balances.data.depositTokenBalance,
 })
 
 const useFields = (values: Input) => {
-  const { tabs } = values
+  const { tabs, minBalance, depositTokenBalance, getDepositAmount } = values
 
-  const { address } = useConfig()
+  const tabRef = useRef<Tab>(tabs.value)
+
   const {
     mintedShares,
     maxMintShares,
     mintTokenBalance,
     maxWithdrawAssets,
-    depositTokenBalance,
   } = useStore(storeSelector)
 
-  const isStake = tabs.value === Tab.Stake
+  const maxBalance = useMemo(() => {
+    const isStake = tabs.value === Tab.Stake
 
-  let balance = 0n
+    let balance = 0n
 
-  if (address || !isStake) {
     if (isStake) {
       balance = depositTokenBalance
     }
@@ -58,44 +54,49 @@ const useFields = (values: Input) => {
     else {
       balance = mintTokenBalance
     }
-  }
-  else {
-    balance = emptyBalance
-  }
 
-  const balanceRef = useRef(balance)
-  balanceRef.current = balance
+    return balance
+  }, [
+    tabs,
+    mintedShares,
+    maxMintShares,
+    mintTokenBalance,
+    maxWithdrawAssets,
+    depositTokenBalance,
+  ])
 
-  const tabRef = useRef<Tab>(tabs.value)
-
-  const form = forms.useForm<Fields>({
-    field: {
-      valueType: 'bigint',
-      validators: [
-        forms.validators.numberWithDot,
-        forms.validators.sufficientBalance(balanceRef),
-      ],
-    },
-    percentField: {
-      valueType: 'string',
-      initialValue: '',
-    },
+  const { field } = useStakeField({
+    minBalance,
+    maxBalance,
+    getDepositAmount,
+    withCapacityCheck: tabs.value === Tab.Stake,
   })
 
+  const percentField = forms.useField<string>({
+    valueType: 'string',
+    initialValue: '',
+  })
+
+  const resetForm = useCallback(() => {
+    field.reset()
+    percentField.reset()
+  }, [ field, percentField ])
+
   if (tabRef.current !== tabs.value) {
-    form.reset()
+    resetForm()
     tabRef.current = tabs.value
   }
 
-  const resetFrom = useCallback(() => form.reset(), [ form ])
-
-  useChainChanged(resetFrom)
-  useAddressChanged(resetFrom)
+  useChainChanged(resetForm)
+  useAddressChanged(resetForm)
 
   return useMemo(() => ({
-    field: form.fields.field,
-    percentField: form.fields.percentField,
-  }), [ form ])
+    field,
+    percentField,
+  }), [
+    field,
+    percentField,
+  ])
 }
 
 
