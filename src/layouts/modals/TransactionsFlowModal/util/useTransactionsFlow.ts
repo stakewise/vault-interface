@@ -1,8 +1,4 @@
 import { useMemo } from 'react'
-import { useConfig } from 'config'
-import { UnstakeStep } from 'helpers/enums'
-import { commonMessages } from 'helpers'
-
 import { Transactions } from 'components'
 
 import steps from './steps'
@@ -11,29 +7,19 @@ import { TransactionsFlow } from '../types'
 
 type Input = {
   flow: TransactionsFlow
+  stepTitles?: Record<string, Intl.Message>
   availableSteps?: string[]
 }
 
-const useTransactionsFlow = ({ flow, availableSteps }: Input) => {
-  const { sdk } = useConfig()
-
-  const unstakeApproveStep = useMemo(() => ({
-    id: UnstakeStep.Approve,
-    status: Transactions.Status.Confirm,
-    title: {
-      ...commonMessages.buttonTitle.approve,
-      values: {
-        token: sdk.config.tokens.mintToken,
-      },
-    },
-    testId: 'step-approve',
-  }), [ sdk ])
-
+const useTransactionsFlow = ({ flow, stepTitles, availableSteps }: Input) => {
   const flowSteps = useMemo(() => {
     let result = steps[flow]
 
-    if (flow === 'unstake') {
-      result = [ unstakeApproveStep, ...result ]
+    if (stepTitles) {
+      result = result.map((step) => ({
+        ...step,
+        title: stepTitles[step.id] || step.title,
+      }))
     }
 
     if (availableSteps) {
@@ -46,7 +32,7 @@ const useTransactionsFlow = ({ flow, availableSteps }: Input) => {
     }
 
     return result
-  }, [ flow, availableSteps, unstakeApproveStep ])
+  }, [ flow, stepTitles, availableSteps ])
 
   const { transactions, setTransaction, resetTransactions } = Transactions.useLogic(flowSteps)
 

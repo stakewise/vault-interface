@@ -15,16 +15,18 @@ type OnStartInput = {
 
 type Input = Modals.VisibilityProps & {
   flow: TransactionsFlow
+  stepTitles?: Record<string, Intl.Message>
   availableSteps?: string[]
   onStart: (values: OnStartInput) => Promise<void>
 }
 
 export const [ TransactionsFlowModal, openTransactionsFlowModal ] = (
   modal.wrapper(UNIQUE_FILE_ID, (props: Input) => {
-    const { flow, availableSteps, onStart, closeModal } = props
+    const { flow, stepTitles, availableSteps, onStart, closeModal } = props
 
     const { transactions, setTransaction } = useTransactionsFlow({
       flow,
+      stepTitles,
       availableSteps,
     })
 
