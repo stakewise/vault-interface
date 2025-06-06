@@ -61,7 +61,7 @@ const useStakeAssets = ({ getBuyAmount, isSwapQuoteFetching }: Input) => {
     }
 
     return result
-  }, [ value, error, depositToken, stakedAssets, getBuyAmount, isSwapQuoteFetching ])
+  }, [ value, error, depositToken, stakedAssets, swapToken, getBuyAmount, isSwapQuoteFetching ])
 }
 
 

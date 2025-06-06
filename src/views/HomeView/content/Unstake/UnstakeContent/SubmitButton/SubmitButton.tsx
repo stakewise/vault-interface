@@ -12,14 +12,14 @@ type UnstakeButtonProps = {
 const SubmitButton: React.FC<UnstakeButtonProps> = (props) => {
   const { className } = props
 
-  const { unstake, field } = stakeCtx.useData()
+  const { unstake } = stakeCtx.useData()
 
   return (
     <Button
       className={className}
       title={commonMessages.buttonTitle.unstake}
       loading={unstake.isSubmitting}
-      onClick={() => unstake.submit(field.value)}
+      onClick={unstake.submit}
     />
   )
 }

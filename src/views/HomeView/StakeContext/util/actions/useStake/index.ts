@@ -65,7 +65,7 @@ const useStake: Hook = ({ swapTokens, field, fetch }) => {
 
       openTxCompletedModal({ tokens, hash })
     }
-  }, [ sdk, fetch ])
+  }, [ sdk, fetch, actions ])
 
   const depositGas = useStakeGas()
 

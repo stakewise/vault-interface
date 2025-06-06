@@ -69,7 +69,7 @@ const useSpecialFormat = ({ field, units }: Input) => {
     }
 
     return value as string
-  }, [ value, units, specialFormat, inputValueInString ])
+  }, [ field, value, units, specialFormat, inputValueInString ])
 
   return useMemo(() => ({
     formattedValue,

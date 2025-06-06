@@ -12,13 +12,14 @@ type Input = {
   minBalance: bigint
   maxBalance: bigint
   getDepositAmount?: (value: bigint) => bigint
-  withCapacityCheck: boolean
+  withCapacityCheck?: boolean
 }
 
 type CheckCapacityInput = RefObject<{
   capacity: string
   totalAssets: string
   depositToken: string
+  withCapacityCheck?: boolean
   getDepositAmount?: Input['getDepositAmount']
 }>
 
@@ -72,7 +73,6 @@ const useStakeField = ({ minBalance, maxBalance, withCapacityCheck, getDepositAm
   const capacityDataRef = useRef({ capacity, totalAssets, depositToken, withCapacityCheck, getDepositAmount })
   capacityDataRef.current = { capacity, totalAssets, depositToken, withCapacityCheck, getDepositAmount }
 
-  // TODO disable capacity check for other tokens
   const field = forms.useField<bigint>({
     valueType: 'bigint',
     validators: [

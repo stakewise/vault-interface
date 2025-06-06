@@ -9,6 +9,7 @@ type SubmitInput = Omit<Parameters<ReturnType<typeof useBoostSubmit>['submit']>[
 
 type Output = {
   allowance: bigint
+  isSubmitting: boolean
   isAllowanceFetching: boolean
   submit: (input: SubmitInput) => Promise<void>
 }
@@ -23,7 +24,7 @@ const useBoost: Hook = (params) => {
 
   const { vaultAddress } = params
   const { signSDK, address, chainId, cancelOnChange } = useConfig()
-  const { allowance, isAllowanceFetching, submit } = useBoostSubmit(vaultAddress)
+  const { allowance, isAllowanceFetching, isSubmitting, submit } = useBoostSubmit(vaultAddress)
 
   const handleGetUserApy = useCallback(async () => {
     if (!address) {
@@ -74,10 +75,12 @@ const useBoost: Hook = (params) => {
 
   return useMemo(() => ({
     allowance,
+    isSubmitting,
     isAllowanceFetching,
     submit: handleSubmit,
   }), [
     allowance,
+    isSubmitting,
     isAllowanceFetching,
     handleSubmit,
   ])
@@ -85,6 +88,7 @@ const useBoost: Hook = (params) => {
 
 useBoost.mock = {
   allowance: 0n,
+  isSubmitting: false,
   isAllowanceFetching: false,
   submit: async () => {},
 }

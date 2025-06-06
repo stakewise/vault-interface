@@ -16,7 +16,7 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({ className }) => {
     <Button
       className={className}
       title={commonMessages.buttonTitle.stake}
-      loading={stake.isSubmitting || stake.isAllowanceFetching}
+      loading={stake.isSubmitting || stake.isAllowanceFetching || stake.isSwapQuoteFetching}
       onClick={stake.submit}
     />
   )

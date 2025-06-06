@@ -10,7 +10,7 @@ import { Action, openTxCompletedModal } from 'layouts/modals'
 
 type Output = {
   isSubmitting: boolean
-  submit: (assets: bigint) => Promise<void>
+  submit: () => Promise<void>
 }
 
 const storeSelector = (store: Store) => ({
@@ -18,7 +18,7 @@ const storeSelector = (store: Store) => ({
 })
 
 const useSubmit = (params: StakePage.Params): Output => {
-  const { vaultAddress, fetch } = params
+  const { field, vaultAddress, fetch } = params
 
   const actions = useActions()
   const { signSDK, address, chainId, cancelOnChange } = useConfig()
@@ -28,7 +28,9 @@ const useSubmit = (params: StakePage.Params): Output => {
   const subgraphUpdate = useSubgraphUpdate()
   const { refetchDepositTokenBalance } = useBalances()
 
-  const submit = useCallback(async (assets: bigint) => {
+  const submit = useCallback(async () => {
+    const assets = field.value || 0n
+
     if (!address) {
       return
     }
@@ -94,6 +96,7 @@ const useSubmit = (params: StakePage.Params): Output => {
 
     setSubmitting(false)
   }, [
+    field,
     fetch,
     chainId,
     signSDK,

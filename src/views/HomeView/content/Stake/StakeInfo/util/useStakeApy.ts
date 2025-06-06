@@ -54,7 +54,7 @@ const useStakeApy = ({ getBuyAmount, isSwapQuoteFetching }: Input) => {
     if (inputValue === field.value) {
       setState({ newAPY, isFetching: false })
     }
-  }, [ field, swapToken, getAPY, getBuyAmount ])
+  }, [ field, swapToken, getAPY, getBuyAmount, setState ])
 
   useFieldListener(field, handleGetAPY, 300)
 

@@ -59,7 +59,7 @@ const useStakeSubmit = ({ field, swapToken, stakeStep, onSwap, onSuccess, openTr
   const actions = useActions()
   const { vaultAddress } = useStore(storeSelector)
   const [ isSubmitting, setSubmitting ] = useState(false)
-  const { sdk, signSDK, address, chainId, isGnosis, cancelOnChange } = useConfig()
+  const { sdk, signSDK, address, chainId, cancelOnChange } = useConfig()
 
   const subgraphUpdate = useSubgraphUpdate()
   const { refetchNativeTokenBalance, refetchDepositTokenBalance } = useBalances()

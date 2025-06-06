@@ -1,6 +1,5 @@
 import { useMemo } from 'react'
 import { useConfig } from 'config'
-import { useSwapQuote } from 'hooks'
 
 import { stakeCtx } from 'views/HomeView/StakeContext/util'
 
@@ -15,22 +14,15 @@ const useOptions = () => {
   const { address } = useConfig()
   const { stake } = stakeCtx.useData()
 
-  const swapToken = stake.swapTokens.selected
-
-  const { isFetching: isSwapQuoteFetching, getBuyAmount } = useSwapQuote({
-    amount: swapToken.balance,
-    fromToken: swapToken.address,
-  })
-
   const params = {
-    getBuyAmount,
-    isSwapQuoteFetching,
+    getBuyAmount: stake.getBuyAmount,
+    isSwapQuoteFetching: stake.isSwapQuoteFetching,
   }
 
   const stakeApy = useStakeApy(params)
   const stakeAssets = useStakeAssets(params)
   const stakeNetworkCost = useStakeNetworkCost({
-    isSwapQuoteFetching,
+    isSwapQuoteFetching: stake.isSwapQuoteFetching,
   })
 
   return useMemo<Position[]>(() => {

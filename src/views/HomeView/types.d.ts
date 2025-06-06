@@ -47,12 +47,15 @@ declare global {
     type Context = {
       data: Omit<Data, 'refetchData'>
       tabs: Tabs.Data
-      burn: useBurn.mock,
-      mint: useMint.mock,
-      boost: useBoost.mock,
-      stake: useStake.mock,
-      unboost: useUnboost.mock,
-      unstake: useUnstake.mock,
+      burn: typeof useBurn.mock,
+      mint: typeof useMint.mock,
+      boost: typeof useBoost.mock,
+      stake: typeof useStake.mock & {
+        getBuyAmount: (value: bigint) => bigint
+        isSwapQuoteFetching: boolean
+      },
+      unboost: typeof useUnboost.mock,
+      unstake: typeof useUnstake.mock,
       field: Forms.Field<bigint>
       vaultAddress: string
       unstakeQueue: { claim: (values: Store['vault']['user']['exitQueue']['data']) => Promise<void> }
