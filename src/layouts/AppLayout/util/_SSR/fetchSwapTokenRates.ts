@@ -1,8 +1,8 @@
 'use server'
-import methods from 'sw-methods'
 import { Network } from 'sdk'
 import { swapTokens } from 'helpers'
-import cacheStorage from 'sw-modules/cache-storage'
+import methods from 'helpers/methods'
+import cacheStorage from 'modules/cache-storage'
 
 
 type CacheData = Record<string, number>

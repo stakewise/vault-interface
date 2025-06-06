@@ -2,7 +2,7 @@ import { useCallback } from 'react'
 import { useActions, useStore, useAutoFetch, useChainChanged } from 'hooks'
 import { swapTokens } from 'helpers'
 import { useConfig } from 'config'
-import methods from 'sw-methods'
+import methods from 'helpers/methods'
 
 import { fetchSwapTokenRates } from './_SSR'
 
