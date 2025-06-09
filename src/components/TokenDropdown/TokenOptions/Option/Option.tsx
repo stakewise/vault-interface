@@ -40,7 +40,7 @@ const Option: React.FC<OptionProps> = (props) => {
       data-testid={`${dataTestId}-option-${name}`}
     >
       <div className="flex gap-12 items-center flex-1">
-        <div className={cx(s.logo, 'rounded-full p-4')}>
+        <div className={cx(s.logo, 'flex rounded-full p-4')}>
           <Logo
             name={logo as LogoName}
             size={24}
