@@ -16,6 +16,7 @@ const UnstakeInput: React.FC = () => {
 
   const { maxWithdrawAssets } = useStore(storeSelector)
 
+  console.log({ maxWithdrawAssets })
   return (
     <Input
       balance={maxWithdrawAssets}

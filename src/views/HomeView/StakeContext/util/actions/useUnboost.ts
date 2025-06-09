@@ -25,7 +25,7 @@ const storeSelector = (store: Store) => ({
 const useUnboost: Hook = (params) => {
   const { refetchMintTokenBalance, refetchNativeTokenBalance } = useBalances()
 
-  const { vaultAddress, percentField } = params
+  const { vaultAddress, percentField, fetch } = params
 
   const { address, chainId, cancelOnChange } = useConfig()
   const { boostedShares, rewardAssets, exitingPercent } = useStore(storeSelector)
@@ -42,17 +42,21 @@ const useUnboost: Hook = (params) => {
     const onSuccess = cancelOnChange({
       address,
       chainId,
-      logic: async () => {
+      logic: () => {
+        percentField.reset()
+
+        fetch.data()
+        fetch.balances()
+        fetch.unboostQueue()
+
         refetchMintTokenBalance()
         refetchNativeTokenBalance()
-        params.fetch.unboostQueue()
-        await params.fetch.data()
       },
     })
 
     await submit({ percent: Number(percentField.value), onSuccess })
   }, [
-    params,
+    fetch,
     chainId,
     address,
     percentField,

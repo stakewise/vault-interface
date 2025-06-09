@@ -44,6 +44,7 @@ const useStake: Hook = ({ swapTokens, field, fetch }) => {
 
   const onSuccess = useCallback(({ hash, assets }: { hash: string, assets?: bigint }) => {
     fetch.data()
+    fetch.balances()
 
     if (assets) {
       const blockExplorerUrl = sdk.config.network.blockExplorerUrl

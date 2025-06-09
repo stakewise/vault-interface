@@ -20,10 +20,10 @@ interface Hook {
 }
 
 const useBoost: Hook = (params) => {
-  const { refetchMintTokenBalance, refetchNativeTokenBalance } = useBalances()
+  const { field, fetch, vaultAddress } = params
 
-  const { vaultAddress } = params
   const { signSDK, address, chainId, cancelOnChange } = useConfig()
+  const { refetchMintTokenBalance, refetchNativeTokenBalance } = useBalances()
   const { allowance, isAllowanceFetching, isSubmitting, submit } = useBoostSubmit(vaultAddress)
 
   const handleGetUserApy = useCallback(async () => {
@@ -49,10 +49,14 @@ const useBoost: Hook = (params) => {
     const onSuccess = cancelOnChange({
       address,
       chainId,
-      logic: async () => {
+      logic: () => {
+        field.reset()
+
+        fetch.data()
+        fetch.balances()
+
         refetchMintTokenBalance()
         refetchNativeTokenBalance()
-        await params.fetch.data()
       },
     })
 
@@ -63,7 +67,8 @@ const useBoost: Hook = (params) => {
       onSuccess,
     })
   }, [
-    params,
+    field,
+    fetch,
     chainId,
     address,
     submit,

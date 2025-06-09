@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React from 'react'
 import { commonMessages } from 'helpers'
 
 import { stakeCtx } from 'views/HomeView/StakeContext/util'
@@ -12,22 +12,14 @@ type SubmitButtonProps = {
 const SubmitButton: React.FC<SubmitButtonProps> = (props) => {
   const { className } = props
 
-  const { mint, field } = stakeCtx.useData()
-
-  const handleClick = useCallback(() => {
-    const shares = field.value
-
-    if (shares) {
-      mint.submit(shares)
-    }
-  }, [ mint, field ])
+  const { mint } = stakeCtx.useData()
 
   return (
     <Button
       className={className}
       title={commonMessages.buttonTitle.mint}
       loading={mint.isSubmitting}
-      onClick={handleClick}
+      onClick={mint.submit}
     />
   )
 }

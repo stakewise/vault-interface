@@ -66,6 +66,7 @@ declare global {
 
     type Fetch = {
       data: () => Promise<void>
+      balances: () => Promise<void>
       unstakeQueue: () => Promise<void>
       unboostQueue: () => Promise<void>
     }

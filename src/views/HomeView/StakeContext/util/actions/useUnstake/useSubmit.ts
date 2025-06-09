@@ -26,7 +26,7 @@ const useSubmit = (params: StakePage.Params): Output => {
   const [ isSubmitting, setSubmitting ] = useState(false)
 
   const subgraphUpdate = useSubgraphUpdate()
-  const { refetchDepositTokenBalance } = useBalances()
+  const { refetchNativeTokenBalance, refetchDepositTokenBalance } = useBalances()
 
   const submit = useCallback(async () => {
     const assets = field.value || 0n
@@ -51,13 +51,17 @@ const useSubmit = (params: StakePage.Params): Output => {
       if (hash) {
         await subgraphUpdate({ hash })
 
+        field.reset()
+
         cancelOnChange({
           address,
           chainId,
           logic: () => {
             fetch.data()
+            fetch.balances()
             fetch.unstakeQueue()
 
+            refetchNativeTokenBalance()
             refetchDepositTokenBalance()
           },
         })
@@ -106,6 +110,7 @@ const useSubmit = (params: StakePage.Params): Output => {
     isCollateralized,
     subgraphUpdate,
     cancelOnChange,
+    refetchNativeTokenBalance,
     refetchDepositTokenBalance,
   ])
 

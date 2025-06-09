@@ -84,10 +84,12 @@ export const {
 
   const fetch = useMemo(() => ({
     data: refetchData,
+    balances: fetchBalances,
     unstakeQueue: fetchExitQueue,
     unboostQueue: fetchUnboostQueue,
   }), [
     refetchData,
+    fetchBalances,
     fetchExitQueue,
     fetchUnboostQueue,
   ])
