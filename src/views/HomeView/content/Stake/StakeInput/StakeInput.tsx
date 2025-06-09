@@ -30,7 +30,7 @@ const StakeInput: React.FC = () => {
           value={stake.swapTokens.selected.name as Tokens}
           tokens={stake.swapTokens.list}
           dataTestId="token-select"
-          isFetching={address && (isSwapTokenRatesFetching || isSwapTokenBalancesFetching)}
+          isFetching={Boolean(address && (isSwapTokenRatesFetching || isSwapTokenBalancesFetching))}
           onChange={(token) => {
             if (token !== stake.swapTokens.selected.address) {
               field.reset()

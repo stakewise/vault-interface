@@ -25,8 +25,8 @@ const useOptions = () => {
     isSwapQuoteFetching: stake.isSwapQuoteFetching,
   })
 
-  return useMemo<Position[]>(() => {
-    const result = [
+  return useMemo(() => {
+    const result: Position[] = [
       stakeApy,
       stakeAssets,
     ]
@@ -35,7 +35,7 @@ const useOptions = () => {
       return [
         ...result,
         stakeNetworkCost,
-      ]
+      ] as Position[]
     }
 
     return result
