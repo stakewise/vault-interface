@@ -26,15 +26,19 @@ const useOptions = () => {
   })
 
   return useMemo<Position[]>(() => {
+    const result = [
+      stakeApy,
+      stakeAssets,
+    ]
+
     if (address) {
       return [
-        stakeApy,
-        stakeAssets,
+        ...result,
         stakeNetworkCost,
-      ] as Position[]
+      ]
     }
 
-    return []
+    return result
   }, [ address, stakeApy, stakeAssets, stakeNetworkCost ])
 }
 

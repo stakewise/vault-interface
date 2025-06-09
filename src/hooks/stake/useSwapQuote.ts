@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo } from 'react'
+import { BigDecimal } from 'sdk'
 import useObjectState from '../controls/useObjectState'
 
 import useSwap from './useSwap'
@@ -33,9 +34,11 @@ const useSwapQuote = ({ amount, fromToken }: Input) => {
 
   const getBuyAmount = useCallback((value: bigint) => {
     if (amount && state.buyAmount) {
-      const percent = value / (amount / 100n)
+      const amountPercent = new BigDecimal(amount).divide(100)
+      const percent = new BigDecimal(value).divide(amountPercent)
+      const result = new BigDecimal(state.buyAmount).divide(100).multiply(percent).decimals(0).toNumber()
 
-      return state.buyAmount / 100n * percent
+      return BigInt(result)
     }
 
     return 0n

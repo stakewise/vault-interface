@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { useConfig } from 'config'
-import { ZeroAddress } from 'ethers'
 import { initContext } from 'helpers'
+import { parseUnits, ZeroAddress } from 'ethers'
 import { useStore, useAutoFetch, useSwapQuote, useSwapTokens } from 'hooks'
 
 import useFields from './useFields'
@@ -71,7 +71,7 @@ export const {
   const swapToken = swapTokens.selected
 
   const { fee, getBuyAmount, isFetching: isSwapQuoteFetching } = useSwapQuote({
-    amount: swapToken.balance,
+    amount: address ? swapToken.balance : parseUnits('1', swapToken.units),
     fromToken: swapToken.address,
   })
 
