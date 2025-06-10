@@ -72,7 +72,7 @@ const useBoostSubmit = (vaultAddress: string | null): Output => {
     try {
       const hash = await approve()
 
-      setTransaction(BoostStep.Permit, Transactions.Status.Waiting)
+      setTransaction(BoostStep.Permit, Transactions.Status.Processing)
 
       await checkAllowance({ hash, allowance })
 
@@ -131,7 +131,7 @@ const useBoostSubmit = (vaultAddress: string | null): Output => {
         permitParams,
       })
 
-      setTransaction(BoostStep.Boost, Transactions.Status.Waiting)
+      setTransaction(BoostStep.Boost, Transactions.Status.Processing)
 
       await subgraphUpdate({ hash })
 

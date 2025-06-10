@@ -41,7 +41,7 @@ const useStakeApprove = ({ step, field, tokenAddress, recipient, skip }: Input) 
 
       const hash = await approve()
 
-      setTransaction(step, Transactions.Status.Waiting)
+      setTransaction(step, Transactions.Status.Processing)
 
       await checkAllowance({ hash, allowance })
 

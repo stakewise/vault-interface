@@ -1,12 +1,12 @@
 import React, { useCallback, useEffect } from 'react'
 import { useModalClose } from 'hooks'
-import modal from 'modules/modal'
+import modal from 'sw-modules/modal'
 import { commonMessages } from 'helpers'
 
-import { SetTransaction, TransactionsModal, TransactionStatus } from 'components'
+import { SetTransaction, TransactionsModal, TransactionStatus } from 'sw-components'
 
 import { useTransactionsFlow } from './util'
-import type { TransactionsFlow } from './types'
+import type { TransactionsFlow, StepsData } from './types'
 
 
 type OnStartInput = {
@@ -15,18 +15,18 @@ type OnStartInput = {
 
 type Input = Modals.VisibilityProps & {
   flow: TransactionsFlow
-  stepTitles?: Record<string, Intl.Message>
+  stepsData?: StepsData
   availableSteps?: string[]
   onStart: (values: OnStartInput) => Promise<void>
 }
 
 export const [ TransactionsFlowModal, openTransactionsFlowModal ] = (
   modal.wrapper(UNIQUE_FILE_ID, (props: Input) => {
-    const { flow, stepTitles, availableSteps, onStart, closeModal } = props
+    const { flow, stepsData, availableSteps, onStart, closeModal } = props
 
     const { transactions, setTransaction } = useTransactionsFlow({
       flow,
-      stepTitles,
+      stepsData,
       availableSteps,
     })
 

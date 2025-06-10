@@ -197,7 +197,7 @@ const useSwap = () => {
 
       actions.ui.setBottomLoaderTransaction(`${blockExplorerUrl}/${orderId}`)
 
-      setTransaction(StakeStep.Swap, Transactions.Status.Waiting)
+      setTransaction(StakeStep.Swap, Transactions.Status.Processing)
 
       const { hash, buyAmount } = await waitForTrade(orderId)
 

@@ -18,7 +18,7 @@ const View: React.FC<TransactionsProps> = (props) => {
   return (
     <div className={className}>
       {
-        items.map(({ title, status, testId }, index) => (
+        items.map(({ title, status, testId, onCancel }, index) => (
           <TransactionView
             key={index}
             className={cx({
@@ -27,6 +27,7 @@ const View: React.FC<TransactionsProps> = (props) => {
             })}
             status={status}
             title={title}
+            onCancel={onCancel}
             dataTestId={testId}
           />
         ))

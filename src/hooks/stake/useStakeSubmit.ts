@@ -48,8 +48,11 @@ type Input = {
   onSuccess?: (values: OnSuccessInput) => void
   openTransactionsFlowModal: (props: {
     flow: 'stake'
-    stepTitles: Record<string, Intl.Message>
-    availableSteps: string[]
+    stepsData?: Record<string, {
+      title?: Intl.Message
+      onCancel?: () => void
+    }>
+    availableSteps?: string[]
     onStart: (values: { setTransaction: SetTransaction }) => Promise<void>
   }) => void
 }
@@ -109,7 +112,7 @@ const useStakeSubmit = ({ field, swapToken, stakeStep, onSwap, onSuccess, openTr
         referrerAddress,
       })
 
-      setTransaction(StakeStep.Stake, Transactions.Status.Waiting)
+      setTransaction(StakeStep.Stake, Transactions.Status.Processing)
 
       if (hash) {
         await subgraphUpdate({ hash })
@@ -133,16 +136,18 @@ const useStakeSubmit = ({ field, swapToken, stakeStep, onSwap, onSuccess, openTr
     }
   }, [ signSDK, address, vaultAddress, subgraphUpdate, handleSuccess ])
 
-  const { availableSteps, stepTitles } = useMemo(() => {
+  const { availableSteps, stepsData } = useMemo(() => {
     const availableSteps = []
-    const stepTitles: Record<string, Intl.Message> = {}
+    const stepsData: Record<string, { title: Intl.Message }> = {}
 
     if (swapApprove.isRequired) {
       availableSteps.push(StakeStep.SwapApprove)
-      stepTitles[StakeStep.SwapApprove] = {
-        ...commonMessages.buttonTitle.approve,
-        values: {
-          token: swapToken.name,
+      stepsData[StakeStep.SwapApprove] = {
+        title: {
+          ...commonMessages.buttonTitle.approve,
+          values: {
+            token: swapToken.name,
+          },
         },
       }
     }
@@ -153,10 +158,12 @@ const useStakeSubmit = ({ field, swapToken, stakeStep, onSwap, onSuccess, openTr
 
     if (stakeApprove.isRequired) {
       availableSteps.push(StakeStep.Approve)
-      stepTitles[StakeStep.Approve] = {
-        ...commonMessages.buttonTitle.approve,
-        values: {
-          token: sdk.config.tokens.depositToken,
+      stepsData[StakeStep.Approve] = {
+        title: {
+          ...commonMessages.buttonTitle.approve,
+          values: {
+            token: sdk.config.tokens.depositToken,
+          },
         },
       }
     }
@@ -165,7 +172,7 @@ const useStakeSubmit = ({ field, swapToken, stakeStep, onSwap, onSuccess, openTr
 
     return {
       availableSteps,
-      stepTitles,
+      stepsData,
     }
   }, [ sdk, stakeStep, swapToken, swapApprove, stakeApprove ])
 
@@ -235,7 +242,7 @@ const useStakeSubmit = ({ field, swapToken, stakeStep, onSwap, onSuccess, openTr
     if (availableSteps.length > 1) {
       openTransactionsFlowModal({
         flow: 'stake',
-        stepTitles,
+        stepsData,
         availableSteps,
         onStart: ({ setTransaction }) => onStart({ assets, closeModal, setTransaction }),
       })
@@ -243,7 +250,7 @@ const useStakeSubmit = ({ field, swapToken, stakeStep, onSwap, onSuccess, openTr
     else {
       onStart({ assets, closeModal })
     }
-  }, [ field, address, vaultAddress, stepTitles, availableSteps, onStart, openTransactionsFlowModal ])
+  }, [ field, address, vaultAddress, stepsData, availableSteps, onStart, openTransactionsFlowModal ])
 
   const isAllowanceFetching = swapApprove.isFetching || stakeApprove.isFetching
 

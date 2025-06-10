@@ -4,10 +4,12 @@ import type { SetTransaction } from '../types'
 
 export enum TransactionStatus {
   Fail,
+  Cancel,
   Success,
   Waiting,
   Confirm,
-  Pending,
+  Canceling,
+  Processing,
 }
 
 export type Transaction = {
@@ -15,6 +17,7 @@ export type Transaction = {
   title: Intl.Message | string
   status: TransactionStatus
   testId?: string
+  onCancel?: () => void
 }
 
 const useLogic = (initialTransactions: Transaction[] = []) => {

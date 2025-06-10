@@ -70,7 +70,6 @@ const TokenDropdown: React.FC<TokenDropdownProps> = (props) => {
       )}
       button={({ ref, isOpen }) => (
         <ButtonBase
-          // TODO check after package update
           // @ts-ignore
           ref={ref}
           className="flex items-center gap-8"

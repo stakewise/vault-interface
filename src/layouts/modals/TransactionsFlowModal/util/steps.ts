@@ -22,7 +22,7 @@ const boostSteps: Transaction[] = [
   },
   {
     id: BoostStep.Boost,
-    status: Transactions.Status.Pending,
+    status: Transactions.Status.Waiting,
     title: commonMessages.buttonTitle.boost,
     testId: 'step-boost',
   },
@@ -37,19 +37,19 @@ const stakeSteps: Transaction[] = [
   },
   {
     id: StakeStep.Swap,
-    status: Transactions.Status.Pending,
+    status: Transactions.Status.Waiting,
     title: messages.swap,
     testId: 'step-swap',
   },
   {
     id: StakeStep.Approve,
-    status: Transactions.Status.Pending,
+    status: Transactions.Status.Waiting,
     title: '',
     testId: 'step-approve',
   },
   {
     id: StakeStep.Stake,
-    status: Transactions.Status.Pending,
+    status: Transactions.Status.Waiting,
     title: commonMessages.buttonTitle.stake,
     testId: 'step-stake',
   },
@@ -58,13 +58,13 @@ const stakeSteps: Transaction[] = [
 const unstakeSteps: Transaction[] = [
   {
     id: UnstakeStep.Swap,
-    status: Transactions.Status.Pending,
+    status: Transactions.Status.Waiting,
     title: messages.swapOnExchange,
     testId: 'step-swap',
   },
   {
     id: UnstakeStep.Queue,
-    status: Transactions.Status.Pending,
+    status: Transactions.Status.Waiting,
     title: messages.queue,
     testId: 'step-queue',
   },
