@@ -13,12 +13,7 @@ const storeSelector = (store: Store) => ({
   userAPY: store.vault.user.balances.userAPY,
 })
 
-type Input = {
-  getBuyAmount: (value: bigint) => bigint
-  isSwapQuoteFetching: boolean
-}
-
-const useStakeApy = ({ getBuyAmount, isSwapQuoteFetching }: Input) => {
+const useStakeApy = () => {
   const { sdk } = useConfig()
   const { field, stake } = stakeCtx.useData()
 
@@ -30,6 +25,8 @@ const useStakeApy = ({ getBuyAmount, isSwapQuoteFetching }: Input) => {
   })
 
   const [ { newAPY, isFetching }, setState ] = useObjectState(initialStateRef.current)
+
+  const { getBuyAmount, isSwapQuoteFetching } = stake
 
   const swapToken = stake.swapTokens.selected
 

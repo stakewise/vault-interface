@@ -12,17 +12,14 @@ const storeSelector = (store: Store) => ({
   stakedAssets: store.vault.user.balances.stake.assets,
 })
 
-type Input = {
-  getBuyAmount: (value: bigint) => bigint
-  isSwapQuoteFetching: boolean
-}
-
-const useStakeAssets = ({ getBuyAmount, isSwapQuoteFetching }: Input) => {
+const useStakeAssets = () => {
   const { sdk } = useConfig()
   const { field, stake } = stakeCtx.useData()
 
   const { value, error } = forms.useFieldValue(field)
   const { stakedAssets } = useStore(storeSelector)
+
+  const { getBuyAmount, isSwapQuoteFetching } = stake
 
   const depositToken = sdk.config.tokens.depositToken
   const swapToken = stake.swapTokens.selected

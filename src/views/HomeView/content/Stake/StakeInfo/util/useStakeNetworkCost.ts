@@ -7,13 +7,10 @@ import { commonMessages } from 'helpers'
 import { stakeCtx } from 'views/HomeView/StakeContext/util'
 
 
-type Input = {
-  isSwapQuoteFetching: boolean
-}
-
-const useStakeNetworkCost = ({ isSwapQuoteFetching }: Input) => {
+const useStakeNetworkCost = () => {
   const { sdk } = useConfig()
   const { stake } = stakeCtx.useData()
+  const { isSwapQuoteFetching } = stake
 
   const { fiatGas } = useFiatValues({
     fiatGas: {
