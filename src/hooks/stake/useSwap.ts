@@ -4,7 +4,9 @@ import { ZeroAddress } from 'ethers'
 import type { OrderCreation, OrderStatus, SupportedChainId, } from '@cowprotocol/cow-sdk'
 import { StakeStep } from 'helpers/enums'
 
-import { SetTransaction, Transactions, TransactionStatus } from 'components'
+import type { TransactionStatus } from '../../components/Transactions/util'
+import type { SetTransaction } from '../../components/Transactions/types'
+import Transactions from '../../components/Transactions/Transactions'
 
 import useActions from '../data/useActions'
 import useBalances from '../data/useBalances'
