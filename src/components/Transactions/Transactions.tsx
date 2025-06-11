@@ -2,14 +2,14 @@ import React from 'react'
 import cx from 'classnames'
 
 import TransactionView from './TransactionView/TransactionView'
-import { Transaction, TransactionStatus, useLogic } from './util'
+import { ModifiedTransaction, TransactionStatus, useLogic } from './util'
 
 import s from './Transactions.module.scss'
 
 
 export type TransactionsProps = {
   className?: string
-  items: Transaction[]
+  items: ModifiedTransaction[]
 }
 
 const View: React.FC<TransactionsProps> = (props) => {

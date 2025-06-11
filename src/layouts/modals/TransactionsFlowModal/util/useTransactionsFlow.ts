@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { Transactions } from 'sw-components'
+import { Transaction, Transactions } from 'components'
 
 import steps from './steps'
 import { TransactionsFlow, StepsData } from '../types'
@@ -8,31 +8,33 @@ import { TransactionsFlow, StepsData } from '../types'
 type Input = {
   flow: TransactionsFlow
   stepsData?: StepsData
-  availableSteps?: string[]
 }
 
-const useTransactionsFlow = ({ flow, stepsData, availableSteps }: Input) => {
+const useTransactionsFlow = ({ flow, stepsData }: Input) => {
   const flowSteps = useMemo(() => {
     let result = steps[flow]
 
     if (stepsData) {
-      result = result.map((step) => ({
-        ...step,
-        ...stepsData[step.id],
-      }))
-    }
+      const stepsById: Record<Transaction['id'], Transaction> = {}
 
-    if (availableSteps) {
-      return result
-        .filter((step) => availableSteps.includes(step.id as string))
-        .map((step, index) => ({
-          ...step,
-          status: index ? step.status : Transactions.Status.Confirm,
-        }))
+      steps[flow].forEach((step) => {
+        stepsById[step.id] = step
+      })
+
+      result = stepsData
+        .map((stepData, index) => {
+          const defaultStepData = stepsById[stepData.id as keyof typeof stepsById]
+
+          return {
+            ...defaultStepData,
+            ...stepData,
+            status: index ? defaultStepData.status : Transactions.Status.Confirm,
+          }
+        })
     }
 
     return result
-  }, [ flow, stepsData, availableSteps ])
+  }, [ flow, stepsData ])
 
   const { transactions, setTransaction, resetTransactions } = Transactions.useLogic(flowSteps)
 

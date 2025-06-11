@@ -1,9 +1,9 @@
 import React, { useCallback, useEffect } from 'react'
 import { useModalClose } from 'hooks'
-import modal from 'sw-modules/modal'
+import modal from 'modules/modal'
 import { commonMessages } from 'helpers'
 
-import { SetTransaction, TransactionsModal, TransactionStatus } from 'sw-components'
+import { SetTransaction, TransactionsModal, TransactionStatus } from 'components'
 
 import { useTransactionsFlow } from './util'
 import type { TransactionsFlow, StepsData } from './types'
@@ -16,18 +16,16 @@ type OnStartInput = {
 type Input = Modals.VisibilityProps & {
   flow: TransactionsFlow
   stepsData?: StepsData
-  availableSteps?: string[]
   onStart: (values: OnStartInput) => Promise<void>
 }
 
 export const [ TransactionsFlowModal, openTransactionsFlowModal ] = (
   modal.wrapper(UNIQUE_FILE_ID, (props: Input) => {
-    const { flow, stepsData, availableSteps, onStart, closeModal } = props
+    const { flow, stepsData, onStart, closeModal } = props
 
     const { transactions, setTransaction } = useTransactionsFlow({
       flow,
       stepsData,
-      availableSteps,
     })
 
     useModalClose({ closeModal })
@@ -42,7 +40,7 @@ export const [ TransactionsFlowModal, openTransactionsFlowModal ] = (
       handleStart()
     }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
-    const completedStatuses = [ TransactionStatus.Fail, TransactionStatus.Success ]
+    const completedStatuses = [ TransactionStatus.Fail, TransactionStatus.Success, TransactionStatus.Cancel ]
     const isOverlayDisabled = !transactions.every(({ status }) => completedStatuses.includes(status))
 
     return (

@@ -1,15 +1,10 @@
-import { useCallback, useMemo } from 'react'
+import { useCallback, useMemo, useRef } from 'react'
 import { useConfig } from 'config'
 import { ZeroAddress } from 'ethers'
-import type {
-  OrderStatus,
-  OrderCreation,
-  SupportedChainId,
-} from '@cowprotocol/cow-sdk'
+import type { OrderCreation, OrderStatus, SupportedChainId, } from '@cowprotocol/cow-sdk'
 import { StakeStep } from 'helpers/enums'
 
-import type { SetTransaction } from '../../components/Transactions/types'
-import Transactions from '../../components/Transactions/Transactions'
+import { SetTransaction, Transactions, TransactionStatus } from 'components'
 
 import useActions from '../data/useActions'
 import useBalances from '../data/useBalances'
@@ -21,6 +16,15 @@ type FetchQuoteInput = {
 }
 
 type SwapInput = FetchQuoteInput & {
+  setTransaction: SetTransaction
+}
+
+type CancelSwapInput = {
+  setTransaction: SetTransaction
+}
+
+type SetNextStepsInput = {
+  status: TransactionStatus
   setTransaction: SetTransaction
 }
 
@@ -38,6 +42,7 @@ const useSwap = () => {
   const { refetchDepositTokenBalance, refetchSwapTokenBalances } = useBalances()
 
   const actions = useActions()
+  const orderIdRef = useRef('')
 
   const depositTokenAddress = isMainnet
     ? '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE' // this is the address of ETH in cow protocol
@@ -45,10 +50,12 @@ const useSwap = () => {
 
   const getCowSdk = useCallback(async () => {
     const { OrderBookApi, OrderQuoteSideKindSell, OrderSigningUtils } = await import('@cowprotocol/cow-sdk')
+    const { signOrder, signOrderCancellations } = OrderSigningUtils
 
     return {
       kind: OrderQuoteSideKindSell.SELL,
-      signOrder: OrderSigningUtils.signOrder,
+      signOrder,
+      signOrderCancellations,
       orderBookApi: new OrderBookApi({
         chainId: chainId as SupportedChainId,
       }),
@@ -85,6 +92,15 @@ const useSwap = () => {
     }
   }, [ address, depositTokenAddress, getCowSdk ])
 
+  const getSigner = useCallback(async (address: string) => {
+    const signer = await signSDK.provider.getSigner(address)
+
+    // Fix for error caused by different ethers versions: signer (v6) and cow sdk (v5)
+    signer._signTypedData = signer.signTypedData
+
+    return signer
+  }, [ signSDK, address ])
+
   const sendOrder = useCallback(async (values: FetchQuoteInput) => {
     const { amount, fromToken } = values
 
@@ -95,11 +111,7 @@ const useSwap = () => {
     const { orderBookApi, signOrder } = await getCowSdk()
 
     const quote = await fetchQuote({ amount, fromToken })
-
-    const signer = await signSDK.provider.getSigner(address)
-
-    // Fix for error caused by different ethers versions: signer (v6) and cow sdk (v5)
-    signer._signTypedData = signer.signTypedData
+    const signer = await getSigner(address)
 
     // Cow protocol requires the fee amount to be 0
     const orderParams = {
@@ -127,7 +139,7 @@ const useSwap = () => {
       orderId,
       buyAmount: BigInt(quote.buyAmount),
     }
-  }, [ signSDK, chainId, address, getCowSdk, fetchQuote ])
+  }, [ chainId, getSigner, address, getCowSdk, fetchQuote ])
 
   const waitForTrade = useCallback(async (orderId: string): Promise<WaitForTradeOutput> => {
     try {
@@ -167,18 +179,18 @@ const useSwap = () => {
     }
   }, [ getCowSdk ])
 
+  const setNextSteps = useCallback(({ status, setTransaction }: SetNextStepsInput) => {
+    const nextSteps = [ StakeStep.Swap, StakeStep.Approve, StakeStep.Stake ]
+
+    actions.ui.resetBottomLoader()
+
+    nextSteps.forEach((step) => {
+      setTransaction(step, status)
+    })
+  }, [])
+
   const swap = useCallback(async (values: SwapInput) => {
     const { amount, fromToken, setTransaction } = values
-
-    const failSteps = [ StakeStep.Swap, StakeStep.Approve, StakeStep.Stake ]
-
-    const onError = () => {
-      actions.ui.resetBottomLoader()
-
-      failSteps.forEach((step) => {
-        setTransaction(step, Transactions.Status.Fail)
-      })
-    }
 
     try {
       setTransaction(StakeStep.Swap, Transactions.Status.Confirm)
@@ -186,10 +198,12 @@ const useSwap = () => {
       const { orderId } = await sendOrder({ amount, fromToken })
 
       if (!orderId) {
-        onError()
+        setNextSteps({ status: Transactions.Status.Fail, setTransaction })
 
         return Promise.reject('Order ID is not defined')
       }
+
+      orderIdRef.current = orderId
 
       const blockExplorerUrl = isMainnet
         ? 'https://explorer.cow.fi/orders'
@@ -199,9 +213,16 @@ const useSwap = () => {
 
       setTransaction(StakeStep.Swap, Transactions.Status.Processing)
 
-      const { hash, buyAmount } = await waitForTrade(orderId)
+      const { hash, status, buyAmount } = await waitForTrade(orderId)
 
-      if (hash) {
+      orderIdRef.current = ''
+
+      if (status === 'cancelled') {
+        setNextSteps({ status: Transactions.Status.Cancel, setTransaction })
+
+        return Promise.reject('Order was cancelled')
+      }
+      else if (hash) {
         setTransaction(StakeStep.Swap, Transactions.Status.Success)
         refetchSwapTokenBalances()
         refetchDepositTokenBalance()
@@ -210,13 +231,14 @@ const useSwap = () => {
         return BigInt(buyAmount)
       }
       else {
-        onError()
+        setNextSteps({ status: Transactions.Status.Fail, setTransaction })
 
         return Promise.reject('TxHash is not defined')
       }
     }
     catch (error) {
-      onError()
+      orderIdRef.current = ''
+      setNextSteps({ status: Transactions.Status.Fail, setTransaction })
 
       return Promise.reject(error as string)
     }
@@ -229,11 +251,44 @@ const useSwap = () => {
     refetchDepositTokenBalance,
   ])
 
+  const cancelSwap = useCallback(async ({ setTransaction }: CancelSwapInput) => {
+    if (address && orderIdRef.current) {
+      const { orderBookApi, signOrderCancellations } = await getCowSdk()
+
+      setTransaction(StakeStep.Swap, Transactions.Status.Canceling)
+
+      const signer = await getSigner(address)
+
+      const orderUids = [ orderIdRef.current ]
+
+      const orderCancellationsSigningResult = await signOrderCancellations(
+        orderUids,
+        chainId as SupportedChainId,
+        signer
+      )
+
+      try {
+        await orderBookApi.sendSignedOrderCancellations({
+          ...orderCancellationsSigningResult,
+          orderUids,
+        })
+
+        setTransaction(StakeStep.Swap, Transactions.Status.Cancel)
+      }
+      catch (error) {
+        console.error(error)
+        setTransaction(StakeStep.Swap, Transactions.Status.Success)
+      }
+    }
+  }, [ address, getSigner, getCowSdk ])
+
   return useMemo(() => ({
     swap,
+    cancelSwap,
     fetchQuote,
   }), [
     swap,
+    cancelSwap,
     fetchQuote,
   ])
 }

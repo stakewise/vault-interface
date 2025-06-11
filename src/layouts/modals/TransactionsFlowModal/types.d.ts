@@ -1,8 +1,8 @@
+import { Transaction } from '../../../components'
+
+
 export type TransactionsFlow = 'boost' | 'stake' | 'unstake'
 
-export type StepData = {
-  title?: Intl.Message
-  onCancel?: () => void
-}
+export type StepData = Partial<Pick<Transaction, 'id' | 'title' | 'onCancel'>>
 
-export type StepsData = Record<string, StepData>
+export type StepsData = StepData[]

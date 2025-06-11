@@ -4,17 +4,14 @@ import cx from 'classnames'
 import Icon from '../../Icon/Icon'
 import Text from '../../Text/Text'
 import ButtonBase from '../../ButtonBase/ButtonBase'
-import { TransactionStatus } from '../util'
+import { ModifiedTransaction, TransactionStatus } from '../util'
 
 import messages from './messages'
 
 
-export type StepProps = {
+export type StepProps = Omit<ModifiedTransaction, 'id' | 'testId'> & {
   className?: string
-  title: Intl.Message | string
-  status: TransactionStatus
   dataTestId?: string
-  onCancel?: () => void
 }
 
 const descriptions = {
@@ -100,7 +97,7 @@ const TransactionView: React.FC<StepProps> = (props) => {
             dataTestId={dataTestId ? `${dataTestId}-title` : undefined}
           />
           {
-            typeof onCancel === 'function' && (
+            typeof onCancel === 'function' && status === TransactionStatus.Processing && (
               <>
                 <div className="w-4 h-4 bg-dark rounded-full" />
                 <ButtonBase
