@@ -75,9 +75,11 @@ export const {
     fromToken: swapToken.address,
   })
 
+  const minStakeBalance = fee > 1n ? fee / 100n * 120n : 3n // 20% more than fee
+
   const { field, percentField } = useFields({
     tabs,
-    minBalance: tabs.value === Tab.Stake ? fee / 100n * 120n : 0n, // 20% more than fee
+    minBalance: tabs.value === Tab.Stake ? minStakeBalance : 0n,
     depositTokenBalance: address ? swapToken.balance : swapToken.emptyBalance,
     getDepositAmount: tabs.value === Tab.Stake && swapToken.address ? getBuyAmount : undefined,
   })
