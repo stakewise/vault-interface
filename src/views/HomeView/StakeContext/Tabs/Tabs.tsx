@@ -36,8 +36,15 @@ const Tabs: React.FC<TabsProps> = (props) => {
     index: tabIndex,
   }, [ tabsList, isClaimAvailable ])
 
+  const gapClassName = cx({
+    'gap-12': !isMobile,
+    'gap-4': isMobile,
+  })
+
   return (
-    <div className={cx(className, 'flex items-center justify-start gap-12 mobile:gap-4')}>
+    <div
+      className={cx(className, gapClassName, 'flex items-center justify-start')}
+    >
       {
         withToggleButton && (
           <FlipButton
@@ -48,7 +55,8 @@ const Tabs: React.FC<TabsProps> = (props) => {
       <div
         ref={containerRef}
         className={cx(
-          'flex items-center justify-start gap-12 mobile:gap-4',
+          gapClassName,
+          'flex items-center justify-start',
           'relative'
         )}
       >

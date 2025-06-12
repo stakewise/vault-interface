@@ -20,7 +20,7 @@ const Settings: React.FC<SettingsProps> = ({ className }) => {
   if (isMobile) {
     return (
       <div
-        className={cx(className, 'flex items-center justify-center gap-32')}
+        className={cx(className, 'flex items-center justify-center gap-32 pt-96 mt-96')}
       >
         {
           settingsOptions.map((settingsOption, index) => {

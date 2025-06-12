@@ -61,11 +61,12 @@ const APY: React.FC<APYProps> = (props) => {
       >
         <Text
           className="opacity-40"
-          message={messages.apy}
+          message={isMobile ? 'APY' : messages.apy}
           color="dark"
           size={isMobile ? 't12m' : 't14m'}
         />
         <ApyBreakdown
+          buttonClassName="flex"
           withText={isEthereum && isProfitable}
         >
           <Icon

@@ -48,7 +48,7 @@ const FlipButton: React.FC<FlipButtonProps> = (props) => {
     >
       <div
         ref={containerRef}
-        className="w-16 h-16 relative"
+        className="w-16 h-16 relative flex-none"
       >
         {
           arrows.map((className, index) => (

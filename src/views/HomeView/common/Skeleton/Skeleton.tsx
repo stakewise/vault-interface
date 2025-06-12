@@ -72,7 +72,7 @@ const Skeleton: React.FC = () => {
           <div className="mt-20">
             <Bone
               className="rounded-8"
-              h={isMobile ? 92 : 108}
+              h={isMobile ? 90 : 108}
               wFull
               delay={1}
             />

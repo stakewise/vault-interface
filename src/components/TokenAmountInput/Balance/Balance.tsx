@@ -51,7 +51,7 @@ const Balance: React.FC<BalanceProps> = (props) => {
             <Text
               message="Max"
               color="primary"
-              size="t14b"
+              size={isDesktop ? 't14b' : 't12b'}
             />
           </ButtonBase>
         )
