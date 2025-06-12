@@ -1,7 +1,8 @@
 import { useMemo } from 'react'
 import { useConfig } from 'config'
 import methods from 'helpers/methods'
-import { constants, commonMessages } from 'helpers'
+import { parseUnits } from 'ethers'
+import { commonMessages } from 'helpers'
 
 import { stakeCtx } from 'views/HomeView/StakeContext/util'
 import { Position as Item } from 'views/HomeView/content/util'
@@ -20,7 +21,7 @@ const useStakeRate = () => {
       return null
     }
 
-    const rateAmount = getBuyAmount(constants.blockchain.amount1)
+    const rateAmount = getBuyAmount(parseUnits('1', selectedToken.units))
 
     return {
       title: commonMessages.transaction.exchangeRate,
