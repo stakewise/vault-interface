@@ -4,6 +4,7 @@ import { formatEther } from 'ethers'
 import { useFiatValues } from 'hooks'
 import { commonMessages } from 'helpers'
 
+import { Position as Item } from 'views/HomeView/content/util'
 import { stakeCtx } from 'views/HomeView/StakeContext/util'
 
 
@@ -20,7 +21,7 @@ const useStakeNetworkCost = () => {
     },
   })
 
-  return useMemo(() => ({
+  return useMemo<Item>(() => ({
     title: commonMessages.transaction.networkCost,
     textValue: {
       prev: {
