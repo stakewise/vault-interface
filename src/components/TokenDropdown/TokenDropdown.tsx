@@ -39,16 +39,18 @@ const TokenDropdown: React.FC<TokenDropdownProps> = (props) => {
     field.setValue('')
   }, [ field, onChange ])
 
+  const isSwapEnabled = tokens.length > 1
+
   const tokenBaseNode = (
     <TokenBase
       className="flex-shrink-0"
       token={value}
       dataTestId={`${dataTestId}-token`}
-      isFetching={isFetching}
+      isFetching={isFetching && isSwapEnabled}
     />
   )
 
-  if (isFetching || tokens.length < 2) {
+  if (isFetching || !isSwapEnabled) {
     return tokenBaseNode
   }
 
