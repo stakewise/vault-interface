@@ -12,11 +12,4 @@
 @use './scss/z-index';
 @use './scss/background';
 @use './scss/transition';
-
-
-@include except-desktop {
-
-  html {
-    padding-right: 0 !important;
-  }
-}
+@use './locals';
