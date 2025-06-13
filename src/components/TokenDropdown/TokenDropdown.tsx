@@ -45,7 +45,7 @@ const TokenDropdown: React.FC<TokenDropdownProps> = (props) => {
     <TokenBase
       className="flex-shrink-0"
       token={value}
-      dataTestId={`${dataTestId}-token`}
+      dataTestId="amount-input-token"
       isFetching={isFetching && isSwapEnabled}
     />
   )
