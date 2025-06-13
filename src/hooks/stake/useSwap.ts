@@ -1,7 +1,7 @@
 import { useCallback, useMemo, useRef } from 'react'
 import { useConfig } from 'config'
 import { ZeroAddress } from 'ethers'
-import type { OrderCreation, OrderStatus, SupportedChainId, } from '@cowprotocol/cow-sdk'
+import type { OrderCreation, OrderStatus, SupportedChainId } from '@cowprotocol/cow-sdk'
 import { StakeStep } from 'helpers/enums'
 
 import type { TransactionStatus } from '../../components/Transactions/util'
