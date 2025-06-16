@@ -2,6 +2,7 @@ import GNO from './token/GNO.svg'
 import ETH from './token/ETH.svg'
 import SSV from './token/SSV.svg'
 import xDAI from './token/xDAI.svg'
+import Obol from './token/Obol.svg'
 import SWISE from './token/swise.svg'
 import osETH from './token/osETH.svg'
 import osGNO from './token/osGNO.svg'
@@ -69,6 +70,7 @@ export default {
   'token/ETH': ETH.src,
   'token/SSV': SSV.src,
   'token/xDAI': xDAI.src,
+  'token/Obol': Obol.src,
   'token/SWISE': SWISE.src,
   'token/osETH': osETH.src,
   'token/osGNO': osGNO.src,

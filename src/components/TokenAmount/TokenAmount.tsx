@@ -12,6 +12,7 @@ export const tokens = [
   'ETH',
   'SSV',
   'xDAI',
+  'Obol',
   'SWISE',
   'osETH',
   'osGNO',

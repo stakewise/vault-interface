@@ -9,7 +9,7 @@ type State = {
 }
 
 const useBoostAllowance = (vaultAddress: string | null) => {
-  const { sdk, address, isGnosis } = useConfig()
+  const { sdk, address, isGnosis, isTestnet } = useConfig()
 
   const [ { permitAddress, isFetching }, setState ] = useObjectState<State>({
     permitAddress: null,
@@ -55,11 +55,13 @@ const useBoostAllowance = (vaultAddress: string | null) => {
       })
     }
     catch (error) {
-      console.error('fetchPermitAddress: can\'t get permit address', error as Error)
+      if (!isTestnet) {
+        console.error('fetchPermitAddress: can\'t get permit address', error as Error)
+      }
 
       setState({ isFetching: false })
     }
-  }, [ sdk, vaultAddress, address, isGnosis, setState ])
+  }, [ sdk, vaultAddress, address, isGnosis, isTestnet, setState ])
 
   useEffect(() => {
     fetchPermitAddress()

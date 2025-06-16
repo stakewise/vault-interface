@@ -9,9 +9,11 @@ import { cacheWrapper } from './helpers'
 const fetchMainnetRates = async () => {
   const sdk = getSDK({ chainId: Network.Mainnet })
 
-  const { mintTokenValues, assetValues, swiseValues } = await fetchRates(sdk)
+  const { mintTokenValues, assetValues, ssvValues, obolValues, swiseValues } = await fetchRates(sdk)
 
   return {
+    [constants.tokens.ssv]: ssvValues,
+    [constants.tokens.obol]: obolValues,
     [constants.tokens.eth]: assetValues,
     [constants.tokens.swise]: swiseValues,
     [constants.tokens.osETH]: mintTokenValues,
