@@ -3,12 +3,12 @@ import cx from 'classnames'
 import methods from 'helpers/methods'
 import { useConfig } from 'config'
 import { formatUnits } from 'ethers'
+import { ListboxOption } from '@headlessui/react'
 
 import Text from '../../../Text/Text'
 import Logo from '../../../Logo/Logo'
 import type { LogoName } from '../../../Image/Image'
 import FiatAmount from '../../../FiatAmount/FiatAmount'
-import { ListboxOption } from '@headlessui/react'
 
 import s from './Option.module.scss'
 
