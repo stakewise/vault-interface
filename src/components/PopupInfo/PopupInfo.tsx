@@ -85,7 +85,6 @@ const PopupInfo: React.FC<PopupInfoProps> = (props) => {
           >
             <div
               className={cx(
-                s.wrapper,
                 childClassName,
                 'shadow-md bg-background p-24 rounded-8 border border-dark/10'
               )}

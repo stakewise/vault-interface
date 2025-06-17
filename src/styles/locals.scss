@@ -1,0 +1,9 @@
+@use './mixins/media';
+
+
+@include media.except-desktop {
+
+  html {
+    padding-right: 0 !important;
+  }
+}

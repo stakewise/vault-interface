@@ -106,7 +106,7 @@ export default {
     fr: 'Solde',
     es: 'Saldo',
     pt: 'Saldo',
-    de: 'Kontostand',
+    de: 'Guthaben',
     zh: '余额',
   },
   apy: {

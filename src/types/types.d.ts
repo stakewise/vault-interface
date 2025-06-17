@@ -1,4 +1,5 @@
 import { createVaultInterfaceStore } from 'store/entries/vault-interface'
+import { LogoName } from 'components'
 
 
 declare global {
@@ -55,6 +56,16 @@ declare global {
     id: string
     title: Intl.Message | string
     isError?: boolean
+  }
+
+  type SwapToken = {
+    name: string
+    title: string
+    address: string
+    balance: bigint
+    logo: LogoName
+    units: number
+    emptyBalance: bigint
   }
 
   type Config = StakeWise.Config

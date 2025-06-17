@@ -4,10 +4,12 @@ import type { SetTransaction } from '../types'
 
 export enum TransactionStatus {
   Fail,
+  Cancel,
   Success,
   Waiting,
   Confirm,
-  Pending,
+  Canceling,
+  Processing,
 }
 
 export type Transaction = {
@@ -15,6 +17,11 @@ export type Transaction = {
   title: Intl.Message | string
   status: TransactionStatus
   testId?: string
+  onCancel?: (props: { setTransaction: SetTransaction }) => void
+}
+
+export type ModifiedTransaction = Omit<Transaction, 'onCancel'> & {
+  onCancel?: () => void
 }
 
 const useLogic = (initialTransactions: Transaction[] = []) => {
@@ -40,7 +47,10 @@ const useLogic = (initialTransactions: Transaction[] = []) => {
   }, [ initialTransactions ])
 
   return useMemo(() => ({
-    transactions,
+    transactions: transactions.map(({ onCancel, ...transaction }) => ({
+      ...transaction,
+      onCancel: typeof onCancel === 'function' ? () => onCancel({ setTransaction }) : undefined,
+    })),
     setTransaction,
     setTransactions,
     resetTransactions,

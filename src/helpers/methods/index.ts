@@ -10,7 +10,7 @@ import getGasMargin from './getGasMargin'
 import getFiatValue from './getFiatValue'
 import downloadFile from './downloadFile'
 import shortenAddress from './shortenAddress'
-import fetchFiatRates from './fetchFiatRates'
+import fetchWithRetry from './fetchWithRetry'
 import formatFiatValue from './formatFiatValue'
 import isInjectedWallet from './isInjectedWallet'
 import formatTokenValue from './formatTokenValue'
@@ -20,6 +20,7 @@ import numericalReduction from './numericalReduction'
 import getGlobalHtmlAttrs from './getGlobalHtmlAttrs'
 import addNumberSeparator from './addNumberSeparator'
 import getInjectedProvider from './getInjectedProvider'
+import fetchFiatRates, { createSetValues } from './fetchFiatRates'
 
 
 export default {
@@ -35,8 +36,10 @@ export default {
   getFiatValue,
   downloadFile,
   shortenAddress,
+  fetchWithRetry,
   fetchFiatRates,
   formatFiatValue,
+  createSetValues,
   isInjectedWallet,
   formatTokenValue,
   getOriginHostName,

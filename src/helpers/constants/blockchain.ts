@@ -1,6 +1,10 @@
 export default {
+  gwei: 1000000000n,
   amount0: 0n,
   amount1: 1000000000000000000n,
   amount100: 100000000000000000000n,
   minimalAmount: 100000000000000n, // 0.0001
+  emptyBalance: 100000000000000000000000000n,
+  emptyBalance6: 100000000000000n,
+  emptyBalance8: 10000000000000000n,
 }

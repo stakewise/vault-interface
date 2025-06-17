@@ -32,11 +32,6 @@ export const balancesSlice = createSlice({
   name: storageNames.accountBalances,
   initialState,
   reducers: {
-    setData: (state, action: PayloadAction<BalancesState['data']>) => ({
-      ...state,
-      isFetching: false,
-      data: action.payload,
-    }),
     setFetching: (state, action: PayloadAction<BalancesState['isFetching']>) => {
       state.isFetching = action.payload
     },

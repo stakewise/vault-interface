@@ -9,6 +9,7 @@ import { accountMethods } from 'store/store/account'
 import { currencyMethods } from 'store/store/currency'
 import { fiatRatesMethods } from 'store/store/fiatRates'
 import { mintTokenMethods } from 'store/store/mintToken'
+import { swapTokenRatesMethods } from 'store/store/swapTokenRates'
 
 
 const useActions = () => {
@@ -21,7 +22,8 @@ const useActions = () => {
     currency: wrapDispatchMethods(currencyMethods, dispatch),
     fiatRates: wrapDispatchMethods(fiatRatesMethods, dispatch),
     mintToken: wrapDispatchMethods(mintTokenMethods, dispatch),
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    swapTokenRates: wrapDispatchMethods(swapTokenRatesMethods, dispatch),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }), [])
 }
 

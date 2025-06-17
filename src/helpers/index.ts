@@ -4,6 +4,7 @@ export { default as cookie } from 'helpers/cookie'
 export { default as initContext } from 'helpers/initContext'
 export { default as replaceReactComponents } from './replaceReactComponents'
 
+export * from './swapTokens'
 export * as getters from './getters'
 export * as requests from './requests'
 export * as modifiers from './modifiers'

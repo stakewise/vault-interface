@@ -15,12 +15,14 @@ const storeSelector = (store: Store) => ({
 })
 
 type ApyBreakdownProps = {
+  className?: string
+  buttonClassName?: string
   children: ReactNode
   withText?: boolean
 }
 
 const ApyBreakdown: React.FC<ApyBreakdownProps> = (props) => {
-  const { children, withText } = props
+  const { className, buttonClassName, children, withText } = props
 
   const { data } = useApyDetails()
   const { apy, isMoreV2, maxBoostApy } = useStore(storeSelector)
@@ -31,6 +33,8 @@ const ApyBreakdown: React.FC<ApyBreakdownProps> = (props) => {
   if (isPopupEnabled) {
     return (
       <PopupInfo
+        className={className}
+        buttonClassName={buttonClassName}
         headNode={children}
       >
         <Details

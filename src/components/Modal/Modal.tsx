@@ -40,6 +40,7 @@ const Modal: React.FC<ModalProps> = (props) => {
 
       if (root) {
         root.inert = false
+        root.ariaHidden = null
       }
     })
 

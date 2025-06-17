@@ -3,10 +3,12 @@ import { useConfig } from 'config'
 
 import useStore from '../data/useStore'
 import useActions from '../data/useActions'
+import useSwapTokenBalances from './useSwapTokenBalances'
 
 
 type Output = {
   refetchMintTokenBalance: () => Promise<void>
+  refetchSwapTokenBalances: () => Promise<void>
   refetchNativeTokenBalance: () => Promise<void>
   refetchDepositTokenBalance: () => Promise<void>
 }
@@ -20,6 +22,7 @@ const useBalances = (): Output => {
   const { sdk, address } = useConfig()
 
   const { balances } = useStore(storeSelector)
+  const fetchSwapTokenBalances = useSwapTokenBalances()
 
   const balancesRef = useRef(balances)
   balancesRef.current = balances
@@ -75,9 +78,20 @@ const useBalances = (): Output => {
     }
   }, [ address, sdk, actions ])
 
+  const refetchSwapTokenBalances = useCallback(async () => {
+    if (!address) {
+      return
+    }
+
+    const balances = await fetchSwapTokenBalances()
+
+    actions.account.swapTokenBalances.setData(balances)
+  }, [ address, actions, fetchSwapTokenBalances ])
+
   return {
     refetchDepositTokenBalance,
     refetchNativeTokenBalance,
+    refetchSwapTokenBalances,
     refetchMintTokenBalance,
   }
 }

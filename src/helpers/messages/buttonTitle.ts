@@ -1,11 +1,11 @@
 export default {
   stake: {
     en: 'Stake',
-    ru: 'Стейкинг',
-    fr: 'Staking',
-    es: 'Staking',
-    pt: 'Staking',
-    de: 'Staking',
+    ru: 'Стейк',
+    fr: 'Stake',
+    es: 'Stake',
+    pt: 'Stake',
+    de: 'Stake',
     zh: '质押',
   },
   mint: {
@@ -19,11 +19,11 @@ export default {
   },
   burn: {
     en: 'Burn',
-    ru: 'Сжечь',
-    fr: 'Brûler',
-    es: 'Quemar',
-    pt: 'Queimar',
-    de: 'Verbrennen',
+    ru: 'Берн',
+    fr: 'Burn',
+    es: 'Burn',
+    pt: 'Burn',
+    de: 'Burn',
     zh: '销毁',
   },
   max: {

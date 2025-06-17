@@ -1,6 +1,6 @@
 import React, { Fragment, KeyboardEventHandler, ReactElement, ReactNode } from 'react'
 import cx from 'classnames'
-import { offset, shift } from '@floating-ui/react'
+import { offset, shift, VirtualElement, OffsetOptions } from '@floating-ui/react'
 import type { Placement } from '@floating-ui/react'
 import { autoUpdate, flip, useFloating } from '@floating-ui/react-dom'
 import { Listbox, ListboxButton, ListboxOptions, ListboxOption } from '@headlessui/react'
@@ -8,15 +8,27 @@ import { Listbox, ListboxButton, ListboxOptions, ListboxOption } from '@headless
 import s from './Dropdown.module.scss'
 
 
+type ButtonInput = {
+  ref: (node: Element | VirtualElement | null) => void
+  isOpen: boolean
+}
+
 export type DropdownViewProps = {
   className?: string
   children: ReactNode
   disabled?: boolean
-  button: ReactElement // The child component must inherit the props, so be sure to make <Foo {...props} />
+  // The child component must inherit the props, so be sure to make <Foo {...props} />
+  button: ReactElement | ((props: ButtonInput) => ReactElement)
   value?: string
   placement?: Placement
   withArrow?: boolean
   dataTestId?: string
+  middleware?: {
+    flip?: boolean
+    shift?: boolean
+    autoUpdate?: boolean
+    offsetOptions?: Omit<OffsetOptions, 'number'>
+  }
   onClose?: () => void
   onChange?: (value: any) => void
   onOptionsClick?: () => void
@@ -29,21 +41,24 @@ type DropdownViewComponent = React.FC<DropdownViewProps> & {
 
 const DropdownView: DropdownViewComponent = (props: DropdownViewProps) => {
   const {
-    className, children, button, value, disabled, withArrow,
+    className, children, button, value, disabled, withArrow, middleware,
     placement = 'bottom-end', dataTestId, onClose, onChange, onOptionsClick, onOptionsKeyDown,
   } = props
 
   const { refs, floatingStyles } = useFloating({
     placement,
     middleware: [
-      offset(10),
-      shift({ padding: 6 }),
-      flip({
+      offset({
+        mainAxis: 10,
+        ...middleware?.offsetOptions,
+      }),
+      middleware?.shift ? shift({ padding: 6 }) : null,
+      middleware?.flip ? flip({
         fallbackAxisSideDirection: 'start',
         padding: 6,
-      }),
+      }) : null,
     ],
-    whileElementsMounted: autoUpdate,
+    whileElementsMounted: middleware?.autoUpdate ? autoUpdate : undefined,
   })
 
   return (
@@ -62,6 +77,13 @@ const DropdownView: DropdownViewComponent = (props: DropdownViewProps) => {
                 setTimeout(onClose)
               }
 
+              if (typeof button === 'function') {
+                return button({
+                  ref: refs.setReference,
+                  isOpen: open,
+                })
+              }
+
               return React.cloneElement<HTMLButtonElement>(button as any, {
                 // @ts-ignore
                 ref: refs.setReference,
@@ -72,7 +94,7 @@ const DropdownView: DropdownViewComponent = (props: DropdownViewProps) => {
         </ListboxButton>
         <ListboxOptions
           ref={refs.setFloating}
-          className={cx(s.options, 'absolute rounded-8 bg-background border border-dark/10 overflow-hidden shadow-md')}
+          className={cx(s.options, 'absolute rounded-8 bg-background border border-dark/10 overflow-x-hidden overflow-y-auto shadow-md')}
           style={floatingStyles}
           data-testid={`${dataTestId}-options`}
           onClick={onOptionsClick}

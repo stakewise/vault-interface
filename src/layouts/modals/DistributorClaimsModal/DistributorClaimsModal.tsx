@@ -124,7 +124,7 @@ export const [ DistributorClaimsModal, openDistributorClaimsModal ] = (
               <div
                 key={token}
                 className={cx('flex items-center justify-between', {
-                  'mt-8 pt-8 border-top border-moon/10': index,
+                  'mt-8 pt-8 border-top border-dark/10': index,
                 })}
               >
                 <Text
