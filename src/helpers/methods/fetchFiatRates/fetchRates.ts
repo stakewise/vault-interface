@@ -2,10 +2,7 @@ import { createSetValues } from './helpers'
 
 
 const fetchRates = async (sdk: SDK) => {
-  const [ mintTokenRate, rates ] = await Promise.all([
-    sdk.osToken.getRate(),
-    sdk.utils.getFiatRates(),
-  ])
+  const rates = await sdk.utils.getFiatRates()
 
   const setValues = createSetValues({
     EUR: rates['USD/EUR'],
@@ -16,14 +13,18 @@ const fetchRates = async (sdk: SDK) => {
     AUD: rates['USD/AUD'],
   })
 
+  const ssvValues = setValues(rates['SSV/USD'])
+  const obolValues = setValues(rates['OBOL/USD'])
   const assetValues = setValues(rates['ASSET/USD'])
   const swiseValues = setValues(rates['SWISE/USD'])
-  const mintTokenValues = setValues(rates['ASSET/USD'] * Number(mintTokenRate))
+  const mintTokenValues = setValues(rates['osToken/USD'])
 
   return {
     mintTokenValues,
     assetValues,
     swiseValues,
+    obolValues,
+    ssvValues,
     setValues,
   }
 }

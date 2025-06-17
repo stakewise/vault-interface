@@ -10,6 +10,7 @@ export default {
 
   // common
   ssv: 'SSV',
+  obol: 'Obol',
   swise: 'SWISE',
   osToken: 'osToken',
 } as const

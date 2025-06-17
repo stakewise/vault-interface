@@ -6,6 +6,7 @@ export const logos = [
   'token/GNO',
   'token/SSV',
   'token/xDAI',
+  'token/Obol',
   'token/SWISE',
   'token/osETH',
   'token/osGNO',

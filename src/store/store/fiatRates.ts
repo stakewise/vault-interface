@@ -22,6 +22,7 @@ export interface FiatRatesState {
     [constants.tokens.gno]: CurrenciesObject
     [constants.tokens.eth]: CurrenciesObject
     [constants.tokens.ssv]: CurrenciesObject
+    [constants.tokens.obol]: CurrenciesObject
     [constants.tokens.xdai]: CurrenciesObject
     [constants.tokens.swise]: CurrenciesObject
     [constants.tokens.osETH]: CurrenciesObject
@@ -35,6 +36,7 @@ export const initialState: FiatRatesState = {
     [constants.tokens.gno]: currencies,
     [constants.tokens.eth]: currencies,
     [constants.tokens.ssv]: currencies,
+    [constants.tokens.obol]: currencies,
     [constants.tokens.xdai]: currencies,
     [constants.tokens.swise]: currencies,
     [constants.tokens.osETH]: currencies,
