@@ -1,5 +1,4 @@
 import methods from '../methods'
-import * as constants from '../constants'
 
 
 type Input = {
@@ -35,7 +34,7 @@ const fetchBoostSupplyCaps = async (values: Input): Promise<Output> => {
       if (data?.aave) {
         const { osTokenSupplyCap, osTokenTotalSupplied } = data.aave
 
-        return BigInt(osTokenSupplyCap) * constants.blockchain.amount1 - BigInt(osTokenTotalSupplied)
+        return BigInt(osTokenSupplyCap) - BigInt(osTokenTotalSupplied)
       }
 
       return null
