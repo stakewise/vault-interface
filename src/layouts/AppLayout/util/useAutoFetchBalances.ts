@@ -13,6 +13,7 @@ const useAutoFetchBalances = () => {
   const {
     refetchDepositTokenBalance,
     refetchNativeTokenBalance,
+    refetchSwapTokenBalances,
     refetchMintTokenBalance,
   } = useBalances()
 
@@ -24,6 +25,7 @@ const useAutoFetchBalances = () => {
         await Promise.all([
           refetchDepositTokenBalance(),
           refetchNativeTokenBalance(),
+          refetchSwapTokenBalances(),
           refetchMintTokenBalance(),
         ])
       }
@@ -35,6 +37,7 @@ const useAutoFetchBalances = () => {
     networkId,
     refetchDepositTokenBalance,
     refetchNativeTokenBalance,
+    refetchSwapTokenBalances,
     refetchMintTokenBalance,
   ])
 

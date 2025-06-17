@@ -3,6 +3,7 @@ import {
   configureStore,
 } from '@reduxjs/toolkit'
 
+import swapTokenRates from '../store/swapTokenRates'
 import mintToken from '../store/mintToken'
 import fiatRates from '../store/fiatRates'
 import currency from '../store/currency'
@@ -13,6 +14,7 @@ import ui from '../store/ui'
 
 export const createVaultInterfaceStore = (initialState?: unknown) => configureStore({
   reducer: {
+    swapTokenRates,
     mintToken,
     fiatRates,
     currency,

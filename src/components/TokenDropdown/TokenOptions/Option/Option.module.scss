@@ -1,0 +1,12 @@
+.option {
+  height: 56rem;
+
+  &:hover,
+  &:focus {
+    background: rgba($color-primary-rgb, .05);
+  }
+}
+
+.logo {
+  background: rgba($color-dark-rgb, .05);
+}

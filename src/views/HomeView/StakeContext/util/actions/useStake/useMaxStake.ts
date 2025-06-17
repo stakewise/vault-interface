@@ -2,38 +2,39 @@ import { useCallback } from 'react'
 import { constants } from 'helpers'
 import { useConfig } from 'config'
 
-import useEstimateGas from '../useEstimateGas'
-
 
 type Input = {
-  getDepositGas: ReturnType<typeof useEstimateGas>
+  approveGas: bigint
+  depositGas: bigint
+  field: Forms.Field<bigint>
+  swapToken: SwapToken
 }
 
-const useMaxStake = (values: Input) => {
-  const { getDepositGas } = values
-
+const useMaxStake = ({ approveGas, depositGas, field, swapToken }: Input) => {
   const { isGnosis, activeWallet } = useConfig()
 
   const isGnosisSafeWallet = activeWallet === constants.walletNames.gnosisSafe
-  const isNoGasTransaction = isGnosis || isGnosisSafeWallet
+  const isNoGasTransaction = Boolean(isGnosis || isGnosisSafeWallet || swapToken.address)
 
-  return useCallback(async (assets: bigint) => {
+  return useCallback(() => {
+    const assets = swapToken.balance
+
     if (isNoGasTransaction) {
-      return assets
+      field.setValue(assets)
     }
+    else {
+      const hasAmount = assets > 0
 
-    const hasAmount = assets > 0
+      if (hasAmount) {
+        const total = assets - approveGas - (depositGas * 2n)
 
-    if (hasAmount) {
-      const gas = await getDepositGas(assets)
-
-      const total = assets - (gas * 2n)
-
-      return total > 0 ? total : 0n
+        field.setValue(total > 0 ? total : 0n)
+      }
+      else {
+        field.setValue(0n)
+      }
     }
-
-    return 0n
-  }, [ isNoGasTransaction, getDepositGas ])
+  }, [ field, approveGas, depositGas, swapToken, isNoGasTransaction ])
 }
 
 

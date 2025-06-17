@@ -4,8 +4,10 @@ export enum BoostStep {
 }
 
 export enum StakeStep {
+  SwapApprove = 'SwapApprove',
   Approve = 'Approve',
   Stake = 'Stake',
+  Swap = 'Swap',
 }
 
 export enum UnstakeStep {

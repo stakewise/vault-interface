@@ -1,9 +1,10 @@
-import { useCallback, useMemo, useRef, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import { formatEther, MaxInt256 } from 'ethers'
 import { requests } from 'helpers'
 import { useConfig } from 'config'
 
-import useAllowance from './useAllowance'
+import useAllowance, { CheckAllowanceInput } from './useAllowance'
+import useBalances from '../data/useBalances'
 
 
 type Input = {
@@ -12,10 +13,25 @@ type Input = {
   skip?: boolean
 }
 
-const useApprove = (values: Input) => {
+type Output = {
+  allowance: bigint
+  isFetching: boolean
+  isSubmitting: boolean
+  getGas: (amount?: bigint) => Promise<bigint>
+  approve: (amount?: bigint) => Promise<string | undefined>
+  checkAllowance: (values: CheckAllowanceInput) => Promise<void>
+}
+
+interface Hook {
+  (values: Input): Output
+  mock: Output
+}
+
+const useApprove: Hook = (values) => {
   const { recipient, tokenAddress, skip } = values
 
   const { signSDK, address } = useConfig()
+  const { refetchNativeTokenBalance } = useBalances()
 
   const { allowance, isFetching, checkAllowance } = useAllowance({
     tokenAddress,
@@ -25,8 +41,33 @@ const useApprove = (values: Input) => {
 
   const [ isSubmitting, setSubmitting ] = useState(false)
 
-  const allowanceRef = useRef(allowance)
-  allowanceRef.current = allowance
+  const getGas = useCallback(async (amount?: bigint): Promise<bigint> => {
+    if (!address) {
+      return 0n
+    }
+
+    try {
+      const gas = await requests.getApproveGas({
+        signSDK,
+        from: address,
+        to: recipient,
+        tokenAddress,
+        amount: amount?.toString(),
+      })
+
+      return gas
+    }
+    catch (error) {
+      console.error('getApproveGas error', error)
+
+      return 0n
+    }
+  }, [
+    address,
+    signSDK,
+    recipient,
+    tokenAddress,
+  ])
 
   const approve = useCallback(async (amount?: bigint) => {
     if (!address) {
@@ -46,6 +87,7 @@ const useApprove = (values: Input) => {
         amount: amount?.toString(),
       })
 
+      refetchNativeTokenBalance()
       setSubmitting(false)
 
       if (hash) {
@@ -71,21 +113,33 @@ const useApprove = (values: Input) => {
     signSDK,
     recipient,
     tokenAddress,
+    refetchNativeTokenBalance,
   ])
 
   return useMemo(() => ({
     allowance,
     isFetching,
     isSubmitting,
+    getGas,
     approve,
     checkAllowance,
   }), [
     allowance,
     isFetching,
     isSubmitting,
+    getGas,
     approve,
     checkAllowance,
   ])
+}
+
+useApprove.mock = {
+  allowance: 0n,
+  isFetching: false,
+  isSubmitting: false,
+  getGas: async () => 0n,
+  approve: async () => undefined,
+  checkAllowance: async () => undefined,
 }
 
 

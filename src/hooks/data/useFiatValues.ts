@@ -15,13 +15,14 @@ type Output<T extends string> = Record<T, {
   formattedValue: string
 }>
 
-
 const storeSelector = createSelector([
   (store: Store) => store.currency.symbol,
   (store: Store) => store.currency.selected,
   (store: Store) => store.fiatRates.isFetching,
   (store: Store) => store.fiatRates.data,
-], (currencySymbol, currency, isFetching, fiatRates) => ({
+  (store: Store) => store.swapTokenRates.data,
+], (currencySymbol, currency, isFetching, fiatRates, swapTokenRates) => ({
+  swapTokenRates,
   currencySymbol,
   isFetching,
   fiatRates,
@@ -34,7 +35,7 @@ const mock = {
 }
 
 const useFiatValues = <T extends string>(values: Input<T>): Output<T> => {
-  const { fiatRates, currency, currencySymbol, isFetching } = useSelector(storeSelector)
+  const { fiatRates, swapTokenRates, currency, currencySymbol, isFetching } = useSelector(storeSelector)
 
   const getFiatValue = useCallback((params: Input<T>[T]) => {
     const { token, value, isMinimal } = params
@@ -43,7 +44,9 @@ const useFiatValues = <T extends string>(values: Input<T>): Output<T> => {
       return mock
     }
 
-    const isValidToken = Object.keys(fiatRates).includes(token)
+    const allRates = { ...fiatRates, ...swapTokenRates }
+
+    const isValidToken = Object.keys(allRates).includes(token)
 
     if (!isValidToken) {
       console.error(`Incorrect token value in getFiatValue: ${token}`)
@@ -54,7 +57,8 @@ const useFiatValues = <T extends string>(values: Input<T>): Output<T> => {
       value,
       token,
       currency,
-      fiatRates,
+      fiatRates: allRates,
+      isMinimal,
     })
 
     const formattedValue = methods.formatFiatValue({
@@ -67,7 +71,7 @@ const useFiatValues = <T extends string>(values: Input<T>): Output<T> => {
       value: fiatValue,
       formattedValue,
     }
-  }, [ fiatRates, currency, currencySymbol, isFetching ])
+  }, [ fiatRates, swapTokenRates, currency, currencySymbol, isFetching ])
 
   return useMemo(() => (
     Object.keys(values).reduce<Output<T>>((acc, key) => {

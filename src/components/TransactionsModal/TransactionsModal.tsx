@@ -1,13 +1,13 @@
 import React from 'react'
 
 import Transactions from '../Transactions/Transactions'
-import { Transaction } from '../Transactions/util'
+import { ModifiedTransaction } from '../Transactions/util'
 import Modal, { ModalProps } from '../Modal/Modal'
 
 
 export type TransactionsModalProps = Omit<ModalProps, 'ref'> & {
   title: Intl.Message | string
-  items: Transaction[]
+  items: ModifiedTransaction[]
 }
 
 const TransactionsModal: React.FC<TransactionsModalProps> = ({ title, items, ...rest }) => (

@@ -9,6 +9,7 @@ type SubmitInput = Omit<Parameters<ReturnType<typeof useBoostSubmit>['submit']>[
 
 type Output = {
   allowance: bigint
+  isSubmitting: boolean
   isAllowanceFetching: boolean
   submit: (input: SubmitInput) => Promise<void>
 }
@@ -19,11 +20,11 @@ interface Hook {
 }
 
 const useBoost: Hook = (params) => {
-  const { refetchMintTokenBalance, refetchNativeTokenBalance } = useBalances()
+  const { field, fetch, vaultAddress } = params
 
-  const { vaultAddress } = params
   const { signSDK, address, chainId, cancelOnChange } = useConfig()
-  const { allowance, isAllowanceFetching, submit } = useBoostSubmit(vaultAddress)
+  const { refetchMintTokenBalance, refetchNativeTokenBalance } = useBalances()
+  const { allowance, isAllowanceFetching, isSubmitting, submit } = useBoostSubmit(vaultAddress)
 
   const handleGetUserApy = useCallback(async () => {
     if (!address) {
@@ -48,10 +49,14 @@ const useBoost: Hook = (params) => {
     const onSuccess = cancelOnChange({
       address,
       chainId,
-      logic: async () => {
+      logic: () => {
+        field.reset()
+
+        fetch.data()
+        fetch.balances()
+
         refetchMintTokenBalance()
         refetchNativeTokenBalance()
-        await params.fetch.data()
       },
     })
 
@@ -62,7 +67,8 @@ const useBoost: Hook = (params) => {
       onSuccess,
     })
   }, [
-    params,
+    field,
+    fetch,
     chainId,
     address,
     submit,
@@ -74,10 +80,12 @@ const useBoost: Hook = (params) => {
 
   return useMemo(() => ({
     allowance,
+    isSubmitting,
     isAllowanceFetching,
     submit: handleSubmit,
   }), [
     allowance,
+    isSubmitting,
     isAllowanceFetching,
     handleSubmit,
   ])
@@ -85,6 +93,7 @@ const useBoost: Hook = (params) => {
 
 useBoost.mock = {
   allowance: 0n,
+  isSubmitting: false,
   isAllowanceFetching: false,
   submit: async () => {},
 }

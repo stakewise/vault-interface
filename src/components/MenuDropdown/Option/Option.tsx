@@ -46,7 +46,7 @@ const Option: React.FC<OptionProps> = (props) => {
     >
       {
         Boolean(logo || icon) && (
-          <div className="rounded-full p-4 bg-dark/5">
+          <div className="flex rounded-full p-4 bg-dark/5">
             {
               logo ? (
                 <Logo

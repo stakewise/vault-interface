@@ -64,7 +64,8 @@ const GlobalLayout: React.FC<GlobalLayoutProps> = (values) => {
     }
 
     return createVaultInterfaceStore()
-  }, [ vaultBase ])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <theme.Provider value={themeContext}>

@@ -19,6 +19,15 @@ export default {
       de: 'Der Prozentsatz, den Sie auf Ihre gestakten {depositToken} nach Abzug der Gebühren verdienen',
       zh: '扣除费用后，您在质押的{depositToken}上获得的百分比',
     },
+    rate: {
+      en: 'The amount of staked {depositToken} you receive for each {swapToken}.',
+      ru: 'Количество застейканного {depositToken}, которое вы получаете за каждый {swapToken}.',
+      fr: 'La quantité de {depositToken} staké que vous recevez pour chaque {swapToken}.',
+      es: 'La cantidad de {depositToken} que recibe por cada {swapToken} en staking.',
+      pt: 'A quantidade de {depositToken} staked que você recebe por cada {swapToken}.',
+      de: 'Die Menge an gestakten {depositToken}, die Sie für jedes {swapToken} erhalten.',
+      zh: '您为每个 {swapToken} 获得的质押 {depositToken} 的数量。',
+    },
     boostApy: {
       en: `
         You will increase your current APY by {value}.

@@ -1,59 +1,38 @@
 import { useMemo } from 'react'
-import { commonMessages } from 'helpers'
-import { useFiatValues } from 'hooks'
 import { useConfig } from 'config'
 
-import { stakeCtx } from 'views/HomeView/StakeContext/util'
+import { Position } from '../../../util'
 
-import { usePosition, Position } from '../../../util'
-import useTransactionPrice from './useTransactionPrice'
+import useStakeApy from './useStakeApy'
+import useStakeRate from './useStakeRate'
+import useStakeAssets from './useStakeAssets'
+import useStakeNetworkCost from './useStakeNetworkCost'
 
 
 const useOptions = () => {
-  const { field } = stakeCtx.useData()
-  const { address, sdk } = useConfig()
+  const { address } = useConfig()
 
-  const transactionPrice = useTransactionPrice()
+  const stakeApy = useStakeApy()
+  const stakeRate = useStakeRate()
+  const stakeAssets = useStakeAssets()
+  const stakeNetworkCost = useStakeNetworkCost()
 
-  const { fiatGas } = useFiatValues({
-    fiatGas: {
-      token: sdk.config.tokens.nativeToken,
-      value: transactionPrice,
-      isMinimal: true,
-    },
-  })
+  return useMemo(() => {
+    const result: Position[] = [
+      stakeApy,
+      stakeAssets,
+    ]
 
-  const position = usePosition({
-    type: 'stake',
-    field,
-  })
-
-  return useMemo<Position[]>(() => {
-    if (address) {
-      return [
-        ...position,
-        {
-          title: commonMessages.transaction.networkCost,
-          textValue: {
-            prev: {
-              message: fiatGas.formattedValue,
-              icon: 'icon/gas',
-            },
-            next: {},
-          },
-          tooltip: {
-            ...commonMessages.tooltip.gas,
-            values: {
-              nativeToken: sdk.config.tokens.nativeToken,
-            },
-          },
-          isFetching: !transactionPrice,
-        },
-      ]
+    if (stakeRate) {
+      result.push(stakeRate)
     }
 
-    return position
-  }, [ sdk, fiatGas, address, transactionPrice, position ])
+    if (address) {
+      result.push(stakeNetworkCost)
+    }
+
+    return result
+  }, [ address, stakeApy, stakeRate, stakeAssets, stakeNetworkCost ])
 }
 
 

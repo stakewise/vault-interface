@@ -8,7 +8,7 @@ export default {
     de: 'Eintritt in die Ausstiegswarteschlange',
     zh: '进入退出队列',
   },
-  swap: {
+  swapOnExchange: {
     en: 'Swapping on Exchange',
     ru: 'Обмен на бирже',
     fr: 'Échange sur l\'Exchange',
@@ -16,5 +16,14 @@ export default {
     pt: 'Troca no Exchange',
     de: 'Tausch auf der Börse',
     zh: '在交易所交换',
+  },
+  swap: {
+    en: 'Swap',
+    ru: 'Своп',
+    fr: 'Échanger',
+    es: 'Intercambiar',
+    pt: 'Trocar',
+    de: 'Tauschen',
+    zh: '交换',
   },
 }

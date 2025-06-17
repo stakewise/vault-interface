@@ -2,14 +2,14 @@ import React from 'react'
 import cx from 'classnames'
 
 import TransactionView from './TransactionView/TransactionView'
-import { Transaction, TransactionStatus, useLogic } from './util'
+import { ModifiedTransaction, TransactionStatus, useLogic } from './util'
 
 import s from './Transactions.module.scss'
 
 
 export type TransactionsProps = {
   className?: string
-  items: Transaction[]
+  items: ModifiedTransaction[]
 }
 
 const View: React.FC<TransactionsProps> = (props) => {
@@ -18,7 +18,7 @@ const View: React.FC<TransactionsProps> = (props) => {
   return (
     <div className={className}>
       {
-        items.map(({ title, status, testId }, index) => (
+        items.map(({ title, status, testId, onCancel }, index) => (
           <TransactionView
             key={index}
             className={cx({
@@ -27,6 +27,7 @@ const View: React.FC<TransactionsProps> = (props) => {
             })}
             status={status}
             title={title}
+            onCancel={onCancel}
             dataTestId={testId}
           />
         ))

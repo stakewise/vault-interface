@@ -6,7 +6,7 @@ import { commonMessages } from 'helpers'
 import notifications from 'modules/notifications'
 
 import useObjectState from '../controls/useObjectState'
-import waitForTransaction from './util/waitForTransaction'
+import useTransaction from './useTransaction'
 
 
 type State = {
@@ -19,7 +19,7 @@ const initialState: State = {
   isFetching: false,
 }
 
-type checkAllowanceInput = {
+export type CheckAllowanceInput = {
   allowance: bigint
   count?: number
   hash?: string
@@ -37,6 +37,8 @@ const useAllowance = (values: Input) => {
   const { sdk, address } = useConfig()
 
   const skip = values.skip || !address || recipient === ZeroAddress
+
+  const handleTransaction = useTransaction()
 
   const [ { allowance, isFetching }, setState ] = useObjectState<State>({
     allowance: initialState.allowance,
@@ -79,18 +81,19 @@ const useAllowance = (values: Input) => {
   useEffect(() => {
     if (skip) {
       setState(initialState)
+
+      return () => {
+        setState({ isFetching: true })
+      }
     }
     else {
       fetchAllowance()
     }
   }, [ skip, fetchAllowance, setState ])
 
-  const checkAllowance = useCallback(async ({ allowance, hash, count = 0 }: checkAllowanceInput) => {
+  const checkAllowance = useCallback(async ({ allowance, hash, count = 0 }: CheckAllowanceInput) => {
     if (hash) {
-      await waitForTransaction({
-        provider: sdk.provider,
-        hash,
-      })
+      await handleTransaction(hash)
     }
 
     const newAllowance = await fetchAllowance()
@@ -105,7 +108,7 @@ const useAllowance = (values: Input) => {
         return Promise.reject('The allowance has not changed')
       }
     }
-  }, [ sdk, fetchAllowance ])
+  }, [ fetchAllowance, handleTransaction ])
 
   return useMemo(() => ({
     allowance,

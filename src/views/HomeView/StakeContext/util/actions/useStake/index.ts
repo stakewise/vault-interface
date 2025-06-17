@@ -1,50 +1,122 @@
-import { useMemo } from 'react'
+import { useCallback, useMemo } from 'react'
+import { useActions, useStakeSubmit, useSwapTokens } from 'hooks'
+import { AllocatorActionType } from 'sdk'
+import { useConfig } from 'config'
+import { StakeStep } from 'helpers/enums'
 
-import useSubmit from './useSubmit'
+import { Action, openTxCompletedModal, openTransactionsFlowModal } from 'layouts/modals'
+
 import useMaxStake from './useMaxStake'
-import useDepositTokenApprove from './useDepositTokenApprove'
-import useEstimateGas, { Type } from '../useEstimateGas'
+import useStakeGas from './useStakeGas'
 
 
-type Output = ReturnType<typeof useSubmit> & {
-  getDepositGas: ReturnType<typeof useEstimateGas>
-  getMaxStake: ReturnType<typeof useMaxStake>
-  depositToken: ReturnType<typeof useDepositTokenApprove>
+type Input = StakePage.Params & {
+  swapTokens: StakePage.SwapTokens
+}
+
+type Output = {
+  gas: {
+    approve: bigint
+    deposit: bigint
+  }
+  isSubmitting: boolean
+  isAllowanceFetching: boolean
+  swapTokens: ReturnType<typeof useSwapTokens>
+  submit: () => void
+  onMaxButtonClick: ReturnType<typeof useMaxStake>
 }
 
 interface Hook {
-  (params: StakePage.Params): Output
+  (params: Input): Output
   mock: Output
 }
 
-const useStake: Hook = (params) => {
-  const depositToken = useDepositTokenApprove(params.vaultAddress)
+const useStake: Hook = ({ swapTokens, field, fetch }) => {
+  const { sdk } = useConfig()
+  const actions = useActions()
 
-  const { submit, isSubmitting } = useSubmit(params)
-  const getDepositGas = useEstimateGas(Type.Deposit)
-  const getMaxStake = useMaxStake({ getDepositGas })
+  const swapToken = swapTokens.selected
+
+  const onSwap = useCallback((buyAmount: bigint) => {
+    field.setValue(buyAmount)
+    swapTokens.setSelected('')
+  }, [ field, swapTokens ])
+
+  const onSuccess = useCallback(({ hash, assets }: { hash: string, assets?: bigint }) => {
+    fetch.data()
+    fetch.balances()
+
+    if (assets) {
+      const blockExplorerUrl = sdk.config.network.blockExplorerUrl
+
+      actions.vault.user.allocatorActions.addFirstItem({
+        hash,
+        assets,
+        actionType: AllocatorActionType.Deposited,
+        link: blockExplorerUrl,
+      })
+
+      const tokens = [
+        {
+          token: sdk.config.tokens.depositToken,
+          action: Action.Stake,
+          value: assets,
+        },
+      ]
+
+      openTxCompletedModal({ tokens, hash })
+    }
+  }, [ sdk, fetch, actions ])
+
+  const depositGas = useStakeGas()
+
+  const { approveGas, isSubmitting, isAllowanceFetching, submit } = useStakeSubmit({
+    field,
+    swapToken,
+    stakeStep: StakeStep.Stake,
+    onSwap,
+    onSuccess,
+    openTransactionsFlowModal,
+  })
+
+  const onMaxButtonClick = useMaxStake({
+    field,
+    approveGas,
+    depositGas,
+    swapToken: swapTokens.selected,
+  })
 
   return useMemo(() => ({
+    gas: {
+      approve: approveGas,
+      deposit: depositGas,
+    },
+    swapTokens,
     isSubmitting,
-    depositToken,
+    isAllowanceFetching,
     submit,
-    getMaxStake,
-    getDepositGas,
+    onMaxButtonClick,
   }), [
+    approveGas,
+    depositGas,
+    swapTokens,
     isSubmitting,
-    depositToken,
+    isAllowanceFetching,
     submit,
-    getMaxStake,
-    getDepositGas,
+    onMaxButtonClick,
   ])
 }
 
 useStake.mock = {
+  gas: {
+    deposit: 0n,
+    approve: 0n,
+  },
   isSubmitting: false,
-  depositToken: useDepositTokenApprove.mock,
-  getDepositGas: useEstimateGas.mock,
-  getMaxStake: () => Promise.resolve(0n),
+  isAllowanceFetching: false,
+  swapTokens: useSwapTokens.mock,
   submit: () => Promise.resolve(undefined),
+  onMaxButtonClick: () => Promise.resolve(0n),
 }
 
 

@@ -1,8 +1,8 @@
 import { useMemo } from 'react'
-import { useStore, useAutoFetch } from 'hooks'
-import { initContext } from 'helpers'
-import { ZeroAddress } from 'ethers'
 import { useConfig } from 'config'
+import { initContext } from 'helpers'
+import { parseUnits, ZeroAddress } from 'ethers'
+import { useStore, useAutoFetch, useSwapQuote, useSwapTokens } from 'hooks'
 
 import useFields from './useFields'
 import useTabs, { tabsMock } from './useTabs'
@@ -21,6 +21,7 @@ import {
   useUnboostQueue,
 } from './user'
 
+import { Tab } from './enum'
 import useBalances from './useBalances'
 import useVaultAddress from './useVaultAddress'
 
@@ -33,7 +34,11 @@ export const initialContext: StakePage.Context = {
   burn: useBurn.mock,
   mint: useMint.mock,
   boost: useBoost.mock,
-  stake: useStake.mock,
+  stake: {
+    ...useStake.mock,
+    isSwapQuoteFetching: false,
+    getBuyAmount: () => 0n,
+  },
   unboost: useUnboost.mock,
   unstake: useUnstake.mock,
   unstakeQueue: { claim: Promise.resolve },
@@ -55,20 +60,38 @@ export const {
 } = initContext<StakePage.Context>(initialContext, () => {
   const tabs = useTabs()
   const { address } = useConfig()
+  const swapTokens = useSwapTokens()
   const vaultAddress = useVaultAddress()
   const fetchBalances = useBalances(vaultAddress)
   const { isVaultFetching } = useStore(storeSelector)
-  const { field, percentField } = useFields({ tabs })
   const { refetchData, ...data } = useBaseData(vaultAddress)
   const { fetchExitQueue, claimExitQueue } = useExitQueue(vaultAddress)
   const { fetchUnboostQueue, claimUnboostQueue } = useUnboostQueue({ vaultAddress, fetchBalances })
 
+  const swapToken = swapTokens.selected
+
+  const { fee, getBuyAmount, isFetching: isSwapQuoteFetching } = useSwapQuote({
+    amount: address ? swapToken.balance : parseUnits('1', swapToken.units),
+    fromToken: swapToken.address,
+  })
+
+  const minStakeBalance = fee > 1n ? fee / 100n * 120n : 3n // 20% more than fee
+
+  const { field, percentField } = useFields({
+    tabs,
+    minBalance: tabs.value === Tab.Stake ? minStakeBalance : 0n,
+    depositTokenBalance: address ? swapToken.balance : swapToken.emptyBalance,
+    getDepositAmount: tabs.value === Tab.Stake && swapToken.address ? getBuyAmount : undefined,
+  })
+
   const fetch = useMemo(() => ({
     data: refetchData,
+    balances: fetchBalances,
     unstakeQueue: fetchExitQueue,
     unboostQueue: fetchUnboostQueue,
   }), [
     refetchData,
+    fetchBalances,
     fetchExitQueue,
     fetchUnboostQueue,
   ])
@@ -94,7 +117,7 @@ export const {
   const burn = useBurn(params)
   const mint = useMint(params)
   const boost = useBoost(params)
-  const stake = useStake(params)
+  const stake = useStake({ ...params, swapTokens })
   const unboost = useUnboost(params)
   const unstake = useUnstake(params)
 
@@ -106,7 +129,11 @@ export const {
     field,
     mint,
     burn,
-    stake,
+    stake: {
+      ...stake,
+      getBuyAmount,
+      isSwapQuoteFetching,
+    },
     boost,
     unboost,
     unstake,
@@ -132,6 +159,8 @@ export const {
     percentField,
     vaultAddress,
     isFetching,
+    isSwapQuoteFetching,
+    getBuyAmount,
     claimExitQueue,
     claimUnboostQueue,
   ])

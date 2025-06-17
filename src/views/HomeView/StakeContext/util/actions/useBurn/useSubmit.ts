@@ -13,6 +13,8 @@ const storeSelector = (store: Store) => ({
 })
 
 const useSubmit = (params: StakePage.Params) => {
+  const { field, fetch } = params
+
   const actions = useActions()
   const subgraphUpdate = useSubgraphUpdate()
   const { refetchDepositTokenBalance, refetchMintTokenBalance } = useBalances()
@@ -21,8 +23,10 @@ const useSubmit = (params: StakePage.Params) => {
   const { vaultAddress } = useStore(storeSelector)
   const { signSDK, address, chainId, cancelOnChange } = useConfig()
 
-  const submit = useCallback(async (shares: bigint) => {
-    if (!address) {
+  const submit = useCallback(async () => {
+    const shares = field.value || 0n
+
+    if (!address || !shares) {
       return
     }
 
@@ -42,11 +46,14 @@ const useSubmit = (params: StakePage.Params) => {
       if (hash) {
         await subgraphUpdate({ hash })
 
+        field.reset()
+
         cancelOnChange({
           address,
           chainId,
           logic: () => {
-            params.fetch.data()
+            fetch.data()
+            fetch.balances()
 
             refetchMintTokenBalance()
             refetchDepositTokenBalance()
@@ -88,11 +95,12 @@ const useSubmit = (params: StakePage.Params) => {
       return Promise.reject(error)
     }
   }, [
+    field,
+    fetch,
     chainId,
     signSDK,
     address,
     actions,
-    params,
     vaultAddress,
     subgraphUpdate,
     cancelOnChange,
