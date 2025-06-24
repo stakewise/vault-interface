@@ -12,12 +12,12 @@ cache.setData({})
 export const createSetValues = ({ GBP, EUR, CNY, JPY, KRW, AUD }: CreateSetValuesInput) => (
   (value: number) => ({
     USD: value,
-    EUR: value / EUR,
-    GBP: value / GBP,
-    CNY: value / CNY,
-    JPY: value / JPY,
-    KRW: value / KRW,
-    AUD: value / AUD,
+    EUR: value * EUR,
+    GBP: value * GBP,
+    CNY: value * CNY,
+    JPY: value * JPY,
+    KRW: value * KRW,
+    AUD: value * AUD,
   })
 )
 
