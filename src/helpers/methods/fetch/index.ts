@@ -10,15 +10,15 @@ type FetchOptions = RequestInit & {
   retryCount?: number
 }
 
-const fetchMethod = async <T = any>(
+const fetchMethod = <T = any>(
   urls: string | readonly string[],
   options: FetchOptions = {}
-): Promise<T> => {
+): AbortRequest<T, T> => {
   const retryCount = options.retryCount ?? 0
-  const baseUrl    = getRequestUrl(urls)
-  const opName     = extractOpName(options.body)
-  const sep        = baseUrl.includes('?') ? '&' : '?'
-  const urlToUse   = opName
+  const baseUrl = getRequestUrl(urls)
+  const opName = extractOpName(options.body)
+  const sep = baseUrl.includes('?') ? '&' : '?'
+  const urlToUse = opName
     ? `${baseUrl}${sep}opName=${encodeURIComponent(opName)}`
     : baseUrl
 
@@ -29,43 +29,43 @@ const fetchMethod = async <T = any>(
     }
   }
 
-  const rawFetch = (): Promise<any> => {
-    if (typeof window !== 'undefined') {
-      return new Promise<any>((resolve, reject) => {
-        const req = new AbortRequest<any>(urlToUse, options)
+  const req = new AbortRequest<T>(urlToUse, options)
 
-        req.then(resolve, reject)
+  if (typeof window === 'undefined') {
+    const nodePromise: Promise<T> = require('node-fetch')
+      .default(urlToUse, options)
+      .then((res: any) => res.json())
+      .then(handleJson)
+
+    // @ts-ignore
+    req.promise = nodePromise
+  }
+  else {
+    // @ts-ignore
+    req.promise = req.promise
+      .then((res: any) => {
+        if ('ok' in res && !res.ok) {
+          return res.json()
+            .then((errJson: any) => Promise.reject(errJson))
+        }
+
+        return ('ok' in res ? res.json() : Promise.resolve(res)) as Promise<any>
       })
-    }
+      .then(handleJson)
+      .catch((err: any) => {
+        const hasBackup = Array.isArray(urls) && urls.length > 1
 
-    return require('node-fetch').default(urlToUse, options)
+        if (hasBackup && retryCount < 1) {
+          saveErrorUrlToSessionStorage(baseUrl)
+
+          return fetchMethod<T>(urls, { ...options, retryCount: retryCount + 1 }).promise
+        }
+
+        return Promise.reject(err)
+      })
   }
 
-
-  try {
-    const response = await rawFetch()
-
-    if ('ok' in response) {
-      if (!response.ok) {
-        const errJson = await response.json()
-
-        return Promise.reject(errJson)
-      }
-
-      return handleJson<T>(await response.json())
-    }
-
-    return handleJson<T>(response)
-  }
-  catch (err: any) {
-    if (Array.isArray(urls) && urls.length > 1 && retryCount < 1) {
-      saveErrorUrlToSessionStorage(baseUrl)
-
-      return fetchMethod<T>(urls, { ...options, retryCount: retryCount + 1 })
-    }
-
-    return Promise.reject(err)
-  }
+  return req
 }
 
 
