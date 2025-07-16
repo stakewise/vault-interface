@@ -10,10 +10,10 @@ const expireTime = 60 * 60 * 1_000 // 1hr
 const saveErrorUrlToSessionStorage = (baseUrl: string): void => {
   const record: ErrorRecord = {
     url: baseUrl,
-    expiresAt: Date.now() + expireTime
+    expiresAt: Date.now() + expireTime,
   }
 
-  localStorage.setSessionItem(sessionErrorUrl, JSON.stringify(record))
+  localStorage.setSessionItem(sessionErrorUrl, record)
 }
 
 
