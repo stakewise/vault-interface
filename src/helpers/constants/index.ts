@@ -8,6 +8,7 @@ import headerNames from './headerNames'
 import cookieNames from './cookieNames'
 import walletTitles from './walletTitles'
 import localStorageNames from './localStorageNames'
+import sessionStorageNames from './sessionStorageNames'
 
 
 export {
@@ -21,4 +22,5 @@ export {
   cookieNames,
   walletTitles,
   localStorageNames,
+  sessionStorageNames,
 }

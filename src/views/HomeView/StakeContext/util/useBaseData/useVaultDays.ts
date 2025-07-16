@@ -20,12 +20,8 @@ const useVaultDays = (vaultAddress: string) => {
     }
 
     if (vaultAddress) {
-      const url = Array.isArray(sdk.config.api.subgraph)
-        ? sdk.config.api.subgraph[0]
-        : sdk.config.api.subgraph
-
       const data = await requests.fetchCreatedAt({
-        url,
+        url: sdk.config.api.subgraph,
         variables: {
           address: vaultAddress.toLowerCase(),
         },
