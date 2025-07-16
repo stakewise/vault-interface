@@ -7,7 +7,7 @@ const handleJson = <T = any>(json: any): T => {
     throw new Error('Subgraph indexing error')
   }
 
-  return (json.data ?? json) as T
+  return json as T
 }
 
 
