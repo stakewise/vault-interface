@@ -10,9 +10,9 @@ const extractOpName = (body?: BodyInit | null): string => {
       return ''
     }
 
-    const m = query.match(/^\s*(?:query|mutation)\s+([_A-Za-z][_0-9A-Za-z]*)/m)
+    const matchArray = query.match(/\b(?:query|mutation)\s+([A-Za-z_]\w*)/)
 
-    return m ? m[1] : ''
+    return matchArray ? matchArray[1] : ''
   } catch {
     return ''
   }

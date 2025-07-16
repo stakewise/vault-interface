@@ -1,9 +1,11 @@
 import { AbortRequest } from 'sdk'
 
-import handleJson from './handleJson'
-import getRequestUrl from './getRequestUrl'
-import extractOpName from './extractOpName'
-import saveErrorUrlToSessionStorage from './saveErrorUrlToSessionStorage'
+import {
+  handleJson,
+  extractOpName,
+  getRequestUrl,
+  saveErrorUrlToSessionStorage,
+} from './utils'
 
 
 type FetchOptions = RequestInit & {
