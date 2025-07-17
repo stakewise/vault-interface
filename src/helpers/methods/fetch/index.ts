@@ -46,12 +46,15 @@ const fetchMethod = <T = any>(
     // @ts-ignore
     req.promise = req.promise
       .then((res: any) => {
-        if ('ok' in res && !res.ok) {
+        if (res instanceof Response) {
+          if (!res.ok) {
+            return res.json().then(errJson => Promise.reject(errJson))
+          }
+
           return res.json()
-            .then((errJson: any) => Promise.reject(errJson))
         }
 
-        return ('ok' in res ? res.json() : Promise.resolve(res)) as Promise<any>
+        return Promise.resolve(res)
       })
       .then(handleJson)
       .catch((err: any) => {
