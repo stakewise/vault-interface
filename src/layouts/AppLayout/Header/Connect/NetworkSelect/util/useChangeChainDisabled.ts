@@ -13,6 +13,7 @@ const useChangeChainDisabled = () => {
   const disabledChainSwitchWallets: WalletIds[] = [
     wallets.dAppBrowser.id,
     wallets.gnosisSafe.id,
+    wallets.ledgerLive.id,
     wallets.zenGo.id,
   ]
 

@@ -41,6 +41,7 @@ export const logos = [
   'connector/taho',
   'connector/zengo',
   'connector/ledger',
+  'connector/ledgerLive',
   'connector/portis',
   'connector/binance',
   'connector/coinbase',

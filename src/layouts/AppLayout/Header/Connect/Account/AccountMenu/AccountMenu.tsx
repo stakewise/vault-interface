@@ -21,7 +21,12 @@ const AccountMenu: React.FC<AccountMenuProps> = (props) => {
   const { activeWallet } = useConfig()
   const claimsTotal = useClaimsTotal()
 
-  const isDappBrowser = activeWallet === wallets.dAppBrowser.id
+  const NON_DISCONNECTABLE_WALLET_IDS = new Set<string>([
+    wallets.dAppBrowser.id,
+    wallets.ledgerLive.id,
+  ])
+
+  const shouldShowDisconnect = activeWallet !== null && !NON_DISCONNECTABLE_WALLET_IDS.has(activeWallet)
 
   return (
     <>
@@ -40,7 +45,7 @@ const AccountMenu: React.FC<AccountMenuProps> = (props) => {
       }
       <Menu className="mt-16" />
       {
-        !isDappBrowser && (
+        shouldShowDisconnect && (
           <DisconnectButton className="mt-8" />
         )
       }
