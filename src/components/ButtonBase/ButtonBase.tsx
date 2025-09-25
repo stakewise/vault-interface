@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react'
-import methods from 'helpers/methods'
+import { methods } from 'helpers'
 import cx from 'classnames'
 
 import s from './ButtonBase.module.scss'

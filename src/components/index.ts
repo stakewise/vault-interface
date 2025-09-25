@@ -1,6 +1,9 @@
 export { default as AmountInput } from './AmountInput/AmountInput'
 export type { AmountInputProps } from './AmountInput/AmountInput'
 
+export { default as ApyBreakdown } from './ApyBreakdown/ApyBreakdown'
+export type { ApyBreakdownProps } from './ApyBreakdown/ApyBreakdown'
+
 export { default as AutoHeightToggle } from './AutoHeightToggle/AutoHeightToggle'
 export type { AutoHeightToggleProps } from './AutoHeightToggle/AutoHeightToggle'
 
@@ -110,7 +113,7 @@ export { default as TabsView } from './TabsView/TabsView'
 export type { TabsViewProps } from './TabsView/TabsView'
 
 export { default as Text } from './Text/Text'
-export type { TextProps } from './Text/Text'
+export type { TextProps, TextColor } from './Text/Text'
 
 export { default as TextWithTooltip } from './TextWithTooltip/TextWithTooltip'
 export type { TextWithTooltipProps } from './TextWithTooltip/TextWithTooltip'
@@ -134,7 +137,7 @@ export { default as Tooltip } from './Tooltip/Tooltip'
 export type { TooltipProps } from './Tooltip/Tooltip'
 
 export { default as Transactions } from './Transactions/Transactions'
-export type { SetTransaction } from './Transactions/types'
+export type { SetTransaction, SetNextTransactionsFailed, StepsData } from './Transactions/types'
 export { TransactionStatus } from './Transactions/util'
 export type { Transaction } from './Transactions/util'
 export type { TransactionsProps } from './Transactions/Transactions'

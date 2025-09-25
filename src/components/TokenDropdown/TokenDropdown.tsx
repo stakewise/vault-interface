@@ -1,30 +1,33 @@
 import React, { useCallback } from 'react'
-import forms from 'modules/forms'
 import device from 'modules/device'
 import { useConfig } from 'config'
+import forms from 'modules/forms'
+import { Network } from 'sdk'
 
 import Icon from '../Icon/Icon'
 import ButtonBase from '../ButtonBase/ButtonBase'
 import DropdownView, { DropdownViewProps } from '../Dropdown/DropdownView/DropdownView'
 
 import TokenBase from './TokenBase/TokenBase'
-
 import TokenOptions from './TokenOptions/TokenOptions'
+import { useTokenDropdown } from './util'
 
 
 export type TokenDropdownProps = Omit<DropdownViewProps, 'children' | 'button' | 'options'> & {
   className?: string
+  contentClassName?: string
   value: Tokens
   tokens: SwapToken[]
-  isFetching?: boolean
+  isDisabled?: boolean
   onChange?: (value: string) => void
 }
 
 const TokenDropdown: React.FC<TokenDropdownProps> = (props) => {
-  const { className, value, tokens, dataTestId, isFetching, onChange, ...rest } = props
+  const { className, contentClassName, value, tokens, dataTestId, isDisabled, onChange, ...rest } = props
 
   const { isMobile } = device.useData()
-  const { isReadOnlyMode } = useConfig()
+  const { isReadOnlyMode, chainId } = useConfig()
+  const { isFetching, open } = useTokenDropdown()
 
   const field = forms.useField<string>({
     valueType: 'string',
@@ -39,24 +42,24 @@ const TokenDropdown: React.FC<TokenDropdownProps> = (props) => {
     field.setValue('')
   }, [ field, onChange ])
 
-  const isSwapEnabled = tokens.length > 1
+  const isSwapEnabled = Network.Mainnet === chainId
 
   const tokenBaseNode = (
     <TokenBase
       className="flex-shrink-0"
       token={value}
       dataTestId="amount-input-token"
-      isFetching={isFetching && isSwapEnabled}
     />
   )
 
-  if (isFetching || !isSwapEnabled) {
+  if (isSwapEnabled) {
     return tokenBaseNode
   }
 
   return (
     <DropdownView
       className={className}
+      contentClassName={contentClassName}
       dataTestId={dataTestId}
       middleware={(
         isMobile
@@ -75,7 +78,7 @@ const TokenDropdown: React.FC<TokenDropdownProps> = (props) => {
           // @ts-ignore
           ref={ref}
           className="flex items-center gap-8"
-          disabled={isReadOnlyMode}
+          disabled={isReadOnlyMode || isDisabled}
         >
           {tokenBaseNode}
           <Icon
@@ -104,13 +107,18 @@ const TokenDropdown: React.FC<TokenDropdownProps> = (props) => {
           })
         }
       }}
-      onClose={field.reset}
+      onOpen={() => open(true)}
+      onClose={() => {
+        field.reset()
+        open(false)
+      }}
       onChange={handleChange}
       {...rest}
     >
       <TokenOptions
         field={field}
         tokens={tokens}
+        isFetching={isFetching}
         dataTestId={dataTestId}
       />
     </DropdownView>

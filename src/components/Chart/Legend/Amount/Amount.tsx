@@ -1,7 +1,7 @@
 import React, { useRef, useCallback } from 'react'
 import { createSelector } from '@reduxjs/toolkit'
-import { useSelector } from 'react-redux'
-import methods from 'helpers/methods'
+import { methods } from 'helpers'
+import { useStore } from 'hooks'
 import cx from 'classnames'
 
 import Text from '../../../Text/Text'
@@ -29,7 +29,7 @@ const storeSelector = createSelector([
 const Amount: React.FC<AmountProps> = (props) => {
   const { className, token, chart, series } = props
 
-  const { fiatRates, currency, currencySymbol } = useSelector(storeSelector)
+  const { fiatRates, currency, currencySymbol } = useStore(storeSelector)
 
   const fiatTooltipRef = useRef<HTMLDivElement>(null)
   const tokenValueTooltipRef = useRef<HTMLDivElement>(null)

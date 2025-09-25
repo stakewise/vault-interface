@@ -1,10 +1,9 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import cx from 'classnames'
-import { useConfig } from 'config'
-import modal from 'modules/modal'
-import device from 'modules/device'
-import { constants } from 'helpers'
+import { useConfig, wallets } from 'config'
 import { usePathname } from 'next/navigation'
+import device from 'modules/device'
+import modal from 'modules/modal'
+import cx from 'classnames'
 
 import { Modal, Text, Href } from 'components'
 
@@ -41,12 +40,12 @@ export const [ ConnectWalletModal, openConnectWalletModal ] = (
     const handleSelectConnector = useCallback((walletId: WalletIds) => {
       setSelectedWalletId(walletId)
 
-      if (walletId !== constants.walletNames.monitorAddress) {
+      if (walletId !== wallets.monitorAddress.id) {
         return wallet.connect(walletId)
       }
     }, [ wallet ])
 
-    const isMonitorAddress = selectedWalletId === constants.walletNames.monitorAddress
+    const isMonitorAddress = selectedWalletId === wallets.monitorAddress.id
 
     const bottomNode = !isMonitorAddress && (
       <div className="mt-32 text-center">

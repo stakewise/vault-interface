@@ -6,19 +6,27 @@ import storageNames from '../../../utils/storageNames'
 
 
 type MintTokenData = Awaited<ReturnType<StakeWiseSDK['osToken']['getPosition']>>
-type BoostData = Awaited<ReturnType<StakeWiseSDK['boost']['getData']>>
+type BoostData = Omit<
+  Awaited<ReturnType<StakeWiseSDK['boost']['getData']>>,
+  'vaultApy' | 'maxMintShares' | 'allocatorMaxBoostApy' | 'osTokenHolderMaxBoostApy'
+>
 
 export interface BalancesState {
   userAPY: number
-  withdraw: {
-    maxAssets: bigint
-  }
-  stake: {
-    assets: bigint
-  },
-  mintToken: MintTokenData & {
+  stakedAssets: bigint
+  totalEarnedAssets: bigint
+  maxWithdrawAssets: bigint
+  totalRewardingAssets: bigint
+  totalStakeEarnedAssets: bigint
+  totalBoostEarnedAssets: bigint
+  totalExtraEarnedAssets: bigint
+  mintToken: {
+    mintedAssets: bigint
+    mintedShares: bigint
     maxMintShares: bigint
     hasMintBalance: boolean
+    protocolFeePercent: bigint
+    healthFactor: MintTokenData['healthFactor']['health']
     isDisabled: boolean | null // UI has two view of fetching
   }
   boost: BoostData
@@ -27,37 +35,33 @@ export interface BalancesState {
 
 export const initialState: BalancesState = {
   userAPY: 0,
-  withdraw: {
-    maxAssets: 0n,
-  },
-  stake: {
-    assets: 0n,
-  },
+  stakedAssets: 0n,
+  totalEarnedAssets: 0n,
+  maxWithdrawAssets: 0n,
+  totalRewardingAssets: 0n,
+  totalStakeEarnedAssets: 0n,
+  totalBoostEarnedAssets: 0n,
+  totalExtraEarnedAssets: 0n,
   mintToken: {
+    mintedAssets: 0n,
+    mintedShares: 0n,
     isDisabled: null,
     maxMintShares: 0n,
     hasMintBalance: false,
     protocolFeePercent: 0n,
-    minted: {
-      assets: 0n,
-      shares: 0n,
-    },
-    healthFactor: {
-      health: OsTokenPositionHealth.Healthy,
-      value: 0,
-    },
+    healthFactor: OsTokenPositionHealth.Healthy,
   },
   boost: {
     shares: 0n,
-    vaultApy: 0,
     totalShares: 0n,
     rewardAssets: 0n,
-    maxMintShares: 0n,
     exitingPercent: 0,
     borrowedAssets: 0n,
-    allocatorMaxBoostApy: 0,
-    osTokenHolderMaxBoostApy: 0,
     borrowStatus: BorrowStatus.Healthy,
+    leverageStrategyData: {
+      version: 2,
+      isUpgradeRequired: false,
+    },
   },
   isFetching: true,
 }

@@ -19,6 +19,7 @@ console.log('-------------------------------------------------------------------
  */
 const nextConfig = {
   reactStrictMode: false,
+	transpilePackages: [ '@stakewise/v3-sdk' ],
   sassOptions: {
     additionalData: `
       @use 'src/styles/variables' as *;

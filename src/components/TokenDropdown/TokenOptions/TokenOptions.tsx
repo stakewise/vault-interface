@@ -1,26 +1,30 @@
 import React, { useMemo } from 'react'
 import cx from 'classnames'
 import forms from 'modules/forms'
-import device from 'modules/device'
 import { useConfig } from 'config'
+import device from 'modules/device'
 
 import Text from '../../Text/Text'
 
 import Option from './Option/Option'
 import TokenSearch from './TokenSearch/TokenSearch'
+import TokenSkeleton from './TokenSkeleton/TokenSkeleton'
 import ScrollableContainer from '../../ScrollableContainer/ScrollableContainer'
 
 import messages from './messages'
 
 
-export type TokenDropdownProps = {
+const tokensMock = [ ...new Array(5) ]
+
+export type TokenOptionsProps = {
   field: Forms.Field<string>
   tokens: SwapToken[]
+  isFetching?: boolean
   dataTestId?: string
 }
 
-const TokenDropdown: React.FC<TokenDropdownProps> = (props) => {
-  const { field, tokens, dataTestId } = props
+const TokenOptions: React.FC<TokenOptionsProps> = (props) => {
+  const { field, tokens, isFetching, dataTestId } = props
 
   const { sdk, isGnosis } = useConfig()
 
@@ -58,39 +62,56 @@ const TokenDropdown: React.FC<TokenDropdownProps> = (props) => {
         data-testid={`${dataTestId}-input`}
       />
       {
-        filteredTokens.length ? (
+        isFetching ? (
           <ScrollableContainer
             className="overflow-y-auto"
             fadeClassName="fixed"
             style={{
-              height: filteredTokens.length > 5
-                ? `calc(5 * 56rem - 28rem)`
-                : `calc(${filteredTokens.length} * 56rem)`,
+              height: `calc(5 * 56rem - 28rem)`,
             }}
           >
             <div>
               {
-                filteredTokens.map((swapToken, index) => {
-                  const { name, address } = swapToken
-
-                  const swapTokenAddress = name === sdk.config.tokens.depositToken && isGnosis
-                    ? sdk.config.addresses.tokens.depositToken
-                    : address
-
-                  return (
-                    <Option
-                      key={index}
-                      data={{
-                        ...swapToken,
-                        address: swapTokenAddress,
-                      }}
-                      data-testid={`${dataTestId}-option-${name}`}
-                    />
-                  )
-                })
+                tokensMock.map((_, index) => (
+                  <TokenSkeleton key={index} />
+                ))
               }
             </div>
           </ScrollableContainer>
+        ) : (
+          filteredTokens.length ? (
+            <ScrollableContainer
+              className="overflow-y-auto"
+              fadeClassName="fixed"
+              style={{
+                height: filteredTokens.length > 5
+                  ? `calc(5 * 56rem - 28rem)`
+                  : `calc(${filteredTokens.length} * 56rem)`,
+              }}
+            >
+              <div>
+                {
+                  filteredTokens.map((swapToken, index) => {
+                    const { name, address } = swapToken
+
+                    const swapTokenAddress = name === sdk.config.tokens.depositToken && isGnosis
+                      ? sdk.config.addresses.tokens.depositToken
+                      : address
+
+                    return (
+                      <Option
+                        key={index}
+                        data={{
+                          ...swapToken,
+                          address: swapTokenAddress,
+                        }}
+                        data-testid={`${dataTestId}-option-${name}`}
+                      />
+                    )
+                  })
+                }
+              </div>
+            </ScrollableContainer>
         ) : (
           <Text
             className="my-24 text-center"
@@ -98,6 +119,7 @@ const TokenDropdown: React.FC<TokenDropdownProps> = (props) => {
             color="dark"
             size="t16m"
           />
+          )
         )
       }
     </>
@@ -105,4 +127,4 @@ const TokenDropdown: React.FC<TokenDropdownProps> = (props) => {
 }
 
 
-export default React.memo(TokenDropdown)
+export default React.memo(TokenOptions)

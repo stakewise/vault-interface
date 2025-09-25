@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react'
 import { useConfig } from 'config'
 
 
-const useChainChanged = (callback: () => any) => {
+const useChainChanged = (callback: (chainId: ChainIds) => any) => {
   const { chainId } = useConfig()
 
   const chainIdRef = useRef<ChainIds>(chainId)

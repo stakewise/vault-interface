@@ -37,6 +37,7 @@ export const initialState: BaseState = {
     feeRecipient: '',
     blocklistCount: 0,
     whitelistCount: 0,
+    lastFeePercent: 0,
     queuedShares: '0',
     depositDataRoot: '',
     whitelistManager: '',
@@ -44,6 +45,7 @@ export const initialState: BaseState = {
     validatorsManager: '',
     depositDataManager: '',
     allocatorMaxBoostApy: 0,
+    lastFeeUpdateTimestamp: '0',
     osTokenHolderMaxBoostApy: 0,
 
     isErc20: false,
@@ -81,6 +83,9 @@ export const baseSlice = createSlice({
     }),
     setFetching: (state, action: PayloadAction<BaseState['isFetching']>) => {
       state.isFetching = action.payload
+    },
+    resetSSR: (state) => {
+      state.isSSR = false
     },
     resetData: () => initialState,
   },

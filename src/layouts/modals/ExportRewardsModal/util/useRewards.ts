@@ -1,15 +1,13 @@
 import { useCallback } from 'react'
-import { useStore } from 'hooks'
+import { modifiers } from 'helpers'
 import { useConfig } from 'config'
-import { mergeRewardsFiat, StakeWiseSDK } from 'sdk'
-import date from 'modules/date'
+import { StakeWiseSDK } from 'sdk'
 import forms from 'modules/forms'
-import { modifiers, requests } from 'helpers'
+import { useStore } from 'hooks'
+import date from 'modules/date'
 
 import type { ExportForm } from './useForm'
 
-
-export type StatsType = 'osToken' | 'allocator'
 
 type FetcherParams = {
   userAddress: string
@@ -21,7 +19,6 @@ type FetcherReturn = Awaited<ReturnType<StakeWiseSDK['vault']['getUserRewards']>
 
 type Input = {
   vaultAddress: string
-  statsType: StatsType
   form: Forms.Form<ExportForm>
 }
 
@@ -34,44 +31,12 @@ const formatFiat = (value: number) => {
 }
 
 const useRewards = (input: Input) => {
-  const { form, statsType, vaultAddress } = input
+  const { form, vaultAddress } = input
 
   const { sdk, address } = useConfig()
 
   const { currency } = useStore(storeSelector)
   const { values: { from, to } } = forms.useFormValues<ExportForm>(form)
-
-  const fetchAllocatorStats = useCallback((params: FetcherParams) => {
-    return sdk.vault.getUserRewards({
-      ...params,
-      vaultAddress,
-    })
-  }, [ sdk, vaultAddress ])
-
-  const fetchOsTokenStats = useCallback(async (params: FetcherParams) => {
-    const {
-      dateTo,
-      dateFrom,
-      userAddress,
-    } = params
-
-    const data = await requests.fetchStakeStats({
-      url: sdk.config.api.subgraph,
-      variables: {
-        where: {
-          osTokenHolder: userAddress.toLowerCase(),
-          timestamp_gte: String(dateFrom * 1_000),
-          timestamp_lte: String(dateTo * 1_000),
-        },
-      },
-    })
-
-    const rewards = data?.osTokenHolder || []
-
-    const fiatRates = await sdk.utils.getFiatRatesByDay({ dateTo, dateFrom })
-
-    return mergeRewardsFiat({ rewards, fiatRates })
-  }, [ sdk ])
 
   return useCallback(async () => {
     if (!address || !from || !to) {
@@ -82,20 +47,16 @@ const useRewards = (input: Input) => {
       const fromInMs = date.time(from).utcOffset(0, true).valueOf()
       const toInMs = date.time(to).utcOffset(0, true).valueOf()
 
-      let data: FetcherReturn = []
-
       const params: FetcherParams = {
         userAddress: address,
         dateTo: toInMs,
         dateFrom: fromInMs,
       }
 
-      if (statsType === 'osToken') {
-        data = await fetchOsTokenStats(params)
-      }
-      else {
-        data = await fetchAllocatorStats(params)
-      }
+      const data: FetcherReturn = await sdk.vault.getUserRewards({
+        ...params,
+        vaultAddress,
+      })
 
       const response = data.map((values) => {
         const {
@@ -144,7 +105,7 @@ const useRewards = (input: Input) => {
     catch (error: any) {
       console.error('Fetch user rewards fail', error)
     }
-  }, [ address, currency, from, to, statsType, fetchAllocatorStats, fetchOsTokenStats ])
+  }, [ sdk, address, vaultAddress, currency, from, to ])
 }
 
 

@@ -5,4 +5,6 @@ export type SetTransaction = (id: string | number, status: TransactionStatus) =>
 
 export type StepData = Partial<Pick<Transaction, 'id' | 'title' | 'onCancel'>>
 
+export type SetNextTransactionsFailed = (id: string | number) => void
+
 export type StepsData = StepData[]

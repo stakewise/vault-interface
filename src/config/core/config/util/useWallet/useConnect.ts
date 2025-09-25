@@ -31,6 +31,19 @@ const useConnect = (values: Input) => {
   const { dataRef, setData } = configState
   const timerRef = useRef<NodeJS.Timeout | null>(null)
 
+  const resetConnection = useCallback(() => {
+    notifications.open({
+      type: 'error',
+      text: messages.connectErrors.unknown,
+      thread: 'connect',
+    })
+
+    localStorage.removeItem(constants.localStorageNames.walletName)
+    onConnectError()
+
+    window.location.reload()
+  }, [ onConnectError ])
+
   const connectWallet = useCallback(async (walletName: WalletIds): Promise<void> => {
     let resetConnectTimer: NodeJS.Timeout | null = null
 
@@ -55,6 +68,7 @@ const useConnect = (values: Input) => {
       throw new Error(`The ${walletName} wallet does not have a connector`)
     }
 
+    const isLedger = walletName === wallets.ledger.id
     const isInjected = wallets[walletName].isInjectedWallet
     const isGnosisSafe = walletName === wallets.gnosisSafe.id
     const isWalletConnect = walletName === wallets.walletConnect.id
@@ -72,18 +86,11 @@ const useConnect = (values: Input) => {
         }
 
         // Sometimes MM may not react to autoconnect
-        resetConnectTimer = setTimeout(() => {
-          notifications.open({
-            type: 'error',
-            text: messages.connectErrors.unknown,
-            thread: 'connect',
-          })
+        resetConnectTimer = setTimeout(resetConnection, 10_000)
+      }
 
-          localStorage.removeItem(constants.localStorageNames.walletName)
-          onConnectError()
-
-          window.location.reload()
-        }, 10_000)
+      if (isLedger) {
+        resetConnectTimer = setTimeout(resetConnection, 10_000)
       }
 
       if (activationMessage) {
@@ -264,6 +271,7 @@ const useConnect = (values: Input) => {
     dataRef,
     setData,
     onError,
+    resetConnection,
     onConnectError,
     onStartConnect,
     onFinishConnect,

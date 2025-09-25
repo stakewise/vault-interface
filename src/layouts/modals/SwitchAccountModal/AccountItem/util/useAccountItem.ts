@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo, useCallback } from 'react'
 import cacheStorage from 'modules/cache-storage'
 import { formatEther } from 'ethers'
 import { useConfig } from 'config'
-import methods from 'helpers/methods'
+import { methods } from 'helpers'
 
 import type { AccountItemProps } from '../AccountItem'
 

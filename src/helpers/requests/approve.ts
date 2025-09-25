@@ -1,5 +1,6 @@
 import { MaxUint256, parseEther } from 'ethers'
-import methods from 'helpers/methods'
+
+import { getGasMargin } from '../methods'
 
 
 type Input = {
@@ -25,7 +26,7 @@ const approve = async (values: Input) => {
 
   const { maxFeePerGas, maxPriorityFeePerGas } = feeData
 
-  const gasLimit = methods.getGasMargin(gasCost)
+  const gasLimit = getGasMargin(gasCost)
   const overrides: Parameters<typeof signedContract.approve>[2] = {
     gasLimit,
   }

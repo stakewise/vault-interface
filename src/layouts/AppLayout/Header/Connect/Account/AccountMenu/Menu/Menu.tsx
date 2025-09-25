@@ -1,7 +1,6 @@
 import React, { useMemo } from 'react'
 import cx from 'classnames'
-import { useConfig } from 'config'
-import { constants } from 'helpers'
+import { useConfig, wallets } from 'config'
 
 import MenuItem from './MenuItem/MenuItem'
 import { openSwitchAccountModal } from 'layouts/modals'
@@ -19,7 +18,7 @@ const Menu: React.FC<MenuProps> = (props) => {
   const { activeWallet } = useConfig()
 
   const items = useMemo(() => {
-    const isLedger = activeWallet === constants.walletNames.ledger
+    const isLedger = activeWallet === wallets.ledger.id
 
     if (isLedger) {
       return [

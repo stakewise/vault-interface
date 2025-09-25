@@ -1,6 +1,8 @@
+// Actions
 export { default as useCopyToClipboard } from './actions/useCopyToClipboard'
 export { default as useAddTokenToWallet } from './actions/useAddTokenToWallet'
 
+// Controls
 export { default as useDeepMemo } from './controls/useDeepMemo'
 export { default as useTabButton } from './controls/useTabButton'
 export { default as useAutoFetch } from './controls/useAutoFetch'
@@ -16,6 +18,7 @@ export { default as useAddressChanged } from './controls/useAddressChanged'
 export { default as useActiveBrowserTab } from './controls/useActiveBrowserTab'
 export { default as useIsomorphicLayoutEffect } from './controls/useIsomorphicLayoutEffect'
 
+// Data
 export { default as useStore } from './data/useStore'
 export { default as useActions } from './data/useActions'
 export { default as useBalances } from './data/useBalances'
@@ -24,16 +27,8 @@ export { default as useFiatValues } from './data/useFiatValues'
 export { default as useClaimsTotal } from './data/useClaimsTotal'
 export { default as useSwapTokenBalances } from './data/useSwapTokenBalances'
 
+// Fetch
 export { default as useApprove } from './fetch/useApprove'
 export { default as useAllowance } from './fetch/useAllowance'
 export { default as useTransaction } from './fetch/useTransaction'
 export { default as useSubgraphUpdate } from './fetch/useSubgraphUpdate'
-
-export { default as useSwap } from './stake/useSwap'
-export { default as useSwapQuote } from './stake/useSwapQuote'
-export { default as useSwapTokens } from './stake/useSwapTokens'
-export { default as useStakeField } from './stake/useStakeField'
-export { default as useStakeSubmit } from './stake/useStakeSubmit'
-export { default as useStakeApprove } from './stake/useStakeApprove'
-export { default as useStakeApproveGas } from './stake/useStakeApproveGas'
-export { default as useApproveRequired } from './stake/useApproveRequired'

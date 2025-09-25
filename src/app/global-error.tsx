@@ -3,12 +3,13 @@ import React, { useEffect } from 'react'
 import cx from 'classnames'
 import intl from 'modules/intl'
 import { Inter } from 'next/font/google'
-import theme, { ThemeColor } from 'modules/theme'
 import { cookie, constants } from 'helpers'
-import messages from 'views/ErrorView/messages'
+import theme, { ThemeColor } from 'modules/theme'
+
 
 import { Button, Text } from 'components'
 import languages from 'scripts/languages'
+import messages from 'views/ErrorView/messages'
 
 import 'styles/globals.scss'
 import 'styles/tailwind/config.css'

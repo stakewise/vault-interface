@@ -28,8 +28,8 @@
         "scripts/*"
       ],
       "sdk": [
-        "node_modules/@stakewise/v3-sdk"
-      ],
+        "../v3-sdk/src"
+      ]
     },
     "lib": [
       "dom",
@@ -54,7 +54,5 @@
   "exclude": [
     "node_modules",
     ".next",
-    "../web",
-    "../../packages"
   ]
 }

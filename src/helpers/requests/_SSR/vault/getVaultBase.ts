@@ -1,7 +1,8 @@
-import methods from 'helpers/methods'
 import { cookies } from 'next/headers'
 import { networks } from 'config/core'
-import { constants, getters } from 'helpers'
+
+import { constants, getters } from '../../../index'
+import { getSDK } from '../../../methods'
 
 
 const getNetworkData = async () => {
@@ -33,7 +34,7 @@ const getVaultBase = async () => {
   }
 
   const chainId = networks.chainById[networkId as NetworkIds]
-  const sdk = methods.getSDK({ chainId })
+  const sdk = getSDK({ chainId })
   const data = await sdk.vault.getVault({ vaultAddress, withTime: true })
   const versions = await sdk.getVaultVersion(vaultAddress)
 

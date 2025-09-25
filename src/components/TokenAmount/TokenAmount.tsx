@@ -1,10 +1,9 @@
 import React from 'react'
 import cx from 'classnames'
-import methods from 'helpers/methods'
+import { methods, constants } from 'helpers'
 
 import Logo from '../Logo/Logo'
 import Text from '../Text/Text'
-import { constants } from '../../helpers'
 
 
 export const tokens = [

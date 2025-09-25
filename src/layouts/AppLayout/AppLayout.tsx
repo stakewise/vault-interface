@@ -7,14 +7,14 @@ import { useViewportHeight, useImagesPrefetch } from 'hooks'
 import { imagesUrls } from 'components'
 
 import Header from './Header/Header'
+import CommonModals from './CommonModals/CommonModals'
+
 
 import {
   useAccount,
   useFiatRates,
-  useVaultData,
   useQueryParams,
   useMintTokenData,
-  useAutoFetchBalances,
 } from './util'
 
 import s from './AppLayout.module.scss'
@@ -31,11 +31,9 @@ const Notifications = dynamic(() => import('./Notifications/Notifications'), {
 const AppLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   useAccount()
   useFiatRates()
-  useVaultData()
   useQueryParams()
   useMintTokenData()
   useViewportHeight()
-  useAutoFetchBalances()
   useImagesPrefetch(imagesUrls)
 
   return (
@@ -46,6 +44,7 @@ const AppLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
       <main className="flex-1 w-full flex">
         {children}
       </main>
+      <CommonModals />
       <BottomLoader />
       <Notifications />
     </div>

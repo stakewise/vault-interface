@@ -1,4 +1,4 @@
-import methods from '../methods'
+import { fetch } from '../methods'
 
 
 type Input = {
@@ -17,7 +17,7 @@ type BoostSupplyCapsQueryPayload = {
 const fetchBoostSupplyCaps = async (values: Input): Promise<Output> => {
   const { url } = values
 
-  return methods.fetch<BoostSupplyCapsQueryPayload>(url, {
+  return fetch<BoostSupplyCapsQueryPayload>(url, {
     method: 'POST',
     body: JSON.stringify({
       query: `

@@ -12,18 +12,16 @@ import downloadFile from './downloadFile'
 import shortenAddress from './shortenAddress'
 import fetchWithRetry from './fetchWithRetry'
 import formatFiatValue from './formatFiatValue'
-import isInjectedWallet from './isInjectedWallet'
 import formatTokenValue from './formatTokenValue'
 import getOriginHostName from './getOriginHostName'
 import getArrUniqueItems from './getArrUniqueItems'
 import numericalReduction from './numericalReduction'
 import getGlobalHtmlAttrs from './getGlobalHtmlAttrs'
 import addNumberSeparator from './addNumberSeparator'
-import getInjectedProvider from './getInjectedProvider'
 import fetchFiatRates, { createSetValues } from './fetchFiatRates'
 
 
-export default {
+export {
   ens,
   fetch,
   getSDK,
@@ -40,12 +38,10 @@ export default {
   fetchFiatRates,
   formatFiatValue,
   createSetValues,
-  isInjectedWallet,
   formatTokenValue,
   getOriginHostName,
   getArrUniqueItems,
   numericalReduction,
   getGlobalHtmlAttrs,
   addNumberSeparator,
-  getInjectedProvider,
 }
