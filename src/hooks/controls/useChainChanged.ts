@@ -11,7 +11,7 @@ const useChainChanged = (callback: (chainId: ChainIds) => any) => {
 
   useEffect(() => {
     if (chainIdRef.current !== chainId) {
-      callbackRef.current()
+      callbackRef.current(chainId)
       chainIdRef.current = chainId
     }
   }, [ chainId ])

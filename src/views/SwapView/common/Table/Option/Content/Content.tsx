@@ -84,7 +84,7 @@ const Content: React.FC<ContentProps> = (props) => {
       {
         Boolean(icon) && (
           <Icon
-            className="mr-4"
+            className="mr-4 opacity-50"
             name={icon as IconName}
             color="dark"
             size={16}

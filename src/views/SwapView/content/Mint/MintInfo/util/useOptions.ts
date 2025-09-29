@@ -7,15 +7,24 @@ import { commonMessages, methods } from 'helpers'
 import { swapCtx, vaultHooks } from 'views/SwapView/util'
 import { TableProps } from 'views/SwapView/common'
 
+import messages from './messages'
+
 
 const storeSelector = (store: Store) => ({
+  mintTokenRate: store.mintToken.rate,
   userAPY: store.vault.user.balances.userAPY,
+  protocolFeePercent: store.vault.user.balances.mintToken.protocolFeePercent,
 })
 
 const useOptions = () => {
   const { address, sdk, isReadOnlyMode } = useConfig()
 
-  const { userAPY } = useStore(storeSelector)
+  const { userAPY, protocolFeePercent, mintTokenRate } = useStore(storeSelector)
+
+  const rate = methods.formatTokenValue(mintTokenRate)
+
+  const percent = String(protocolFeePercent)
+
 
   const { mint } = swapCtx.useData()
 
@@ -38,7 +47,23 @@ const useOptions = () => {
   })
 
   return useMemo<TableProps['options']>(() => {
-    const result: TableProps['options'] = []
+    const result: TableProps['options'] = [
+      {
+        text: messages.conversionRate,
+        value: `1 ${sdk.config.tokens.mintToken} = ${rate} ${sdk.config.tokens.depositToken}`,
+      },
+      {
+        text: messages.stabilityFee,
+        value: `${percent}%`,
+        tooltip: {
+          ...messages.tooltip.stabilityFee,
+          values: {
+            token: sdk.config.tokens.mintToken,
+            percent,
+          },
+        },
+      },
+    ]
 
     if (shares) {
       result.push(shares)
@@ -73,7 +98,19 @@ const useOptions = () => {
     }
 
     return result
-  }, [ address, fiatGas, isApyFetching, isApyHidden, isReadOnlyMode, newAPY, sdk, shares, userAPY ])
+  }, [
+    sdk,
+    rate,
+    shares,
+    newAPY,
+    percent,
+    address,
+    fiatGas,
+    userAPY,
+    isApyHidden,
+    isApyFetching,
+    isReadOnlyMode,
+  ])
 }
 
 

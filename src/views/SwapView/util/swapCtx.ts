@@ -7,6 +7,7 @@ import { useStore, useAutoFetch, useChainChanged, useAddressChanged } from 'hook
 import vaultHooks from './vault'
 import useStats from './useStats'
 import useTabs, { tabsMock } from './useTabs'
+import useVaultAddress from './useVaultAddress'
 
 
 export const initialContext: SwapView.Context = {
@@ -30,7 +31,6 @@ export const initialContext: SwapView.Context = {
 
 const storeSelector = (store: Store) => ({
   isVaultFetching: store.vault.base.isFetching,
-  vaultAddress: store.vault.base.data.vaultAddress,
   unstakeQueueData: store.vault.user.unstakeQueue.data,
   unboostQueueData: store.vault.user.unboostQueue.data,
   isUserBalancesFetching: store.vault.user.balances.isFetching,
@@ -44,12 +44,13 @@ export const {
   const { address } = useConfig()
 
   const {
-    vaultAddress,
     isVaultFetching,
     unstakeQueueData,
     unboostQueueData,
     isUserBalancesFetching,
   } = useStore(storeSelector)
+
+  const vaultAddress = useVaultAddress()
 
   const resetFields = useCallback(() => {
     stake.field.reset()

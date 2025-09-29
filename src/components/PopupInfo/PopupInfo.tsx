@@ -69,7 +69,7 @@ const PopupInfo: React.FC<PopupInfoProps> = (props) => {
   return (
     <div className={cx(className, 'relative')}>
       <div
-        className={cx(buttonClassName, 'cursor-pointer')}
+        className={cx(buttonClassName, 'flex cursor-pointer')}
         ref={refs.setReference}
         {...getReferenceProps()}
       >
