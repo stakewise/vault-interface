@@ -18,7 +18,7 @@ const Boost: React.FC = () => {
         isLoading={boost.isBoostLoading}
       />
       <BoostContent
-        className="mt-24"
+        className="mt-8"
         field={boost.field}
         isBoostLoading={boost.isBoostLoading}
         isBoostDisabled={boost.isBoostDisabled}

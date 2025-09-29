@@ -1,16 +1,10 @@
 import { useRef } from 'react'
 import forms from 'modules/forms'
-import { useConfig } from 'config'
-import { constants } from 'helpers'
 
 
 const useUnstakeField = (balance: bigint) => {
-  const { address } = useConfig()
-
-  const maxShares = address ? balance : constants.blockchain.emptyBalance
-
-  const balanceRef = useRef(maxShares)
-  balanceRef.current = maxShares
+  const balanceRef = useRef(balance)
+  balanceRef.current = balance
 
   return forms.useField<bigint>({
     valueType: 'bigint',

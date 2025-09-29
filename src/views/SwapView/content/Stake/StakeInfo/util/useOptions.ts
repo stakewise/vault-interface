@@ -1,8 +1,8 @@
 import { useMemo } from 'react'
-import { commonMessages, methods } from 'helpers'
-import { useFiatValues, useStore } from 'hooks'
-import { formatEther } from 'ethers'
 import { useConfig } from 'config'
+import { useFiatValues, useStore } from 'hooks'
+import { formatEther, parseUnits } from 'ethers'
+import { commonMessages, methods } from 'helpers'
 
 import { TableProps } from 'views/SwapView/common'
 import { swapCtx, vaultHooks } from 'views/SwapView/util'
@@ -27,7 +27,13 @@ const useOptions = () => {
   })
 
   const { apy, userApy } = useStore(storeSelector)
+
   const receive = vaultHooks.helpers.useStakeReceive(stake)
+
+  const assets = vaultHooks.helpers.useAssets({
+    field: stake.field,
+    type: 'stake',
+  })
 
   const { fiatGas } = useFiatValues({
     fiatGas: {
@@ -38,42 +44,37 @@ const useOptions = () => {
   })
 
   const diff = userApy - newAPY
-  const selectedToken = stake.swapTokens.selected.name
+
+  const selectedToken = stake.swapTokens.selected
 
   const isFetching = receive.isFetching || isApyFetching
 
   return useMemo<TableProps['options']>(() => {
-    const rateAmount = methods.formatTokenValue(receive.exchangeRate, true)
-    const receiveAmount = methods.formatTokenValue(receive.receiveShares)
+    const rateAmount = selectedToken.address
+      ? stake.getSwappedDepositAmount(parseUnits('1', selectedToken.units))
+      : undefined
 
-    const result: TableProps['options'] = [
-      {
-        text: messages.receive,
-        value: `${receiveAmount} ${sdk.config.tokens.mintToken}`,
-        tooltip: {
-          ...messages.tooltips.receive,
-          values: {
-            mintToken: sdk.config.tokens.mintToken,
-            depositToken: sdk.config.tokens.depositToken,
-          },
-        },
-        isFetching,
-        dataTestId: 'table-receive',
-      },
-      {
+    const result: TableProps['options'] = []
+
+    if (assets) {
+      result.push(assets)
+    }
+
+    if (rateAmount) {
+      result.push({
         text: commonMessages.transaction.exchangeRate,
-        value: `1 ${selectedToken} = ${rateAmount} ${sdk.config.tokens.mintToken}`,
+        value: `1 ${selectedToken.name} = ${methods.formatTokenValue(rateAmount)} ${sdk.config.tokens.depositToken}`,
         tooltip: {
           ...messages.tooltips.rate,
           values: {
-            mintToken: sdk.config.tokens.mintToken,
+            swapToken: selectedToken.name,
             depositToken: sdk.config.tokens.depositToken,
           },
         },
         isFetching,
         dataTestId: 'table-rate',
-      },
-    ]
+      })
+    }
 
     if (address && !isReadOnlyMode) {
       result.push({
@@ -122,8 +123,9 @@ const useOptions = () => {
     sdk,
     apy,
     diff,
+    stake,
+    assets,
     newAPY,
-    receive,
     userApy,
     address,
     fiatGas,

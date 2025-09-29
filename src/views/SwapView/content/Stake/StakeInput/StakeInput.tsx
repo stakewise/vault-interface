@@ -18,7 +18,7 @@ const StakeInput: React.FC = () => {
       field={stake.field}
       loading={stake.isStakeLoading}
       balance={{
-        value: address ? stake.swapTokens.selected.balance : stake.swapTokens.selected.emptyBalance,
+        value: stake.swapTokens.selected.balance,
         token: stake.swapTokens.selected.name as Tokens,
         units: stake.swapTokens.selected.units,
       }}

@@ -1,7 +1,7 @@
 import React from 'react'
 
-import type { IconName } from 'components'
-import { Text, Icon, Loading } from 'components'
+import type { IconName, LogoName } from 'components'
+import { Text, Icon, Loading, Logo } from 'components'
 
 import MagicPercent from '../../../MagicPercent/MagicPercent'
 
@@ -11,6 +11,7 @@ export type ContentProps = {
   isFetching?: boolean
   dataTestId?: string
   icon?: IconName
+  logo?: LogoName
   value?: string
   values?: {
     prev: string
@@ -19,7 +20,7 @@ export type ContentProps = {
 }
 
 const Content: React.FC<ContentProps> = (props) => {
-  const { value, values, icon, isFetching, isMagicValue, dataTestId } = props
+  const { value, values, icon, logo, isFetching, isMagicValue, dataTestId } = props
 
   if (isFetching) {
     return (
@@ -30,6 +31,14 @@ const Content: React.FC<ContentProps> = (props) => {
   if (values) {
     return (
       <div className="flex gap-4 justify-end items-center">
+        {
+          Boolean(logo) && (
+            <Logo
+              name={logo as LogoName}
+              size={16}
+            />
+          )
+        }
         <Text
           className="font-medium"
           message={values.prev}
@@ -42,6 +51,14 @@ const Content: React.FC<ContentProps> = (props) => {
           color="dark"
           size={16}
         />
+        {
+          Boolean(logo) && (
+            <Logo
+              name={logo as LogoName}
+              size={16}
+            />
+          )
+        }
         <Text
           className={isMagicValue ? 'text-secondary-gradient font-medium' : 'font-medium'}
           message={values.next}
@@ -70,6 +87,15 @@ const Content: React.FC<ContentProps> = (props) => {
             className="mr-4"
             name={icon as IconName}
             color="dark"
+            size={16}
+          />
+        )
+      }
+      {
+        Boolean(logo) && (
+          <Logo
+            className="mr-4"
+            name={logo as LogoName}
             size={16}
           />
         )

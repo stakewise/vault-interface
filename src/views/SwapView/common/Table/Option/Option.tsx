@@ -14,7 +14,7 @@ export type OptionProps = ContentProps & {
 }
 
 const Option: React.FC<OptionProps> = (props) => {
-  const { className, text, value, values, tooltip, icon, isFetching, isMagicValue, dataTestId } = props
+  const { className, text, value, values, tooltip, icon, logo, isFetching, isMagicValue, dataTestId } = props
 
   return (
     <div className={cx(className, 'flex justify-between items-center')}>
@@ -43,6 +43,7 @@ const Option: React.FC<OptionProps> = (props) => {
       </div>
       <Content
         icon={icon}
+        logo={logo}
         value={value}
         values={values}
         isFetching={isFetching}

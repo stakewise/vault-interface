@@ -1,1 +1,1 @@
-export { default as useInfo } from './useInfo'
+export { default as useOptions } from './useOptions'

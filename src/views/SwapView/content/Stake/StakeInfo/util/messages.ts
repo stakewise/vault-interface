@@ -58,34 +58,13 @@ export default {
       `,
     },
     rate: {
-      en: `
-        The amount of {mintToken} you receive for each staked {depositToken}.
-        The exchange rate increases over time as rewards are earned.
-      `,
-      ru: `
-        Количество {mintToken}, которое вы получаете за каждый застейканный {depositToken}.
-        Обменный курс увеличивается со временем по мере получения наград.
-      `,
-      fr: `
-        Le montant de {mintToken} que vous recevez pour chaque {depositToken} mis en staking.
-        Le taux de change augmente avec le temps à mesure que des récompenses sont gagnées.
-      `,
-      es: `
-        La cantidad de {mintToken} que recibes por cada {depositToken} apostado.
-        El tipo de cambio aumenta con el tiempo a medida que se obtienen recompensas.
-      `,
-      pt: `
-        A quantidade de {mintToken} que você recebe para cada {depositToken} em staking.
-        A taxa de câmbio aumenta ao longo do tempo à medida que as recompensas são obtidas.
-      `,
-      de: `
-        Die Menge an {mintToken}, die Sie für jeden gestakten {depositToken} erhalten.
-        Der Wechselkurs erhöht sich im Laufe der Zeit, während Belohnungen verdient werden.
-      `,
-      zh: `
-        您因每个已质押的 {depositToken} 所获得的 {mintToken} 数量。
-        随着奖励的赚取，汇率会随时间增加。
-      `,
+      en: 'The amount of staked {depositToken} you receive for each {swapToken}.',
+      ru: 'Количество застейканного {depositToken}, которое вы получаете за каждый {swapToken}.',
+      fr: 'La quantité de {depositToken} staké que vous recevez pour chaque {swapToken}.',
+      es: 'La cantidad de {depositToken} que recibe por cada {swapToken} en staking.',
+      pt: 'A quantidade de {depositToken} staked que você recebe por cada {swapToken}.',
+      de: 'Die Menge an gestakten {depositToken}, die Sie für jedes {swapToken} erhalten.',
+      zh: '您为每个 {swapToken} 获得的质押 {depositToken} 的数量。',
     },
   },
 }

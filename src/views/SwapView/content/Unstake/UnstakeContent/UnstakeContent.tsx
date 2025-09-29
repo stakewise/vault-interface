@@ -4,7 +4,7 @@ import forms from 'modules/forms'
 import { Table } from 'views/SwapView/common'
 import { swapCtx } from 'views/SwapView/util'
 
-import { useInfo } from './util'
+import { useOptions } from './util'
 import SubmitButton from './SubmitButton/SubmitButton'
 import MintTokenBalanceNote from './MintTokenBalanceNote/MintTokenBalanceNote'
 
@@ -17,7 +17,7 @@ const UnstakeContent: React.FC<UnstakeContentProps> = (props) => {
   const { className } = props
 
   const { unstake } = swapCtx.useData()
-  const items = useInfo()
+  const items = useOptions()
 
   const { value, error } = forms.useFieldValue(unstake.field)
 

@@ -20,7 +20,7 @@ const storeSelector = (store: Store) => ({
   isCollateralized: store.vault.base.data.isCollateralized,
 })
 
-const useInfo = () => {
+const useOptions = () => {
   const { unstake } = swapCtx.useData()
   const { sdk, address, isReadOnlyMode, isGnosis, isEthereum } = useConfig()
 
@@ -70,12 +70,12 @@ const useInfo = () => {
     const items: TableProps['options'] = []
 
     const fieldAmount = methods.formatTokenValue(unstake.field.value || 0n)
-    const valueWithToken = `${fieldAmount} ${sdk.config.tokens.depositToken}`
 
     if (isImmediate) {
       items.push({
         text: messages.immediate,
-        value: valueWithToken,
+        value: fieldAmount,
+        logo: `token/${sdk.config.tokens.depositToken}`,
         dataTestId: 'unstake-queue',
       })
     }
@@ -83,7 +83,8 @@ const useInfo = () => {
       items.push({
         text: commonMessages.buttonTitle.unstakeQueue,
         tooltip: noteMessage,
-        value: valueWithToken,
+        value: fieldAmount,
+        logo: `token/${sdk.config.tokens.depositToken}`,
         dataTestId: 'unstake-queue',
       })
     }
@@ -138,4 +139,4 @@ const useInfo = () => {
 }
 
 
-export default useInfo
+export default useOptions

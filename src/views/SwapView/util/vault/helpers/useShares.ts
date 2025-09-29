@@ -4,6 +4,8 @@ import forms from 'modules/forms'
 import { useConfig } from 'config'
 import { commonMessages, methods } from 'helpers'
 
+import type { LogoName } from 'components'
+
 import type { Input } from './types'
 
 
@@ -24,17 +26,17 @@ const useShares = (values: Input) => {
 
   return useMemo(() => {
     if (type === 'mint' || type === 'burn') {
-      const prev = `${mintToken} ${methods.formatTokenValue(mintedShares)}`
+      const prev = methods.formatTokenValue(mintedShares)
 
       let next = ''
 
       if (isValid && value && typeof value === 'bigint') {
         if (type === 'mint') {
-          next = `${mintToken} ${methods.formatTokenValue(mintedShares + value)}`
+          next = methods.formatTokenValue(mintedShares + value)
         }
 
         if (type === 'burn') {
-          next = `${mintToken} ${methods.formatTokenValue(mintedShares - value)}`
+          next = methods.formatTokenValue(mintedShares - value)
         }
       }
 
@@ -47,13 +49,14 @@ const useShares = (values: Input) => {
           prev,
           next,
         },
+        logo: `token/${mintToken}`  as LogoName,
       }
 
       return result
     }
 
     return null
-  }, [ value, type, mintToken, mintedShares, isValid ])
+  }, [ type, mintedShares, isValid, value, mintToken ])
 }
 
 

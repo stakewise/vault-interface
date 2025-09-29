@@ -4,6 +4,8 @@ import forms from 'modules/forms'
 import { useConfig } from 'config'
 import { commonMessages, methods } from 'helpers'
 
+import type { LogoName } from 'components'
+
 import type { Input } from './types'
 
 
@@ -23,17 +25,17 @@ const useAssets = ({ field, type, depositAmount }: Input) => {
     if (type === 'stake' || type === 'unstake') {
       const isValid = Number(value) && typeof value === 'bigint' && !error
 
-      const prev = `${depositToken} ${methods.formatTokenValue(stakedAssets)}`
+      const prev = methods.formatTokenValue(stakedAssets)
 
       let next = ''
 
       if (isValid) {
         if (type === 'stake') {
-          next = `${depositToken} ${methods.formatTokenValue(stakedAssets + value)}`
+          next = methods.formatTokenValue(stakedAssets + value)
         }
 
         if (type === 'unstake') {
-          next = `${depositToken} ${methods.formatTokenValue(stakedAssets - value)}`
+          next = methods.formatTokenValue(stakedAssets - value)
         }
       }
 
@@ -46,6 +48,7 @@ const useAssets = ({ field, type, depositAmount }: Input) => {
           prev,
           next,
         },
+        logo: `token/${depositToken}` as LogoName,
       }
 
       return result
