@@ -50,16 +50,18 @@ const useOptions = () => {
     type: 'unstake',
   })
 
-  const noteMessage = {
-    ...(isV2Version
-        ? commonMessages.tooltip.unstakeQueueV2
-        : commonMessages.tooltip.unstakeQueueV1
-    ),
-    values: {
-      queueDays,
-      depositToken: sdk.config.tokens.depositToken,
-    },
-  }
+  const noteMessage = useMemo(() => {
+    return {
+      ...(isV2Version
+          ? commonMessages.tooltip.unstakeQueueV2
+          : commonMessages.tooltip.unstakeQueueV1
+      ),
+      values: {
+        queueDays,
+        depositToken: sdk.config.tokens.depositToken,
+      },
+    }
+  }, [ isV2Version, queueDays, sdk ])
 
   const isImmediateInGnosis = isGnosis && vaultVersion >= 3 && !isCollateralized
   const isImmediateInEthereum = !isV2Version && isEthereum && !isCollateralized
