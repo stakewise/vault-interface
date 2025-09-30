@@ -28,8 +28,8 @@
         "scripts/*"
       ],
       "sdk": [
-        "../v3-sdk/src"
-      ]
+        "node_modules/@stakewise/v3-sdk"
+      ],
     },
     "lib": [
       "dom",
