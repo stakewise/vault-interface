@@ -52,7 +52,7 @@ const getEnvList = (filePath) => {
   return result
 }
 
-const validateEnv = (env) => {
+const validateEnv = () => {
   const isEnvExist = fs.existsSync(localEnv)
 
   if (!isEnvExist) {

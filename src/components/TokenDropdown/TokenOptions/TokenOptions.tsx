@@ -39,7 +39,7 @@ const TokenOptions: React.FC<TokenOptionsProps> = (props) => {
         const { name, address } = token
 
         const lowerCasedName = name.toLowerCase()
-        const lowerCasedAddress = address.toLowerCase()
+        const lowerCasedAddress = (address || '').toLowerCase()
 
         return (
           lowerCasedName.includes(lowerCasedSearch)
@@ -105,20 +105,20 @@ const TokenOptions: React.FC<TokenOptionsProps> = (props) => {
                           ...swapToken,
                           address: swapTokenAddress,
                         }}
-                        data-testid={`${dataTestId}-option-${name}`}
+                        dataTestId={dataTestId}
                       />
                     )
                   })
                 }
               </div>
             </ScrollableContainer>
-        ) : (
-          <Text
-            className="my-24 text-center"
-            message={messages.noData}
-            color="dark"
-            size="t16m"
-          />
+          ) : (
+            <Text
+              className="my-24 text-center"
+              message={messages.noData}
+              color="dark"
+              size="t16m"
+            />
           )
         )
       }

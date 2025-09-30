@@ -2,6 +2,7 @@ const fs = require('fs')
 const path = require('path')
 const hexToRgb = require('./hexToRgb')
 
+
 const themes = [ 'light', 'dark' ]
 
 const destVariables = path.resolve(__dirname, `../../src/styles/variables.scss`)
@@ -93,7 +94,7 @@ const generateColors = () => {
 
   let newBaseFile = baseFile
 
-  Object.keys(colorsBase).forEach((theme, index) => {
+  Object.keys(colorsBase).forEach((theme) => {
     newBaseFile = newBaseFile
       .replace(
         new RegExp(`:root .body-${theme}-theme {[^}]*}\n`, 'g'),
