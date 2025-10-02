@@ -35,7 +35,7 @@ const useTokenDropdown = () => {
 
       setState({ fetchedKey: dataKey, isFetching: false })
     }
-  }, [ isOpen, dataKey, fetchRates, refetchSwapTokenBalances ])
+  }, [ isOpen, dataKey, setState, fetchRates, refetchSwapTokenBalances ])
 
   useChainChanged(handleFetch)
 

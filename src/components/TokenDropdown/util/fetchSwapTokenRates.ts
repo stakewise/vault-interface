@@ -1,4 +1,3 @@
-'use server'
 import { Network } from 'sdk'
 import { swapTokens, methods } from 'helpers'
 import cacheStorage from 'modules/cache-storage'
@@ -16,18 +15,17 @@ const cache = {
 
 type Input = {
   values: (number | null)[]
-  cacheData: Record<string, number> | null
   chainTokens: Record<string, string>
 }
 
-const modifyResult = ({ values, cacheData, chainTokens }: Input) => {
+const modifyResult = ({ values, chainTokens }: Input) => {
   const result: Record<string, number> = {}
   const tokenNames = Object.keys(chainTokens)
 
   values.forEach((value, index) => {
     const token = tokenNames[index]
 
-    result[token] = value === null ? cacheData?.[token] || 0 : value
+    result[token] = value || 0
   })
 
   return result
@@ -64,7 +62,7 @@ const fetchSwapTokenRates = async (chainId: Network) => {
     Object.values(chainTokens).map((address) => fetchSwapTokenRate({ chainId, address }))
   )
 
-  const data = modifyResult({ values, cacheData, chainTokens })
+  const data = modifyResult({ values, chainTokens })
 
   cache[chainId as keyof typeof cache].setData(data, cacheLimit)
 

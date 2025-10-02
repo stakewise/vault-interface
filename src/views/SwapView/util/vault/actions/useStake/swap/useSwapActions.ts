@@ -23,7 +23,7 @@ type FetchQuoteInput = {
   fromToken: string
 }
 
-type SwapInput = FetchQuoteInput & {
+type SwapInput = {
   setTransaction: SetTransaction
 }
 

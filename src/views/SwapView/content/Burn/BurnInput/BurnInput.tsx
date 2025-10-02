@@ -1,5 +1,4 @@
 import React, { useCallback } from 'react'
-import { useStore } from 'hooks'
 import { useConfig } from 'config'
 import { constants } from 'helpers'
 
@@ -9,18 +8,13 @@ import { TokenAmountInput } from 'components'
 import messages from './messages'
 
 
-const storeSelector = (store: Store) => ({
-  mintedShares: store.vault.user.balances.mintToken.mintedShares,
-})
-
 const BurnInput: React.FC = () => {
   const { sdk, address } = useConfig()
   const { burn } = swapCtx.useData()
-  const { mintedShares } = useStore(storeSelector)
 
   const onMaxButtonClick = useCallback(() => {
-    burn.field.setValue(mintedShares)
-  }, [ burn, mintedShares ])
+    burn.field.setValue(burn.maxBurnShares)
+  }, [ burn ])
 
   return (
     <TokenAmountInput
@@ -28,7 +22,7 @@ const BurnInput: React.FC = () => {
       loading={burn.isBurnLoading}
       balance={{
         token: sdk.config.tokens.mintToken,
-        value: address ? mintedShares : constants.blockchain.emptyBalance,
+        value: address ? burn.maxBurnShares : constants.blockchain.emptyBalance,
         title: {
           ...messages.balanceTitle,
           values: { mintToken: sdk.config.tokens.mintToken },

@@ -71,6 +71,7 @@ const useUnstakeSubmit = (values: Input) => {
           },
         ]
 
+        field.reset()
         openTxCompletedModal({ tokens, hash })
       }
     }

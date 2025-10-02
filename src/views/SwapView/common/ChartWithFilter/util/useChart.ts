@@ -25,6 +25,7 @@ const useChart = (tabsItems: TabsItems) => {
   const isExportButtonShown = Boolean(
     address
     && data.length
+    && data[0].data.length
     && values.tab === 'user'
     && values.type === 'rewards'
   )

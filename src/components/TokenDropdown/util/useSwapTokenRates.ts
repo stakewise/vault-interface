@@ -3,7 +3,7 @@ import { useConfig } from 'config'
 import { useActions } from 'hooks'
 import { swapTokens, methods } from 'helpers'
 
-import { fetchSwapTokenRates } from './_SSR'
+import fetchSwapTokenRates from './fetchSwapTokenRates'
 
 
 const useFiatRates = () => {
@@ -36,7 +36,11 @@ const useFiatRates = () => {
         AUD: fiatRates['USD/AUD'],
       })
 
-      const swapTokenData = Object.keys(swapTokenRates).reduce((acc, key) => {
+      if (!swapTokenRates) {
+        console.error('Fetch swap token rates error (swapTokenRates is null)')
+      }
+
+      const swapTokenData = Object.keys(swapTokenRates || {}).reduce((acc, key) => {
         acc[key] = setValues(swapTokenRates[key])
 
         return acc
