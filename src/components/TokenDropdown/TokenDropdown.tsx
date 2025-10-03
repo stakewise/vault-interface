@@ -42,7 +42,7 @@ const TokenDropdown: React.FC<TokenDropdownProps> = (props) => {
     field.setValue('')
   }, [ field, onChange ])
 
-  const isSwapEnabled = Network.Mainnet === chainId
+  const isSwapEnabled = [ Network.Mainnet, Network.Gnosis ].includes(chainId)
 
   const tokenBaseNode = (
     <TokenBase
