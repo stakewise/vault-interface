@@ -25,17 +25,17 @@ const useBurn = (values: Input) => {
 
   const { mintedShares, walletMintedShares, isBalancesFetching } = useStore(storeSelector)
 
-  const field = useBurnField(mintedShares)
+  const maxBurnShares = mintedShares > walletMintedShares
+    ? walletMintedShares
+    : mintedShares
+
+  const field = useBurnField(maxBurnShares)
   const isBurnDisabled = useBurnDisabled({ field })
   const transactionPrice = useBurnTransactionPrice()
   const fullUnstakeBurnAmount = useFullUnstakeBurnAmount()
   const { isSubmitting, submit } = useBurnSubmit({ field, fetchAllUserData })
 
   const isBurnLoading = isSubmitting || isBalancesFetching
-
-  const maxBurnShares = mintedShares > walletMintedShares
-    ? walletMintedShares
-    : mintedShares
 
   return useMemo(() => ({
     field,

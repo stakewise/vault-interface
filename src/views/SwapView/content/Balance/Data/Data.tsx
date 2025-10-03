@@ -22,7 +22,7 @@ const storeSelector = (store: Store) => ({
   boostedShares: store.vault.user.balances.boost.shares,
   mintedShares: store.vault.user.balances.mintToken.mintedShares,
   boostedTotalShares: store.vault.user.balances.boost.totalShares,
-  totalRewardingAssets: store.vault.user.balances.totalRewardingAssets,
+  totalEarnedAssets: store.vault.user.balances.totalEarnedAssets,
 })
 
 const Data: React.FC = () => {
@@ -34,7 +34,7 @@ const Data: React.FC = () => {
     stakedAssets,
     boostedShares,
     boostedTotalShares,
-    totalRewardingAssets,
+    totalEarnedAssets,
   } = useStore(storeSelector)
 
   const items = useMemo(() => {
@@ -83,7 +83,7 @@ const Data: React.FC = () => {
         title: commonMessages.earnedRewards,
         tooltip: commonMessages.tooltip.earnedRewards,
         value: {
-          amount: totalRewardingAssets,
+          amount: totalEarnedAssets,
           token: depositToken,
         },
         withMinimalValue: true,
@@ -114,8 +114,8 @@ const Data: React.FC = () => {
     mintedShares,
     stakedAssets,
     boostedShares,
+    totalEarnedAssets,
     boostedTotalShares,
-    totalRewardingAssets,
   ])
 
   return (
