@@ -52,7 +52,7 @@ const TokenDropdown: React.FC<TokenDropdownProps> = (props) => {
     />
   )
 
-  if (isSwapEnabled) {
+  if (!isSwapEnabled) {
     return tokenBaseNode
   }
 
