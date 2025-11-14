@@ -1,3 +1,6 @@
+import { Network } from 'sdk'
+
+
 export type Payload = {
   params: any[]
   method: string
@@ -34,4 +37,13 @@ export type TxParams = {
   maxFeePerGas?: string
   maxPriorityFeePerGas?: string
   accessList?: Array<{ address: string, storageKeys: string[] }>
+}
+
+export type Transport = 'usb' | 'ble'
+
+export type ProviderInput = {
+  transport: Transport
+  chainId: Network
+  rpcUrl: string
+  onError?: () => void
 }
