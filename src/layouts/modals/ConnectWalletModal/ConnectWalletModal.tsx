@@ -1,9 +1,8 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState, useMemo } from 'react'
 import cx from 'classnames'
-import { useConfig } from 'config'
 import modal from 'modules/modal'
 import device from 'modules/device'
-import { constants } from 'helpers'
+import { useConfig, wallets } from 'config'
 import { usePathname } from 'next/navigation'
 
 import { Modal, Text, Href } from 'components'
@@ -12,11 +11,12 @@ import modalId from './modalId'
 import ConnectorsView from './ConnectorsView/ConnectorsView'
 import useMetaMaskOnboarding from './util/useMetaMaskOnboarding'
 import MonitorAddressView from './MonitorAddressView/MonitorAddressView'
+import LedgerTransportView from './LedgerTransportView/LedgerTransportView'
 
 import messages from './messages'
 
 
-export const [ ConnectWalletModal, openConnectWalletModal ] = (
+export const [ ConnectWalletModal, openConnectWalletModal, closeConnectWalletModal ] = (
   modal.wrapper(modalId, (props) => {
     const { closeModal } = props
 
@@ -41,14 +41,15 @@ export const [ ConnectWalletModal, openConnectWalletModal ] = (
     const handleSelectConnector = useCallback((walletId: WalletIds) => {
       setSelectedWalletId(walletId)
 
-      if (walletId !== constants.walletNames.monitorAddress) {
+      if (walletId !== wallets.monitorAddress.id && walletId !== wallets.ledger.id) {
         return wallet.connect(walletId)
       }
     }, [ wallet ])
 
-    const isMonitorAddress = selectedWalletId === constants.walletNames.monitorAddress
+    const isLedger = selectedWalletId === wallets.ledger.id
+    const isMonitorAddress = selectedWalletId === wallets.monitorAddress.id
 
-    const bottomNode = !isMonitorAddress && (
+    const bottomNode = !isMonitorAddress && !isLedger && (
       <div className="mt-32 text-center">
         <Href
           className="inline-block cursor-pointer hover-underline text-primary"
@@ -56,7 +57,7 @@ export const [ ConnectWalletModal, openConnectWalletModal ] = (
           onClick={() => metaMaskOnboarding.current?.startOnboarding()}
         >
           <Text
-            className="inline-block"
+            className="inline-block font-medium"
             dataTestId="select-wallet-modal-no-wallet-button"
             message={messages.noWallet}
             size="t14m"
@@ -66,7 +67,33 @@ export const [ ConnectWalletModal, openConnectWalletModal ] = (
       </div>
     )
 
-    const title = isMonitorAddress ? messages.checkWallet : messages.title
+    let title = messages.title
+
+    if (isMonitorAddress) {
+      title = messages.checkWallet
+    }
+
+    if (isLedger) {
+      title = messages.ledger
+    }
+
+    const view = useMemo(() => {
+      if (isMonitorAddress) {
+        return (
+          <MonitorAddressView />
+        )
+      }
+
+      if (isLedger) {
+        return (
+          <LedgerTransportView />
+        )
+      }
+
+      return (
+        <ConnectorsView onSelect={handleSelectConnector} />
+      )
+    }, [ isMonitorAddress, isLedger, handleSelectConnector ])
 
     return (
       <Modal
@@ -77,15 +104,9 @@ export const [ ConnectWalletModal, openConnectWalletModal ] = (
           'flex justify-center': isMobile,
         })}
         closeModal={closeModal}
-        onBackButtonClick={isMonitorAddress ? () => setSelectedWalletId(null) : undefined}
+        onBackButtonClick={(isMonitorAddress || isLedger) ? () => setSelectedWalletId(null) : undefined}
       >
-        {
-          isMonitorAddress ? (
-            <MonitorAddressView />
-          ) : (
-            <ConnectorsView onSelect={handleSelectConnector} />
-          )
-        }
+        {view}
       </Modal>
     )
   })
