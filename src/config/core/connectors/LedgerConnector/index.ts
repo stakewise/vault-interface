@@ -4,33 +4,40 @@ import { localStorageNames } from 'helpers/constants'
 import EventAggregator from 'modules/event-aggregator'
 
 import { PathTypes } from './enum'
+import { Transport } from './types'
 import LedgerProvider from './LedgerProvider'
 import networks from '../../config/util/networks'
 
 
 export type Input = {
   chainId: Network
+  transport?: Transport
   params: Record<number, {
     chainId: number
     name: string
     url: string
   }>
+  onError?: () => void
 }
 
 class LedgerConnector extends AbstractProvider {
   private chainId?: number
   events: EventAggregator
   private params: Input['params']
+  private transport: Transport = 'usb'
   private account: string | null = null
   private providerInstance?: LedgerProvider
+  private onError?: () => void | null
 
-  constructor({ params, chainId }: Input) {
+  constructor({ params, transport, chainId, onError }: Input) {
     super()
 
     this.params = params
     this.chainId = chainId
+    this.transport = transport || 'usb'
     this.events = new EventAggregator()
 
+    this.onError = onError
     this.#initActiveAccount()
   }
 
@@ -62,6 +69,7 @@ class LedgerConnector extends AbstractProvider {
 
   deactivate() {
     super.destroy()
+    this.providerInstance?.deactivate()
   }
 
   async getProvider() {
@@ -84,14 +92,22 @@ class LedgerConnector extends AbstractProvider {
     const { url } = this.params[chainId]
 
     if (!url) {
-      console.log(`Invalid rpc url for chainId: ${chainId}`)
+      console.error(`Invalid rpc url for chainId: ${chainId}`)
 
       return
     }
 
-    const providerInstance = this.#initProvider(chainId, url)
+    if (!this.providerInstance) {
+      console.error('Invalid provider instance')
 
-    this.providerInstance = providerInstance
+      return
+    }
+
+    this.providerInstance.setChain({
+      chainId,
+      rpcUrl: url,
+    })
+
     this.chainId = chainId
   }
 
@@ -164,7 +180,12 @@ class LedgerConnector extends AbstractProvider {
   }
 
   #initProvider(chainId: number, url: string) {
-    const providerInstance = new LedgerProvider(chainId, url)
+    const providerInstance = new LedgerProvider({
+      transport: this.transport,
+      onError: this.onError,
+      rpcUrl: url,
+      chainId,
+    })
 
     this.providerInstance = providerInstance
 

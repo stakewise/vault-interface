@@ -15,11 +15,13 @@ import messages from '../../../messages'
 
 type Input = Pick<ConfigProvider.Callbacks, 'onError' | 'onStartConnect' | 'onConnectError' | 'onFinishConnect'> & {
   configState: ConfigProvider.ConfigState
+  disconnect: () => Promise<void>
 }
 
 const useConnect = (values: Input) => {
   const {
     configState,
+    disconnect,
     onError,
     onStartConnect,
     onConnectError,
@@ -44,7 +46,7 @@ const useConnect = (values: Input) => {
     window.location.reload()
   }, [ onConnectError ])
 
-  const connectWallet = useCallback(async (walletName: WalletIds): Promise<void> => {
+  const connectWallet = useCallback(async (walletName: WalletIds, transport?: 'usb' | 'ble'): Promise<void> => {
     let resetConnectTimer: NodeJS.Timeout | null = null
 
     if (inProgressRef.current) {
@@ -62,7 +64,10 @@ const useConnect = (values: Input) => {
     const { name: chainName } = networks.configs[dataRef.current.networkId]
     let { chainId } = networks.configs[dataRef.current.networkId]
 
-    const connector = await getConnector(chainId) as Connectors
+    const connector = await getConnector(chainId, {
+      transport,
+      disconnect,
+    }) as Connectors
 
     if (!connector) {
       throw new Error(`The ${walletName} wallet does not have a connector`)
@@ -199,7 +204,7 @@ const useConnect = (values: Input) => {
         onError('Wallet activate error', error)
       }
 
-      connector.deactivate()
+      connector.deactivate?.()
 
       if (resetConnectTimer) {
         clearTimeout(resetConnectTimer)
@@ -209,40 +214,7 @@ const useConnect = (values: Input) => {
         localStorage.clearAll()
       }
 
-      const injectedProvider = isInjected && wallets[walletName].getProvider()
-
-      // @ts-ignore
-      const isLocked = !injectedProvider?._state?.isUnlocked
-      const isAlreadyProcessing = error?.code === -32002
-      const needLoginToMetaMask = isLocked || isAlreadyProcessing
       const isCancelAutoconnectSwitchChain = error.code === 4001 && !dataRef.current.address
-
-      if (needLoginToMetaMask) {
-        notifications.open({
-          type: 'info',
-          text: messages.connectErrors.injectedLogin,
-          thread: 'connect',
-        })
-
-        return new Promise((resolve, reject) => {
-          const timeout = setTimeout(reject, 8_000)
-
-          const handleUpdate = async (values: { account?: string }) => {
-            const { account } = values
-
-            if (account) {
-              connectWallet(walletName)
-                .then(resolve)
-                .catch(reject)
-                .finally(() => clearTimeout(timeout))
-            }
-
-            connector.events?.unsubscribe('change', handleUpdate)
-          }
-
-          connector.events?.subscribe('change', handleUpdate)
-        })
-      }
 
       const specialError = getSpecialErrors(error)
 
@@ -271,6 +243,7 @@ const useConnect = (values: Input) => {
     dataRef,
     setData,
     onError,
+    disconnect,
     resetConnection,
     onConnectError,
     onStartConnect,

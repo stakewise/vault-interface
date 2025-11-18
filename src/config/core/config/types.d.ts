@@ -30,8 +30,8 @@ declare global {
     type Wallet = {
       disconnect: () => Promise<void>
       setAddress: (address: string) => void
-      connect: (walletName: WalletIds) => Promise<void>
       changeChain: (networkId: NetworkIds) => Promise<void>
+      connect: (walletName: WalletIds,  transport?: 'usb' | 'ble') => Promise<void>
     }
 
     type CancelOnChangeInput = {

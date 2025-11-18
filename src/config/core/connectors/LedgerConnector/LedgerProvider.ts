@@ -1,33 +1,32 @@
-import { methods } from 'helpers'
-import { Semaphore } from 'async-mutex'
+import { configs, Network } from 'sdk'
 import AppEth from '@ledgerhq/hw-app-eth'
-import TransportUSB from '@ledgerhq/hw-transport-webusb'
-import TransportHID from '@ledgerhq/hw-transport-webhid'
-import { Signature, Transaction, isAddress } from 'ethers'
+import * as methods from 'helpers/methods'
+import { EIP712Message } from '@ledgerhq/types-live'
+import { Signature, Transaction, isAddress, TypedDataEncoder } from 'ethers'
 import type { TransactionLike, Eip1193Provider } from 'ethers'
 
 import { PathTypes } from './enum'
-import { structHash } from './eip712'
-import { Payload, TxParams, JSONRPCResponsePayload } from './types'
+import LedgerTransport from './LedgerTransport'
+import { Payload, TxParams, JSONRPCResponsePayload, ProviderInput } from './types'
 
-// ATTN Requests to the device can only be sequential. Do not use Promise.all() for appEth requests
 
-const semaphore = new Semaphore(1)
-
-class LedgerProvider implements Eip1193Provider {
+class LedgerProvider extends LedgerTransport implements Eip1193Provider {
   #rpcUrl: string
-  #chainId: number
+  #chainId: Network
   #accountIndex: number = 0
   #pathType: PathTypes = PathTypes.LIVE
 
   // More info here: https://blog.ledger.com/understanding-crypto-addresses-and-derivation-paths/
   private _paths: Record<PathTypes, string> = {
-    [PathTypes.LIVE]: "m/44'/60'/{index}'/0/0", // (default)
-    [PathTypes.BIP44]: "m/44'/60'/0'/0/{index}",
-    [PathTypes.LEGACY]: "m/44'/60'/0'/{index}",
+    [PathTypes.LIVE]: "44'/60'/{index}'/0/0", // (default)
+    [PathTypes.BIP44]: "44'/60'/0'/0/{index}",
+    [PathTypes.LEGACY]: "44'/60'/0'/{index}",
   }
 
-  constructor(chainId: number, rpcUrl: string) {
+  constructor(values: ProviderInput) {
+    super(values)
+    const { rpcUrl, chainId } = values
+
     this.#rpcUrl = rpcUrl
     this.#chainId = chainId
   }
@@ -46,6 +45,13 @@ class LedgerProvider implements Eip1193Provider {
 
   set pathType(type: PathTypes) {
     this.#pathType = type
+  }
+
+  setChain(values: Pick<ProviderInput, 'chainId' | 'rpcUrl'>) {
+    const { rpcUrl, chainId } = values
+
+    this.#rpcUrl = rpcUrl
+    this.#chainId = chainId
   }
 
   async jsonRpcRequest(payload: Payload): Promise<any> {
@@ -129,6 +135,14 @@ class LedgerProvider implements Eip1193Provider {
       const result = await this.signPersonalMessage(data)
 
       return result
+    }
+
+    if (method === 'eth_chainId') {
+      const hexadecimalChainId = configs[this.#chainId].network.hexadecimalChainId
+
+      const result = await this.jsonRpcRequest(payload)
+
+      return result || hexadecimalChainId
     }
 
     return this.jsonRpcRequest(payload)
@@ -268,18 +282,28 @@ class LedgerProvider implements Eip1193Provider {
     return result
   }
 
-  async #signEIP712Message(typedData: any) {
+  async #signEIP712Message(typedData: EIP712Message) {
     return this.connectLedger(async (app: AppEth) => {
       const path = this.#getDerivationPath()
 
-      const domain = structHash(typedData, 'EIP712Domain', typedData.domain)
+      const copyTypedData = Object.assign(typedData, {})
 
-      const message = structHash(
-        typedData,
-        typedData.primaryType,
-        typedData.message
+      const domain = TypedDataEncoder.hashDomain(copyTypedData.domain)
+
+      if (copyTypedData.types.EIP712Domain) {
+        // @ts-ignore: The domain type is inbuilt in the EIP712 standard and hence
+        // TypedDataEncoder so you do not need to specify it in the types.
+        // If it is not removed, there will be an error
+        delete copyTypedData.types.EIP712Domain
+      }
+
+      const message = TypedDataEncoder.hashStruct(
+        copyTypedData.primaryType,
+        copyTypedData.types,
+        copyTypedData.message
       )
 
+      // https://app.devicesdk.ledger-test.com/signers/ethereum (if you need to compare signatures)
       const result = await app.signEIP712HashedMessage(path, domain, message)
 
       return this.#makeSignature(result)
@@ -292,14 +316,14 @@ class LedgerProvider implements Eip1193Provider {
     }
 
     const typedData = JSON.parse(payload.params[1])
+
     const result = await this.#signEIP712Message(typedData)
 
     return result
   }
 
   #getDerivationPath(index: number = this.#accountIndex) {
-    return this._paths[this.#pathType]
-      .replace('{index}', `${index}`)
+    return this._paths[this.#pathType].replace('{index}', `${index}`)
   }
 
   #makeSignature(values: { r: string, s: string, v: number }) {
@@ -321,30 +345,6 @@ class LedgerProvider implements Eip1193Provider {
     const extraPart = Math.floor(Math.random() * Math.pow(10, 3))
 
     return datePart + extraPart
-  }
-
-  async connectLedger(method: (app: AppEth) => Promise<any>) {
-    const [ _, release ] = await semaphore.acquire()
-
-    try {
-      const connection = await (
-        'hid' in navigator
-          ? TransportHID.create()
-          : TransportUSB.create()
-      )
-
-      try {
-        const app = new AppEth(connection)
-
-        return await method(app)
-      }
-      finally {
-        await connection.close()
-      }
-    }
-    finally {
-      release()
-    }
   }
 }
 

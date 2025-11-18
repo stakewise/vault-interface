@@ -33,7 +33,7 @@ class WalletLinkConnector extends WagmiConnector {
     const provider = await this.connector.getProvider() as SafeAppProvider
 
     // @ts-ignore
-    const isGnosisSafe = provider.session.peer.metadata.name === 'Safe{Wallet}'
+    const isGnosisSafe = provider?.session?.peer?.metadata?.name === 'Safe{Wallet}'
 
     if (isGnosisSafe) {
       const method = provider.request
