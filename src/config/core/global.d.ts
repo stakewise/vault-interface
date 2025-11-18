@@ -22,4 +22,9 @@ declare global {
       pathType: LedgerPathTypes
     }
   }
+
+  type GetConnectorOptions = {
+    transport?: 'usb' | 'ble'
+    disconnect?: () => void
+  }
 }

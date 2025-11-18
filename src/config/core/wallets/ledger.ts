@@ -21,10 +21,12 @@ const params = Object.values(networks.configs).reduce((acc, config) => {
   }
 }, {} as Input)
 
-const getConnector = async (chainId: Network) => {
+const getConnector = async (chainId: Network, options?: GetConnectorOptions) => {
+  const { transport, disconnect } = options || {}
+
   const LedgerConnector = (await import('../connectors/LedgerConnector')).default
 
-  return new LedgerConnector({ params, chainId })
+  return new LedgerConnector({ params, chainId, transport, onError: disconnect })
 }
 
 const ledger = {

@@ -26,16 +26,17 @@ const useWallet = (values: Input): ConfigProvider.Wallet => {
     onFinishConnect,
   } = values
 
+  const disconnect = useDisconnect({ configState, onError, onDisconnect })
+  const changeChain = useChangeChain({ configState, supportedNetworkIds, onError })
+
   const connect = useConnect({
     configState,
     onError,
+    disconnect,
     onConnectError,
     onStartConnect,
     onFinishConnect,
   })
-
-  const disconnect = useDisconnect({ configState, onError, onDisconnect })
-  const changeChain = useChangeChain({ configState, supportedNetworkIds, onError })
 
   const { setData } = configState
 
