@@ -79,7 +79,7 @@
     "@cowprotocol/cow-sdk": "5.10.3",
     "@headlessui/react": "2.2.4",
     "@ledgerhq/hw-app-eth": "6.45.5",
-    "@ledgerhq/hw-transport-web-ble": "^6.29.12",
+    "@ledgerhq/hw-transport-web-ble": "6.29.12",
     "@ledgerhq/hw-transport-webhid": "6.30.1",
     "@ledgerhq/hw-transport-webusb": "6.29.5",
     "@metamask/onboarding": "1.0.1",
