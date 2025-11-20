@@ -10,10 +10,9 @@ import messages from './messages'
 
 type ErrorViewProps = {
   error: Error
-  reset: () => void
 }
 
-const ErrorView: React.FC<ErrorViewProps> = ({ error, reset }) => {
+const ErrorView: React.FC<ErrorViewProps> = ({ error }) => {
   const { push } = useRouter()
 
   const pageMessages = error
@@ -40,7 +39,6 @@ const ErrorView: React.FC<ErrorViewProps> = ({ error, reset }) => {
           dataTestId="error-back-button"
           title={messages.buttonTitle}
           onClick={() => {
-            reset()
             push(links.home)
           }}
         />

@@ -1,8 +1,7 @@
 import React, { useCallback } from 'react'
-import { commonMessages } from 'helpers'
+import { commonMessages, methods } from 'helpers'
 import { useCopyToClipboard } from 'hooks'
 import { useConfig } from 'config'
-import methods from 'helpers/methods'
 import cx from 'classnames'
 
 import { Text, Logo, RoundButton } from 'components'

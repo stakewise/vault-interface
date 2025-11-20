@@ -1,0 +1,81 @@
+import React from 'react'
+import { useConfig } from 'config'
+import device from 'modules/device'
+
+import { Chart } from 'components'
+import { openConnectWalletModal } from 'layouts/modals/ConnectWalletModal/ConnectWalletModal'
+
+import Mobile from './Mobile/Mobile'
+import Desktop from './Desktop/Desktop'
+import Skeleton from './Skeleton/Skeleton'
+import { useChart, TabsItems, Tab, Type } from './util'
+
+
+export type ChartWithFilterProps = {
+  className?: string
+  tabsItems: TabsItems
+  vaultAddress: string
+  dataTestId?: string
+  noItemsDescription?: Intl.Message
+  onExportButtonClick?: () => void
+}
+
+const ChartWithFilter: React.FC<ChartWithFilterProps> = (props) => {
+  const {
+    className,
+    tabsItems,
+    dataTestId,
+    vaultAddress,
+    noItemsDescription,
+    onExportButtonClick,
+  } = props
+
+  const { sdk, address } = useConfig()
+  const { isMobile } = device.useData()
+
+  const {
+    data,
+    form,
+    options,
+    isFetching,
+    isExportButtonShown,
+    values: { tab, type },
+  } = useChart(tabsItems)
+
+  const View = isMobile ? Mobile : Desktop
+
+  return (
+    <View
+      className={className}
+      form={form}
+      options={options}
+      isFetching={isFetching}
+      vaultAddress={vaultAddress}
+      isExportButtonShown={isExportButtonShown}
+      onExportButtonClick={onExportButtonClick}
+    >
+      <Chart
+        className="mt-24"
+        data={data}
+        isFetching={isFetching}
+        hideRightScale={isMobile}
+        token={sdk.config.tokens.depositToken}
+        noItemsDescription={noItemsDescription}
+        dataTestId={`${dataTestId}-${tab}-${type}`}
+        style={type === Type.Rewards ? 'bar' : 'line'}
+        pointType={type === Type.APY ? 'percent' : 'fiat'}
+        isNotConnected={tab === Tab.User && !address}
+        connect={openConnectWalletModal}
+      />
+    </View>
+  )
+}
+
+const Component = {
+  View: React.memo(ChartWithFilter),
+  Tab: Tab,
+  Skeleton,
+}
+
+
+export default Component

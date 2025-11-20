@@ -7,7 +7,7 @@ import getUrls from './getUrls'
 
 type Input = {
   chainId: Network
-  library?: StakeWise.Provider
+  library?: any
 }
 
 const sdkList = {} as Record<Network, StakeWiseSDK>

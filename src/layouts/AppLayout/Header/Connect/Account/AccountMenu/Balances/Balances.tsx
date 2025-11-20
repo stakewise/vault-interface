@@ -11,9 +11,9 @@ type BalancesProps = {
 }
 
 const storeSelector = (store: Store) => ({
-  mintTokenBalance: store.account.balances.data.mintTokenBalance,
-  nativeTokenBalance: store.account.balances.data.nativeTokenBalance,
-  depositTokenBalance: store.account.balances.data.depositTokenBalance,
+  mintTokenBalance: store.account.balances.mintToken,
+  nativeTokenBalance: store.account.balances.nativeToken,
+  depositTokenBalance: store.account.balances.depositToken,
   isFetching: store.account.balances.isFetching,
 })
 

@@ -1,8 +1,7 @@
 import React, { useCallback, useMemo } from 'react'
-import { commonMessages, constants } from 'helpers'
+import { commonMessages, constants, methods } from 'helpers'
 import { useAddTokenToWallet } from 'hooks'
 import { useConfig, wallets } from 'config'
-import methods from 'helpers/methods'
 import cx from 'classnames'
 
 import { imagesUrls, FiatAmount, TokenAmount, Text, RoundButton, Bone } from 'components'
@@ -66,7 +65,7 @@ const Balance: React.FC<BalanceProps> = (props) => {
   const withAddTokenButton = Boolean(
     isInjectedWallet
     && token !== sdk.config.tokens.nativeToken
-    && activeWallet !== constants.walletNames.monitorAddress
+    && activeWallet !== wallets.monitorAddress.id
   )
 
   return (

@@ -1,9 +1,9 @@
 import React, { useCallback, useMemo, useState } from 'react'
 import { usePathname } from 'next/navigation'
+import { methods } from 'helpers'
+import { wallets } from 'config/core'
 import device from 'modules/device'
-import { constants } from 'helpers'
-import methods from 'helpers/methods'
-import { useStore } from 'hooks'
+import { useConfig } from 'config'
 import cx from 'classnames'
 
 import { LogoProps } from 'components'
@@ -16,41 +16,19 @@ type ConnectorsViewProps = {
   onSelect: (walletId: WalletIds) => void
 }
 
-const storeSelector = (store: Store) => ({
-  isMMI: store.account.wallet.isMMI,
-})
-
-const desktopWallets = constants.walletList.filter(({ id }) => (
-  id !== constants.walletNames.dAppBrowser
-  && id !== constants.walletNames.gnosisSafe
-))
-
-const mobileWallets = constants.walletList.filter(({ id }) => {
-  const list = [
-    constants.walletNames.metaMask,
-    constants.walletNames.coinbase,
-    constants.walletNames.walletConnect,
-    constants.walletNames.monitorAddress,
-  ] as string[]
-
-  return list.includes(id)
-})
-
-const setIsDisabled = (id: WalletIds): boolean => {
-  const provider = methods.getInjectedProvider(id)
-
-  return provider === null ? false : !provider
-}
+const walletsArr = Object.values(wallets)
+const mobileWallets = walletsArr.filter(({ location }) => location.includes('mobile'))
+const desktopWallets = walletsArr.filter(({ location }) => location.includes('desktop'))
 
 const ConnectorsView: React.FC<ConnectorsViewProps> = (props) => {
   const { className, onSelect } = props
 
+  const { chainId } = useConfig()
   const pathname = usePathname()
   const { isDesktop } = device.useData()
-  const { isMMI } = useStore(storeSelector)
 
   const setDeepLink = useCallback((id: WalletIds) => {
-    if (id === constants.walletNames.metaMask && !isDesktop) {
+    if (id === wallets.metaMask.id && !isDesktop) {
       const hostname = methods.getHostName()
 
       return `https://metamask.app.link/dapp/${hostname}${pathname}`
@@ -58,33 +36,31 @@ const ConnectorsView: React.FC<ConnectorsViewProps> = (props) => {
   }, [ isDesktop, pathname ])
 
   const walletsList = useMemo(() => {
-    const wallets = isDesktop ? desktopWallets : mobileWallets
+    const walletsItems = isDesktop ? desktopWallets : mobileWallets
 
-    const list = wallets
+    const list = walletsItems
+      .filter((wallet) => wallet.networks.includes(chainId))
       .map((wallet) => {
-        let title: Intl.Message | string = wallet.title
-        let logo: LogoProps['name'] = wallet.logo
-
-        if (wallet.id === constants.walletNames.metaMask && isMMI) {
-          logo = 'connector/MMI'
-          title = 'MMI'
-        }
+        const title: Intl.Message | string = wallet.title
+        const logo: LogoProps['name'] = wallet.logo
 
         return {
           ...wallet,
           logo,
           title,
           deepLink: setDeepLink(wallet.id),
-          isDisabled: setIsDisabled(wallet.id),
+          isDisabled: wallet.isInjectedWallet
+            ? wallet.isDisabled(isDesktop)
+            : false,
         }
       })
 
     if (!process.env.NEXT_PUBLIC_WALLET_CONNECT_ID) {
-      return list.filter(({ id }) => id !== constants.walletNames.walletConnect)
+      return list.filter(({ id }) => id !== wallets.walletConnect.id)
     }
 
     return list
-  }, [ isDesktop, isMMI, setDeepLink ])
+  }, [ isDesktop, chainId, setDeepLink ])
 
   const [ selectedId, setSelectedId ] = useState<WalletIds | null>(null)
 

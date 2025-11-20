@@ -14,7 +14,7 @@ type Output = {
 }
 
 const storeSelector = (store: Store) => ({
-  balances: store.account.balances.data,
+  balances: store.account.balances,
 })
 
 const useBalances = (): Output => {
@@ -35,10 +35,10 @@ const useBalances = (): Output => {
     }
 
     const balance = await sdk.contracts.helpers.multicallContract.getEthBalance(address)
-    const isChanged = balancesRef.current.nativeTokenBalance !== balance
+    const isChanged = balancesRef.current.nativeToken !== balance
 
     if (isChanged) {
-      actions.account.balances.setNativeTokenBalance(balance)
+      actions.account.balances.setNativeToken(balance)
     }
   }, [ address, sdk, actions ])
 
@@ -58,10 +58,10 @@ const useBalances = (): Output => {
       balance = await depositTokenContract.balanceOf(address)
     }
 
-    const isChanged = balancesRef.current.depositTokenBalance !== balance
+    const isChanged = balancesRef.current.depositToken !== balance
 
     if (isChanged) {
-      actions.account.balances.setDepositTokenBalance(balance)
+      actions.account.balances.setDepositToken(balance)
     }
   }, [ address, sdk, actions, isStakeNativeToken ])
 
@@ -71,10 +71,10 @@ const useBalances = (): Output => {
     }
 
     const balance = await sdk.contracts.tokens.mintToken.balanceOf(address)
-    const isChanged = balancesRef.current.mintTokenBalance !== balance
+    const isChanged = balancesRef.current.mintToken !== balance
 
     if (isChanged) {
-      actions.account.balances.setMintTokenBalance(balance)
+      actions.account.balances.setMintToken(balance)
     }
   }, [ address, sdk, actions ])
 

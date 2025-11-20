@@ -71,4 +71,13 @@ export default {
     de: 'Sie müssen warten, bis diese Anforderung zum Entboosten abgeschlossen ist, bevor Sie mehr osETH entboosten können.',
     zh: '您需要等到此解除加速请求完成后，才能进一步解除osETH的加速。',
   },
+  boostUpgrade: {
+    en: 'Boost position upgrade will be included in the transaction batch.',
+    ru: 'Обновление Буст позиции будет включено в пакет транзакций.',
+    fr: 'La mise à niveau de la position Boost sera incluse dans le lot de transactions.',
+    es: 'La actualización de la posición Boost se incluirá en el lote de transacciones.',
+    pt: 'A atualização da posição Boost será incluída no lote de transações.',
+    de: 'Die Boost-Position-Aufrüstung wird in den Transaktionsstapel aufgenommen.',
+    zh: '提升位置将包含在交易批处理中。',
+  },
 }

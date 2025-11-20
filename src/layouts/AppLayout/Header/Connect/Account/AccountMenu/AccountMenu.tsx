@@ -1,6 +1,5 @@
 import React from 'react'
-import { useConfig } from 'config'
-import { constants } from 'helpers'
+import { useConfig, wallets } from 'config'
 import { useClaimsTotal } from 'hooks'
 
 import type { LogoProps } from 'components'
@@ -22,7 +21,7 @@ const AccountMenu: React.FC<AccountMenuProps> = (props) => {
   const { activeWallet } = useConfig()
   const claimsTotal = useClaimsTotal()
 
-  const isDappBrowser = activeWallet === constants.walletNames.dAppBrowser
+  const isDappBrowser = activeWallet === wallets.dAppBrowser.id
 
   return (
     <>

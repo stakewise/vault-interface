@@ -14,6 +14,7 @@ export interface UnboostQueueState {
 
 export const initialState: UnboostQueueState = {
   data: {
+    version: 2,
     duration: null,
     position: null,
     exitingShares: 0n,

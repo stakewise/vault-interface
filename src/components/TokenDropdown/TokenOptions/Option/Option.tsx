@@ -1,6 +1,6 @@
 import React from 'react'
 import cx from 'classnames'
-import methods from 'helpers/methods'
+import { methods } from 'helpers'
 import { useConfig } from 'config'
 import { formatUnits } from 'ethers'
 import { ListboxOption } from '@headlessui/react'

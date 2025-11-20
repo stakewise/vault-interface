@@ -19,6 +19,15 @@ export default {
   transaction,
   notification,
   accessibility,
+  upgradeLeverageStrategy: {
+    en: 'Upgrade leverage strategy contract',
+    ru: 'Обновить контракт стратегии с плечом',
+    fr: 'Mettre à niveau le contrat de stratégie de levier',
+    es: 'Actualizar el contrato de estrategia de apalancamiento',
+    pt: 'Atualizar contrato de estratégia de alavancagem',
+    de: 'Leverage-Strategievertrag aktualisieren',
+    zh: '升级杠杆策略合约',
+  },
   staked: {
     en: 'Staked {depositToken}',
     ru: 'Застейкано {depositToken}',

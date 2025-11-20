@@ -1,5 +1,6 @@
 import { getAddress } from 'ethers'
-import methods from 'helpers/methods'
+
+import { fetch } from '../methods'
 
 
 type Input = {
@@ -21,7 +22,7 @@ type DistributorClaimsQueryPayload = {
 const fetchDistributorClaims = async (values: Input): Promise<Output> => {
   const { address, url } = values
 
-  return methods.fetch<DistributorClaimsQueryPayload>(url, {
+  return fetch<DistributorClaimsQueryPayload>(url, {
     method: 'POST',
     body: JSON.stringify({
       query: `

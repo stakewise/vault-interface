@@ -1,9 +1,7 @@
 import React from 'react'
 import cx from 'classnames'
-import methods from 'helpers/methods'
 import intl from 'modules/intl'
-
-import { constants, replaceReactComponents } from '../../helpers'
+import { methods, constants, replaceReactComponents } from 'helpers'
 
 
 const sizesMap = {

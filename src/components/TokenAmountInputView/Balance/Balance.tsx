@@ -1,5 +1,5 @@
 import React from 'react'
-import methods from 'helpers/methods'
+import { methods } from 'helpers'
 import device from 'modules/device'
 
 import Text from '../../Text/Text'

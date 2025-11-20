@@ -1,4 +1,6 @@
 import { useCallback, useMemo, useState } from 'react'
+import type { SetNextTransactionsFailed } from 'components'
+
 import type { SetTransaction } from '../types'
 
 
@@ -46,19 +48,44 @@ const useLogic = (initialTransactions: Transaction[] = []) => {
     setTransactions(initialTransactions)
   }, [ initialTransactions ])
 
+  const setNextTransactionsFailed: SetNextTransactionsFailed = useCallback((id) => {
+    setTransactions((steps) => {
+      const failedIndex = steps.findIndex((step) => step.id === id)
+
+      if (failedIndex === -1) {
+        return steps
+      }
+
+      return steps.map((step, index) => {
+        if (index >= failedIndex) {
+          return {
+            ...step,
+            status: TransactionStatus.Fail,
+          }
+        }
+
+        return step
+      })
+    })
+  }, [])
+
   return useMemo(() => ({
     transactions: transactions.map(({ onCancel, ...transaction }) => ({
       ...transaction,
-      onCancel: typeof onCancel === 'function' ? () => onCancel({ setTransaction }) : undefined,
+      onCancel: typeof onCancel === 'function'
+        ? () => onCancel({ setTransaction })
+        : undefined,
     })),
     setTransaction,
     setTransactions,
     resetTransactions,
+    setNextTransactionsFailed,
   }), [
     transactions,
     setTransaction,
     setTransactions,
     resetTransactions,
+    setNextTransactionsFailed,
   ])
 }
 

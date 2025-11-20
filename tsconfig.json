@@ -54,7 +54,5 @@
   "exclude": [
     "node_modules",
     ".next",
-    "../web",
-    "../../packages"
   ]
 }

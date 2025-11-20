@@ -13,7 +13,7 @@ const addresses = {
   },
   [Network.Hoodi]: {
     base: {
-      merkleDistributorV2: '0xc61847D6fc1F64162ff9f1D06205d9C4cDb2F239',
+      merkleDistributorV2: '0xc61847D6Fc1F64162fF9F1d06205D9c4cDb2f239',
     },
     cow: {
       vaultRelayer: ZeroAddress,

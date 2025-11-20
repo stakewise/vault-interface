@@ -5,22 +5,21 @@ import intl from 'modules/intl'
 import useForm from './useForm'
 import useXLSX from './useXLSX'
 import messages from './messages'
-import useRewards, { StatsType } from './useRewards'
+import useRewards from './useRewards'
 
 
 export type Input = {
   vaultAddress: string
-  statsType: StatsType
   closeModal: () => void
 }
 
 const useExport = (input: Input) => {
-  const { vaultAddress, statsType, closeModal } = input
+  const { vaultAddress, closeModal } = input
 
   const form = useForm()
   const intlRef = intl.useIntlRef()
   const getFile = useXLSX({ form, vaultAddress })
-  const fetchRewards = useRewards({ form, statsType, vaultAddress })
+  const fetchRewards = useRewards({ form, vaultAddress })
 
   const [ isFetching, setFetching ] = useState<boolean>(false)
 

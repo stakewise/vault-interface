@@ -1,6 +1,12 @@
 export enum BoostStep {
+  Upgrade = 'Upgrade',
   Permit = 'Permit',
   Boost = 'Boost',
+}
+
+export enum UnboostStep {
+  Upgrade = 'Upgrade',
+  Unboost = 'Unboost',
 }
 
 export enum StakeStep {

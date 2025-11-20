@@ -13,6 +13,8 @@ export type TabsProps = Omit<TabsViewProps, 'defaultActiveTabId' | 'selectedId' 
 const Tabs: React.FC<TabsProps> = (props) => {
   const {
     className,
+    dataTestId,
+    tabsClassName,
     panelClassName,
     panelsClassName,
     field,
@@ -31,6 +33,8 @@ const Tabs: React.FC<TabsProps> = (props) => {
   return (
     <TabsView
       className={className}
+      dataTestId={dataTestId}
+      tabsClassName={tabsClassName}
       panelsClassName={panelsClassName}
       panelClassName={panelClassName}
       selectedId={value}

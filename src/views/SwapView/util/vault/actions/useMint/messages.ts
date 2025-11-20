@@ -1,0 +1,38 @@
+export default {
+  tooltipNeedStaking: {
+    en: 'You can mint {mintToken} only after staking {depositToken} in the Vault.',
+    ru: 'Вы можете минтить {mintToken} только после стейкинга {depositToken} в Волте.',
+    fr: 'Vous pouvez minter {mintToken} seulement après avoir staké {depositToken} dans le Vault.',
+    es: 'Puedes mintear {mintToken} solo después de hacer staking de {depositToken} en el Vault.',
+    pt: 'Você pode mintar {mintToken} apenas após fazer staking de {depositToken} no Vault.',
+    de: 'Sie können {mintToken} nur nach dem Staking von {depositToken} im Vault minten.',
+    zh: '您只能在Vault中质押{depositToken}后铸造{mintToken}。',
+  },
+  tooltipNeedValidators: {
+    en: 'The Vault must have at least one registered validator to mint {mintToken}.',
+    ru: 'В Волте должен быть зарегистрирован как минимум один валидатор для Минта {mintToken}.',
+    fr: 'Le Волт doit avoir au moins un validateur enregistré pour minter {mintToken}.',
+    es: 'El Волт debe tener al menos un validador registrado para mintear {mintToken}.',
+    pt: 'O Волт deve ter pelo menos um validador registrado para mintear {mintToken}.',
+    de: 'Der Волт muss mindestens einen registrierten Validator haben, um {mintToken} zu mintern.',
+    zh: 'Волт必须有至少一个注册验证者才能铸造{mintToken}。',
+  },
+  capacityError: {
+    en: 'Value exceeds the capacity of the Vault',
+    ru: 'Значение превышает емкость Волта',
+    fr: 'La valeur dépasse la capacité du Vault',
+    es: 'El valor excede la capacidad del Vault',
+    pt: 'O valor excede a capacidade do Vault',
+    de: 'Der Wert überschreitet die Kapazität des Vault',
+    zh: '数值超出Vault的容量',
+  },
+  maxMintError: {
+    en: 'Stake more {depositToken} in the Vault to mint more {mintToken}.',
+    ru: 'Стейкните больше {depositToken} в Волте, чтобы заминтить больше {mintToken}.',
+    fr: 'Stakez plus de {depositToken} dans le Vault pour minter plus de {mintToken}.',
+    es: 'Haz stake de más {depositToken} en el Vault para mintear más {mintToken}.',
+    pt: 'Faça staking de mais {depositToken} no Vault para mintar mais {mintToken}.',
+    de: 'Staken Sie mehr {depositToken} im Vault, um mehr {mintToken} zu minten.',
+    zh: '在Vault中质押更多{depositToken}以铸造更多{mintToken}。',
+  },
+}

@@ -7,4 +7,7 @@ export default {
   emptyBalance: 100000000000000000000000000n,
   emptyBalance6: 100000000000000n,
   emptyBalance8: 10000000000000000n,
+
+  // Addresses
+  emptyAddress: '0x1111111111111111111111111111111111111111',
 }

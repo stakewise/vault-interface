@@ -5,7 +5,8 @@ import device from 'modules/device'
 import { useConfig, wallets } from 'config'
 import useModalClose from 'hooks/controls/useModalClose'
 
-import { Button, Modal } from 'components'
+import Button from 'components/Button/Button'
+import Modal from 'components/Modal/Modal'
 
 import Token, { TokenProps } from './Token/Token'
 import TransactionButton from './TransactionButton/TransactionButton'

@@ -1,7 +1,7 @@
 import React from 'react'
 import { commonMessages } from 'helpers'
-import device from 'modules/device'
 import { useModalClose } from 'hooks'
+import device from 'modules/device'
 import modal from 'modules/modal'
 
 import { Input, Modal, Select, FormValid, Button } from 'components'
@@ -14,12 +14,11 @@ export type ExportRewardsModalProps = Omit<UseExportInput, 'closeModal'>
 
 export const [ ExportRewardsModal, openExportRewardsModal ] = (
   modal.wrapper<ExportRewardsModalProps>(UNIQUE_FILE_ID, (props) => {
-    const { vaultAddress, statsType, closeModal } = props
+    const { vaultAddress, closeModal } = props
 
     const { isDesktop } = device.useData()
 
     const { form, isFetching, onSubmit } = useExport({
-      statsType,
       vaultAddress,
       closeModal,
     })

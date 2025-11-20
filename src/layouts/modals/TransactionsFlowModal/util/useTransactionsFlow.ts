@@ -1,5 +1,6 @@
 import { useMemo } from 'react'
-import { Transaction, Transactions } from 'components'
+import { TransactionStatus, Transaction } from '../../../../components/Transactions/util'
+import Transactions from '../../../../components/Transactions/Transactions'
 
 import steps from './steps'
 import { TransactionsFlow, StepsData } from '../types'
@@ -15,37 +16,46 @@ const useTransactionsFlow = ({ flow, stepsData }: Input) => {
     let result = steps[flow]
 
     if (stepsData) {
-      const stepsById: Record<Transaction['id'], Transaction> = {}
+      const stepsById: Record<Transaction['id'], Omit<Transaction, 'status'>> = {}
 
       steps[flow].forEach((step) => {
         stepsById[step.id] = step
       })
 
       result = stepsData
-        .map((stepData, index) => {
+        .map((stepData) => {
           const defaultStepData = stepsById[stepData.id as keyof typeof stepsById]
 
           return {
             ...defaultStepData,
             ...stepData,
-            status: index ? defaultStepData.status : Transactions.Status.Confirm,
           }
         })
     }
 
-    return result
+    return result.map((step, index) => ({
+      ...step,
+      status: index ? TransactionStatus.Waiting : TransactionStatus.Confirm,
+    }))
   }, [ flow, stepsData ])
 
-  const { transactions, setTransaction, resetTransactions } = Transactions.useLogic(flowSteps)
+  const {
+    transactions,
+    setTransaction,
+    resetTransactions,
+    setNextTransactionsFailed,
+  } = Transactions.useLogic(flowSteps)
 
   return useMemo(() => ({
     transactions,
     setTransaction,
     resetTransactions,
+    setNextTransactionsFailed,
   }), [
     transactions,
     setTransaction,
     resetTransactions,
+    setNextTransactionsFailed,
   ])
 }
 

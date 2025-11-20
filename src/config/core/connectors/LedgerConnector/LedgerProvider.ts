@@ -1,6 +1,6 @@
-import methods from 'helpers/methods'
 import { configs, Network } from 'sdk'
 import AppEth from '@ledgerhq/hw-app-eth'
+import * as methods from 'helpers/methods'
 import { EIP712Message } from '@ledgerhq/types-live'
 import { Signature, Transaction, isAddress, TypedDataEncoder } from 'ethers'
 import type { TransactionLike, Eip1193Provider } from 'ethers'

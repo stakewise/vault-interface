@@ -1,0 +1,40 @@
+export default {
+  boostTooltips: {
+    needMintToken: {
+      en: 'To boost your APY, you must have {mintToken} in your wallet.',
+      ru: 'Чтобы увеличить вашу APY, у вас должно быть {mintToken} в вашем кошельке.',
+      fr: 'Pour augmenter votre APY, vous devez avoir {mintToken} dans votre portefeuille.',
+      es: 'Para aumentar tu APY, debes tener {mintToken} en tu billetera.',
+      pt: 'Para boostear seu APY, você deve ter {mintToken} em sua carteira.',
+      de: 'Um Ihre APY zu erhöhen, müssen Sie {mintToken} in Ihrem Wallet haben.',
+      zh: '要提升您的APY，您必须在钱包中拥有{mintToken}。',
+    },
+    needValidators: {
+      en: 'The boost only works for the vault with validators.',
+      ru: 'Буст работает только для Волта с валидаторами.',
+      fr: 'Le boost fonctionne uniquement pour le vault avec des validateurs.',
+      es: 'El boost solo funciona para el vault con validadores.',
+      pt: 'O boost só funciona para o vault com validadores.',
+      de: 'Der Boost funktioniert nur für den Vault mit Validierern.',
+      zh: '增益仅适用于具有验证器的 vault。',
+    },
+    boostNotProfitable: {
+      en: 'The boost is currently not profitable.',
+      ru: 'Буст в настоящее время не приносит прибыль.',
+      fr: 'Le boost n\'est actuellement pas rentable.',
+      es: 'El boost actualmente no es rentable.',
+      pt: 'O boost atualmente não é lucrativo.',
+      de: 'Der Boost ist derzeit nicht profitabel.',
+      zh: '当前的增益没有利润。',
+    },
+    needFinishUnboost: {
+      en: 'The current unboost request must be claimed before boosting again',
+      ru: 'Текущий запрос на анбуст должен быть выполнен перед повторным бустом',
+      fr: 'La demande de déboost actuelle doit être réclamée avant de pouvoir booster à nouveau',
+      es: 'La solicitud de despotenciación actual debe ser reclamada antes de potenciar nuevamente',
+      pt: 'A solicitação de despotencialização atual deve ser reivindicada antes de impulsionar novamente',
+      de: 'Die aktuelle Anforderung zum Entboosten muss eingelöst werden, bevor erneut geboostet werden kann',
+      zh: '当前的取消加速请求必须被领取后才能再次加速',
+    },
+  },
+}

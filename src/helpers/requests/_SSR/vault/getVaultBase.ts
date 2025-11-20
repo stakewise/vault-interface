@@ -1,7 +1,9 @@
-import methods from 'helpers/methods'
 import { cookies } from 'next/headers'
 import { networks } from 'config/core'
-import { constants, getters } from 'helpers'
+import { Network } from 'sdk'
+
+import { constants, getters } from '../../../index'
+import { getSDK } from '../../../methods'
 
 
 const getNetworkData = async () => {
@@ -33,14 +35,22 @@ const getVaultBase = async () => {
   }
 
   const chainId = networks.chainById[networkId as NetworkIds]
-  const sdk = methods.getSDK({ chainId })
+  const sdk = getSDK({ chainId })
   const data = await sdk.vault.getVault({ vaultAddress, withTime: true })
   const versions = await sdk.getVaultVersion(vaultAddress)
+
+  const feePercent = await sdk.contracts.base.mintTokenController.feePercent()
+
+  const isEditableInGnosis = sdk.network === Network.Gnosis && versions.version >= 3
+  const isEditableInEthereum = sdk.network === Network.Mainnet && versions.version >= 5
+  const isPostPectra = isEditableInGnosis || isEditableInEthereum
 
   return {
     data: {
       ...data,
       versions,
+      isPostPectra,
+      protocolFeePercent: String(feePercent / 100n),
     },
     isSSR: true,
     isFetching: false,

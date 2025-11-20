@@ -1,16 +1,21 @@
 import { localStorage } from 'sdk'
-import * as constants from 'helpers/constants'
 
 import type { ErrorRecord } from './types'
 
 
-const sessionErrorUrl = constants.sessionStorageNames.moduleErrorUrl
+type Input = {
+  baseUrl: string
+  sessionErrorUrl: string
+}
+
 const expireTime = 60 * 60 * 1_000 // 1hr
 
-const saveErrorUrlToSessionStorage = (baseUrl: string): void => {
+const saveErrorUrlToSessionStorage = (input: Input): void => {
+  const { baseUrl, sessionErrorUrl } = input
+
   const record: ErrorRecord = {
     url: baseUrl,
-    expiresAt: Date.now() + expireTime,
+    expiresAt: Date.now() + expireTime
   }
 
   localStorage.setSessionItem(sessionErrorUrl, record)

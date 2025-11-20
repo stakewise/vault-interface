@@ -1,4 +1,4 @@
-import methods from 'helpers/methods'
+import { fetch } from '../methods'
 
 
 type Input = {
@@ -17,7 +17,7 @@ type CreatedAtVariables = {
 }
 
 const fetchCreatedAt = ({ url, variables }: Input) => {
-  return methods.fetch<CreatedAtQueryPayload>(url, {
+  return fetch<CreatedAtQueryPayload>(url, {
     method: 'POST',
     body: JSON.stringify({
       query: `

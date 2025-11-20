@@ -1,17 +1,16 @@
-import { BoostStep, StakeStep, UnstakeStep } from 'helpers/enums'
+import { BoostStep, StakeStep, UnstakeStep, UnboostStep } from 'helpers/enums'
 import { commonMessages, constants } from 'helpers'
 
-import { Transaction, Transactions } from 'components'
+import { Transaction } from 'components'
 
-import { TransactionsFlow } from '../types'
+import type { TransactionsFlow } from '../types'
 
 import messages from './messages'
 
 
-const boostSteps: Transaction[] = [
+const boostSteps: Omit<Transaction, 'status'>[] = [
   {
     id: BoostStep.Permit,
-    status: Transactions.Status.Confirm,
     title: {
       ...commonMessages.buttonTitle.approve,
       values: {
@@ -22,57 +21,69 @@ const boostSteps: Transaction[] = [
   },
   {
     id: BoostStep.Boost,
-    status: Transactions.Status.Waiting,
     title: commonMessages.buttonTitle.boost,
     testId: 'step-boost',
   },
 ]
 
-const stakeSteps: Transaction[] = [
+const unboostSteps: Omit<Transaction, 'status'>[] = [
+  {
+    id: UnboostStep.Upgrade,
+    title: commonMessages.upgradeLeverageStrategy,
+    testId: 'step-upgrade',
+  },
+  {
+    id: UnboostStep.Unboost,
+    title: commonMessages.buttonTitle.unboost,
+    testId: 'step-unboost',
+  },
+]
+
+const stakeSteps: Omit<Transaction, 'status'>[] = [
   {
     id: StakeStep.SwapApprove,
-    status: Transactions.Status.Confirm,
     title: '',
     testId: 'step-swap-approve',
   },
   {
     id: StakeStep.Swap,
-    status: Transactions.Status.Waiting,
     title: messages.swap,
     testId: 'step-swap',
   },
   {
     id: StakeStep.Approve,
-    status: Transactions.Status.Waiting,
     title: '',
     testId: 'step-approve',
   },
   {
     id: StakeStep.Stake,
-    status: Transactions.Status.Waiting,
     title: commonMessages.buttonTitle.stake,
     testId: 'step-stake',
   },
 ]
 
-const unstakeSteps: Transaction[] = [
+const unstakeSteps: Omit<Transaction, 'status'>[] = [
+  {
+    id: UnstakeStep.Approve,
+    title: '',
+    testId: 'step-approve',
+  },
   {
     id: UnstakeStep.Swap,
-    status: Transactions.Status.Waiting,
     title: messages.swapOnExchange,
     testId: 'step-swap',
   },
   {
     id: UnstakeStep.Queue,
-    status: Transactions.Status.Waiting,
     title: messages.queue,
     testId: 'step-queue',
   },
 ]
 
-const steps: Record<TransactionsFlow, Transaction[]> = {
+const steps: Record<TransactionsFlow, Omit<Transaction, 'status'>[]> = {
   stake: stakeSteps,
   boost: boostSteps,
+  unboost: unboostSteps,
   unstake: unstakeSteps,
 }
 

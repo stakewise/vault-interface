@@ -61,7 +61,7 @@ declare global {
   type SwapToken = {
     name: string
     title: string
-    address: string
+    address: string | null
     balance: bigint
     logo: LogoName
     units: number

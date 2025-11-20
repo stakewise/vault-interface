@@ -1,4 +1,4 @@
-import React, { Fragment, KeyboardEventHandler, ReactElement, ReactNode } from 'react'
+import React, { Fragment, KeyboardEventHandler, ReactElement, ReactNode, useRef } from 'react'
 import cx from 'classnames'
 import { offset, shift, VirtualElement, OffsetOptions } from '@floating-ui/react'
 import type { Placement } from '@floating-ui/react'
@@ -15,6 +15,7 @@ type ButtonInput = {
 
 export type DropdownViewProps = {
   className?: string
+  contentClassName?: string
   children: ReactNode
   disabled?: boolean
   // The child component must inherit the props, so be sure to make <Foo {...props} />
@@ -29,6 +30,7 @@ export type DropdownViewProps = {
     autoUpdate?: boolean
     offsetOptions?: Omit<OffsetOptions, 'number'>
   }
+  onOpen?: () => void
   onClose?: () => void
   onChange?: (value: any) => void
   onOptionsClick?: () => void
@@ -41,9 +43,11 @@ type DropdownViewComponent = React.FC<DropdownViewProps> & {
 
 const DropdownView: DropdownViewComponent = (props: DropdownViewProps) => {
   const {
-    className, children, button, value, disabled, withArrow, middleware,
-    placement = 'bottom-end', dataTestId, onClose, onChange, onOptionsClick, onOptionsKeyDown,
+    className, contentClassName, children, button, value, disabled, withArrow, middleware,
+    placement = 'bottom-end', dataTestId, onOpen, onClose, onChange, onOptionsClick, onOptionsKeyDown,
   } = props
+
+  const isOpenRef = useRef(false)
 
   const { refs, floatingStyles } = useFloating({
     placement,
@@ -73,9 +77,15 @@ const DropdownView: DropdownViewComponent = (props: DropdownViewProps) => {
             ({ open }) => {
               const arrow = open ? 'up' : 'down'
 
-              if (!open && typeof onClose === 'function') {
+              if (open && !isOpenRef.current && typeof onOpen === 'function') {
+                onOpen()
+              }
+
+              if (!open && isOpenRef.current && typeof onClose === 'function') {
                 setTimeout(onClose)
               }
+
+              isOpenRef.current = open
 
               if (typeof button === 'function') {
                 return button({
@@ -94,7 +104,11 @@ const DropdownView: DropdownViewComponent = (props: DropdownViewProps) => {
         </ListboxButton>
         <ListboxOptions
           ref={refs.setFloating}
-          className={cx(s.options, 'absolute rounded-8 bg-background border border-dark/10 overflow-x-hidden overflow-y-auto shadow-md')}
+          className={cx(
+            s.options,
+            contentClassName,
+            'absolute rounded-8 bg-background border border-dark/10 overflow-x-hidden overflow-y-auto shadow-md'
+          )}
           style={floatingStyles}
           data-testid={`${dataTestId}-options`}
           onClick={onOptionsClick}

@@ -1,30 +1,20 @@
 import { useMemo } from 'react'
+import { methods } from 'helpers'
 import device from 'modules/device'
-import { constants } from 'helpers'
-import { useConfig } from 'config'
-import { useStore } from 'hooks'
-import methods from 'helpers/methods'
+import { useConfig, wallets } from 'config'
 
 import type { LogoProps } from 'components'
 
 
-const storeSelector = (store: Store) => ({
-  isMMI: store.account.wallet.isMMI,
-})
-
 const useAccount = () => {
   const { isMobile } = device.useData()
-  const { isMMI } = useStore(storeSelector)
   const { address, accountName, activeWallet } = useConfig()
 
   const addressOption = accountName || methods.shortenAddress(address)
-  const logoFromWalletList = constants.walletList.find(({ id }) => id === activeWallet)?.logo
 
-  let logo: LogoProps['name'] = logoFromWalletList || 'connector/monitorAddress'
-
-  if (isMMI && activeWallet === constants.walletNames.metaMask) {
-    logo = 'connector/MMI'
-  }
+  const logo: LogoProps['name'] =  activeWallet
+    ? wallets[activeWallet].logo
+    : 'connector/monitorAddress'
 
   return useMemo(() => ({
     logo,

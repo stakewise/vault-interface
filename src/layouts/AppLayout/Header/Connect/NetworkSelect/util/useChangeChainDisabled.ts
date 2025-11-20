@@ -1,20 +1,19 @@
-import { useConfig } from 'config'
-import { constants } from 'helpers'
+import { useConfig, wallets } from 'config'
 
 
 const useChangeChainDisabled = () => {
   const { activeWallet } = useConfig()
 
   const isSupportedDAppBrowser = (
-    activeWallet === constants.walletNames.dAppBrowser
+    activeWallet === wallets.dAppBrowser.id
     && typeof window !== 'undefined'
     && Boolean(window.ethereum?.isMetaMask)
   )
 
   const disabledChainSwitchWallets: WalletIds[] = [
-    constants.walletNames.dAppBrowser,
-    constants.walletNames.gnosisSafe,
-    constants.walletNames.zenGo,
+    wallets.dAppBrowser.id,
+    wallets.gnosisSafe.id,
+    wallets.zenGo.id,
   ]
 
   return (

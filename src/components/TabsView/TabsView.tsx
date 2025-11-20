@@ -12,6 +12,8 @@ import s from './TabsView.module.scss'
 
 export type TabsViewProps = {
   className?: string
+  dataTestId?: string
+  tabsClassName?: string
   panelClassName?: string
   panelsClassName?: string
   selectedId?: string
@@ -33,8 +35,8 @@ export type TabsViewProps = {
 
 const TabsView: React.FC<TabsViewProps> = (props) => {
   const {
-    children, className, panelClassName, panelsClassName,
-    tabsList, selectedId, defaultActiveTabId, borderMin,
+    children, className, panelClassName, panelsClassName, tabsClassName,
+    tabsList, selectedId, defaultActiveTabId, borderMin, dataTestId,
     noteNode, onChange,
   } = props
 
@@ -94,7 +96,10 @@ const TabsView: React.FC<TabsViewProps> = (props) => {
   }, [ tabsList, selectedIndex, locale, handleLine ])
 
   return (
-    <div className={className}>
+    <div
+      className={className}
+      data-testid={`${dataTestId}-main-container`}
+    >
       <TabGroup
         className="flex flex-col flex-1"
         defaultIndex={selectedIndex || defaultIndex}
@@ -108,13 +113,14 @@ const TabsView: React.FC<TabsViewProps> = (props) => {
             [s.borderFill]: !borderMin,
           })}
           ref={containerRef}
+          data-testid={`${dataTestId}-filters`}
         >
           <div
             className={cx(s.line, 'bg-primary')}
             ref={lineRef}
           />
           <TabList
-            className={cx({
+            className={cx(tabsClassName, {
               'flex-1': !borderMin,
             })}
           >

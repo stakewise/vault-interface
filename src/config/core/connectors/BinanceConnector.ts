@@ -1,8 +1,8 @@
 'use client'
 import { getProvider } from '@binance/w3w-ethereum-provider'
 import EventAggregator from 'modules/event-aggregator'
-import { AbstractProvider } from 'ethers'
 import apiUrls from 'helpers/methods/apiUrls'
+import { AbstractProvider } from 'ethers'
 import { Network  } from 'sdk'
 
 import networks from '../config/util/networks'

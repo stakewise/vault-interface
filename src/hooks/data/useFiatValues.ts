@@ -1,7 +1,8 @@
-import methods from 'helpers/methods'
-import { useSelector } from 'react-redux'
+import { methods } from 'helpers'
 import { useMemo, useCallback } from 'react'
 import { createSelector } from '@reduxjs/toolkit'
+
+import useStore from '../data/useStore'
 
 
 type Input<T extends string> = Record<T, {
@@ -35,7 +36,7 @@ const mock = {
 }
 
 const useFiatValues = <T extends string>(values: Input<T>): Output<T> => {
-  const { fiatRates, swapTokenRates, currency, currencySymbol, isFetching } = useSelector(storeSelector)
+  const { fiatRates, swapTokenRates, currency, currencySymbol, isFetching } = useStore(storeSelector)
 
   const getFiatValue = useCallback((params: Input<T>[T]) => {
     const { token, value, isMinimal } = params
