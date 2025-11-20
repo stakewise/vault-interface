@@ -2,7 +2,7 @@ import { useMemo, useEffect, useCallback } from 'react'
 import { useConfig } from 'config'
 import { ZeroAddress } from 'ethers'
 import { initContext } from 'helpers'
-import { useStore, useAutoFetch, useChainChanged, useAddressChanged } from 'hooks'
+import { useStore, useActions, useAutoFetch } from 'hooks'
 
 import vaultHooks from './vault'
 import useStats from './useStats'
@@ -41,7 +41,8 @@ export const {
   useData,
   useInit,
 } = initContext<SwapView.Context>(initialContext, () => {
-  const { address } = useConfig()
+  const actions = useActions()
+  const { address, wallet } = useConfig()
 
   const {
     isVaultFetching,
@@ -77,6 +78,28 @@ export const {
   } = vaultHooks.useUser({
     withUserChartStats: false,
   })
+
+  useEffect(() => {
+    const onChangeChain = () => {
+      resetFields()
+      actions.vault.base.resetData()
+    }
+
+    const onChangeAddress = () => {
+      resetFields()
+      actions.vault.user.balances.resetData()
+      actions.vault.user.unstakeQueue.resetData()
+      actions.vault.user.unboostQueue.resetData()
+    }
+
+    wallet.subscribeBeforeChange('chain', onChangeChain)
+    wallet.subscribeBeforeChange('address', onChangeAddress)
+
+    return () => {
+      wallet.unsubscribeBeforeChange('chain', onChangeChain)
+      wallet.unsubscribeBeforeChange('address', onChangeAddress)
+    }
+  }, [])
 
   useEffect(() => {
     fetchAllVaultData()
@@ -122,9 +145,6 @@ export const {
     || isVaultFetching
     || isUserBalancesFetching
   )
-
-  useChainChanged(resetFields)
-  useAddressChanged(resetFields)
 
   return useMemo(() => ({
     tvl,

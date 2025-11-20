@@ -13,7 +13,7 @@ import messages from './messages'
 const storeSelector = (store: Store) => ({
   mintTokenRate: store.mintToken.rate,
   userAPY: store.vault.user.balances.userAPY,
-  protocolFeePercent: store.vault.user.balances.mintToken.protocolFeePercent,
+  protocolFeePercent: store.vault.base.data.protocolFeePercent,
 })
 
 const useOptions = () => {

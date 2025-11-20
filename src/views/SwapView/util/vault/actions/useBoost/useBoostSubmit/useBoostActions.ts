@@ -84,40 +84,6 @@ const useBoostActions = (values: Input) => {
   const subgraphUpdate = useSubgraphUpdate()
   const { refetchMintTokenBalance, refetchNativeTokenBalance } = useBalances()
 
-  const handleGetUserApy = useCallback(async () => {
-    if (vaultAddress && address) {
-      const apy = await sdk.vault.getUserApy({
-        vaultAddress,
-        userAddress: address,
-      })
-
-      return apy
-    }
-
-    return 0
-  }, [ sdk, address, vaultAddress ])
-
-  const refetchData = useCallback(() => {
-    cancelOnChange({
-      chainId,
-      address,
-      logic: () => {
-        Promise.all([
-          fetchAllUserData(),
-          refetchMintTokenBalance(),
-          refetchNativeTokenBalance(),
-        ])
-      },
-    })
-  }, [
-    chainId,
-    address,
-    cancelOnChange,
-    fetchAllUserData,
-    refetchMintTokenBalance,
-    refetchNativeTokenBalance,
-  ])
-
   const handleApprove = useCallback(async (values: ApproveInput) => {
     const { setTransaction, setNextTransactionsFailed } = values
 
@@ -136,6 +102,19 @@ const useBoostActions = (values: Input) => {
       return Promise.reject(error)
     }
   }, [ allowance, approve, checkAllowance ])
+
+  const handleGetUserApy = useCallback(async () => {
+    if (vaultAddress && address) {
+      const apy = await sdk.vault.getUserApy({
+        vaultAddress,
+        userAddress: address,
+      })
+
+      return apy
+    }
+
+    return 0
+  }, [ sdk, address, vaultAddress ])
 
   const permit = useCallback(async (values: PermitInput) => {
     const { userAddress, vaultAddress, spenderAddress, setTransaction, setNextTransactionsFailed } = values
@@ -232,6 +211,27 @@ const useBoostActions = (values: Input) => {
 
     return permitParams
   }, [ permitAddress, allowance, signSDK, permit, handleApprove ])
+
+  const refetchData = useCallback(() => {
+    cancelOnChange({
+      chainId,
+      address,
+      logic: () => {
+        Promise.all([
+          fetchAllUserData(),
+          refetchMintTokenBalance(),
+          refetchNativeTokenBalance(),
+        ])
+      },
+    })
+  }, [
+    chainId,
+    address,
+    cancelOnChange,
+    fetchAllUserData,
+    refetchMintTokenBalance,
+    refetchNativeTokenBalance,
+  ])
 
   const onSuccess = useCallback(async (values: HandleSuccessInput) => {
     const { hash, amount, permitParams } = values

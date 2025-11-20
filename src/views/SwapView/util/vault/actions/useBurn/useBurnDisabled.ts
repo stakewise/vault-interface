@@ -10,7 +10,6 @@ type Input = {
 const isEnvBurnDisabled = Boolean(process.env.NEXT_PUBLIC_DISABLE_BURN)
 
 const storeSelector = (store: Store) => ({
-  mintedShares: store.vault.user.balances.mintToken.mintedShares,
   hasMintBalance: store.vault.user.balances.mintToken.hasMintBalance,
 })
 
@@ -26,7 +25,7 @@ const useBurnDisabled = (values: Input) => {
     !address
     || Boolean(error)
     || isReadOnlyMode
-    || !hasMintBalance // ?
+    || !hasMintBalance
     || isEnvBurnDisabled
   )
 

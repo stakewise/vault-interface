@@ -4,9 +4,7 @@ import { useConfig } from 'config'
 
 
 type Input = {
-  ltvPercent: bigint
-  mintedAssets: bigint
-  stakedAssets: bigint
+  userAddress: string
   vaultAddress: string
 }
 
@@ -15,7 +13,7 @@ const useMaxWithdrawAssets = () => {
 
   return useCallback(async (values: Input) => {
     try {
-      const maxAssets = await sdk.vault.getMaxWithdraw(values)
+      const maxAssets = await sdk.vault.getMaxWithdrawAmount(values)
 
       const result: Store['vault']['user']['balances']['maxWithdrawAssets'] = maxAssets
 

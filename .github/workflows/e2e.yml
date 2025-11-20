@@ -50,7 +50,7 @@ jobs:
       - name: Awaiting WEB deployment to be ready
         uses: UnlyEd/github-action-await-vercel@v1.1.1
         env:
-          VERCEL_TOKEN: ${{ secrets.VERCEl_TOKEN }}
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
         with:
           deployment-url: ${{ steps.preview.outputs.preview_url }}
           timeout: 600
@@ -68,6 +68,11 @@ jobs:
           GUARDIAN_UI_ALCHEMY_API_KEY: ${{ secrets.GUARDIAN_UI_ALCHEMY_API_KEY }}
           VERCEL_AUTOMATION_BYPASS_SECRET: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}
         run: npm run e2e
+
+      - name: Sanitize reports before upload
+        if: ${{ failure() }}
+        run: |
+          find ./playwright-report/ -name "*.html" -exec sed -i 's/${{ secrets.[A-Z_]* }}/***/g' {} \;
 
       - uses: actions/upload-artifact@v4
         if: ${{ failure() }}
