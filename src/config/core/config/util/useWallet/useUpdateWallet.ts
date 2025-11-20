@@ -11,10 +11,19 @@ type Input = {
   supportedNetworkIds: NetworkIds[]
   configState: ConfigProvider.ConfigState
   disconnect: () => Promise<void>
+  onChangeAddress: () => void
+  onChangeChain: () => void
 }
 
 const useUpdateWallet = (values: Input) => {
-  const { chainId, configState, supportedNetworkIds, disconnect } = values
+  const {
+    chainId,
+    configState,
+    supportedNetworkIds,
+    disconnect,
+    onChangeChain,
+    onChangeAddress,
+  } = values
 
   const { data, dataRef, setData } = configState
   const { address, autoConnectChecked } = data
@@ -72,6 +81,7 @@ const useUpdateWallet = (values: Input) => {
             const provider = await connector.getProvider()
             const library = new BrowserProvider(provider as Eip1193Provider)
 
+            onChangeChain()
             setData({ library, networkId })
           }
         }
@@ -83,6 +93,7 @@ const useUpdateWallet = (values: Input) => {
 
     const handleAccountsChanged = (address: string) => {
       if (address) {
+        onChangeAddress()
         setData({
           address: getAddress(address),
           accountName: null,
@@ -119,7 +130,16 @@ const useUpdateWallet = (values: Input) => {
       connector?.events?.unsubscribe('change', handleUpdate)
       connector?.events?.unsubscribe('disconnect', disconnect)
     }
-  }, [ autoConnectChecked, address, dataRef, supportedNetworkIds, disconnect, setData ])
+  }, [
+    address,
+    dataRef,
+    autoConnectChecked,
+    supportedNetworkIds,
+    setData,
+    disconnect,
+    onChangeChain,
+    onChangeAddress,
+  ])
 }
 
 

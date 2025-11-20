@@ -3,6 +3,7 @@ import { useStore } from 'hooks'
 import forms from 'modules/forms'
 import { useConfig } from 'config'
 import { commonMessages } from 'helpers'
+
 import useBoostSupplyCapsCheck from './useBoostSupplyCapsCheck'
 
 import messages from './messages'
@@ -44,7 +45,7 @@ const useBoostDisabled = (values: Input) => {
   const isBoostDisabled = (
     !address
     || isBoostQueued
-    || !mintedShares // ?
+    || !mintedShares
     || Boolean(error)
     || isReadOnlyMode
     || !isCollateralized

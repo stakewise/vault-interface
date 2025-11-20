@@ -18,7 +18,6 @@ const useStake = () => {
         totalEarnedAssets,
         totalStakeEarnedAssets,
         totalBoostEarnedAssets,
-        totalExtraEarnedAssets,
       } = await sdk.vault.getStakeBalance(values)
 
       return {
@@ -26,7 +25,6 @@ const useStake = () => {
         totalEarnedAssets,
         totalStakeEarnedAssets,
         totalBoostEarnedAssets,
-        totalExtraEarnedAssets,
       }
     }
     catch (error) {
@@ -37,7 +35,6 @@ const useStake = () => {
         totalEarnedAssets: 0n,
         totalStakeEarnedAssets: 0n,
         totalBoostEarnedAssets: 0n,
-        totalExtraEarnedAssets: 0n,
       }
     }
   }, [ sdk ])

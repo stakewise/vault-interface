@@ -8,6 +8,8 @@ import storageNames from '../../utils/storageNames'
 type GetVaultData = Awaited<ReturnType<StakeWiseSDK['vault']['getVault']>>
 
 type BaseData = Omit<GetVaultData & {
+  isPostPectra: boolean
+  protocolFeePercent: string
   versions: Awaited<ReturnType<StakeWiseSDK['getVaultVersion']>>
 }, 'version'>
 
@@ -44,20 +46,22 @@ export const initialState: BaseState = {
     blocklistManager: '',
     validatorsManager: '',
     depositDataManager: '',
+    protocolFeePercent: '0',
     allocatorMaxBoostApy: 0,
     lastFeeUpdateTimestamp: '0',
-    osTokenHolderMaxBoostApy: 0,
 
     isErc20: false,
     isPrivate: false,
     isGenesis: false,
+    isMetaVault: false,
     isBlocklist: false,
+    isPostPectra: false,
     isSmoothingPool: false,
     isCollateralized: false,
 
     osTokenConfig: {
-      ltvPercent: '',
-      liqThresholdPercent: '',
+      ltvPercent: '0',
+      liqThresholdPercent: '0',
     },
 
     versions: {

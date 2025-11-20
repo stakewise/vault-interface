@@ -1,5 +1,8 @@
 import type { BrowserProvider } from 'ethers'
 
+import useCancelOnChange from './util/useCancelOnChange'
+import type { Subscription } from './util/useWallet/useCallsOnChange'
+
 
 declare global {
 
@@ -30,21 +33,17 @@ declare global {
     type Wallet = {
       disconnect: () => Promise<void>
       setAddress: (address: string) => void
-      connect: (walletName: WalletIds) => Promise<void>
       changeChain: (networkId: NetworkIds) => Promise<void>
-    }
-
-    type CancelOnChangeInput = {
-      logic: () => any
-      chainId: ChainIds
-      address: string | null
+      connect: (walletName: WalletIds,  transport?: 'usb' | 'ble') => Promise<void>
+      subscribeBeforeChange: Subscription
+      unsubscribeBeforeChange: Subscription
     }
 
     type Context<T = {}> = T & State & {
       wallet: Wallet
       chainId: ChainIds
       isReadOnlyMode: boolean
-      cancelOnChange: (values: CancelOnChangeInput) => any
+      cancelOnChange: ReturnType<typeof useCancelOnChange>
     }
 
     type Callbacks = {
