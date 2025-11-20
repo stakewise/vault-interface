@@ -13,10 +13,11 @@ type Input = {
   supportedNetworkIds: NetworkIds[]
   configState: ConfigProvider.ConfigState
   onError?: ConfigProvider.Callbacks['onError']
+  onChangeChain: () => void
 }
 
 const useChangeChain = (values: Input) => {
-  const { configState, supportedNetworkIds, onError } = values
+  const { configState, supportedNetworkIds, onError, onChangeChain } = values
   const { dataRef, setData } = configState
 
   const {
@@ -47,6 +48,7 @@ const useChangeChain = (values: Input) => {
     const isMonitorAddress = activeWallet === wallets.monitorAddress.id
 
     if (!dataRef.current.address || isMonitorAddress) {
+      onChangeChain()
       setData({ networkId })
 
       return
@@ -81,6 +83,7 @@ const useChangeChain = (values: Input) => {
         clearNotificationTimeout()
       }
 
+      onChangeChain()
       setData({ library, networkId })
     }
     catch (error: any) {
@@ -99,6 +102,7 @@ const useChangeChain = (values: Input) => {
     supportedNetworkIds,
     setNotificationTimeout,
     clearNotificationTimeout,
+    onChangeChain,
     setData,
     onError,
   ])

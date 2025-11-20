@@ -1,4 +1,4 @@
-import { useCallback, useRef, useMemo } from 'react'
+import { useCallback, useMemo } from 'react'
 import { useStore, useActions, useMountedRef } from 'hooks'
 import notifications from 'modules/notifications'
 import { useConfig } from 'config'
@@ -14,8 +14,6 @@ import messages from './messages'
 
 const storeSelector = (store: Store) => ({
   isVaultFetching: store.vault.base.isFetching,
-  ltvPercent: BigInt(store.vault.base.data.osTokenConfig.ltvPercent),
-  liqThresholdPercent: BigInt(store.vault.base.data.osTokenConfig.liqThresholdPercent),
 })
 
 const useBalances = (vaultAddress: string) => {
@@ -29,14 +27,9 @@ const useBalances = (vaultAddress: string) => {
   const fetchMintToken = useMintToken()
   const fetchWithdraw = useMaxWithdrawAssets()
 
-  const { ltvPercent, isVaultFetching, liqThresholdPercent } = useStore(storeSelector)
-
-  const storeDataRef = useRef({ ltvPercent, liqThresholdPercent })
-  storeDataRef.current = { ltvPercent, liqThresholdPercent }
+  const { isVaultFetching } = useStore(storeSelector)
 
   const fetchBalances = useCallback(async () => {
-    const { ltvPercent, liqThresholdPercent } = storeDataRef.current
-
     if ((!address && autoConnectChecked) || isVaultFetching) {
       actions.vault.user.balances.setFetching(false)
 
@@ -44,45 +37,29 @@ const useBalances = (vaultAddress: string) => {
     }
 
     if (address && vaultAddress) {
+
       try {
         actions.vault.user.balances.setFetching(true)
+
+        const params = {
+          userAddress: address,
+          vaultAddress,
+        }
+
+        const [ stake, boost, userAPY, maxWithdrawAssets, mintToken ] = await Promise.all([
+          fetchStake(params),
+          fetchBoost(params),
+          fetchUserApy(params),
+          fetchWithdraw(params),
+          fetchMintToken(params),
+        ])
 
         const {
           stakedAssets,
           totalEarnedAssets,
-          totalExtraEarnedAssets,
           totalBoostEarnedAssets,
           totalStakeEarnedAssets,
-        } = await fetchStake({
-          userAddress: address,
-          vaultAddress,
-        })
-
-        const mintToken = await fetchMintToken({
-          stakedAssets: stakedAssets,
-          userAddress: address as string,
-          liqThresholdPercent,
-          vaultAddress,
-          ltvPercent,
-        })
-
-        const maxWithdrawAssets = await fetchWithdraw({
-          mintedAssets: mintToken.mintedAssets,
-          stakedAssets: stakedAssets,
-          vaultAddress,
-          ltvPercent,
-        })
-
-        const [ boost, userAPY ] = await Promise.all([
-          fetchBoost({
-            userAddress: address,
-            vaultAddress,
-          }),
-          fetchUserApy({
-            userAddress: address,
-            vaultAddress,
-          }),
-        ])
+        } = stake
 
         const boostedAssets = await sdk.contracts.base.mintTokenController.convertToShares(boost.shares)
         const mintedAssets = mintToken.mintedAssets
@@ -98,7 +75,6 @@ const useBalances = (vaultAddress: string) => {
           totalEarnedAssets,
           maxWithdrawAssets,
           totalRewardingAssets,
-          totalExtraEarnedAssets,
           totalBoostEarnedAssets,
           totalStakeEarnedAssets,
         }

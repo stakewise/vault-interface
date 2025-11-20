@@ -7,10 +7,8 @@ import { useStore } from 'hooks'
 const storeSelector = (store: Store) => ({
   isVaultFetching: store.vault.base.isFetching,
   vaultAddress: store.vault.base.data.vaultAddress,
-  stakedAssets: store.vault.user.balances.stakedAssets,
   isBalancesFetching: store.vault.user.balances.isFetching,
-  ltvPercent: store.vault.base.data.osTokenConfig.ltvPercent,
-  mintedAssets: store.vault.user.balances.mintToken.mintedAssets,
+  hasMintBalance: store.vault.user.balances.mintToken.hasMintBalance,
 })
 
 const minBurnAmount = parseEther('0.00001')
@@ -19,10 +17,8 @@ const useFullUnstakeBurnAmount = () => {
   const { sdk, address } = useConfig()
 
   const {
-    ltvPercent,
-    stakedAssets,
-    mintedAssets,
     vaultAddress,
+    hasMintBalance,
     isVaultFetching,
     isBalancesFetching,
   } = useStore(storeSelector)
@@ -33,17 +29,14 @@ const useFullUnstakeBurnAmount = () => {
 
   const calculateBurn = useCallback(async () => {
     try {
-      if (mintedAssets && !isFetching && address) {
-        const sharesToBurn = await sdk.osToken.getBurnAmount({
-          ltvPercent: BigInt(ltvPercent),
-          newStakedAssets: stakedAssets,
-          mintedAssets,
-          stakedAssets,
+      if (hasMintBalance && !isFetching && address) {
+        const sharesToBurn = await sdk.osToken.getBurnAmountForUnstake({
+          userAddress: address,
           vaultAddress,
         })
 
         if (sharesToBurn > minBurnAmount) {
-          setFullUnstakeBurnAmount(sharesToBurn) // ?
+          setFullUnstakeBurnAmount(sharesToBurn)
         }
         else {
           setFullUnstakeBurnAmount(null)
@@ -51,21 +44,16 @@ const useFullUnstakeBurnAmount = () => {
       }
     }
     catch (error) {
-      console.error('calculateBurn error', error as Error, {
-        mintedAssets,
-        stakedAssets,
-      })
+      console.error('calculateBurn error', error as Error)
 
       return Promise.reject(error)
     }
   }, [
     sdk,
     address,
-    ltvPercent,
     isFetching,
-    stakedAssets,
-    mintedAssets,
     vaultAddress,
+    hasMintBalance,
   ])
 
   useEffect(() => {

@@ -1,6 +1,7 @@
 import { useCallback } from 'react'
 import { initialState } from 'store/store/vault'
-import { constants, methods } from 'helpers'
+import * as methods from 'helpers/methods'
+import { constants } from 'helpers'
 import { useConfig } from 'config'
 
 
@@ -11,11 +12,8 @@ type OsTokenEnabledQueryPayload = {
 }
 
 type Input = {
-  ltvPercent: bigint
   userAddress: string
-  stakedAssets: bigint
   vaultAddress: string
-  liqThresholdPercent: bigint
 }
 
 type Output = Store['vault']['user']['balances']['mintToken']
@@ -50,25 +48,21 @@ const useMintToken = () => {
         }
       }
 
-      const baseData = await sdk.osToken.getPosition(values)
-
-      const maxMintShares = await sdk.osToken.getMaxMint({
-        mintedAssets: baseData.minted.assets,
-        ...values,
-      })
+      const [ minted, maxMintShares ] = await Promise.all([
+        sdk.osToken.getBalance(values),
+        sdk.osToken.getMaxMintAmount(values),
+      ])
 
       // We can never withdraw all osETH tokens since they are accrued every second.
       // So we have to look at the dust and assume that osETH just isn't there
-      const hasMintBalance = baseData.minted.assets > constants.blockchain.minimalAmount
+      const hasMintBalance = minted.assets > constants.blockchain.minimalAmount
 
       const mintToken: Output = {
         maxMintShares,
         hasMintBalance,
         isDisabled: false,
-        mintedShares: baseData.minted.shares,
-        mintedAssets: baseData.minted.assets,
-        healthFactor: baseData.healthFactor.health,
-        protocolFeePercent: baseData.protocolFeePercent,
+        mintedShares: minted.shares,
+        mintedAssets: minted.assets,
       }
 
       return mintToken

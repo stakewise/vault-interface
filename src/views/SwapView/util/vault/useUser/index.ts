@@ -16,7 +16,7 @@ type Input = {
 }
 
 const storeSelector = (store: Store) => ({
-  isFetching: store.vault.base.isFetching,
+  isVaultFetching: store.vault.base.isFetching,
   vaultAddress: store.vault.base.data.vaultAddress,
 })
 
@@ -29,7 +29,7 @@ const useUser = (values: Input) => {
   } = values
 
   const { address, autoConnectChecked } = useConfig()
-  const { vaultAddress, isFetching } = useStore(storeSelector)
+  const { vaultAddress, isVaultFetching } = useStore(storeSelector)
 
   const { fetchBalances, resetBalances } = useBalances(vaultAddress)
   const { fetchUnstakeQueue, resetUnstakeQueue } = useUnstakeQueue(vaultAddress)
@@ -39,7 +39,7 @@ const useUser = (values: Input) => {
   const fetchAllUserData = useCallback(async () => {
     const requests: Promise<void>[] = []
 
-    if (!address || !autoConnectChecked || isFetching || !vaultAddress) {
+    if (!address || !autoConnectChecked || isVaultFetching || !vaultAddress) {
       return
     }
 
@@ -62,9 +62,9 @@ const useUser = (values: Input) => {
     return Promise.all(requests)
   }, [
     address,
-    isFetching,
     vaultAddress,
     withBalances,
+    isVaultFetching,
     withUnstakeQueue,
     withUnboostQueue,
     withUserChartStats,

@@ -24,12 +24,12 @@ const useBoostAllowance = (vaultAddress: string | null) => {
 
   const [ state, setState ] = useObjectState<State>({
     permitAddress: null,
-    isFetching: Boolean(address && !isGnosis && hasMintBalance), // ? hasMintBalance
+    isFetching: Boolean(address && !isGnosis && hasMintBalance),
   })
 
   const { permitAddress, isFetching } = state
 
-  const skip = !permitAddress || isGnosis || !hasMintBalance // ? hasMintBalance
+  const skip = !permitAddress || isGnosis || !hasMintBalance
 
   const { allowance, isFetching: isAllowanceFetching, checkAllowance } = useAllowance({
     tokenAddress: sdk.config.addresses.tokens.mintToken,
@@ -44,7 +44,7 @@ const useBoostAllowance = (vaultAddress: string | null) => {
   })
 
   const fetchPermitAddress = useCallback(async () => {
-    if (isGnosis || !hasMintBalance) { // ? hasMintBalance
+    if (isGnosis || !hasMintBalance) {
       setState({ permitAddress: null, isFetching: false })
 
       return

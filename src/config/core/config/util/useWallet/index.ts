@@ -7,6 +7,7 @@ import useChangeChain from './useChangeChain'
 import useAutoConnect from './useAutoConnect'
 import useUpdateWallet from './useUpdateWallet'
 import { BaseInput } from '../useConfigContext'
+import useCallsOnChange from './useCallsOnChange'
 
 
 type Input = Omit<BaseInput, 'serverNetworkId'> & {
@@ -26,8 +27,21 @@ const useWallet = (values: Input): ConfigProvider.Wallet => {
     onFinishConnect,
   } = values
 
+  const {
+    onChangeChain,
+    onChangeAddress,
+    subscribeBeforeChange,
+    unsubscribeBeforeChange,
+  } = useCallsOnChange()
+
   const disconnect = useDisconnect({ configState, onError, onDisconnect })
-  const changeChain = useChangeChain({ configState, supportedNetworkIds, onError })
+
+  const changeChain = useChangeChain({
+    configState,
+    supportedNetworkIds,
+    onChangeChain,
+    onError,
+  })
 
   const connect = useConnect({
     configState,
@@ -58,6 +72,8 @@ const useWallet = (values: Input): ConfigProvider.Wallet => {
     configState,
     chainId,
     disconnect,
+    onChangeChain,
+    onChangeAddress,
   })
 
   return useMemo(() => ({
@@ -65,11 +81,15 @@ const useWallet = (values: Input): ConfigProvider.Wallet => {
     disconnect,
     setAddress,
     changeChain,
+    subscribeBeforeChange,
+    unsubscribeBeforeChange,
   }), [
     connect,
     disconnect,
     setAddress,
     changeChain,
+    subscribeBeforeChange,
+    unsubscribeBeforeChange,
   ])
 }
 

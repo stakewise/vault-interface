@@ -58,7 +58,7 @@ const useSwapActions = (values: Input) => {
   const getSigner = useCallback(async (address: string) => {
     const signer = await signSDK.provider.getSigner(address)
 
-    // Fix for error caused by different ethers versions: signer (v6) and cow sdk (v5)
+    // @ts-ignore: Fix for error caused by different ethers versions: signer (v6) and cow sdk (v5)
     signer._signTypedData = signer.signTypedData
 
     return signer
@@ -88,7 +88,7 @@ const useSwapActions = (values: Input) => {
       ...orderParams,
     }
 
-    const orderSigningResult = await signOrder(unsignedOrder, chainId as SupportedChainId, signer)
+    const orderSigningResult = await signOrder(unsignedOrder, chainId as SupportedChainId, signer as any)
 
     const sendOrderInput = {
       ...quote,
@@ -253,7 +253,7 @@ const useSwapActions = (values: Input) => {
       const orderCancellationsSigningResult = await signOrderCancellations(
         orderUids,
         chainId as SupportedChainId,
-        signer
+        signer as any
       )
 
       try {

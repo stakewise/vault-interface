@@ -8,10 +8,10 @@ const storeSelector = (store: Store) => ({
 })
 
 const useVaultData = (vaultAddress: string) => {
-  const { sdk } = useConfig()
   const actions = useActions()
   const mountedRef = useMountedRef()
   const { isSSR } = useStore(storeSelector)
+  const { sdk, isGnosis, isEthereum } = useConfig()
 
   const isSsrRef = useRef(isSSR)
   isSsrRef.current = isSSR
@@ -31,11 +31,18 @@ const useVaultData = (vaultAddress: string) => {
 
       const vault = await sdk.vault.getVault({ vaultAddress })
       const versions = await sdk.getVaultVersion(vaultAddress)
+      const feePercent = await sdk.contracts.base.mintTokenController.feePercent()
+
+      const isEditableInGnosis = isGnosis && versions.version >= 3
+      const isEditableInEthereum = isEthereum && versions.version >= 5
+      const isPostPectra = isEditableInGnosis || isEditableInEthereum
 
       if (mountedRef.current) {
         actions.vault.base.setData({
           ...vault,
           versions,
+          isPostPectra,
+          protocolFeePercent: String(feePercent / 100n),
         })
       }
     }
@@ -43,7 +50,7 @@ const useVaultData = (vaultAddress: string) => {
       console.error('Fetch vault base data fail', error)
       actions.vault.base.setFetching(false)
     }
-  }, [ actions, mountedRef, sdk, vaultAddress ])
+  }, [ actions, mountedRef, sdk, vaultAddress, isEthereum, isGnosis ])
 
   const resetVault = useCallback(() => {
     actions.vault.base.resetData()
