@@ -1,4 +1,5 @@
 export { default as sdk } from './sdk'
+export { default as user } from './user'
 export { default as swap } from './swap'
 export { default as queue } from './queue'
 export { default as anvil } from './anvil'
@@ -13,6 +14,7 @@ export { default as transactions } from './transactions'
 
 
 export type { SDKFixture } from './sdk'
+export type { UserFixture } from './user'
 export type { SwapFixture } from './swap'
 export type { QueueFixture } from './queue'
 export type { AnvilFixture } from './anvil'

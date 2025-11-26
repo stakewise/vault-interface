@@ -27,7 +27,7 @@ export type SwapFixture = {
   checkConnectButton: CheckConnectButton
 }
 
-const swap: E2E.Fixture<SwapFixture> = async ({ page, graphql, transactions, element }, use) => {
+const swap: E2E.Fixture<SwapFixture> = async ({ page, graphql, transactions, element, user }, use) => {
   await use({
     tab: createTab({ page }),
     input: createInput({ page }),
@@ -35,7 +35,7 @@ const swap: E2E.Fixture<SwapFixture> = async ({ page, graphql, transactions, ele
     mockApy: createMockApy({ graphql }),
     submitAmount: createSubmitAmount({ page }),
     submit: createSubmit({ page, transactions }),
-    mockPosition: createMockPosition({ graphql }),
+    mockPosition: createMockPosition({ user }),
     checkSwapRender: createCheckSwapRender({ page }),
     getSwapInfoItem: createGetSwapInfoItem({ page }),
     getBaseInfoItem: createGetBaseInfoItem({ page }),

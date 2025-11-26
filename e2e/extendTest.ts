@@ -2,6 +2,7 @@ import { test as base } from '@guardianui/test'
 
 import {
   sdk,
+  user,
   swap,
   queue,
   anvil,
@@ -18,6 +19,7 @@ import {
 
 const baseTest = base.extend<E2E.ExtendedTest>({
   sdk,
+  user,
   swap,
   queue,
   anvil,

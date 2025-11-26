@@ -1,7 +1,10 @@
 import { useCallback, useMemo } from 'react'
 import { useMountedRef, useActions } from 'hooks'
+import { methods } from 'helpers'
 import { useConfig } from 'config'
 
+
+type Output = Store['vault']['user']['unboostQueue']['data']
 
 const useUnboostQueue = (vaultAddress: string) => {
   const actions = useActions()
@@ -12,6 +15,14 @@ const useUnboostQueue = (vaultAddress: string) => {
     if (address && vaultAddress && isEthereum) {
       try {
         actions.vault.user.unboostQueue.setFetching(true)
+
+        const mockE2E = methods.insertMockE2E<Output>('user/setUnboostQueue')
+
+        if (mockE2E) {
+          actions.vault.user.unboostQueue.setData(mockE2E)
+
+          return
+        }
 
         const unboostQueue = await sdk.boost.getQueuePosition({
           userAddress: address,

@@ -1,10 +1,7 @@
-import { parseEther } from 'ethers'
-
-
-type Wrapper = E2E.FixtureMethod<MockPosition, 'graphql'>
+type Wrapper = E2E.FixtureMethod<MockPosition, 'user'>
 
 type Input = {
-  isClaimable?: boolean
+  isClaimable: boolean
 }
 
 type Output = {
@@ -12,22 +9,22 @@ type Output = {
   exitingRewards: number
 }
 
-export type MockPosition = (values?: Input) => Promise<Output>
+export type MockPosition = (values: Input) => Promise<Output>
 
-export const createMockPosition: Wrapper = ({ graphql }) => (
-  async (values?: Input) => {
-    const { isClaimable } = values || {}
+export const createMockPosition: Wrapper = ({ user }) => (
+  async (values: Input) => {
+    const { isClaimable } = values
 
-    const isExiting = typeof isClaimable === 'boolean'
+    const exitingShares = '10.5'
+    const exitingRewards = '1.5'
 
-    const exitingShares = isExiting ? '10.5' : '0'
-    const exitingRewards = isExiting ? '1.5' : '0'
-
-    await graphql.mockPosition({
-      exitingShares: parseEther(exitingShares).toString(),
-      exitingRewards: parseEther(exitingRewards).toString(),
+    await user.setUnboostQueue({
       isClaimable,
+      exitingShares,
+      exitingRewards,
     })
+
+    await user.balances.setBoostData({ shares: '0', exitingPercent: 100 })
 
     return {
       exitingShares: Number(exitingShares),

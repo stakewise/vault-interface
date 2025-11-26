@@ -3,6 +3,7 @@ import type { GUI } from '@guardianui/test/dist/models/GUI'
 
 import type {
   SDKFixture,
+  UserFixture,
   SwapFixture,
   QueueFixture,
   AnvilFixture,
@@ -25,6 +26,7 @@ declare global {
       gui: GUI
       page: Page
       sdk: SDKFixture
+      user: UserFixture
       swap: SwapFixture
       queue: QueueFixture
       anvil: AnvilFixture
