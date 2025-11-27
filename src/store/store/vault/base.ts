@@ -10,7 +10,7 @@ type GetVaultData = Awaited<ReturnType<StakeWiseSDK['vault']['getVault']>>
 type BaseData = Omit<GetVaultData & {
   isPostPectra: boolean
   protocolFeePercent: string
-  versions: Awaited<ReturnType<StakeWiseSDK['getVaultVersion']>>
+  versions: Awaited<ReturnType<StakeWiseSDK['vault']['getVaultVersion']>>
 }, 'version'>
 
 export interface BaseState {

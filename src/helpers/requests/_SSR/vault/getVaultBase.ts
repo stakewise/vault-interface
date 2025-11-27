@@ -37,7 +37,7 @@ const getVaultBase = async () => {
   const chainId = networks.chainById[networkId as NetworkIds]
   const sdk = getSDK({ chainId })
   const data = await sdk.vault.getVault({ vaultAddress, withTime: true })
-  const versions = await sdk.getVaultVersion(vaultAddress)
+  const versions = await sdk.vault.getVaultVersion({ vaultAddress })
 
   const feePercent = await sdk.contracts.base.mintTokenController.feePercent()
 
