@@ -30,7 +30,7 @@ const useVaultData = (vaultAddress: string) => {
       actions.vault.base.setFetching(true)
 
       const vault = await sdk.vault.getVault({ vaultAddress })
-      const versions = await sdk.getVaultVersion(vaultAddress)
+      const versions = await sdk.vault.getVaultVersion({ vaultAddress })
       const feePercent = await sdk.contracts.base.mintTokenController.feePercent()
 
       const isEditableInGnosis = isGnosis && versions.version >= 3
