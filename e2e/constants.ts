@@ -37,3 +37,7 @@ export const genesisAddress = {
 }
 
 export const feeRecipient = '0x16c1dc6d901abed2bac1aece138800e45d762e50'
+
+export const metaVault = '0x15639e82d2072fa510e5d2b5f0db361c823bcad3'
+
+export const maxUint256 = 115792089237316195423570985008687907853269984665640564039457584007913129639935n // (2n ** 256n) - 1n

@@ -23,10 +23,12 @@ test('Max balance', async ({ swap, wallet, page, sdk }) => {
   await swap.openPage()
 
   await wallet.connectWithBalance({ ETH: initialETH })
+
   await sdk.deposit({
     vaultAddress: constants.genesisAddress.mainnet,
     assets: depositETH,
   })
+
   const shares = await sdk.mint({
     vaultAddress: constants.genesisAddress.mainnet,
     assets: mintETH,
@@ -42,26 +44,23 @@ test('Max balance', async ({ swap, wallet, page, sdk }) => {
   expect(value).toEqual(shares)
 })
 
-test('Boost info', async ({ swap, page, wallet, sdk, graphql }) => {
+test('Boost info', async ({ swap, page, wallet, sdk }) => {
   const initialETH = '25'
   const depositETH = '20'
   const mintETH = '15'
 
-  await swap.openPage(`skipSSR=true`)
+  await swap.openPage()
   await wallet.connectWithBalance({ ETH: initialETH })
 
   await sdk.deposit({
     vaultAddress: constants.genesisAddress.mainnet,
     assets: depositETH,
   })
+
   await sdk.mint({
     vaultAddress: constants.genesisAddress.mainnet,
     assets: mintETH,
   })
-
-  const userAPY = '1.55'
-
-  await graphql.mockUserApy(userAPY)
 
   await page.reload()
   await swap.tab('boost')
@@ -75,6 +74,25 @@ test('Boost info', async ({ swap, page, wallet, sdk, graphql }) => {
   ])
 
   expect(boostToken).toBe('osETH')
+})
+
+test('Boost not profitable', async ({ user, wallet, swap, vault }) => {
+  await vault.setVaultData({
+    allocatorMaxBoostApy: '1',
+    apy: '5',
+  })
+
+  await swap.openPage('skipSSR=true')
+
+  const amount = '10'
+
+  await user.balances.setMintTokenData({ stakedAssets: amount, mintedShares: amount })
+
+  await wallet.connectWithBalance({ ETH: '50', osETH: '50' })
+  await swap.tab('boost')
+  await swap.input.fill('1')
+
+  await swap.checkSubmitButton({ text: 'Not profitable', isLoading: false, isDisabled: true })
 })
 
 test('Boost disabled', async ({ wallet, swap, page, element }) => {

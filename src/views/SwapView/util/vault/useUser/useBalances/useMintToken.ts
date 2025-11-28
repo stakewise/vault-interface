@@ -23,6 +23,12 @@ const useMintToken = () => {
 
   return useCallback(async (values: Input) => {
     try {
+      const mockE2E = methods.insertMockE2E<Output>('user/balances/setMintTokenData')
+
+      if (mockE2E) {
+        return mockE2E
+      }
+
       const data = await methods.fetch<OsTokenEnabledQueryPayload>(sdk.config.api.subgraph, {
         method: 'POST',
         body: JSON.stringify({

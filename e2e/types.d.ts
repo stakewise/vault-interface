@@ -6,8 +6,10 @@ import type {
   UserFixture,
   SwapFixture,
   QueueFixture,
+  VaultFixture,
   AnvilFixture,
   WalletFixture,
+  OsTokenFixture,
   RewardsFixture,
   ElementFixture,
   HelpersFixture,
@@ -29,8 +31,10 @@ declare global {
       user: UserFixture
       swap: SwapFixture
       queue: QueueFixture
+      vault: VaultFixture
       anvil: AnvilFixture
       wallet: WalletFixture
+      osToken: OsTokenFixture
       rewards: RewardsFixture
       context: BrowserContext
       element: ElementFixture

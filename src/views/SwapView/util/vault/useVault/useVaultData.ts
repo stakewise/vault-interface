@@ -1,6 +1,7 @@
 import { useCallback, useMemo, useRef } from 'react'
 import { useStore, useActions, useMountedRef } from 'hooks'
 import { useConfig } from 'config'
+import { requests } from 'helpers'
 
 
 const storeSelector = (store: Store) => ({
@@ -8,10 +9,10 @@ const storeSelector = (store: Store) => ({
 })
 
 const useVaultData = (vaultAddress: string) => {
+  const { sdk } = useConfig()
   const actions = useActions()
   const mountedRef = useMountedRef()
   const { isSSR } = useStore(storeSelector)
-  const { sdk, isGnosis, isEthereum } = useConfig()
 
   const isSsrRef = useRef(isSSR)
   isSsrRef.current = isSSR
@@ -29,28 +30,17 @@ const useVaultData = (vaultAddress: string) => {
     try {
       actions.vault.base.setFetching(true)
 
-      const vault = await sdk.vault.getVault({ vaultAddress })
-      const versions = await sdk.getVaultVersion(vaultAddress)
-      const feePercent = await sdk.contracts.base.mintTokenController.feePercent()
-
-      const isEditableInGnosis = isGnosis && versions.version >= 3
-      const isEditableInEthereum = isEthereum && versions.version >= 5
-      const isPostPectra = isEditableInGnosis || isEditableInEthereum
+      const data = await requests.vault.fetchData({ sdk, vaultAddress })
 
       if (mountedRef.current) {
-        actions.vault.base.setData({
-          ...vault,
-          versions,
-          isPostPectra,
-          protocolFeePercent: String(feePercent / 100n),
-        })
+        actions.vault.base.setData(data)
       }
     }
     catch (error: any) {
       console.error('Fetch vault base data fail', error)
       actions.vault.base.setFetching(false)
     }
-  }, [ actions, mountedRef, sdk, vaultAddress, isEthereum, isGnosis ])
+  }, [ sdk, vaultAddress, actions, mountedRef ])
 
   const resetVault = useCallback(() => {
     actions.vault.base.resetData()

@@ -12,10 +12,12 @@ import type { SetUserStats } from './setUserStats'
 
 import {
   createSetBoostData,
+  createSetMintTokenData,
 } from './balances'
 
 import type {
   SetBoostData,
+  SetMintTokenData,
 } from './balances'
 
 
@@ -27,6 +29,7 @@ export type UserFixture = {
 
   balances: {
     setBoostData: SetBoostData
+    setMintTokenData: SetMintTokenData
   },
 }
 
@@ -39,6 +42,7 @@ const user: E2E.Fixture<UserFixture> = async ({ page, helpers }, use) => {
 
     balances: {
       setBoostData: createSetBoostData({ page }),
+      setMintTokenData: createSetMintTokenData({ page }),
     },
   })
 }
