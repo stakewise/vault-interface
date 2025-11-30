@@ -7,7 +7,7 @@ type Input = {
 
 type Output = bigint | null
 
-type BoostSupplyCapsQueryPayload = {
+export type BoostSupplyCapsQueryPayload = {
   aave: {
     osTokenSupplyCap: string
     osTokenTotalSupplied: string

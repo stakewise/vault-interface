@@ -1,6 +1,7 @@
 import { useCallback } from 'react'
 import { initialState } from 'store/store/vault'
 import { useConfig } from 'config'
+import { methods } from 'helpers'
 
 
 type Input = {
@@ -8,14 +9,21 @@ type Input = {
   vaultAddress: string
 }
 
+type Output = Store['vault']['user']['balances']['maxWithdrawAssets']
+
 const useMaxWithdrawAssets = () => {
   const { sdk } = useConfig()
 
   return useCallback(async (values: Input) => {
     try {
-      const maxAssets = await sdk.vault.getMaxWithdrawAmount(values)
 
-      const result: Store['vault']['user']['balances']['maxWithdrawAssets'] = maxAssets
+      const mockE2E = methods.insertMockE2E<Output>('user/balances/setMaxWithdrawAssets')
+
+      if (mockE2E) {
+        return mockE2E
+      }
+
+      const result: Output = await sdk.vault.getMaxWithdrawAmount(values)
 
       return result
     }

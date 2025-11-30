@@ -1,56 +1,109 @@
 import { createTab, Tab } from './tab'
 import { createInput, Input } from './input'
 import { createSubmit, Submit } from './submit'
-import { createMockApy, MockApy } from './mockApy'
 import { createOpenPage, OpenPage } from './openPage'
-import { createSetSwapStats, SetSwapStats } from './setSwapStats'
 import { createSubmitAmount, SubmitAmount } from './submitAmount'
-import { createMockPosition, MockPosition } from './mockPosition'
-import { createCheckSwapRender, CheckSwapRender } from './checkSwapRender'
-import { createGetBaseInfoItem, GetBaseInfoItem } from './getBaseInfoItem'
-import { createCheckSubmitButton, CheckSubmitButton } from './checkSubmitButton'
-import { createCheckConnectButton, CheckConnectButton } from './checkConnectButton'
+import { createSetSdkTransactions, SetSdkTransactions } from './setSdkTransactions'
 
-import { createGetSwapInfoItem } from './helpers'
-import type { GetSwapInfoItem } from './helpers'
+import {
+  createMint,
+  createBurn,
+  createBoost,
+  createStake,
+  createUnstake,
+  createUnboost,
+} from './actions'
+import type { Stake, Unstake, Boost, Burn, Unboost, Mint } from './actions'
+
+import { createPosition, createSwapStats, createBoostInfo } from './mocks'
+import type { Position, SwapStats, BoostInfo } from './mocks'
+
+import {
+  createGetBaseInfoItem,
+  createGetSwapInfoItem,
+  createCheckSwapRender,
+  createCheckSubmitButton,
+  createCheckConnectButton,
+  createCheckTokenDropdown,
+} from './helpers'
+import type {
+  CheckSwapRender,
+  GetBaseInfoItem,
+  GetSwapInfoItem,
+  CheckSubmitButton,
+  CheckTokenDropdown,
+  CheckConnectButton,
+} from './helpers'
 
 
 export type SwapFixture = {
   tab: Tab
   input: Input
   submit: Submit
-  mockApy: MockApy
   openPage: OpenPage
-  setSwapStats: SetSwapStats
-  mockPosition: MockPosition
   submitAmount: SubmitAmount
-  checkSwapRender: CheckSwapRender
-  getBaseInfoItem: GetBaseInfoItem
-  checkSubmitButton: CheckSubmitButton
-  checkConnectButton: CheckConnectButton
+
+  setSdkTransactions: SetSdkTransactions
+
+  actions: {
+    burn: Burn
+    mint: Mint
+    boost: Boost
+    stake: Stake
+    unstake: Unstake
+    unboost: Unboost
+  }
+
+  mocks: {
+    position: Position
+    swapStats: SwapStats
+    boostInfo: BoostInfo
+  }
 
   helpers: {
     getSwapInfoItem: GetSwapInfoItem
+    getBaseInfoItem: GetBaseInfoItem
+
+    checkSwapRender: CheckSwapRender
+    checkSubmitButton: CheckSubmitButton
+    checkConnectButton: CheckConnectButton
+    checkTokenDropdown: CheckTokenDropdown
   }
 }
 
-const swap: E2E.Fixture<SwapFixture> = async ({ page, graphql, transactions, element, user }, use) => {
+const swap: E2E.Fixture<SwapFixture> = async ({ page, graphql, transactions, element, user, api, sdk, vault, helpers }, use) => {
   await use({
     tab: createTab({ page }),
     input: createInput({ page }),
     openPage: createOpenPage({ page }),
-    mockApy: createMockApy({ graphql }),
-    setSwapStats: createSetSwapStats({ page }),
     submitAmount: createSubmitAmount({ page }),
     submit: createSubmit({ page, transactions }),
-    mockPosition: createMockPosition({ user }),
-    checkSwapRender: createCheckSwapRender({ page }),
-    getBaseInfoItem: createGetBaseInfoItem({ page }),
-    checkConnectButton: createCheckConnectButton({ page }),
-    checkSubmitButton: createCheckSubmitButton({ page, element }),
+
+    setSdkTransactions: createSetSdkTransactions({ page, sdk, graphql }),
+
+    actions: {
+      unstake: createUnstake({ page, transactions }),
+      boost: createBoost({ page, transactions, api }),
+      stake: createStake({ page, transactions, user }),
+      burn: createBurn({ page, transactions, helpers }),
+      unboost: createUnboost({ page, transactions, api }),
+      mint: createMint({ page, transactions, helpers,user }),
+    },
+
+    mocks: {
+      position: createPosition({ user }),
+      swapStats: createSwapStats({ page }),
+      boostInfo: createBoostInfo({ graphql, vault }),
+    },
 
     helpers: {
       getSwapInfoItem: createGetSwapInfoItem({ page }),
+      getBaseInfoItem: createGetBaseInfoItem({ page }),
+
+      checkSwapRender: createCheckSwapRender({ page }),
+      checkConnectButton: createCheckConnectButton({ page }),
+      checkSubmitButton: createCheckSubmitButton({ page, element }),
+      checkTokenDropdown: createCheckTokenDropdown({ page, element }),
     },
   })
 }

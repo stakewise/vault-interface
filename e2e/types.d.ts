@@ -2,6 +2,7 @@ import type { BrowserContext, Page, TestFixture } from '@playwright/test'
 import type { GUI } from '@guardianui/test/dist/models/GUI'
 
 import type {
+  ApiFixture,
   SDKFixture,
   UserFixture,
   SwapFixture,
@@ -27,6 +28,7 @@ declare global {
     interface ExtendedTest {
       gui: GUI
       page: Page
+      api: ApiFixture
       sdk: SDKFixture
       user: UserFixture
       swap: SwapFixture

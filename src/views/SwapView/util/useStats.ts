@@ -22,7 +22,7 @@ const useStats = () => {
 
   const fetchStats = useCallback(async () => {
     try {
-      const mockE2E = methods.insertMockE2E<Stats>('fixtures/swap/setSwapStats')
+      const mockE2E = methods.insertMockE2E<Stats>('fixtures/swap/mocks/swapStats')
 
       const stats = mockE2E ? mockE2E : await sdk.utils.getStakewiseStats()
 

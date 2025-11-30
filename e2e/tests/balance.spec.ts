@@ -10,7 +10,7 @@ test('Enabled claim', async ({ wallet, swap, queue, user }) => {
   await swap.openPage()
 
   const { exitedAssets, totalAssets } = await user.setUnstakeQueue({ isClaimable: true })
-  const { exitingShares, exitingRewards } = await swap.mockPosition({ isClaimable: true })
+  const { exitingShares, exitingRewards } = await swap.mocks.position({ isClaimable: true })
 
   await wallet.connectWithBalance({ ETH: '10' })
   await swap.tab('balance')
@@ -31,7 +31,7 @@ test('Enabled claim', async ({ wallet, swap, queue, user }) => {
 test('Disabled claim', async ({ wallet, swap, user, queue }) => {
   await swap.openPage()
 
-  const { exitingShares, exitingRewards } = await swap.mockPosition({ isClaimable: false })
+  const { exitingShares, exitingRewards } = await swap.mocks.position({ isClaimable: false })
   const { exitedAssets, totalAssets } = await user.setUnstakeQueue({ isClaimable: false })
 
   await wallet.connectWithBalance({ ETH: '10' })
@@ -68,7 +68,7 @@ test('Chart', async ({ swap, page, element }) => {
 test('Export rewards', async ({ wallet, swap, user, page }) => {
   await swap.openPage()
 
-  await swap.mockPosition({ isClaimable: false })
+  await swap.mocks.position({ isClaimable: false })
 
   await wallet.connectWithBalance({ ETH: '10' })
   await swap.tab('balance')

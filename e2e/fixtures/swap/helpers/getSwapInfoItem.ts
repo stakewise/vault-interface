@@ -4,10 +4,17 @@ export type GetSwapInfoItem = (type: SwapInfoTypes) => Promise<string>
 
 type SwapInfoTypes = (
   | 'gas'
+  | 'rate'
+  | 'fee'
   | 'apy-prev'
   | 'apy-next'
   | 'asset-prev'
   | 'asset-next'
+  | 'shares-prev'
+  | 'shares-next'
+  | 'unstake-queue'
+  | 'exiting-shares'
+  | 'exiting-rewards'
 )
 
 export const createGetSwapInfoItem: Wrapper = ({ page }) => (

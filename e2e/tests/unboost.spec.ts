@@ -11,27 +11,22 @@ test.beforeEach(async ({ gui, guardian }) => {
 test('Connect button', async ({ swap }) => {
   await swap.openPage()
   await swap.tab('unboost', true)
-  await swap.checkConnectButton()
+  await swap.helpers.checkConnectButton()
 })
 
-test('Balance percent', async ({ swap, page, wallet, graphql }) => {
+test('Balance percent', async ({ swap, page, wallet, user }) => {
   const shares = '10'
+  const rewards = '1'
 
   await swap.openPage()
-  await graphql.mockBoostData({ shares: '10' })
 
-  const userAPY = '1.55'
+  await user.balances.setBoostData({ shares, rewards })
 
-  await graphql.mockUserApy(userAPY)
   await wallet.connectWithBalance({ ETH: '1' })
 
   await swap.tab('unboost', true)
 
   const percents = [ '25', '50', '75', '100' ]
-
-  const formatValue = (value: string, percent: string) => (
-    Number(value) / 100 * Number(percent)
-  )
 
   for (const percent of percents) {
     await page.getByTestId(`percent-${percent}`).click()
@@ -39,31 +34,70 @@ test('Balance percent', async ({ swap, page, wallet, graphql }) => {
     const [
       value,
       exitingShares,
+      exitingRewards,
     ] = await Promise.all([
       swap.input.value(),
-      swap.getSwapInfoItem('boosted-shares-next', 'position'),
+      swap.helpers.getSwapInfoItem('exiting-shares'),
+      swap.helpers.getSwapInfoItem('exiting-rewards'),
     ])
 
     expect(value).toEqual(`${percent}%`)
 
-    const formattedShares = Number(shares) - formatValue(shares, percent)
+    const formatValue = (value: string) => (
+      Number(value) / 100 * Number(percent)
+    )
+
+    const formattedShares = formatValue(shares)
+    const formattedRewards = formatValue(rewards)
 
     expect(parseFloat(exitingShares)).toEqual(formattedShares)
+    expect(parseFloat(exitingRewards)).toEqual(formattedRewards)
   }
 })
 
 test('Unboost disabled', async ({ wallet, swap, page, element }) => {
   await swap.openPage()
-  await swap.mockPosition({ isClaimable: false })
+  await swap.mocks.position({ isClaimable: false })
   await wallet.connectWithBalance({ ETH: '50' })
 
   await swap.tab('unboost', true)
 
-  await swap.checkSubmitButton({ isDisabled: true })
+  await swap.helpers.checkSubmitButton({ isDisabled: true })
   await element.checkVisibility({ testId: 'exit-queue-note', isVisible: true })
 
-  await swap.mockPosition({ isClaimable: false })
+  await swap.mocks.position({ isClaimable: false })
   await page.getByTestId('balances-link').click()
 
   await element.checkVisibility({ testId: 'unboost-queue-claim-button', isVisible: true })
+})
+
+test('Unboost with upgrade', async ({ wallet, swap, user }) => {
+  const shares = '10'
+  const rewards = '1'
+
+  await swap.openPage()
+
+  await user.balances.setBoostData({ shares, rewards })
+
+  await wallet.connectWithBalance({ ETH: shares, osETH: shares })
+
+  await swap.actions.unboost({ percent: '50', rewards, shares })
+})
+
+test('Unboost', async ({ wallet, swap, user }) => {
+  const shares = '10'
+
+  await swap.openPage()
+
+  await user.balances.setBoostData({
+    shares,
+    leverageStrategyData: {
+      version: 2,
+      isUpgradeRequired: false,
+    },
+  })
+
+  await wallet.connectWithBalance({ ETH: shares, osETH: shares })
+
+  await swap.actions.unboost({ percent: '25', withUpgrade: false, shares })
 })

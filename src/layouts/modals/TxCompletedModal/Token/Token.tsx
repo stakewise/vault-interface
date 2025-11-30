@@ -27,6 +27,7 @@ const titles: Record<Action, Intl.Message> = {
   [Action.ClaimReward]: messages.unstaked,
   [Action.Exiting]: commonMessages.exitingToken,
   [Action.ExitQueue]: messages.addedToQueue,
+  [Action.ExitingReward]: commonMessages.exitingToken,
 }
 
 const Token: React.FC<TokenProps> = (props) => {

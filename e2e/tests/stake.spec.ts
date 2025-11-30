@@ -11,7 +11,15 @@ test.beforeEach(async ({ gui, guardian }) => {
 
 test('Connect button', async ({ swap }) => {
   await swap.openPage()
-  await swap.checkConnectButton()
+  await swap.helpers.checkConnectButton()
+})
+
+test('Token dropdown', async ({ swap, wallet }) => {
+  await swap.openPage()
+
+  await swap.helpers.checkTokenDropdown()
+  await wallet.connectWithBalance({ ETH: '100' })
+  await swap.helpers.checkTokenDropdown()
 })
 
 test('Max balance minus gas', async ({ swap, wallet, graphql }) => {
@@ -32,7 +40,7 @@ test('Initial info', async ({ swap, vault }) => {
   const vaultApy = '5'
   const maxApy = '10'
 
-  const { totalAssets } = await swap.setSwapStats()
+  const { totalAssets } = await swap.mocks.swapStats()
 
   await vault.setVaultData({
     apy: vaultApy,
@@ -46,9 +54,9 @@ test('Initial info', async ({ swap, vault }) => {
     vaultApyValue,
     tvl,
   ] = await Promise.all([
-    swap.getBaseInfoItem('max-boost-apy'),
-    swap.getBaseInfoItem('vault-apy'),
-    swap.getBaseInfoItem('stake-tvl'),
+    swap.helpers.getBaseInfoItem('max-boost-apy'),
+    swap.helpers.getBaseInfoItem('vault-apy'),
+    swap.helpers.getBaseInfoItem('stake-tvl'),
   ])
 
   const [ currectTVL ] = formatEther(totalAssets).split('.')
@@ -70,17 +78,20 @@ test('Initial info not profitable', async ({ swap, element, vault }) => {
 
   await element.checkVisibility({ testId: 'max-boost-apy', isVisible: false })
 
-  const osTokenApyValue = await swap.getBaseInfoItem('vault-apy')
+  const osTokenApyValue = await swap.helpers.getBaseInfoItem('vault-apy')
 
   expect(osTokenApyValue).toEqual(Number(vaultApy))
 })
 
-test('Stake info', async ({ swap, wallet }) => {
+test('Stake info', async ({ swap, wallet, user }) => {
+  const userAPY = 5
   const value = 10
 
   await swap.openPage()
 
   await wallet.connectWithBalance({ ETH: '100' })
+
+  await user.balances.setUserApy(userAPY)
 
   await swap.input.fill(value.toString())
 
@@ -101,36 +112,24 @@ test('Stake info', async ({ swap, wallet }) => {
   ])
 
   expect(stakeToken).toBe('ETH')
-  expect(parseFloat(apyPrev)).toEqual(0)
-  expect(parseFloat(apyNext)).toBeGreaterThan(0)
+  expect(parseFloat(apyPrev)).toEqual(apyPrev)
+  expect(parseFloat(apyNext)).toBeGreaterThan(userAPY)
   expect(parseFloat(assetPrev)).toEqual(0)
   expect(parseFloat(assetNext)).toEqual(value)
 
   expect(Number(gas.replace('$ ' , ''))).toBeGreaterThan(0)
 })
 
-test('Stake submit', async ({ wallet, swap, transactions }) => {
+test('Stake', async ({ wallet, swap }) => {
   await swap.openPage()
   await wallet.connectWithBalance({ ETH: '100' })
 
-  await swap.mockApy({ isProfitable: true })
-  await swap.submit('50')
-
-  await transactions.checkTxCompletedModal({
-    action: 'stake',
-    value: '50',
-  })
-
-  await swap.tab('balance')
+  await swap.actions.stake('50')
 })
 
-test('Stake max', async ({ wallet, swap, transactions }) => {
+test('Stake max', async ({ wallet, swap }) => {
   await swap.openPage()
   await wallet.connectWithBalance({ ETH: '100' })
-  await swap.submit()
 
-  await transactions.checkTxCompletedModal({
-    action: 'stake',
-    less: '100',
-  })
+  await swap.actions.stake()
 })

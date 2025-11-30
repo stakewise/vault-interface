@@ -3,11 +3,11 @@ type Output = {
   totalEarnedAssets: string
 }
 
-export type SetSwapStats = () => Promise<Output>
+export type SwapStats = () => Promise<Output>
 
-type Wrapper = E2E.FixtureMethod<SetSwapStats, 'page'>
+type Wrapper = E2E.FixtureMethod<SwapStats, 'page'>
 
-export const createSetSwapStats: Wrapper = ({ page }) => (
+export const createSwapStats: Wrapper = ({ page }) => (
   async () => {
     const stats =  {
       totalAssets: '100000000000000000000',
@@ -17,7 +17,7 @@ export const createSetSwapStats: Wrapper = ({ page }) => (
     await page.addInitScript((payload) => {
       window.e2e = {
         ...window.e2e,
-        ['fixtures/swap/setSwapStats']: payload,
+        ['fixtures/swap/mocks/swapStats']: payload,
       }
     }, stats)
 

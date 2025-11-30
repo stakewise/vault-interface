@@ -1,3 +1,4 @@
+export { default as api } from './api'
 export { default as sdk } from './sdk'
 export { default as user } from './user'
 export { default as swap } from './swap'
@@ -15,6 +16,7 @@ export { default as guardian } from './guardian'
 export { default as transactions } from './transactions'
 
 
+export type { ApiFixture } from './api'
 export type { SDKFixture } from './sdk'
 export type { UserFixture } from './user'
 export type { SwapFixture } from './swap'

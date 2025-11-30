@@ -59,7 +59,7 @@ const TokenOptions: React.FC<TokenOptionsProps> = (props) => {
           'w-[calc(100vw-48rem-2px)]': isMobile,
         })}
         field={field}
-        data-testid={`${dataTestId}-input`}
+        dataTestId={dataTestId}
       />
       {
         isFetching ? (

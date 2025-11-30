@@ -11,13 +11,19 @@ import { createSetUserStats } from './setUserStats'
 import type { SetUserStats } from './setUserStats'
 
 import {
+  createSetUserApy,
   createSetBoostData,
+  createSetStakeBalance,
   createSetMintTokenData,
+  createSetMaxWithdrawAssets,
 } from './balances'
 
 import type {
+  SetUserApy,
   SetBoostData,
+  SetStakeBalance,
   SetMintTokenData,
+  SetMaxWithdrawAssets,
 } from './balances'
 
 
@@ -28,8 +34,11 @@ export type UserFixture = {
   checkExportRewards: CheckExportRewards
 
   balances: {
+    setUserApy: SetUserApy
     setBoostData: SetBoostData
+    setStakeBalance: SetStakeBalance
     setMintTokenData: SetMintTokenData
+    setMaxWithdrawAssets: SetMaxWithdrawAssets
   },
 }
 
@@ -41,8 +50,11 @@ const user: E2E.Fixture<UserFixture> = async ({ page, helpers }, use) => {
     checkExportRewards: createCheckExportRewards({ page, helpers }),
 
     balances: {
+      setUserApy: createSetUserApy({ page }),
       setBoostData: createSetBoostData({ page }),
+      setStakeBalance: createSetStakeBalance({ page }),
       setMintTokenData: createSetMintTokenData({ page }),
+      setMaxWithdrawAssets: createSetMaxWithdrawAssets({ page }),
     },
   })
 }

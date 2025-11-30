@@ -40,7 +40,6 @@ export const createSetMintTokenData: Wrapper = ({ page }) => (
       }
 
       const result: Output = {
-        ...payload,
         mintedAssets,
         maxMintShares,
         isDisabled: false,

@@ -2,7 +2,7 @@ type Wrapper = E2E.FixtureMethod<GetBaseInfoItem, 'page'>
 
 export type GetBaseInfoItem = (type: BaseInfoTypes) => Promise<number>
 
-type BaseInfoTypes = 'os-token-apy' | 'max-boost-apy' | 'stake-tvl' | 'stake-users' | 'vault-apy'
+type BaseInfoTypes = 'max-boost-apy' | 'stake-tvl' | 'vault-apy'
 
 export const createGetBaseInfoItem: Wrapper = ({ page }) => (
   async (type: BaseInfoTypes) => {

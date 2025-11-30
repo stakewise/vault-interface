@@ -1,7 +1,6 @@
 import { useCallback } from 'react'
 import { initialState } from 'store/store/vault'
-import * as methods from 'helpers/methods'
-import { constants } from 'helpers'
+import { constants, methods } from 'helpers'
 import { useConfig } from 'config'
 
 

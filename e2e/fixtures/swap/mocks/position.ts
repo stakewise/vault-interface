@@ -1,5 +1,3 @@
-type Wrapper = E2E.FixtureMethod<MockPosition, 'user'>
-
 type Input = {
   isClaimable: boolean
 }
@@ -9,9 +7,11 @@ type Output = {
   exitingRewards: number
 }
 
-export type MockPosition = (values: Input) => Promise<Output>
+export type Position = (values: Input) => Promise<Output>
 
-export const createMockPosition: Wrapper = ({ user }) => (
+type Wrapper = E2E.FixtureMethod<Position, 'user'>
+
+export const createPosition: Wrapper = ({ user }) => (
   async (values: Input) => {
     const { isClaimable } = values
 
