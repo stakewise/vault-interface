@@ -11,7 +11,6 @@ import type {
   AnvilFixture,
   WalletFixture,
   OsTokenFixture,
-  RewardsFixture,
   ElementFixture,
   HelpersFixture,
   GraphqlFixture,
@@ -37,7 +36,6 @@ declare global {
       anvil: AnvilFixture
       wallet: WalletFixture
       osToken: OsTokenFixture
-      rewards: RewardsFixture
       context: BrowserContext
       element: ElementFixture
       helpers: HelpersFixture
