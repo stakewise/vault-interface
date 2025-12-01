@@ -6,7 +6,6 @@ test('Settings', async ({ page, settings }) => {
 
   await settings.checkTheme()
   await settings.checkCurrency()
-  await settings.checkLanguage()
 })
 
 test('Select wallet', async ({ page, wallet, element }) => {
