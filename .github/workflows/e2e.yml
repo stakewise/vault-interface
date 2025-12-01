@@ -26,15 +26,6 @@ jobs:
         uses: actions/checkout@v2
         if: ${{ steps.preview.outputs.deployment_state != 'CANCELED' }}
 
-      - name: Restore Node Modules
-        id: cache-restore
-        uses: actions/cache@v3
-        with:
-          path: |
-            node_modules
-          key: node_modules_${{ hashFiles('package-lock.json') }}
-        if: ${{ steps.preview.outputs.deployment_state != 'CANCELED' }}
-
       - name: Setup node and npm
         uses: actions/setup-node@v3
         with:
