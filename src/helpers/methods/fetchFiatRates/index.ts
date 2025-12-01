@@ -5,7 +5,7 @@ import fetchMainnetRates from './fetchMainnetRates'
 
 
 const fetchFiatRates = async (network: Network) => {
-  const isGnosis = [ Network.Gnosis, Network.Chiado ].includes(network)
+  const isGnosis = Network.Gnosis === network
   const isEthereum = [ Network.Mainnet, Network.Hoodi ].includes(network)
 
   if (isGnosis) {

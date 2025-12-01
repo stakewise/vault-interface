@@ -18,7 +18,6 @@ type Connect = {
 const networkSizes = {
   mainnet: 160,
   gnosis: 185,
-  chiado: 197,
   hoodi: 178,
 }
 

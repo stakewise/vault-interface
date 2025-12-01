@@ -1,7 +1,7 @@
 import getVaultAddress from './getVaultAddress'
 
 
-const networks: NetworkIds[] = [ 'mainnet', 'gnosis', 'chiado', 'hoodi' ]
+const networks: NetworkIds[] = [ 'mainnet', 'gnosis', 'hoodi' ]
 
 const getDefaultNetwork = () => networks.find(getVaultAddress)
 

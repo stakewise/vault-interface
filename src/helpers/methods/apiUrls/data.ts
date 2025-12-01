@@ -27,13 +27,6 @@ const apiUrls = {
         `https://graphs.stakewise.io/mainnet-b/subgraphs/name/stakewise/${defaultType}`,
       ],
   },
-  [Network.Chiado]: {
-    backend: configs[Network.Chiado].api.backend,
-    web3: 'https://rpc.chiadochain.net/',
-    subgraph: IS_PROD
-      ? configs[Network.Chiado].api.subgraph
-      : `https://graphs.stakewise.io/chiado/subgraphs/name/stakewise/${defaultType}`,
-  },
   [Network.Hoodi]: {
     backend: configs[Network.Hoodi].api.backend,
     web3: 'https://ethereum-hoodi-rpc.publicnode.com',
