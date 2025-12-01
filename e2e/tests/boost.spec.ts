@@ -1,6 +1,5 @@
 import { expect } from '@playwright/test'
 
-import * as constants from '../constants'
 import test from '../extendTest'
 
 
@@ -12,10 +11,10 @@ test.beforeEach(async ({ gui, guardian }) => {
 test('Connect button', async ({ swap }) => {
   await swap.openPage()
   await swap.tab('boost')
-  await swap.checkConnectButton()
+  await swap.helpers.checkConnectButton()
 })
 
-test('Max balance', async ({ swap, wallet, page, sdk }) => {
+test('Max balance', async ({ swap, wallet }) => {
   const initialETH = '25'
   const depositETH = '20'
   const mintETH = '15'
@@ -23,16 +22,9 @@ test('Max balance', async ({ swap, wallet, page, sdk }) => {
   await swap.openPage()
 
   await wallet.connectWithBalance({ ETH: initialETH })
-  await sdk.deposit({
-    vaultAddress: constants.genesisAddress.mainnet,
-    assets: depositETH,
-  })
-  const shares = await sdk.mint({
-    vaultAddress: constants.genesisAddress.mainnet,
-    assets: mintETH,
-  })
 
-  await page.reload()
+  const shares = await swap.setSdkTransactions({ deposit: depositETH, mint: mintETH })
+
   await swap.tab('boost')
 
   await swap.input.fill()
@@ -42,26 +34,15 @@ test('Max balance', async ({ swap, wallet, page, sdk }) => {
   expect(value).toEqual(shares)
 })
 
-test('Boost info', async ({ swap, page, wallet, sdk, graphql }) => {
+test('Boost info', async ({ swap, page, wallet }) => {
   const initialETH = '25'
   const depositETH = '20'
   const mintETH = '15'
 
-  await swap.openPage(`skipSSR=true`)
+  await swap.openPage()
   await wallet.connectWithBalance({ ETH: initialETH })
 
-  await sdk.deposit({
-    vaultAddress: constants.genesisAddress.mainnet,
-    assets: depositETH,
-  })
-  await sdk.mint({
-    vaultAddress: constants.genesisAddress.mainnet,
-    assets: mintETH,
-  })
-
-  const userAPY = '1.55'
-
-  await graphql.mockUserApy(userAPY)
+  await swap.setSdkTransactions({ deposit: depositETH, mint: mintETH })
 
   await page.reload()
   await swap.tab('boost')
@@ -77,17 +58,36 @@ test('Boost info', async ({ swap, page, wallet, sdk, graphql }) => {
   expect(boostToken).toBe('osETH')
 })
 
+test('Boost not profitable', async ({ user, wallet, swap, vault }) => {
+  await vault.setVaultData({
+    allocatorMaxBoostApy: '1',
+    apy: '5',
+  })
+
+  await swap.openPage('skipSSR=true')
+
+  const amount = '10'
+
+  await user.balances.setMintTokenData({ stakedAssets: amount, mintedShares: amount })
+
+  await wallet.connectWithBalance({ ETH: '50', osETH: '50' })
+  await swap.tab('boost')
+  await swap.input.fill('1')
+
+  await swap.helpers.checkSubmitButton({ text: 'Not profitable', isLoading: false, isDisabled: true })
+})
+
 test('Boost disabled', async ({ wallet, swap, page, element }) => {
   await swap.openPage()
 
-  await swap.mockPosition({ isClaimable: false })
+  await swap.mocks.position({ isClaimable: false })
   await wallet.connectWithBalance({ ETH: '50' })
   await swap.tab('boost')
 
-  await swap.checkSubmitButton({ isDisabled: true })
+  await swap.helpers.checkSubmitButton({ isDisabled: true })
   await element.checkVisibility({ testId: 'exit-queue-note', isVisible: true })
 
-  await swap.mockPosition({ isClaimable: false })
+  await swap.mocks.position({ isClaimable: false })
   await page.getByTestId('balances-link').click()
 
   await element.checkVisibility({ testId: 'unboost-queue-claim-button', isVisible: true })
@@ -95,4 +95,34 @@ test('Boost disabled', async ({ wallet, swap, page, element }) => {
   const claimButton = await page.getByTestId('unboost-queue-claim-button')
 
   expect(claimButton).toBeDisabled()
+})
+
+test.skip('Boost with permit', async ({ wallet, swap, user }) => {
+  const amount = '10'
+
+  await swap.mocks.boostInfo()
+
+  await swap.openPage('skipSSR=true')
+
+  await user.balances.setMintTokenData({ stakedAssets: amount, mintedShares: amount })
+
+  await wallet.connectWithBalance({ ETH: amount, osETH: amount })
+
+  await swap.actions.boost({ amount: '1' })
+})
+
+test.skip('Boost with upgrade', async ({ wallet, swap, user }) => {
+  const amount = '10'
+
+  await swap.mocks.boostInfo()
+
+  await swap.openPage('skipSSR=true')
+
+  await user.balances.setMintTokenData({ stakedAssets: amount, mintedShares: amount })
+
+  await user.balances.setBoostData({ shares: '1' })
+
+  await wallet.connectWithBalance({ ETH: amount, osETH: amount })
+
+  await swap.actions.boost({ amount: '1', withUpgrade: true })
 })

@@ -78,7 +78,7 @@ const useOptions = () => {
         text: messages.immediate,
         value: fieldAmount,
         logo: `token/${sdk.config.tokens.depositToken}`,
-        dataTestId: 'unstake-queue',
+        dataTestId: 'table-unstake-queue',
       })
     }
     else {
@@ -87,7 +87,7 @@ const useOptions = () => {
         tooltip: noteMessage,
         value: fieldAmount,
         logo: `token/${sdk.config.tokens.depositToken}`,
-        dataTestId: 'unstake-queue',
+        dataTestId: 'table-unstake-queue',
       })
     }
 

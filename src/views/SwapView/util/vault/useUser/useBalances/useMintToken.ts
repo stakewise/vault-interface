@@ -1,7 +1,6 @@
 import { useCallback } from 'react'
 import { initialState } from 'store/store/vault'
-import * as methods from 'helpers/methods'
-import { constants } from 'helpers'
+import { constants, methods } from 'helpers'
 import { useConfig } from 'config'
 
 
@@ -23,6 +22,12 @@ const useMintToken = () => {
 
   return useCallback(async (values: Input) => {
     try {
+      const mockE2E = methods.insertMockE2E<Output>('user/balances/setMintTokenData')
+
+      if (mockE2E) {
+        return mockE2E
+      }
+
       const data = await methods.fetch<OsTokenEnabledQueryPayload>(sdk.config.api.subgraph, {
         method: 'POST',
         body: JSON.stringify({

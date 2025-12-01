@@ -1,4 +1,5 @@
 import React, { useMemo, useCallback } from 'react'
+import { requests } from 'helpers'
 import { useConfig } from 'config'
 
 import { swapCtx } from 'views/SwapView/util'
@@ -27,10 +28,11 @@ const RewardsChart: React.FC<RewardsChartProps> = (props) => {
       return null
     }
 
-    const data = await sdk.vault.getUserStats({
-      userAddress: address,
-      daysCount: days,
+    const data = await requests.user.fetchUserRewards({
+      sdk,
+      days,
       vaultAddress,
+      userAddress: address,
     })
 
     return data

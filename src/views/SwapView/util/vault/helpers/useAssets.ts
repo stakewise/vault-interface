@@ -49,6 +49,7 @@ const useAssets = ({ field, type, depositAmount }: Input) => {
           next,
         },
         logo: `token/${depositToken}` as LogoName,
+        dataTestId: 'table-asset',
       }
 
       return result

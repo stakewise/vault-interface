@@ -50,6 +50,7 @@ const useShares = (values: Input) => {
           next,
         },
         logo: `token/${mintToken}`  as LogoName,
+        dataTestId: 'table-shares',
       }
 
       return result

@@ -1,4 +1,4 @@
-import { parseEther, ZeroAddress } from 'ethers'
+import { formatEther } from 'ethers'
 import { expect } from '@playwright/test'
 
 import test from '../extendTest'
@@ -11,7 +11,15 @@ test.beforeEach(async ({ gui, guardian }) => {
 
 test('Connect button', async ({ swap }) => {
   await swap.openPage()
-  await swap.checkConnectButton()
+  await swap.helpers.checkConnectButton()
+})
+
+test('Token dropdown', async ({ swap, wallet }) => {
+  await swap.openPage()
+
+  await swap.helpers.checkTokenDropdown()
+  await wallet.connectWithBalance({ ETH: '100' })
+  await swap.helpers.checkTokenDropdown()
 })
 
 test('Max balance minus gas', async ({ swap, wallet, graphql }) => {
@@ -28,46 +36,54 @@ test('Max balance minus gas', async ({ swap, wallet, graphql }) => {
   expect(Number(value)).toBeGreaterThan(0)
 })
 
-test('Initial info', async ({ swap, page, graphql }) => {
-  const { vaultApy, maxBoostApy } = await swap.mockApy({ isProfitable: true })
+test('Initial info', async ({ swap, vault }) => {
+  const vaultApy = '5'
+  const maxApy = '10'
 
-  await graphql.mockVaultData({
-    admin: ZeroAddress,
-    totalAssets: parseEther('401050').toString(),
+  const { totalAssets } = await swap.mocks.swapStats()
+
+  await vault.setVaultData({
+    apy: vaultApy,
+    allocatorMaxBoostApy: maxApy,
   })
 
   await swap.openPage('skipSSR=true')
-  await page.waitForLoadState('networkidle')
 
   const [
     maxBoostApyValue,
     vaultApyValue,
-    tvlValue,
+    tvl,
   ] = await Promise.all([
-    swap.getBaseInfoItem('max-boost-apy'),
-    swap.getBaseInfoItem('vault-apy'),
-    swap.getBaseInfoItem('stake-tvl'),
+    swap.helpers.getBaseInfoItem('max-boost-apy'),
+    swap.helpers.getBaseInfoItem('vault-apy'),
+    swap.helpers.getBaseInfoItem('stake-tvl'),
   ])
 
-  expect(maxBoostApyValue).toEqual(maxBoostApy)
-  expect(vaultApyValue).toEqual(vaultApy)
-  expect(tvlValue).toEqual(401.05)
+  const [ currectTVL ] = formatEther(totalAssets).split('.')
+
+  expect(maxBoostApyValue).toEqual(Number(maxApy))
+  expect(vaultApyValue).toEqual(Number(vaultApy))
+  expect(tvl).toEqual(Number(currectTVL))
 })
 
-test('Initial info not profitable', async ({ swap, page, element }) => {
-  const { vaultApy } = await swap.mockApy({ isProfitable: false })
+test('Initial info not profitable', async ({ swap, element, vault }) => {
+  const vaultApy = '5'
 
-  await swap.openPage()
-  await page.waitForLoadState('networkidle')
+  await vault.setVaultData({
+    apy: vaultApy,
+    allocatorMaxBoostApy: '1',
+  })
+
+  await swap.openPage('skipSSR=true')
 
   await element.checkVisibility({ testId: 'max-boost-apy', isVisible: false })
 
-  const osTokenApyValue = await swap.getBaseInfoItem('vault-apy')
+  const osTokenApyValue = await swap.helpers.getBaseInfoItem('vault-apy')
 
-  expect(osTokenApyValue).toEqual(vaultApy)
+  expect(osTokenApyValue).toEqual(Number(vaultApy))
 })
 
-test('Stake info', async ({ page, swap, wallet }) => {
+test('Stake info', async ({ swap, wallet }) => {
   const value = 10
 
   await swap.openPage()
@@ -76,56 +92,41 @@ test('Stake info', async ({ page, swap, wallet }) => {
 
   await swap.input.fill(value.toString())
 
-  const getPositionInfoItem = async (type: string) => {
-    const selector = await page.waitForSelector(`[data-testid="position-${type}"]`)
-    const value = await selector.textContent()
-
-    return value || ''
-  }
-
   const [
     stakeToken,
-    apy,
     gas,
-    receive,
+    apyPrev,
+    apyNext,
+    assetPrev,
+    assetNext,
   ] = await Promise.all([
     swap.input.token(),
-    getPositionInfoItem('apy-next'),
-    getPositionInfoItem('value-prev'),
-    getPositionInfoItem('assets-next'),
+    swap.helpers.getSwapInfoItem('gas'),
+    swap.helpers.getSwapInfoItem('apy-prev'),
+    swap.helpers.getSwapInfoItem('apy-next'),
+    swap.helpers.getSwapInfoItem('asset-prev'),
+    swap.helpers.getSwapInfoItem('asset-next'),
   ])
 
-  const receiveAmount = Number(receive.replace('osETH', ''))
-
   expect(stakeToken).toBe('ETH')
-  expect(parseFloat(apy)).toBeGreaterThan(0)
+  expect(parseFloat(apyPrev)).toEqual(0)
+  expect(parseFloat(apyNext)).toBeGreaterThan(0)
+  expect(parseFloat(assetPrev)).toEqual(0)
+  expect(parseFloat(assetNext)).toEqual(value)
+
   expect(Number(gas.replace('$ ' , ''))).toBeGreaterThan(0)
-
-  expect(receiveAmount).toEqual(value)
 })
 
-test('Stake submit', async ({ wallet, swap, transactions }) => {
+test('Stake', async ({ wallet, swap }) => {
   await swap.openPage()
   await wallet.connectWithBalance({ ETH: '100' })
 
-  await swap.mockApy({ isProfitable: true })
-  await swap.submit('50')
-
-  await transactions.checkTxCompletedModal({
-    action: 'stake',
-    value: '50',
-  })
-
-  await swap.tab('balance')
+  await swap.actions.stake('50')
 })
 
-test('Stake max', async ({ wallet, swap, transactions }) => {
+test('Stake max', async ({ wallet, swap }) => {
   await swap.openPage()
   await wallet.connectWithBalance({ ETH: '100' })
-  await swap.submit()
 
-  await transactions.checkTxCompletedModal({
-    action: 'stake',
-    less: '100',
-  })
+  await swap.actions.stake()
 })

@@ -196,7 +196,7 @@ const useUnboostSubmit = (values: Input) => {
       tokens.push({
         token: signSDK.config.tokens.depositToken,
         value: exitAssets,
-        action: Action.Exiting,
+        action: Action.ExitingReward,
       })
     }
 

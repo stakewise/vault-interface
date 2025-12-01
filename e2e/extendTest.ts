@@ -1,13 +1,16 @@
 import { test as base } from '@guardianui/test'
 
 import {
+  api,
   sdk,
+  user,
   swap,
+  vault,
   queue,
   anvil,
   wallet,
+  osToken,
   graphql,
-  rewards,
   element,
   helpers,
   settings,
@@ -17,12 +20,15 @@ import {
 
 
 const baseTest = base.extend<E2E.ExtendedTest>({
+  api,
   sdk,
+  user,
   swap,
   queue,
+  vault,
   anvil,
   wallet,
-  rewards,
+  osToken,
   graphql,
   element,
   helpers,

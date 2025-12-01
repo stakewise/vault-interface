@@ -1,16 +1,9 @@
-import { createInput } from './input'
-
-
 type Wrapper = E2E.FixtureMethod<Submit, 'page' | 'transactions'>
 
-export type Submit = (amount?: string) => Promise<void>
+export type Submit = () => Promise<void>
 
 export const createSubmit: Wrapper = ({ page, transactions }) => (
-  async (amount?: string) => {
-    const input = createInput({ page })
-
-    await input.fill(amount)
-
+  async () => {
     const submitButton = await page.waitForSelector('[data-testid="submit-button"]')
     await submitButton.waitForElementState('enabled')
 

@@ -1,13 +1,15 @@
 import { expect } from '@playwright/test'
+import { createSetUserRewards } from './setUserRewards'
 
 
-export type RewardsFixture = {
-  checkExport: () => Promise<void>
-}
+export type CheckExportRewards = () => Promise<void>
 
-const rewards: E2E.Fixture<RewardsFixture> = async ({ page, helpers, graphql }, use) => {
+type Wrapper = E2E.FixtureMethod<CheckExportRewards, 'page' | 'helpers'>
 
-  const checkExport = async () => {
+export const createCheckExportRewards: Wrapper = ({ page, helpers }) => (
+  async () => {
+    const setUserRewards = createSetUserRewards({ page })
+
     await page.getByTestId('user-stats-chart-tab').click()
     await page.getByTestId('export-rewards-button').click()
 
@@ -26,17 +28,9 @@ const rewards: E2E.Fixture<RewardsFixture> = async ({ page, helpers, graphql }, 
 
     await expect(downloadButton).not.toBeDisabled()
 
-    await graphql.mockStakeStats()
-    await graphql.mockUserRewards()
+    await setUserRewards()
     await downloadButton.click()
 
     await helpers.checkNotification('Staking stats successfully downloaded')
   }
-
-  await use({
-    checkExport,
-  })
-}
-
-
-export default rewards
+)

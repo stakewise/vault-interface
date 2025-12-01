@@ -10,6 +10,11 @@ import messages from './messages'
 
 const boostSteps: Omit<Transaction, 'status'>[] = [
   {
+    id: BoostStep.Upgrade,
+    title: commonMessages.upgradeLeverageStrategy,
+    testId: 'step-boostUpgrade',
+  },
+  {
     id: BoostStep.Permit,
     title: {
       ...commonMessages.buttonTitle.approve,

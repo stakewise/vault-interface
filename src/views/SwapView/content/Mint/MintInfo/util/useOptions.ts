@@ -51,6 +51,7 @@ const useOptions = () => {
       {
         text: messages.conversionRate,
         value: `1 ${sdk.config.tokens.mintToken} = ${rate} ${sdk.config.tokens.depositToken}`,
+        dataTestId: 'table-rate',
       },
       {
         text: messages.stabilityFee,
@@ -62,6 +63,7 @@ const useOptions = () => {
             percent,
           },
         },
+        dataTestId: 'table-fee',
       },
     ]
 
