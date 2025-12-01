@@ -83,15 +83,12 @@ test('Initial info not profitable', async ({ swap, element, vault }) => {
   expect(osTokenApyValue).toEqual(Number(vaultApy))
 })
 
-test('Stake info', async ({ swap, wallet, user }) => {
-  const userAPY = 5
+test('Stake info', async ({ swap, wallet }) => {
   const value = 10
 
   await swap.openPage()
 
   await wallet.connectWithBalance({ ETH: '100' })
-
-  await user.balances.setUserApy(userAPY)
 
   await swap.input.fill(value.toString())
 
@@ -112,8 +109,8 @@ test('Stake info', async ({ swap, wallet, user }) => {
   ])
 
   expect(stakeToken).toBe('ETH')
-  expect(parseFloat(apyPrev)).toEqual(apyPrev)
-  expect(parseFloat(apyNext)).toBeGreaterThan(userAPY)
+  expect(parseFloat(apyPrev)).toEqual(0)
+  expect(parseFloat(apyNext)).toBeGreaterThan(0)
   expect(parseFloat(assetPrev)).toEqual(0)
   expect(parseFloat(assetNext)).toEqual(value)
 

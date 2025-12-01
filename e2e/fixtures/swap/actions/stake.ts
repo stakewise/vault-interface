@@ -5,9 +5,9 @@ import { createSubmit } from '../submit'
 
 export type Stake = (amount?: string) => Promise<void>
 
-type Wrapper = E2E.FixtureMethod<Stake, 'page' | 'transactions' | 'user'>
+type Wrapper = E2E.FixtureMethod<Stake, 'page' | 'transactions' | 'user' | 'helpers'>
 
-export const createStake: Wrapper = ({ page, transactions, user }) => (
+export const createStake: Wrapper = ({ page, transactions, user, helpers }) => (
   async (amount?: string) => {
     const tab = createTab({ page })
     const input = createInput({ page })
@@ -18,6 +18,7 @@ export const createStake: Wrapper = ({ page, transactions, user }) => (
     await input.fill(amount)
 
     const inputAmount = await input.value()
+    const formattedAmount = helpers.formatTokenValue(inputAmount)
 
     await Promise.all([
       submit(),
@@ -28,7 +29,7 @@ export const createStake: Wrapper = ({ page, transactions, user }) => (
 
     await transactions.checkTxCompletedModal({
       action: 'stake',
-      value: inputAmount,
+      value: formattedAmount,
     })
   }
 )

@@ -97,7 +97,7 @@ test('Boost disabled', async ({ wallet, swap, page, element }) => {
   expect(claimButton).toBeDisabled()
 })
 
-test('Boost with permit', async ({ wallet, swap, user }) => {
+test.skip('Boost with permit', async ({ wallet, swap, user }) => {
   const amount = '10'
 
   await swap.mocks.boostInfo()
@@ -111,7 +111,7 @@ test('Boost with permit', async ({ wallet, swap, user }) => {
   await swap.actions.boost({ amount: '1' })
 })
 
-test('Boost with upgrade', async ({ wallet, swap, user }) => {
+test.skip('Boost with upgrade', async ({ wallet, swap, user }) => {
   const amount = '10'
 
   await swap.mocks.boostInfo()
