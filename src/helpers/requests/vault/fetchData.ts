@@ -24,7 +24,7 @@ const fetchData = async ({ sdk, withTime, vaultAddress }: Input) => {
     feePercent,
   ] = await Promise.all([
     sdk.vault.getVault({ vaultAddress, withTime }),
-    sdk.getVaultVersion(vaultAddress),
+    sdk.vault.getVaultVersion(vaultAddress),
     sdk.contracts.base.mintTokenController.feePercent(),
   ])
 
