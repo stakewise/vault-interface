@@ -84,10 +84,10 @@ const swap: E2E.Fixture<SwapFixture> = async ({ page, graphql, transactions, ele
     actions: {
       unstake: createUnstake({ page, transactions }),
       boost: createBoost({ page, transactions, api }),
-      stake: createStake({ page, transactions, user }),
       burn: createBurn({ page, transactions, helpers }),
       unboost: createUnboost({ page, transactions, api }),
       mint: createMint({ page, transactions, helpers, user }),
+      stake: createStake({ page, transactions, user, helpers }),
     },
 
     mocks: {
