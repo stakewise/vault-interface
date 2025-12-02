@@ -29,7 +29,7 @@ const fetchData = async ({ sdk, withTime, vaultAddress }: Input) => {
   ])
 
   const chainId = sdk.config.network.chainId
-  const isGnosis = chainId === Network.Gnosis || chainId === Network.Chiado
+  const isGnosis = chainId === Network.Gnosis
   const isEthereum = chainId === Network.Mainnet || chainId === Network.Hoodi
 
   const isEditableInGnosis = isGnosis && versions.version >= 3

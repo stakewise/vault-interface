@@ -33,7 +33,6 @@ const rabby = {
   networks: [
     Network.Mainnet,
     Network.Gnosis,
-    Network.Chiado,
     Network.Hoodi,
   ] as ChainIds[],
   location: [ 'desktop' ] as Location,

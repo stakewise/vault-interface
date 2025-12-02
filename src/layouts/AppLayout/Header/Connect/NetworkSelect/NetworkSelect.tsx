@@ -20,10 +20,7 @@ const networkOptions = Object.values(supportedChains)
       return acc
     }
 
-    const isGnosis = (
-      config.id === chains.gnosis.id
-      || config.id === chains.chiado.id
-    )
+    const isGnosis = config.id === chains.gnosis.id
 
     const logo = isGnosis ? 'token/GNO' : 'token/ETH'
 

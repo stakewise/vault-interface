@@ -6,7 +6,6 @@ type Ids = keyof typeof supportedConfigs
 // TODO This is the only link between config/core and the SDK to keep the correct ids. But it will have to be removed
 const supportedConfigs = {
   [sdkChains.gnosis.id]: sdkChains.gnosis,
-  [sdkChains.chiado.id]: sdkChains.chiado,
   [sdkChains.mainnet.id]: sdkChains.mainnet,
   [sdkChains.hoodi.id]: sdkChains.hoodi,
 } as const

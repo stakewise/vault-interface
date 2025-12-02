@@ -33,7 +33,6 @@ const okx = {
   networks: [
     Network.Mainnet,
     Network.Gnosis,
-    Network.Chiado,
     Network.Hoodi,
   ] as ChainIds[],
   location: [ 'desktop', 'mobile' ] as Location,
