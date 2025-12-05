@@ -41,7 +41,6 @@ const ledger = {
   networks: [
     Network.Mainnet,
     Network.Gnosis,
-    Network.Chiado,
     Network.Hoodi,
   ] as ChainIds[],
   location: IS_LIGHTWEIGHT_MODE

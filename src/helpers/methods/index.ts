@@ -9,6 +9,7 @@ import getHostName from './getHostName'
 import getGasMargin from './getGasMargin'
 import getFiatValue from './getFiatValue'
 import downloadFile from './downloadFile'
+import insertMockE2E from './insertMockE2E'
 import shortenAddress from './shortenAddress'
 import fetchWithRetry from './fetchWithRetry'
 import formatFiatValue from './formatFiatValue'
@@ -33,6 +34,7 @@ export {
   getGasMargin,
   getFiatValue,
   downloadFile,
+  insertMockE2E,
   shortenAddress,
   fetchWithRetry,
   fetchFiatRates,

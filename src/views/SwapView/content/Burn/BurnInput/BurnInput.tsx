@@ -28,7 +28,7 @@ const BurnInput: React.FC = () => {
           values: { mintToken: sdk.config.tokens.mintToken },
         },
       }}
-      dataTestId="mint-amount-input"
+      dataTestId="amount-input"
       onMaxButtonClick={address ? onMaxButtonClick : undefined}
     />
   )

@@ -25,7 +25,6 @@ const dAppBrowser = {
   networks: [
     Network.Mainnet,
     Network.Gnosis,
-    Network.Chiado,
     Network.Hoodi,
   ] as ChainIds[],
   location: [ 'mobile' ] as Location,

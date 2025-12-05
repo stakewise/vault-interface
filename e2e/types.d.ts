@@ -2,12 +2,15 @@ import type { BrowserContext, Page, TestFixture } from '@playwright/test'
 import type { GUI } from '@guardianui/test/dist/models/GUI'
 
 import type {
+  ApiFixture,
   SDKFixture,
+  UserFixture,
   SwapFixture,
   QueueFixture,
+  VaultFixture,
   AnvilFixture,
   WalletFixture,
-  RewardsFixture,
+  OsTokenFixture,
   ElementFixture,
   HelpersFixture,
   GraphqlFixture,
@@ -24,12 +27,15 @@ declare global {
     interface ExtendedTest {
       gui: GUI
       page: Page
+      api: ApiFixture
       sdk: SDKFixture
+      user: UserFixture
       swap: SwapFixture
       queue: QueueFixture
+      vault: VaultFixture
       anvil: AnvilFixture
       wallet: WalletFixture
-      rewards: RewardsFixture
+      osToken: OsTokenFixture
       context: BrowserContext
       element: ElementFixture
       helpers: HelpersFixture

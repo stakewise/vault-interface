@@ -6,11 +6,11 @@ test.beforeEach(async ({ gui, guardian }) => {
   await gui.initializeChain(1)
 })
 
-test('Enabled claim', async ({ wallet, swap, graphql, queue }) => {
+test('Enabled claim', async ({ wallet, swap, queue, user }) => {
   await swap.openPage()
 
-  const { exitedAssets, totalAssets } = await graphql.mockExitQueue({ isClaimable: true })
-  const { exitingShares, exitingRewards } = await swap.mockPosition({ isClaimable: true })
+  const { exitedAssets, totalAssets } = await user.setUnstakeQueue({ isClaimable: true })
+  const { exitingShares, exitingRewards } = await swap.mocks.position({ isClaimable: true })
 
   await wallet.connectWithBalance({ ETH: '10' })
   await swap.tab('balance')
@@ -28,11 +28,11 @@ test('Enabled claim', async ({ wallet, swap, graphql, queue }) => {
   })
 })
 
-test('Disabled claim', async ({ wallet, swap, graphql, queue }) => {
+test('Disabled claim', async ({ wallet, swap, user, queue }) => {
   await swap.openPage()
 
-  const { exitedAssets, totalAssets } = await graphql.mockExitQueue({ isClaimable: false })
-  const { exitingShares, exitingRewards } = await swap.mockPosition({ isClaimable: false })
+  const { exitingShares, exitingRewards } = await swap.mocks.position({ isClaimable: false })
+  const { exitedAssets, totalAssets } = await user.setUnstakeQueue({ isClaimable: false })
 
   await wallet.connectWithBalance({ ETH: '10' })
   await swap.tab('balance')
@@ -52,6 +52,7 @@ test('Disabled claim', async ({ wallet, swap, graphql, queue }) => {
 
 test('Chart', async ({ swap, page, element }) => {
   await swap.openPage()
+
   await swap.tab('balance')
   await page.getByTestId('statistics-button').click()
 
@@ -61,18 +62,20 @@ test('Chart', async ({ swap, page, element }) => {
 
   await element.checkVisibility({ testId: 'stake-user-stats-chart-tab', isVisible: false })
   await element.checkVisibility({ testId: 'vault-stats-chart-tab' })
-  await element.checkVisibility({ testId: 'stake-chart-Vault-rewards' })
+  await element.checkVisibility({ testId: 'stake-chart-vault-rewards' })
 })
 
-test('Export rewards', async ({ wallet, swap, graphql, rewards, page }) => {
-  await swap.mockPosition({ isClaimable: false })
-
+test('Export rewards', async ({ wallet, swap, user, page }) => {
   await swap.openPage()
+
+  await swap.mocks.position({ isClaimable: false })
+
   await wallet.connectWithBalance({ ETH: '10' })
   await swap.tab('balance')
 
-  await graphql.mockUserRewards()
+  await user.setUserStats()
+
   await page.getByTestId('statistics-button').click()
 
-  await rewards.checkExport()
+  await user.checkExportRewards()
 })

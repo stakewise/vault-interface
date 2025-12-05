@@ -1,6 +1,7 @@
 import { useCallback, useMemo } from 'react'
 import { useActions, useMountedRef } from 'hooks'
 import { useConfig } from 'config'
+import { requests } from 'helpers'
 
 
 const useUserChartStats = (vaultAddress: string) => {
@@ -13,9 +14,10 @@ const useUserChartStats = (vaultAddress: string) => {
       if (address) {
         actions.vault.user.rewards.setFetching(true)
 
-        const data = await sdk.vault.getUserStats({
-          daysCount,
+        const data = await requests.user.fetchUserRewards({
+          sdk,
           vaultAddress,
+          days: daysCount,
           userAddress: address,
         })
 

@@ -27,14 +27,6 @@ const addresses = {
       vaultRelayer: '0xc92e8bdf79f0507f65a392b0ab4667716bfe0110',
     },
   },
-  [Network.Chiado]: {
-    base: {
-      merkleDistributorV2: '0xd0747320d5457256D0203dfe61209Afbb90d22D7',
-    },
-    cow: {
-      vaultRelayer: ZeroAddress,
-    },
-  },
 }
 
 

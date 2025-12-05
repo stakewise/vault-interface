@@ -1,6 +1,6 @@
 import { useCallback } from 'react'
-import { constants } from 'helpers'
 import { useConfig } from 'config'
+import { constants, methods } from 'helpers'
 
 
 type Input = {
@@ -8,11 +8,24 @@ type Input = {
   userAddress: string
 }
 
+type Output = Pick<Store['vault']['user']['balances'],
+  'stakedAssets'
+  | 'totalEarnedAssets'
+  | 'totalStakeEarnedAssets'
+  | 'totalBoostEarnedAssets'
+>
+
 const useStake = () => {
   const { sdk } = useConfig()
 
   return useCallback(async (values: Input) => {
     try {
+      const mockE2E = methods.insertMockE2E<Output>('user/balances/setStakeBalance')
+
+      if (mockE2E) {
+        return mockE2E
+      }
+
       const {
         assets,
         totalEarnedAssets,

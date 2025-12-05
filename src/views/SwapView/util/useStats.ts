@@ -1,5 +1,6 @@
 import { useCallback, useEffect } from 'react'
 import { useObjectState } from 'hooks'
+import { StakeWiseSDK } from 'sdk'
 import { useConfig } from 'config'
 import { methods } from 'helpers'
 
@@ -8,6 +9,8 @@ type State = {
   tvl: string
   isStatsFetching: boolean
 }
+
+type Stats = Awaited<ReturnType<StakeWiseSDK['utils']['getStakewiseStats']>>
 
 const useStats = () => {
   const { sdk } = useConfig()
@@ -19,7 +22,9 @@ const useStats = () => {
 
   const fetchStats = useCallback(async () => {
     try {
-      const stats = await sdk.utils.getStakewiseStats()
+      const mockE2E = methods.insertMockE2E<Stats>('fixtures/swap/mocks/swapStats')
+
+      const stats = mockE2E ? mockE2E : await sdk.utils.getStakewiseStats()
 
       const token = sdk.config.tokens.depositToken
       const value = methods.formatTokenValue(BigInt(stats.totalAssets))

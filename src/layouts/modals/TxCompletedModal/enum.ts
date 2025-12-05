@@ -9,4 +9,5 @@ export enum Action {
   Redeemed = 'redeemed',
   ExitQueue = 'exitQueue',
   ClaimReward = 'claimReward',
+  ExitingReward = 'exitingReward',
 }

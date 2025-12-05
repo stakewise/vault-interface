@@ -1,6 +1,7 @@
 import { useCallback } from 'react'
 import { initialState } from 'store/store/vault'
 import { useConfig } from 'config'
+import { methods } from 'helpers'
 
 
 type Input = {
@@ -8,14 +9,20 @@ type Input = {
   userAddress: string
 }
 
+type Output = Store['vault']['user']['balances']['boost']
+
 const useBoost = () => {
   const { sdk } = useConfig()
 
   return useCallback(async (values: Input) => {
     try {
-      const response = await sdk.boost.getData(values)
+      const mockE2E = methods.insertMockE2E<Output>('user/balances/setBoostData')
 
-      const result: Store['vault']['user']['balances']['boost'] = response
+      if (mockE2E) {
+        return mockE2E
+      }
+
+      const result: Output = await sdk.boost.getData(values)
 
       return result
     }

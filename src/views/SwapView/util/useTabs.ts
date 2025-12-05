@@ -10,7 +10,6 @@ import { Tab } from './enum'
 
 type State = {
   tab: Tab
-  list: SwapView.Tabs.Data['list']
   isReversed: boolean
 }
 
@@ -22,53 +21,53 @@ export const tabsMock: SwapView.Tabs.Data = {
 }
 
 const storeSelector = (store: Store) => ({
-  isMoreV2: store.vault.base.data.versions.isMoreV2,
+  version: store.vault.base.data.versions.version,
   isMintTokenDisabled: store.vault.user.balances.mintToken.isDisabled,
 })
 
 const useTabs = (resetFields: () => void) => {
   const { isEthereum } = useConfig()
 
-  const { isMoreV2, isMintTokenDisabled } = useStore(storeSelector)
+  const { isMintTokenDisabled, version } = useStore(storeSelector)
 
   const withMint = !isMintTokenDisabled
+  const isMoreV2 = version >= 2
   const withBoost = withMint && isEthereum && isMoreV2
   const withToggleButton = withMint || withBoost
 
-  const [ { tab, list }, setState ] = useObjectState<State>({
+  const [ { tab, isReversed }, setState ] = useObjectState<State>({
     tab: Tab.Stake,
     isReversed: false,
-    list: getTabsList({ withMint, withBoost, isReversed: false }),
   })
 
-  const getCurrentIndex = useCallback((state: State) => {
-    const { tab, list } = state
-
-    return list.map(({ id }) => id).indexOf(tab)
-  }, [])
+  const list = useMemo(() => getTabsList({ withMint, withBoost, isReversed }),
+    [ withMint, withBoost, isReversed ]
+  )
 
   const setTab = useCallback((tab: Tab) => {
     const isValid = Object.values(Tab).includes(tab)
 
-    if (isValid) {
-      setState((state) => {
-        const isExists = Boolean(state.list.some(({ id }) => id === tab))
-
-        if (!isExists) {
-          console.error(`Invalid tab "${tab}", on list:`, state.list)
-
-          return state
-        }
-
-        resetFields()
-
-        return {
-          ...state,
-          tab,
-        }
-      })
+    if (!isValid) {
+      return
     }
-  }, [ setState, resetFields ])
+
+    setState((state) => {
+      const isExists = list.some(({ id }) => id === tab)
+
+      if (!isExists) {
+        console.error(`Invalid tab "${tab}", on list:`, list)
+
+        return state
+      }
+
+      resetFields()
+
+      return {
+        ...state,
+        tab,
+      }
+    })
+  }, [ setState, resetFields, list ])
 
   const toggleTabs = useCallback(() => {
     setState((state) => {
@@ -76,23 +75,39 @@ const useTabs = (resetFields: () => void) => {
         const list = getTabsList({ withMint, withBoost, isReversed: false })
 
         return {
-          list,
+          ...state,
           tab: list[0].id,
           isReversed: false,
         }
       }
 
-      const isReversed = !state.isReversed
-      const list = getTabsList({ withMint, withBoost, isReversed })
-      const index = getCurrentIndex(state)
+      const nextIsReversed = !state.isReversed
+
+      const currentList = getTabsList({
+        withMint,
+        withBoost,
+        isReversed: state.isReversed,
+      })
+
+      const nextList = getTabsList({
+        withMint,
+        withBoost,
+        isReversed: nextIsReversed,
+      })
+
+      const currentIndex = currentList
+        .map(({ id }) => id)
+        .indexOf(state.tab)
+
+      const safeIndex = currentIndex === -1 ? 0 : currentIndex
 
       return {
-        list,
-        isReversed,
-        tab: list[index].id,
+        ...state,
+        isReversed: nextIsReversed,
+        tab: nextList[safeIndex].id,
       }
     })
-  }, [ withBoost, withMint, withToggleButton, getCurrentIndex, setState ])
+  }, [ withBoost, withMint, withToggleButton, setState ])
 
   const resetTab = useCallback((chainId: ChainIds) => {
     const isEth = chainId === Network.Mainnet || chainId === Network.Hoodi
@@ -101,7 +116,6 @@ const useTabs = (resetFields: () => void) => {
     const list = getTabsList({ withMint, withBoost: nextWithBoost, isReversed: false })
 
     setState({
-      list,
       tab: list[0].id,
       isReversed: false,
     })

@@ -24,15 +24,16 @@ jobs:
 
       - name: Checkout 🛎️
         uses: actions/checkout@v2
+        if: ${{ steps.preview.outputs.deployment_state != 'CANCELED' }}
 
       - name: Restore Node Modules
         id: cache-restore
         uses: actions/cache@v3
         with:
-          cache: npm
-          node-version: '22.14.0'
-          cache-dependency-path: 'package-lock.json'
+          path: |
+            node_modules
           key: node_modules_${{ hashFiles('package-lock.json') }}
+        if: ${{ steps.preview.outputs.deployment_state != 'CANCELED' }}
 
       - name: Setup node and npm
         uses: actions/setup-node@v3
@@ -40,12 +41,14 @@ jobs:
           cache: npm
           node-version: '22.14.0'
           cache-dependency-path: 'package-lock.json'
+        if: ${{ steps.preview.outputs.deployment_state != 'CANCELED' }}
 
       - name: Install npm dependencies
         run: 'npm ci --ignore-scripts || npm i --ignore-scripts --force'
         shell: bash
         env:
           NODE_AUTH_TOKEN: ${{ github.token }}
+        if: ${{ steps.preview.outputs.deployment_state != 'CANCELED' }}
 
       - name: Awaiting WEB deployment to be ready
         uses: UnlyEd/github-action-await-vercel@v1.1.1
@@ -54,9 +57,11 @@ jobs:
         with:
           deployment-url: ${{ steps.preview.outputs.preview_url }}
           timeout: 600
+        if: ${{ steps.preview.outputs.deployment_state != 'CANCELED' }}
 
       - name: Install Foundry
         uses: foundry-rs/foundry-toolchain@v1
+        if: ${{ steps.preview.outputs.deployment_state != 'CANCELED' }}
 
       - name: Run tests
         env:
@@ -68,11 +73,7 @@ jobs:
           GUARDIAN_UI_ALCHEMY_API_KEY: ${{ secrets.GUARDIAN_UI_ALCHEMY_API_KEY }}
           VERCEL_AUTOMATION_BYPASS_SECRET: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}
         run: npm run e2e
-
-      - name: Sanitize reports before upload
-        if: ${{ failure() }}
-        run: |
-          find ./playwright-report/ -name "*.html" -exec sed -i 's/${{ secrets.[A-Z_]* }}/***/g' {} \;
+        if: ${{ steps.preview.outputs.deployment_state != 'CANCELED' }}
 
       - uses: actions/upload-artifact@v4
         if: ${{ failure() }}

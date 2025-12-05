@@ -1,5 +1,5 @@
 import { useCallback } from 'react'
-import { modifiers } from 'helpers'
+import { modifiers, methods } from 'helpers'
 import { useConfig } from 'config'
 import { StakeWiseSDK } from 'sdk'
 import forms from 'modules/forms'
@@ -53,10 +53,11 @@ const useRewards = (input: Input) => {
         dateFrom: fromInMs,
       }
 
-      const data: FetcherReturn = await sdk.vault.getUserRewards({
-        ...params,
-        vaultAddress,
-      })
+      const mockE2E = methods.insertMockE2E<FetcherReturn>('user/setUserRewards')
+
+      const data: FetcherReturn = mockE2E
+        ? mockE2E
+        : await sdk.vault.getUserRewards({ ...params, vaultAddress })
 
       const response = data.map((values) => {
         const {

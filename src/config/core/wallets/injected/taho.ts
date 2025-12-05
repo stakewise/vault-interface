@@ -32,8 +32,7 @@ const taho = {
   activationMessage: messages.authMessages.waitingAuth,
   networks: [
     Network.Mainnet,
-    Network.Gnosis,
-    Network.Chiado,
+    Network.Gnosis, ,
     Network.Hoodi,
   ] as ChainIds[],
   location: [ 'desktop' ] as Location,

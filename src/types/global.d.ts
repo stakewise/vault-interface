@@ -11,7 +11,7 @@ declare global {
 
   type SDK = StakeWiseSDK
   type Library = StakeWise.Provider
-  type ChainIds = 1 | 100 | 10200 | 560048
+  type ChainIds = 1 | 100 | 560048
   type GenerateMetadata<T = {}> = (props: { params: T & { locale: Intl.LanguagesKeys }}) => Promise<Metadata>
 
   interface Window {

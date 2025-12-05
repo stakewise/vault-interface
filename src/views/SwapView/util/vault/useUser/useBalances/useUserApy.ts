@@ -1,6 +1,7 @@
 import { useCallback } from 'react'
 import { initialState } from 'store/store/vault'
 import { useConfig } from 'config'
+import { methods } from 'helpers'
 
 
 type Input = {
@@ -15,6 +16,12 @@ const useUserApy = () => {
     const { userAddress, vaultAddress } = values
 
     try {
+      const mockE2E = methods.insertMockE2E<Promise<number>>('user/balances/setUserApy')
+
+      if (mockE2E) {
+        return mockE2E
+      }
+
       const userAPY = await sdk.vault.getUserApy({
         userAddress,
         vaultAddress,

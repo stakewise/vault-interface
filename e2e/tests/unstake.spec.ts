@@ -1,10 +1,7 @@
 import { expect } from '@playwright/test'
 
-import * as constants from '../constants'
 import test from '../extendTest'
 
-
-const format = (value: string) => Number(value.replace(/[^\d.]/g, ''))
 
 test.beforeEach(async ({ gui, guardian }) => {
   await guardian.fixProvider()
@@ -14,16 +11,17 @@ test.beforeEach(async ({ gui, guardian }) => {
 test('Connect button', async ({ swap }) => {
   await swap.openPage()
   await swap.tab('unstake', true)
-  await swap.checkConnectButton()
+  await swap.helpers.checkConnectButton()
 })
 
-test('Max balance', async ({ swap, wallet, graphql }) => {
-  const amount = '10'
+test('Max balance', async ({ swap, wallet }) => {
+  const stakeAmount = '10'
 
   await swap.openPage()
 
-  await graphql.mockAllocatorsData(amount)
-  await wallet.connectWithBalance({ ETH: amount })
+  await wallet.connectWithBalance({ ETH: '50' })
+
+  await swap.setSdkTransactions({ deposit: stakeAmount })
 
   await swap.tab('unstake', true)
 
@@ -31,109 +29,71 @@ test('Max balance', async ({ swap, wallet, graphql }) => {
 
   const value = await swap.input.value()
 
-  expect(value).toEqual(amount)
+  expect(value).toEqual(stakeAmount)
 })
 
-test('Unstake info', async ({ wallet, swap, graphql, page, sdk }) => {
-  const initialETH = '25'
-  const depositETH = '20'
+test('Unstake info', async ({ wallet, swap, user }) => {
+  const stakeAmount = '10'
+  const userAPY = 5
 
   await swap.openPage()
-  await wallet.connectWithBalance({ ETH: initialETH })
 
-  await sdk.deposit({
-    vaultAddress: constants.genesisAddress.mainnet,
-    assets: depositETH,
-  })
+  await wallet.connectWithBalance({ ETH: '50' })
 
-  await graphql.mockAllocatorsData(depositETH)
-  await page.reload()
-  await page.waitForLoadState('networkidle')
+  await user.balances.setUserApy(userAPY)
+
+  await swap.setSdkTransactions({ deposit: stakeAmount })
 
   await swap.tab('unstake', true)
 
-  await swap.input.fill()
+  await swap.input.fill('5')
 
-  const getPositionInfoItem = async (type: string) => {
-    const selector = await page.waitForSelector(`[data-testid="position-${type}"]`)
-    const value = await selector.textContent()
-
-    return value || ''
-  }
+  const value = await swap.input.value()
 
   const [
-    unstakeToken,
-    assetsNext,
-    apy,
-    gas,
+    stakeToken,
+    apyPrev,
+    apyNext,
+    assetPrev,
+    assetNext,
+    unstakeQueue,
   ] = await Promise.all([
     swap.input.token(),
-    getPositionInfoItem('assets-next'),
-    getPositionInfoItem('apy-next'),
-    getPositionInfoItem('value-prev'),
+    swap.helpers.getSwapInfoItem('apy-prev'),
+    swap.helpers.getSwapInfoItem('apy-next'),
+    swap.helpers.getSwapInfoItem('asset-prev'),
+    swap.helpers.getSwapInfoItem('asset-next'),
+    swap.helpers.getSwapInfoItem('unstake-queue'),
   ])
 
-  expect(format(assetsNext)).toEqual(0)
-  expect(unstakeToken).toBe('ETH')
-  expect(format(apy.replace(/.*=/, ''))).toBeGreaterThan(0)
-  expect(format(gas)).toBeGreaterThanOrEqual(0)
+  expect(stakeToken).toBe('ETH')
+  expect(parseFloat(apyPrev)).toEqual(userAPY)
+  expect(parseFloat(apyNext)).toBeLessThan(userAPY)
+  expect(parseFloat(assetPrev)).toEqual(Number(stakeAmount))
+  expect(parseFloat(assetNext)).toEqual(Number(value))
+  expect(parseFloat(unstakeQueue)).toEqual(Number(value))
 })
 
-test('Unstake', async ({ wallet, swap, graphql, page, sdk, transactions }) => {
-  const initialETH = '25'
-  const depositETH = '20'
-
+test('Unstake info after mint', async ({ wallet, swap }) => {
   await swap.openPage()
-  await wallet.connectWithBalance({ ETH: initialETH })
+  await wallet.connectWithBalance({ ETH: '50' })
 
-  await sdk.deposit({
-    vaultAddress: constants.genesisAddress.mainnet,
-    assets: depositETH,
-  })
-
-  await graphql.mockAllocatorsData(depositETH)
-  await page.reload()
-  await page.waitForLoadState('networkidle')
-
-  await swap.tab('unstake', true)
-
-  await swap.submitAmount()
-
-  await page.waitForSelector('text=Processing transaction')
-  await graphql.mockTransaction()
-
-  await transactions.checkTxCompletedModal({
-    action: 'exitQueue',
-    value: depositETH,
-  })
-})
-
-test('Unstake after mint', async ({ wallet, swap, graphql, page, sdk }) => {
-  const initialETH = '25'
-  const depositETH = '20'
-  const mintETH = '5'
-
-  await swap.openPage()
-  await wallet.connectWithBalance({ ETH: initialETH })
-
-  await sdk.deposit({
-    vaultAddress: constants.genesisAddress.mainnet,
-    assets: depositETH,
-  })
-
-  await sdk.mint({
-    vaultAddress: constants.genesisAddress.mainnet,
-    assets: mintETH,
-  })
-
-  await graphql.mockAllocatorsData(depositETH)
-  await page.reload()
-  await page.waitForLoadState('networkidle')
+  await swap.setSdkTransactions({ deposit: '20', mint: '5' })
 
   await swap.tab('unstake', true)
 
   await swap.input.fill()
+
   const value = await swap.input.value()
 
   expect(Math.round(Number(value))).toEqual(15)
+})
+
+test('Unstake', async ({ wallet, swap }) => {
+  await swap.openPage()
+  await wallet.connectWithBalance({ ETH: '50' })
+
+  await swap.setSdkTransactions({ deposit: '20' })
+
+  await swap.actions.unstake()
 })
