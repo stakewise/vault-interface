@@ -73,12 +73,14 @@ const validateEnv = () => {
     errors.push('Add a valid network URL to the "NEXT_PUBLIC_GNOSIS_NETWORK_URL" variable')
   }
   if (isVaultAddressMissed) {
+    // eslint-disable-next-line max-len
     errors.push('Add a valid vault address to at least one of the following networks: "NEXT_PUBLIC_MAINNET_VAULT_ADDRESS", "NEXT_PUBLIC_GNOSIS_VAULT_ADDRESS"')
   }
   if (!envList.NEXT_PUBLIC_LOCALES?.length) {
     errors.push(`Add at least one locale to the "NEXT_PUBLIC_LOCALES" variable. Available locales: ${availableLocales.join(', ')}`)
   }
   if (!envList.NEXT_PUBLIC_CURRENCIES?.length) {
+    // eslint-disable-next-line max-len
     errors.push(`Add at least one currency to the "NEXT_PUBLIC_CURRENCIES" variable. Available currencies: ${availableCurrencies.join(', ')}`)
   }
 

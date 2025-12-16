@@ -15,7 +15,7 @@ const saveErrorUrlToSessionStorage = (input: Input): void => {
 
   const record: ErrorRecord = {
     url: baseUrl,
-    expiresAt: Date.now() + expireTime
+    expiresAt: Date.now() + expireTime,
   }
 
   localStorage.setSessionItem(sessionErrorUrl, record)

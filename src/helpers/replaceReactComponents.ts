@@ -66,7 +66,7 @@ export const getComponentChildren = (message: string): string | undefined => {
 
   // <Link to="/">bar</Link>
   // complex regex to be sure that value be matched properly even if the content is "< apple>banana<grape>"
-  return message.match(new RegExp(`<\\s*${componentName}[^>]+?>(.*)<\/\\s*${componentName}\\s*>`))?.[1]
+  return message.match(new RegExp(`<\\s*${componentName}[^>]+?>(.*)</\\s*${componentName}\\s*>`))?.[1]
 }
 
 export const createComponent = (message: string, components: Record<string, any>): React.ReactElement | undefined => {
@@ -111,7 +111,7 @@ const replaceReactComponents = (message: string, components: Record<string, Reac
   const compoRegexStr = componentNames.join('|') // Link|Icon|Button
   const elementRegexStr = elementNames.join('|') // span|div|br|a
   const splitRegexStr = `${componentNames}|${elementRegexStr}` // Link|Icon|Button|span|div|br|a
-  const splitRegex = new RegExp(`(<\\s*(?:${splitRegexStr})(?:[^>]+?\/>|.+?(?:${splitRegexStr}\\s*)>))`, 'g')
+  const splitRegex = new RegExp(`(<\\s*(?:${splitRegexStr})(?:[^>]+?/>|.+?(?:${splitRegexStr}\\s*)>))`, 'g')
 
   const messageArr = message.split(splitRegex)
   const componentRegExp = new RegExp(`<(${compoRegexStr})`)
