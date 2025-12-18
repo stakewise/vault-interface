@@ -2,19 +2,16 @@
   "compilerOptions": {
     "baseUrl": ".",
     "strict": true,
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     "rootDir": ".",
     "allowJs": true,
     "outDir": "dist",
     "sourceMap": true,
     "target": "esnext",
     "module": "esnext",
-    "declaration": true,
     "skipLibCheck": true,
-    "declarationMap": true,
     "esModuleInterop": true,
     "isolatedModules": true,
-    "declarationDir": "dist",
     "resolveJsonModule": true,
     "moduleResolution": "node",
     "noEmit": true,
@@ -22,14 +19,14 @@
     "forceConsistentCasingInFileNames": true,
     "paths": {
       "*": [
-        "src/*",
+        "src/*"
       ],
       "scripts/*": [
         "scripts/*"
       ],
       "sdk": [
         "node_modules/@stakewise/v3-sdk"
-      ],
+      ]
     },
     "lib": [
       "dom",
@@ -49,10 +46,11 @@
     "src/**/*.tsx",
     "src/**/*.d.ts",
     "e2e/**/*.d.ts",
-    ".next/types/**/*.ts"
+    ".next/types/**/*.ts",
+    ".next/dev/types/**/*.ts"
   ],
   "exclude": [
     "node_modules",
-    ".next",
+    ".next"
   ]
 }

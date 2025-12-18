@@ -35,7 +35,7 @@ const baseTest = base.extend<E2E.ExtendedTest>({
   settings,
   guardian,
   transactions,
-})
+} as any)
 
 const formatTime = (milliseconds: number) => {
   const totalSeconds = Math.floor(milliseconds / 1000)
