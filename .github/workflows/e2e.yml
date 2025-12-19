@@ -36,7 +36,7 @@ jobs:
 
       - name: Setup Node.js
         if: ${{ steps.preview.outputs.deployment_state != 'CANCELED' }}
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: '24.12.0'
           cache: pnpm
