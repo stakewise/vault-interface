@@ -45,7 +45,6 @@ jobs:
       - name: Install dependencies
         if: ${{ steps.preview.outputs.deployment_state != 'CANCELED' }}
         run: |
-          pnpm config set store-dir ~/.pnpm-store
           pnpm install --frozen-lockfile --ignore-scripts
         env:
           NODE_AUTH_TOKEN: ${{ github.token }}
