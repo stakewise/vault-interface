@@ -59,6 +59,17 @@ jobs:
         if: ${{ steps.preview.outputs.deployment_state != 'CANCELED' }}
         run: pnpm exec playwright install --with-deps
 
+      - name: Install Foundry
+        if: ${{ steps.preview.outputs.deployment_state != 'CANCELED' }}
+        uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: nightly
+          cache: true
+
+      - name: Check anvil installed
+        if: ${{ steps.preview.outputs.deployment_state != 'CANCELED' }}
+        run: anvil --version
+
       - name: Run tests
         if: ${{ steps.preview.outputs.deployment_state != 'CANCELED' }}
         env:
