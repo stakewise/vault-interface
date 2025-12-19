@@ -7,10 +7,12 @@ on:
 jobs:
   e2e:
     name: E2E testing
-    runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: read
+    runs-on: ubuntu-latest
+
+    container: mcr.microsoft.com/playwright:v1.52.0-jammy
 
     steps:
       - name: Get preview link
@@ -21,17 +23,14 @@ jobs:
         with:
           vercel_team_id: ${{ secrets.VERCEL_ORG_ID }}
           vercel_project_id: ${{ secrets.VERCEL_PROJ_ID }}
-
       - name: Checkout 🛎️
         if: ${{ steps.preview.outputs.deployment_state != 'CANCELED' }}
         uses: actions/checkout@v4
-
       - name: Setup pnpm
         if: ${{ steps.preview.outputs.deployment_state != 'CANCELED' }}
         uses: pnpm/action-setup@v4
         with:
           version: 10.25.0
-
       - name: Setup Node.js
         if: ${{ steps.preview.outputs.deployment_state != 'CANCELED' }}
         uses: actions/setup-node@v4
@@ -39,10 +38,20 @@ jobs:
           node-version: '24.12.0'
           cache: pnpm
           cache-dependency-path: pnpm-lock.yaml
+      - name: Setup pnpm store cache
+        if: ${{ steps.preview.outputs.deployment_state != 'CANCELED' }}
+        uses: actions/cache@v4
+        with:
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
 
       - name: Install dependencies
         if: ${{ steps.preview.outputs.deployment_state != 'CANCELED' }}
-        run: pnpm install --frozen-lockfile
+        run: |
+          pnpm config set store-dir ~/.pnpm-store
+          pnpm install --frozen-lockfile --ignore-scripts
         env:
           NODE_AUTH_TOKEN: ${{ github.token }}
 
@@ -55,16 +64,9 @@ jobs:
           deployment-url: ${{ steps.preview.outputs.preview_url }}
           timeout: 600
 
-      - name: Install Playwright browsers
-        if: ${{ steps.preview.outputs.deployment_state != 'CANCELED' }}
-        run: pnpm exec playwright install --with-deps
-
-      - name: Install Foundry (anvil)
+      - name: Install Foundry
         if: ${{ steps.preview.outputs.deployment_state != 'CANCELED' }}
         uses: foundry-rs/foundry-toolchain@v1
-        with:
-          version: nightly
-          components: anvil
 
       - name: Run tests
         if: ${{ steps.preview.outputs.deployment_state != 'CANCELED' }}
