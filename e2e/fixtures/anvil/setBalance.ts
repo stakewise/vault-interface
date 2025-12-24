@@ -1,5 +1,4 @@
-import { Contract, BaseContract } from 'ethers'
-import { JsonRpcProvider } from 'ethers'
+import { Contract, BaseContract, JsonRpcProvider } from 'ethers'
 
 
 type Wrapper = E2E.FixtureMethod<SetBalance, 'page'>

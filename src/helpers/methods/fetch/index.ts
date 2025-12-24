@@ -31,7 +31,7 @@ const fetchMethod = <T = any>(
   if (/^\/api/.test(baseUrl)) {
     options.headers = {
       'cache-control': 'no-store',
-      ...(options.headers || {})
+      ...(options.headers || {}),
     }
   }
 

@@ -8,7 +8,7 @@ export const createGetBaseInfoItem: Wrapper = ({ page }) => (
   async (type: BaseInfoTypes) => {
     const value = await page.getByTestId(type).textContent()
 
-    const result = parseFloat(value?.replace(/\,/gm, '') || '')
+    const result = parseFloat(value?.replace(/,/gm, '') || '')
 
     return result
   }

@@ -15,7 +15,7 @@ const networkMiddleware = createNetworkMiddleware({
   middlewareFn: async () => null,
 })
 
-const middleware = async (request: NextRequest) => {
+const proxy = async (request: NextRequest) => {
   request.headers.set(constants.headerNames.pathname, request.nextUrl.pathname)
 
   const language = languageMiddleware(request)
@@ -38,4 +38,4 @@ export const config = {
 }
 
 
-export default middleware
+export default proxy
