@@ -34,7 +34,7 @@ const Settings: React.FC<SettingsProps> = ({ className }) => {
                 key={index}
                 dataTestId={dataTestId}
                 placement={position as MenuDropdownProps['placement']}
-                button={(
+                button={() => (
                   <Button
                     className="rounded-full"
                     color="light"
@@ -59,7 +59,7 @@ const Settings: React.FC<SettingsProps> = ({ className }) => {
       className={className}
       options={settingsOptions}
       placement="bottom-end"
-      button={(
+      button={() => (
         <Button
           icon="icon/gear"
           color="light"

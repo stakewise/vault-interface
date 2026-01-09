@@ -43,19 +43,16 @@ const useTransactionsFlow = ({ flow, stepsData }: Input) => {
     transactions,
     setTransaction,
     resetTransactions,
-    setNextTransactionsFailed,
   } = Transactions.useLogic(flowSteps)
 
   return useMemo(() => ({
     transactions,
     setTransaction,
     resetTransactions,
-    setNextTransactionsFailed,
   }), [
     transactions,
     setTransaction,
     resetTransactions,
-    setNextTransactionsFailed,
   ])
 }
 

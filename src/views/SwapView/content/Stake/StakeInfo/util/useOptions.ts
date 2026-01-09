@@ -45,7 +45,7 @@ const useOptions = () => {
 
   const diff = userApy - newAPY
 
-  const selectedToken = stake.swapTokens.selected
+  const selectedToken = stake.swapTokens.sellToken
 
   const isFetching = receive.isFetching || isApyFetching
 

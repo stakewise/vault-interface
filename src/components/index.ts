@@ -137,7 +137,7 @@ export { default as Tooltip } from './Tooltip/Tooltip'
 export type { TooltipProps } from './Tooltip/Tooltip'
 
 export { default as Transactions } from './Transactions/Transactions'
-export type { SetTransaction, SetNextTransactionsFailed, StepsData } from './Transactions/types'
+export type { SetTransaction, StepsData } from './Transactions/types'
 export { TransactionStatus } from './Transactions/util'
 export type { Transaction } from './Transactions/util'
 export type { TransactionsProps } from './Transactions/Transactions'

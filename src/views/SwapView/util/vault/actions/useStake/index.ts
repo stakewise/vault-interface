@@ -1,13 +1,12 @@
 import { useMemo } from 'react'
-import { useStore } from 'hooks'
+import { useConfig } from 'config'
+import { useStore, swapHooks } from 'hooks'
 
 import vaultHooks from '../../index'
 
 import useStakeField from './useStakeField'
 import useStakeSubmit from './useStakeSubmit'
 import useStakeDisabled from './useStakeDisabled'
-import useStakeMaxAmount from './useStakeMaxAmount'
-import { useSwapTokens, useSwapQuote, useSwapActions } from './swap'
 
 
 type Input = {
@@ -21,15 +20,28 @@ const storeSelector = (store: Store) => ({
 const useStake = (values: Input) => {
   const { fetchAllUserData } = values
 
-  const swapTokens = useSwapTokens()
+  const { sdk, isTestnet, isEthereum } = useConfig()
   const { isBalancesFetching } = useStore(storeSelector)
+  const swapTokens = swapHooks.useTokens({
+    initialBuyToken: sdk.config.addresses.tokens.mintToken,
+    initialSellToken: isEthereum ? null : sdk.config.addresses.tokens.depositToken,
+  })
 
-  const {
-    swapFee,
-    isSwapQuoteFetching,
-    fetchQuote,
-    getSwappedDepositAmount,
-  } = useSwapQuote({ swapTokens })
+  const isSwapAvailable = Boolean(
+    !isTestnet
+    && (
+      isEthereum
+        ? swapTokens.sellToken.address
+        : swapTokens.sellToken.address !== sdk.config.addresses.tokens.depositToken
+    )
+  )
+
+  const { swapFee, isSwapFeeFetching, getSwappedDepositAmount } = swapHooks.useFee({
+    swapTokens,
+    skip: !isSwapAvailable,
+  })
+
+  const fetchQuote = swapHooks.useQuote({ swapTokens })
 
   const field = useStakeField({
     swapFee,
@@ -37,11 +49,7 @@ const useStake = (values: Input) => {
     getSwappedDepositAmount,
   })
 
-  const { swap, cancelSwap } = useSwapActions({
-    field,
-    swapTokens,
-    fetchQuote,
-  })
+  const { swap, cancelSwap } = swapHooks.useActions({ fetchQuote })
 
   const { submit, transactionPrice, isSubmitting, isAllowanceFetching } = useStakeSubmit({
     swapTokens,
@@ -52,12 +60,15 @@ const useStake = (values: Input) => {
   })
 
   const isStakeDisabled = useStakeDisabled({ field })
-  const maxStakeAmount = useStakeMaxAmount({ swapTokens, transactionPrice })
+  const maxStakeAmount = swapHooks.useMaxAmount({
+    token: swapTokens.sellToken,
+    transactionPrice,
+  })
 
   const isStakeLoading = (
     isSubmitting
+    || isSwapFeeFetching
     || isBalancesFetching
-    || isSwapQuoteFetching
     || isAllowanceFetching
   )
 
@@ -89,7 +100,7 @@ useStake.mock = {
   transactionPrice: 0n,
   isStakeLoading: false,
   isStakeDisabled: false,
-  swapTokens: useSwapTokens.mock,
+  swapTokens: swapHooks.useTokens.mock,
   field: {} as Forms.Field<bigint>,
   fetchQuote: () => ({}) as any,
   submit: () => Promise.resolve(),

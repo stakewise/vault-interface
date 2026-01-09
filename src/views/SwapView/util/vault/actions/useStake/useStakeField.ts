@@ -2,24 +2,22 @@ import { useRef, RefObject } from 'react'
 import { parseEther } from 'ethers'
 import { useConfig } from 'config'
 import forms from 'modules/forms'
-import { useStore } from 'hooks'
-
-import { useSwapTokens, useSwapQuote } from './swap'
+import { useStore, swapHooks } from 'hooks'
 
 import messages from './messages'
 
 
 type Input = {
   swapFee: bigint
-  swapTokens: ReturnType<typeof useSwapTokens>
-  getSwappedDepositAmount: ReturnType<typeof useSwapQuote>['getSwappedDepositAmount']
+  swapTokens: ReturnType<typeof swapHooks.useTokens>
+  getSwappedDepositAmount: ReturnType<typeof swapHooks.useFee>['getSwappedDepositAmount']
 }
 
 type CheckCapacityInput = RefObject<{
   capacity: string
   totalAssets: string
   depositToken: string
-  getSwappedDepositAmount: ReturnType<typeof useSwapQuote>['getSwappedDepositAmount']
+  getSwappedDepositAmount: ReturnType<typeof swapHooks.useFee>['getSwappedDepositAmount']
 }>
 
 const checkCapacity = (dataRef: CheckCapacityInput) => (value?: Forms.FieldValue) => {
@@ -64,7 +62,7 @@ const useStakeField = (values: Input) => {
   const { capacity, totalAssets } = useStore(storeSelector)
 
   const depositToken = sdk.config.tokens.depositToken
-  const maxBalance = address ? swapTokens.selected.balance : swapTokens.selected.emptyBalance
+  const maxBalance = address ? swapTokens.sellToken.balance : swapTokens.sellToken.emptyBalance
   const minBalance = swapFee / 100n * 120n
 
   const balanceRef = useRef(maxBalance)

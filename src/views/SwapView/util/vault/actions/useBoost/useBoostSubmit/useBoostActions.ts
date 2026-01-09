@@ -5,7 +5,7 @@ import { useConfig } from 'config'
 import { getters } from 'helpers'
 
 import Transactions from 'components/Transactions/Transactions'
-import type { SetTransaction, SetNextTransactionsFailed } from 'components/Transactions/types'
+import type { SetTransaction } from 'components/Transactions/types'
 import { Action, openTxCompletedModal } from 'layouts/modals/TxCompletedModal/TxCompletedModal'
 
 import vaultHooks from '../../../index'
@@ -41,19 +41,16 @@ type ApproveOrPermitInput = {
   userAddress: string
   vaultAddress: string
   setTransaction: SetTransaction
-  setNextTransactionsFailed: SetNextTransactionsFailed
 }
 
 type ApproveInput = {
   setTransaction: SetTransaction
-  setNextTransactionsFailed: SetNextTransactionsFailed
 }
 
 type UpgradeInput = {
   userAddress: string
   vaultAddress: string
   setTransaction: SetTransaction
-  setNextTransactionsFailed: SetNextTransactionsFailed
 }
 
 type PermitInput = {
@@ -61,7 +58,6 @@ type PermitInput = {
   vaultAddress: string
   spenderAddress: string
   setTransaction: SetTransaction
-  setNextTransactionsFailed: SetNextTransactionsFailed
 }
 
 type BoostInput = {
@@ -85,7 +81,7 @@ const useBoostActions = (values: Input) => {
   const { refetchMintTokenBalance, refetchNativeTokenBalance } = useBalances()
 
   const handleApprove = useCallback(async (values: ApproveInput) => {
-    const { setTransaction, setNextTransactionsFailed } = values
+    const { setTransaction } = values
 
     try {
       const hash = await approve()
@@ -97,7 +93,7 @@ const useBoostActions = (values: Input) => {
       setTransaction(BoostStep.Permit, Transactions.Status.Success)
     }
     catch (error) {
-      setNextTransactionsFailed(BoostStep.Permit)
+      setTransaction(BoostStep.Permit, Transactions.Status.Fail, true)
 
       return Promise.reject(error)
     }
@@ -117,7 +113,7 @@ const useBoostActions = (values: Input) => {
   }, [ sdk, address, vaultAddress ])
 
   const permit = useCallback(async (values: PermitInput) => {
-    const { userAddress, vaultAddress, spenderAddress, setTransaction, setNextTransactionsFailed } = values
+    const { userAddress, vaultAddress, spenderAddress, setTransaction } = values
 
     try {
       setTransaction(BoostStep.Permit, Transactions.Status.Confirm)
@@ -140,7 +136,7 @@ const useBoostActions = (values: Input) => {
       }
     }
     catch (error) {
-      setNextTransactionsFailed(BoostStep.Permit)
+      setTransaction(BoostStep.Permit, Transactions.Status.Fail, true)
 
       return Promise.reject(error)
     }
@@ -182,7 +178,7 @@ const useBoostActions = (values: Input) => {
   ])
 
   const approveOrPermit = useCallback(async (values: ApproveOrPermitInput) => {
-    const { amount, userAddress, vaultAddress, setTransaction, setNextTransactionsFailed } = values
+    const { amount, userAddress, vaultAddress, setTransaction } = values
 
     const isPermitRequired = amount > allowance
 
@@ -195,7 +191,6 @@ const useBoostActions = (values: Input) => {
       if (isMultiSig) {
         await handleApprove({
           setTransaction,
-          setNextTransactionsFailed,
         })
       }
       else {
@@ -204,7 +199,6 @@ const useBoostActions = (values: Input) => {
           userAddress,
           vaultAddress,
           setTransaction,
-          setNextTransactionsFailed,
         })
       }
     }

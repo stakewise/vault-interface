@@ -31,6 +31,7 @@ export const logos = [
   'token/lsETH',
   'token/stETH',
   'token/wbETH',
+  'token/wxDAI',
   'token/wstETH',
   'token/frxETH',
 

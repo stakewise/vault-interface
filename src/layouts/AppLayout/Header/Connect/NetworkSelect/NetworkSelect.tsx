@@ -40,7 +40,7 @@ const NetworkSelect: React.FC<NetworkSelectProps> = (props) => {
 
   const { isMobile } = device.useData()
   const isChangeChainDisabled = useChangeChainDisabled()
-  const { sdk, networkId, wallet, isGnosis } = useConfig()
+  const { sdk, networkId, wallet, address, isGnosis } = useConfig()
 
   const handleChangeChain = useCallback(async (selectedNetworkId: string) => {
     if (selectedNetworkId !== networkId) {
@@ -60,18 +60,23 @@ const NetworkSelect: React.FC<NetworkSelectProps> = (props) => {
     <Dropdown
       className={className}
       dataTestId={dataTestId}
-      placement="bottom-start"
+      placement={isMobile && !address ? 'bottom-start' : 'bottom-end'}
       disabled={isChangeChainDisabled}
-      button={(
-        <Button
-          className="rounded-8"
-          color="light"
-          dataTestId={`${dataTestId}-button`}
-          logo={isGnosis ? 'token/GNO' : 'token/ETH'}
-          title={isMobile ? '' : sdk.config.network.name}
-          ariaLabel={commonMessages.accessibility.changeNetwork}
-        />
-      )}
+      button={({ isOpen }) => {
+        const arrow = isOpen ? 'up' : 'down'
+
+        return (
+          <Button
+            className="rounded-8"
+            color="light"
+            dataTestId={`${dataTestId}-button`}
+            title={isMobile ? '' : sdk.config.network.name}
+            logo={isGnosis ? 'token/GNO' : 'token/ETH'}
+            arrow={!isMobile ? arrow : undefined}
+            ariaLabel={commonMessages.accessibility.changeNetwork}
+          />
+        )
+      }}
       value={networkId}
       withArrow={!isMobile}
       options={networkOptions}

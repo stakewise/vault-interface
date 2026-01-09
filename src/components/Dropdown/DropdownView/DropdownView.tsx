@@ -1,15 +1,14 @@
-import React, { Fragment, KeyboardEventHandler, ReactElement, ReactNode, useRef } from 'react'
+import React, { KeyboardEventHandler, ReactElement, ReactNode, useRef } from 'react'
 import cx from 'classnames'
-import { offset, shift, VirtualElement, OffsetOptions } from '@floating-ui/react'
 import type { Placement } from '@floating-ui/react'
 import { autoUpdate, flip, useFloating } from '@floating-ui/react-dom'
+import { offset, shift, OffsetOptions } from '@floating-ui/react'
 import { Listbox, ListboxButton, ListboxOptions, ListboxOption } from '@headlessui/react'
 
 import s from './Dropdown.module.scss'
 
 
 type ButtonInput = {
-  ref: (node: Element | VirtualElement | null) => void
   isOpen: boolean
 }
 
@@ -18,8 +17,6 @@ export type DropdownViewProps = {
   contentClassName?: string
   children: ReactNode
   disabled?: boolean
-  // The child component must inherit the props, so be sure to make <Foo {...props} />
-  button: ReactElement | ((props: ButtonInput) => ReactElement)
   value?: string
   placement?: Placement
   withArrow?: boolean
@@ -30,6 +27,7 @@ export type DropdownViewProps = {
     autoUpdate?: boolean
     offsetOptions?: Omit<OffsetOptions, 'number'>
   }
+  button: (props: ButtonInput) => ReactElement
   onOpen?: () => void
   onClose?: () => void
   onChange?: (value: any) => void
@@ -43,7 +41,7 @@ type DropdownViewComponent = React.FC<DropdownViewProps> & {
 
 const DropdownView: DropdownViewComponent = (props: DropdownViewProps) => {
   const {
-    className, contentClassName, children, button, value, disabled, withArrow, middleware,
+    className, contentClassName, children, button, value, disabled, middleware,
     placement = 'bottom-end', dataTestId, onOpen, onClose, onChange, onOptionsClick, onOptionsKeyDown,
   } = props
 
@@ -72,11 +70,9 @@ const DropdownView: DropdownViewComponent = (props: DropdownViewProps) => {
         value={value}
         onChange={onChange}
       >
-        <ListboxButton as={Fragment}>
+        <ListboxButton as="div" ref={refs.setReference}>
           {
             ({ open }) => {
-              const arrow = open ? 'up' : 'down'
-
               if (open && !isOpenRef.current && typeof onOpen === 'function') {
                 onOpen()
               }
@@ -87,17 +83,8 @@ const DropdownView: DropdownViewComponent = (props: DropdownViewProps) => {
 
               isOpenRef.current = open
 
-              if (typeof button === 'function') {
-                return button({
-                  ref: refs.setReference,
-                  isOpen: open,
-                })
-              }
-
-              return React.cloneElement<HTMLButtonElement>(button as any, {
-                // @ts-ignore
-                ref: refs.setReference,
-                arrow: withArrow ? arrow : undefined,
+              return button({
+                isOpen: open,
               })
             }
           }

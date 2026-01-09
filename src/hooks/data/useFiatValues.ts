@@ -5,8 +5,10 @@ import { createSelector } from '@reduxjs/toolkit'
 import useStore from '../data/useStore'
 
 
+type FiatToken = Extract<keyof Store['fiatRates']['data'], string>
+
 type Input<T extends string> = Record<T, {
-  token: keyof Store['fiatRates']['data']
+  token: FiatToken
   isMinimal?: boolean
   value: string
 }>
@@ -45,7 +47,7 @@ const useFiatValues = <T extends string>(values: Input<T>): Output<T> => {
       return mock
     }
 
-    const allRates = { ...fiatRates, ...swapTokenRates }
+    const allRates = { ...swapTokenRates, ...fiatRates }
 
     const isValidToken = Object.keys(allRates).includes(token)
 

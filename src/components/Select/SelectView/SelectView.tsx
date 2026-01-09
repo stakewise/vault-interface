@@ -40,7 +40,7 @@ const SelectView: React.FC<SelectViewProps> = (props) => {
       value={value}
       withArrow
       dataTestId={dataTestId}
-      button={label ? (
+      button={({ isOpen }) => label ? (
         <SelectWithLabelButton
           className="w-full"
           label={label}
@@ -48,6 +48,7 @@ const SelectView: React.FC<SelectViewProps> = (props) => {
           isError={isError}
           title={selectedOption?.title}
           dataTestId={`${dataTestId}-button`}
+          icon={isOpen ? 'arrow/up' : 'arrow/down'}
           {...htmlAttrs}
         />
       ) : (
@@ -58,6 +59,7 @@ const SelectView: React.FC<SelectViewProps> = (props) => {
           logo={selectedOption?.logo}
           title={selectedOption?.title}
           dataTestId={`${dataTestId}-button`}
+          icon={isOpen ? 'arrow/up' : 'arrow/down'}
           {...htmlAttrs}
         />
       )}

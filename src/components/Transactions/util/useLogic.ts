@@ -1,6 +1,4 @@
 import { useCallback, useMemo, useState } from 'react'
-import type { SetNextTransactionsFailed } from 'components'
-
 import type { SetTransaction } from '../types'
 
 
@@ -29,10 +27,18 @@ export type ModifiedTransaction = Omit<Transaction, 'onCancel'> & {
 const useLogic = (initialTransactions: Transaction[] = []) => {
   const [ transactions, setTransactions ] = useState<Transaction[]>(initialTransactions)
 
-  const setTransaction: SetTransaction = useCallback((id, status) => {
+  const setTransaction: SetTransaction = useCallback((id, status, updateNextTransactions) => {
     setTransactions((steps) => {
-      return steps.map((step) => {
-        if (step.id === id) {
+      const currentIndex = steps.findIndex((step) => step.id === id)
+
+      if (currentIndex === -1) {
+        return steps
+      }
+
+      return steps.map((step, index) => {
+        const isStepToUpdate = updateNextTransactions ? index >= currentIndex : index === currentIndex
+
+        if (isStepToUpdate) {
           return {
             ...step,
             status,
@@ -48,27 +54,6 @@ const useLogic = (initialTransactions: Transaction[] = []) => {
     setTransactions(initialTransactions)
   }, [ initialTransactions ])
 
-  const setNextTransactionsFailed: SetNextTransactionsFailed = useCallback((id) => {
-    setTransactions((steps) => {
-      const failedIndex = steps.findIndex((step) => step.id === id)
-
-      if (failedIndex === -1) {
-        return steps
-      }
-
-      return steps.map((step, index) => {
-        if (index >= failedIndex) {
-          return {
-            ...step,
-            status: TransactionStatus.Fail,
-          }
-        }
-
-        return step
-      })
-    })
-  }, [])
-
   return useMemo(() => ({
     transactions: transactions.map(({ onCancel, ...transaction }) => ({
       ...transaction,
@@ -79,13 +64,11 @@ const useLogic = (initialTransactions: Transaction[] = []) => {
     setTransaction,
     setTransactions,
     resetTransactions,
-    setNextTransactionsFailed,
   }), [
     transactions,
     setTransaction,
     setTransactions,
     resetTransactions,
-    setNextTransactionsFailed,
   ])
 }
 

@@ -2,17 +2,16 @@ import { useMemo } from 'react'
 import { useConfig } from 'config'
 import { commonMessages } from 'helpers'
 import { StakeStep } from 'helpers/enums'
+import { swapHooks } from 'hooks'
 
 import { StepsData } from 'components'
-
-import { useSwapActions, useSwapTokens } from '../swap'
 
 
 type Input = {
   isSwapApproveRequired: boolean
   isStakeApproveRequired: boolean
-  swapTokens: ReturnType<typeof useSwapTokens>
-  cancelSwap: ReturnType<typeof useSwapActions>['cancelSwap']
+  swapTokens: ReturnType<typeof swapHooks.useTokens>
+  cancelSwap: ReturnType<typeof swapHooks.useActions>['cancelSwap']
 }
 
 const useStakeSteps = (values: Input) => {
@@ -38,7 +37,7 @@ const useStakeSteps = (values: Input) => {
       title: {
         ...commonMessages.buttonTitle.approve,
         values: {
-          token: swapTokens.selected.name,
+          token: swapTokens.sellToken.name,
         },
       },
     },
@@ -60,7 +59,7 @@ const useStakeSteps = (values: Input) => {
       result.push(steps.swapApprove)
     }
 
-    if (swapTokens.selected.address) {
+    if (swapTokens.sellToken.address) {
       result.push(steps.swap)
     }
 

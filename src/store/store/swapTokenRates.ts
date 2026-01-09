@@ -1,8 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit'
+import * as constants from 'helpers/constants'
 import type { PayloadAction } from '@reduxjs/toolkit'
 
 import storageNames from '../utils/storageNames'
-import { CurrenciesObject } from './fiatRates'
+import { currencies } from './fiatRates'
+import type { CurrenciesObject } from './fiatRates'
 
 
 export interface SwapTokenRatesState {
@@ -11,7 +13,16 @@ export interface SwapTokenRatesState {
 }
 
 export const initialState: SwapTokenRatesState = {
-  data: {},
+  data: {
+    [constants.tokens.gno]: currencies,
+    [constants.tokens.eth]: currencies,
+    [constants.tokens.ssv]: currencies,
+    [constants.tokens.obol]: currencies,
+    [constants.tokens.xdai]: currencies,
+    [constants.tokens.swise]: currencies,
+    [constants.tokens.osETH]: currencies,
+    [constants.tokens.osGNO]: currencies,
+  },
   isFetching: true,
 }
 
@@ -26,6 +37,7 @@ export const swapTokenRatesSlice = createSlice({
     setFetching: (state, action: PayloadAction<boolean>) => {
       state.isFetching = action.payload
     },
+    resetData: () => initialState,
   },
 })
 

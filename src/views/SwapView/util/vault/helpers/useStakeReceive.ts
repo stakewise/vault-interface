@@ -48,11 +48,8 @@ const useStakeReceive = (values: Input) => {
     }
 
     try {
-      if (swapTokens.selected.address) {
-        const quote = await fetchQuote({
-          amount,
-          fromToken: swapTokens.selected.address,
-        })
+      if (swapTokens.sellToken.address) {
+        const { quote } = await fetchQuote({ sellAmount: amount })
 
         validTo = quote.validTo * 1000
         amount = BigInt(quote.buyAmount)
@@ -67,11 +64,11 @@ const useStakeReceive = (values: Input) => {
 
       let formattedRate = exchangeRate
 
-      if (swapTokens.selected.address) {
+      if (swapTokens.sellToken.address) {
         let divider = value
 
-        if (swapTokens.selected.units !== 18) {
-          const unitsDiff = BigInt(18 - swapTokens.selected.units)
+        if (swapTokens.sellToken.units !== 18) {
+          const unitsDiff = BigInt(18 - swapTokens.sellToken.units)
 
           divider *= 10n ** unitsDiff
         }
