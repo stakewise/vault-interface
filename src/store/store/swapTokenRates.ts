@@ -22,6 +22,10 @@ export const initialState: SwapTokenRatesState = {
     [constants.tokens.swise]: currencies,
     [constants.tokens.osETH]: currencies,
     [constants.tokens.osGNO]: currencies,
+    [constants.tokens.sGNO]: currencies,
+    [constants.tokens.rGNO]: currencies,
+    [constants.tokens.rETH2]: currencies,
+    [constants.tokens.sETH2]: currencies,
   },
   isFetching: true,
 }

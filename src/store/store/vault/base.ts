@@ -7,17 +7,20 @@ import storageNames from '../../utils/storageNames'
 
 type GetVaultData = Awaited<ReturnType<StakeWiseSDK['vault']['getVault']>>
 
-type BaseData = Omit<GetVaultData & {
+type BaseData = Omit<GetVaultData, 'version'> & {
   isPostPectra: boolean
+  avgQueueDays: number
   protocolFeePercent: string
   versions: Awaited<ReturnType<StakeWiseSDK['vault']['getVaultVersion']>>
-}, 'version'>
+}
 
 export interface BaseState {
   data: BaseData
   isSSR: boolean
   isFetching: boolean
 }
+
+// ATTN Do not use bigint values in this storage, as we fill it on SSR and any bigints are modified to strings there.
 
 export const initialState: BaseState = {
   data: {
@@ -28,6 +31,7 @@ export const initialState: BaseState = {
     feePercent: 0,
     capacity: '0',
     performance: 0,
+    avgQueueDays: 0,
     vaultAdmin: '',
     tokenName: '-',
     displayName: '',

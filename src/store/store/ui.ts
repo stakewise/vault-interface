@@ -7,6 +7,7 @@ import storageNames from '../utils/storageNames'
 
 export interface UiState {
   isNewReleaseAvailable: boolean
+  isShowTestnets: boolean
   bottomLoader: {
     content: Intl.Message | string
     link?: string
@@ -15,6 +16,7 @@ export interface UiState {
 
 export const initialState: UiState = {
   isNewReleaseAvailable: false,
+  isShowTestnets: false,
   bottomLoader: null,
 }
 
@@ -27,6 +29,9 @@ export const loadersSlice = createSlice({
     },
     setBottomLoader: (state, action: PayloadAction<UiState['bottomLoader']>) => {
       state.bottomLoader = action.payload
+    },
+    setShowTestnets: (state, action: PayloadAction<UiState['isShowTestnets']>) => {
+      state.isShowTestnets = action.payload
     },
     setBottomLoaderTransaction: (state, action: PayloadAction<string>) => {
       state.bottomLoader = {
