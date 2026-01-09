@@ -1,6 +1,9 @@
 import { useRef } from 'react'
 import forms from 'modules/forms'
+import { parseEther } from 'ethers'
 
+
+const minBoost = parseEther('0.05')
 
 const useBoostField = (balance: bigint) => {
   const balanceRef = useRef(balance)
@@ -10,6 +13,7 @@ const useBoostField = (balance: bigint) => {
     valueType: 'bigint',
     validators: [
       forms.validators.numberWithDot,
+      forms.validators.min(minBoost),
       forms.validators.sufficientBalance(balanceRef),
     ],
   })

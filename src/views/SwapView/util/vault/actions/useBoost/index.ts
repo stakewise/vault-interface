@@ -53,7 +53,7 @@ const useBoost = (values: Input) => {
   })
 
   const openModal = useCallback(() => {
-    const ltv = ltvPercent === '999900000000000000' ? 100 : 90
+    const ltv = BigInt(ltvPercent) === 999900000000000000n ? 100 : 90
 
     openGuideModal({ ltv })
   }, [ ltvPercent ])

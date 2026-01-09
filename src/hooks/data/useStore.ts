@@ -1,6 +1,6 @@
 'use client'
 import { useRef, useCallback } from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector } from 'store'
 import equal from 'fast-deep-equal'
 
 

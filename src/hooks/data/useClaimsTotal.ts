@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { methods } from 'helpers'
+import methods from 'helpers/methods'
 import { useConfig } from 'config'
 import { formatEther } from 'ethers'
 
@@ -25,7 +25,7 @@ const useClaimsTotal = () => {
       const tokenKeys = Object.keys(sdk.config.addresses.tokens).reduce((acc, tokenKey) => {
         const tokenAddress = sdk.config.addresses.tokens[tokenKey as keyof typeof sdk.config.addresses.tokens]
 
-        acc[tokenAddress] = tokenKey
+        acc[tokenAddress.toLowerCase()] = tokenKey
 
         return acc
       }, {} as Record<string, string>)
@@ -33,7 +33,7 @@ const useClaimsTotal = () => {
       let amount = 0
 
       tokens.forEach((tokenAddress, index) => {
-        const tokenKey = tokenKeys[tokenAddress]
+        const tokenKey = tokenKeys[tokenAddress.toLowerCase()]
         const tokenName = sdk.config.tokens[tokenKey as keyof typeof sdk.config.tokens]
         const value = formatEther(unclaimedAmounts[index])
 

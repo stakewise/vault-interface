@@ -1,5 +1,5 @@
-import { useEffect } from 'react'
-import { useConfig } from 'config'
+import useChainChanged from './useChainChanged'
+import useAddressChanged from './useAddressChanged'
 
 
 type Input = {
@@ -9,16 +9,8 @@ type Input = {
 const useModalClose = (values: Input) => {
   const { closeModal } = values
 
-  const { wallet } = useConfig()
-
-  useEffect(() => {
-    wallet.subscribeBeforeChange('chain', closeModal)
-    wallet.subscribeBeforeChange('address', closeModal)
-    return () => {
-      wallet.unsubscribeBeforeChange('chain', closeModal)
-      wallet.unsubscribeBeforeChange('address', closeModal)
-    }
-  }, [])
+  useChainChanged(closeModal)
+  useAddressChanged(closeModal)
 }
 
 

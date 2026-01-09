@@ -1,13 +1,13 @@
 export default {
   boostTooltips: {
     needMintToken: {
-      en: 'To boost your APY, you must have {mintToken} in your wallet.',
-      ru: 'Чтобы увеличить вашу APY, у вас должно быть {mintToken} в вашем кошельке.',
-      fr: 'Pour augmenter votre APY, vous devez avoir {mintToken} dans votre portefeuille.',
-      es: 'Para aumentar tu APY, debes tener {mintToken} en tu billetera.',
-      pt: 'Para boostear seu APY, você deve ter {mintToken} em sua carteira.',
-      de: 'Um Ihre APY zu erhöhen, müssen Sie {mintToken} in Ihrem Wallet haben.',
-      zh: '要提升您的APY，您必须在钱包中拥有{mintToken}。',
+      en: 'To boost your APY, you must have {mintToken} in this vault.',
+      ru: 'Для повышения вашего APY, у вас должен быть {mintToken} в этом Волте.',
+      fr: 'Pour augmenter votre APY, vous devez avoir {mintToken} dans ce Vault.',
+      es: 'Para aumentar su APY, debe tener {mintToken} en este vault.',
+      pt: 'Para aumentar seu APY, você deve ter {mintToken} neste Vault.',
+      de: 'Um Ihre APY zu steigern, müssen Sie {mintToken} in diesem Vault haben.',
+      zh: '要提高您的 APY，您必须在这个Vault中拥有{mintToken}。',
     },
     needValidators: {
       en: 'The boost only works for the vault with validators.',
