@@ -2,7 +2,9 @@ import { useRef, RefObject } from 'react'
 import { parseEther } from 'ethers'
 import { useConfig } from 'config'
 import forms from 'modules/forms'
-import { useStore, swapHooks } from 'hooks'
+import { useStore } from 'hooks'
+
+import swapHooks from '../../../swap'
 
 import messages from './messages'
 

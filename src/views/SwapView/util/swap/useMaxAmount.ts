@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
-import { useConfig, wallets} from 'config'
+import { useStore } from 'hooks'
+import { useConfig, wallets } from 'config'
 
-import useStore from '../data/useStore'
 import useToken from './useToken'
 
 

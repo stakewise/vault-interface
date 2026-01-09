@@ -2,9 +2,10 @@ import { useMemo } from 'react'
 import { useConfig } from 'config'
 import { commonMessages } from 'helpers'
 import { StakeStep } from 'helpers/enums'
-import { swapHooks } from 'hooks'
 
 import { StepsData } from 'components'
+
+import swapHooks from '../../../../swap'
 
 
 type Input = {

@@ -1,11 +1,9 @@
 import { useRef, useMemo, useState, useCallback } from 'react'
 import { useConfig } from 'config'
 import { StakeStep } from 'helpers/enums'
+import { useActions, useBalances } from 'hooks'
 
 import { SetTransaction, Transactions } from 'components'
-
-import useActions from '../../data/useActions'
-import useBalances from '../../data/useBalances'
 
 import useQuote from '../useQuote'
 import useErc20Flow from './useErc20Flow'

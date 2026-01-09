@@ -2,10 +2,10 @@ import { useCallback, useMemo, useRef, useState } from 'react'
 import { useConfig } from 'config'
 import { constants } from 'helpers'
 import { ZeroAddress } from 'ethers'
+import { useChangeEffect } from 'hooks'
 
 import { LogoName } from 'components'
 
-import useChangeEffect from '../controls/useChangeEffect'
 import useTokensList from './useTokensList'
 
 

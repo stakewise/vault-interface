@@ -1,12 +1,12 @@
 import { useCallback, useMemo, useState } from 'react'
 import addresses from 'helpers/contracts/addresses'
 import notifications from 'modules/notifications'
-import { useStore, useActions, swapHooks } from 'hooks'
+import { useStore, useActions } from 'hooks'
 import { StakeStep } from 'helpers/enums'
 import { commonMessages } from 'helpers'
 import { useConfig } from 'config'
 
-import { vaultHooks } from 'views/SwapView/util'
+import { vaultHooks, swapHooks } from 'views/SwapView/util'
 import type { SetTransaction } from 'components/Transactions/types'
 import { openTransactionsFlowModal } from 'layouts/modals/TransactionsFlowModal/TransactionsFlowModal'
 
