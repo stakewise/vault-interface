@@ -2,7 +2,6 @@ const fs = require('fs')
 const path = require('path')
 const hexToRgb = require('./hexToRgb')
 
-
 const themes = [ 'light', 'dark' ]
 
 const destVariables = path.resolve(__dirname, `../../src/styles/variables.scss`)
@@ -34,7 +33,7 @@ const getColors = () => {
         colors[theme][formattedTitle] = {
           hex: value,
           rgb: hexToRgb(value),
-          isGradientColor: /-(start|end)$/.test(formattedTitle),
+          isGradientColor: /-(start|end)$/.test(formattedTitle)
         }
       }
     })
@@ -94,11 +93,11 @@ const generateColors = () => {
 
   let newBaseFile = baseFile
 
-  Object.keys(colorsBase).forEach((theme) => {
+  Object.keys(colorsBase).forEach((theme, index) => {
     newBaseFile = newBaseFile
       .replace(
         new RegExp(`:root .body-${theme}-theme {[^}]*}\n`, 'g'),
-        `:root .body-${theme}-theme {\n${colorsBase[theme]}  }\n`
+        `:root .body-${theme}-theme {\n${colorsBase[theme]}  }\n`,
       )
   })
 
