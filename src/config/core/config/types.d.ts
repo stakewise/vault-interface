@@ -39,12 +39,6 @@ declare global {
       unsubscribeBeforeChange: Subscription
     }
 
-    type CancelOnChangeInput = {
-      logic: () => any
-      chainId: ChainIds
-      address: string | null
-    }
-
     type Context<T = {}> = T & State & {
       wallet: Wallet
       chainId: ChainIds
@@ -54,6 +48,7 @@ declare global {
 
     type Callbacks = {
       onStartConnect: (activationMessage: Intl.Message | string) => void
+      onChangeAddress?: () => void
       onFinishConnect: () => void
       onConnectError: () => void
       onChangeChain?: () => void

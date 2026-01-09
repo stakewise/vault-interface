@@ -1,6 +1,6 @@
 import { configs, Network } from 'sdk'
 import AppEth from '@ledgerhq/hw-app-eth'
-import * as methods from 'helpers/methods'
+import prefix0x from 'helpers/methods/prefix0x'
 import { EIP712Message } from '@ledgerhq/types-live'
 import { Signature, Transaction, isAddress, TypedDataEncoder } from 'ethers'
 import type { TransactionLike, Eip1193Provider } from 'ethers'
@@ -183,14 +183,14 @@ class LedgerProvider extends LedgerTransport implements Eip1193Provider {
 
       const path = this.#getDerivationPath()
       const unsignedTx = Transaction.from(transaction).unsignedSerialized
-      const rawTxHex = methods.prefix0x.remove(unsignedTx)
+      const rawTxHex = prefix0x.remove(unsignedTx)
 
       const address = await app.getAddress(path)
       const { r, s, v } = await app.signTransaction(path, rawTxHex)
 
       const signature = {
-        r: methods.prefix0x.add(r),
-        s: methods.prefix0x.add(s),
+        r: prefix0x.add(r),
+        s: prefix0x.add(s),
         v: parseInt(v),
 
         // There is no "from" field in the signature parameters, but if you add it,
@@ -215,7 +215,7 @@ class LedgerProvider extends LedgerTransport implements Eip1193Provider {
   async signPersonalMessage(data: string) {
     return this.connectLedger(async (app: AppEth) => {
       const path = this.#getDerivationPath()
-      const formattedData = methods.prefix0x.remove(data)
+      const formattedData = prefix0x.remove(data)
 
       const result = await app.signPersonalMessage(path, formattedData)
 

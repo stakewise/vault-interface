@@ -31,7 +31,6 @@ const useConnect = (values: Input) => {
   const intlRef = intl.useIntlRef()
   const inProgressRef = useRef(false)
   const { dataRef, setData } = configState
-  const timerRef = useRef<NodeJS.Timeout | null>(null)
 
   const resetConnection = useCallback(() => {
     notifications.open({
@@ -96,6 +95,11 @@ const useConnect = (values: Input) => {
 
       if (isLedger) {
         resetConnectTimer = setTimeout(resetConnection, 10_000)
+      }
+
+      // In the safe app we need to resolve provider before next calls to avoid timeout error
+      if (isGnosisSafe && typeof connector.handleGetProvider === 'function') {
+        await connector.handleGetProvider()
       }
 
       if (activationMessage) {
@@ -172,10 +176,6 @@ const useConnect = (values: Input) => {
 
       onFinishConnect()
 
-      if (resetConnectTimer) {
-        clearTimeout(resetConnectTimer)
-      }
-
       const networkId = networks.idByChain[chainId]
 
       setData({
@@ -188,10 +188,6 @@ const useConnect = (values: Input) => {
       })
 
       inProgressRef.current = false
-
-      if (timerRef.current) {
-        clearTimeout(timerRef.current)
-      }
     }
     catch (error: any) {
       console.log(error)
@@ -205,10 +201,6 @@ const useConnect = (values: Input) => {
       }
 
       connector.deactivate?.()
-
-      if (resetConnectTimer) {
-        clearTimeout(resetConnectTimer)
-      }
 
       if (isWalletConnect) {
         localStorage.clearAll()
@@ -237,6 +229,11 @@ const useConnect = (values: Input) => {
       })
 
       return Promise.reject(error)
+    }
+    finally {
+      if (resetConnectTimer) {
+        clearTimeout(resetConnectTimer)
+      }
     }
   }, [
     intlRef,

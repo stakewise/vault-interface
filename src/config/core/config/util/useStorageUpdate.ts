@@ -3,8 +3,8 @@ import { localStorage } from 'sdk'
 import cookie from 'helpers/cookie'
 import * as constants from 'helpers/constants'
 
-import networks from './networks'
 import wallets from '../../wallets'
+import networks from './networks'
 
 
 const useStorageUpdate = (configState: ConfigProvider.ConfigState) => {
