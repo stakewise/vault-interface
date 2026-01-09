@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useLayoutEffect, useMemo } from 'react'
+import useObjectState from 'hooks/controls/useObjectState'
 import * as constants from 'helpers/constants'
 import initContext from 'helpers/initContext'
-import { useObjectState } from 'hooks'
 import cookie from 'helpers/cookie'
 
 import { ThemeClasses, ThemeValue, ThemeColor } from './enum'
@@ -12,6 +12,7 @@ const initialContext: Theme.Context = {
   cookieTheme: ThemeColor.Light,
   systemTheme: ThemeColor.Light,
   isSystemTheme: true,
+  isDark: false,
   setTheme: () => {},
 }
 
@@ -26,8 +27,8 @@ const {
 } = initContext<Theme.Context, Theme.Input>(initialContext, (serverTheme) => {
   const [ { cookieTheme, systemTheme, isSystemTheme }, setState ] = useObjectState<Theme.State>({
     cookieTheme: serverTheme.value || ThemeColor.Light,
-    systemTheme: serverTheme.isSystemTheme && serverTheme.value ? serverTheme.value : ThemeColor.Light,
     isSystemTheme: serverTheme.isSystemTheme,
+    systemTheme: serverTheme.isSystemTheme && serverTheme.value ? serverTheme.value : ThemeColor.Light,
   })
 
   const setThemeClassName = useCallback((theme: ThemeColor) => {
@@ -89,13 +90,19 @@ const {
     })
   }, [ getSystemTheme, setThemeClassName, setState ])
 
+  const themeValue = isSystemTheme ? systemTheme : cookieTheme
+  const isDark = themeValue === ThemeColor.Dark
+
   return useMemo(() => ({
-    themeValue: isSystemTheme ? systemTheme : cookieTheme,
+    isDark,
+    themeValue,
     cookieTheme,
     systemTheme,
     isSystemTheme,
     setTheme,
   }), [
+    isDark,
+    themeValue,
     cookieTheme,
     systemTheme,
     isSystemTheme,

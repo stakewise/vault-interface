@@ -13,6 +13,7 @@ declare global {
     }
 
     type Context = State & {
+      isDark: boolean
       themeValue: ThemeColor
       setTheme: (theme: ThemeValue) => void
     }
