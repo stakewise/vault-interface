@@ -1,9 +1,10 @@
 import { useMemo } from 'react'
-import { useStore } from 'hooks'
 import { useConfig } from 'config'
 import { swapTokens, swapTokenTitles, swapTokenCustomUnits, constants } from 'helpers'
 
 import { LogoName } from 'components'
+
+import useStore from '../data/useStore'
 
 
 const emptyBalances = {

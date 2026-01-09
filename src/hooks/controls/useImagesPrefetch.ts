@@ -1,19 +1,14 @@
 'use client'
 import { useEffect } from 'react'
 
-import cacheStorage from 'modules/cache-storage'
 
-
-const cache = cacheStorage.get<string[]>('PREFETCHED_IMAGES')
-
-const useImagesPrefetch = (images: Record<string, string>) => {
+const useImagesPrefetch = (images: Record<string, string>, rel: 'prefetch' | 'preload' = 'prefetch') => {
   useEffect(() => {
     if (!images || !Object.values(images).length) {
       return
     }
 
-    const cacheResult = cache.getData() || []
-    const newImages = Object.values(images).filter((image) => !cacheResult.includes(image))
+    const newImages = Object.values(images)
 
     if (!newImages.length) {
       return
@@ -22,17 +17,13 @@ const useImagesPrefetch = (images: Record<string, string>) => {
     newImages.forEach((url) => {
       const link = document.createElement('link')
 
-      link.rel = 'prefetch'
+      link.rel = rel
       link.as = 'image'
       link.href = url
 
       document.head.appendChild(link)
     })
-
-    const uniqueArrayOfImages = [ ...cacheResult, ...newImages ]
-
-    cache.setData(uniqueArrayOfImages, 0)
-  }, [ images ])
+  }, [ images, rel ])
 }
 
 

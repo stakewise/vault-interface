@@ -1,4 +1,4 @@
-import { useCallback, useLayoutEffect, useMemo, useRef } from 'react'
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef } from 'react'
 import device from 'modules/device'
 import intl from 'modules/intl'
 
@@ -6,10 +6,11 @@ import intl from 'modules/intl'
 type Input = {
   gap?: number
   index: number
+  firstRenderClassName?: string
 }
 
 const useTabButton = (props: Input, deps: any[] = []) => {
-  const { gap = 0, index = 0 } = props || {}
+  const { gap = 0, index = 0, firstRenderClassName } = props || {}
 
   const { locale } = intl.useIntl()
   const { isMobile } = device.useData()
@@ -20,16 +21,19 @@ const useTabButton = (props: Input, deps: any[] = []) => {
   const getPosition = useCallback((index: number) => {
     if (containerRef.current) {
       const buttons = Array.from(containerRef.current.children) as HTMLButtonElement[]
-      const widths = buttons.map(({ offsetWidth }) => offsetWidth)
-      const height = buttons.map(({ offsetHeight }) => offsetHeight).reduce((acc, height) => Math.max(acc, height), 0)
+      const sizes = buttons.map((button) => button.getBoundingClientRect())
+      const widths = sizes.map(({ width }) => width)
+      const height = sizes.reduce((acc, { height }) => Math.max(acc, height), 0)
 
       const offset = widths
         .filter((_, widthIndex) => widthIndex < index)
-        .reduce((acc, width) => acc + width + gap, 0)
+        .reduce((acc, width) => acc + width, 0)
+
+      const gapOffset = gap * index
 
       if (widths[index] && height) {
         return {
-          left: `${offset}px`,
+          left: `calc(${offset}px + ${gapOffset}rem)`,
           width: `${widths[index]}px`,
           height: `${height}px`,
         }
@@ -67,6 +71,20 @@ const useTabButton = (props: Input, deps: any[] = []) => {
     setPosition()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ ...deps, locale, isMobile, setPosition ])
+
+  useEffect(() => {
+    const children = containerRef.current?.children
+
+    if (children && firstRenderClassName) {
+      Array.from(children).forEach((button) => {
+        if (button !== tabButtonRef.current) {
+          const classNames = firstRenderClassName.split(' ')
+
+          button.classList.remove(...classNames)
+        }
+      })
+    }
+  }, [ firstRenderClassName, ...deps ])
 
   return useMemo(() => ({
     tabButtonRef,

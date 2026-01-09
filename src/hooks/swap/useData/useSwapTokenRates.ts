@@ -1,7 +1,8 @@
 import { useCallback, useEffect } from 'react'
 import { useConfig } from 'config'
-import { useActions } from 'hooks'
 import { methods, swapTokens } from 'helpers'
+
+import useActions from '../../data/useActions'
 
 import { fetchSwapTokenRates } from './_SSR'
 

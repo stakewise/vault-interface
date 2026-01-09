@@ -1,9 +1,10 @@
 import { useMemo, useCallback, useState, useRef } from 'react'
 import { useConfig } from 'config'
 import { StakeStep } from 'helpers/enums'
-import { useActions } from 'hooks'
 
 import { SetTransaction, Transactions } from 'components'
+
+import useActions from '../../data/useActions'
 
 import useOrderId from '../useOrderId'
 

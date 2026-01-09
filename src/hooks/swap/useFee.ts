@@ -2,10 +2,10 @@ import { useCallback, useMemo, useEffect, useRef } from 'react'
 import { BigDecimal } from 'sdk'
 import { useConfig } from 'config'
 import { parseUnits } from 'ethers'
-import { useObjectState } from 'hooks'
 
 import useQuote from './useQuote'
 import useTokens from './useTokens'
+import useObjectState from '../controls/useObjectState'
 
 
 type Input = {

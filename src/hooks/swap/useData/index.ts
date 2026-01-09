@@ -1,6 +1,10 @@
-import { useCallback, useMemo } from 'react'
 import { useConfig } from 'config'
-import { useStore, useBalances, useAutoFetch, useChainChanged } from 'hooks'
+import { useCallback, useMemo } from 'react'
+
+import useStore from '../../data/useStore'
+import useBalances from '../../data/useBalances'
+import useAutoFetch from '../../controls/useAutoFetch'
+import useChainChanged from '../../controls/useChainChanged'
 
 import useSwapTokenRates from './useSwapTokenRates'
 

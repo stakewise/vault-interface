@@ -1,8 +1,7 @@
 import { useMemo } from 'react'
-import { useStore } from 'hooks'
 import { useConfig } from 'config'
+import { useStore, swapHooks } from 'hooks'
 
-import swapHooks from '../../../swap'
 import vaultHooks from '../../index'
 
 import useStakeField from './useStakeField'
