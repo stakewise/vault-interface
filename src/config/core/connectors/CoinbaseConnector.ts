@@ -4,12 +4,10 @@ import { WagmiConnector } from './helpers'
 
 
 class CoinbaseConnector extends WagmiConnector {
-  constructor(chainId: ChainIds) {
+  constructor() {
     const creator = coinbaseWallet({
       appLogoUrl: 'https://app.stakewise.io/logo512.png',
-      enableMobileWalletLink: true,
       appName: 'StakeWise',
-      chainId,
     })
 
     super({ creator })

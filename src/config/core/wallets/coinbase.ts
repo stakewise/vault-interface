@@ -5,10 +5,10 @@ import { Location } from './types'
 import messages from '../messages'
 
 
-const getConnector = async (chainId: ChainIds) => {
+const getConnector = async () => {
   const CoinbaseConnector = (await import('../connectors/CoinbaseConnector')).default
 
-  const connector = new CoinbaseConnector(chainId)
+  const connector = new CoinbaseConnector()
 
   return connector
 }
