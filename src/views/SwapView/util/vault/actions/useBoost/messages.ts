@@ -9,6 +9,15 @@ export default {
       de: 'Um Ihre APY zu steigern, müssen Sie {mintToken} in diesem Vault haben.',
       zh: '要提高您的 APY，您必须在这个Vault中拥有{mintToken}。',
     },
+    needMintMore: {
+      en: 'Only {mintToken} minted in this vault can be boosted',
+      ru: 'Только {mintToken}, заминченный в этом Волте, может быть забущен',
+      fr: 'Seul le {mintToken} frappé dans ce Vault peut être boosté',
+      es: 'Solo el {mintToken} acuñado en este Vault puede ser impulsado',
+      pt: 'Apenas o {mintToken} cunhado neste Vault pode ser potencializado',
+      de: 'Nur der in diesem Vault geprägte {mintToken} kann geboostet werden',
+      zh: '只有在此Vault中铸造的{mintToken}可以被增强',
+    },
     needValidators: {
       en: 'The boost only works for the vault with validators.',
       ru: 'Буст работает только для Волта с валидаторами.',

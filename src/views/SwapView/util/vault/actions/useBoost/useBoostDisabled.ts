@@ -58,9 +58,16 @@ const useBoostDisabled = (values: Input) => {
 
   let boostDisabledTooltip: Intl.Message | undefined = undefined
 
-  if (!mintedShares || !maxBoostShares) {
+  if (!mintedShares) {
     boostDisabledTooltip = {
       ...messages.boostTooltips.needMintToken,
+      values: { mintToken: sdk.config.tokens.mintToken },
+    }
+  }
+
+  if (!maxBoostShares) {
+    boostDisabledTooltip = {
+      ...messages.boostTooltips.needMintMore,
       values: { mintToken: sdk.config.tokens.mintToken },
     }
   }
