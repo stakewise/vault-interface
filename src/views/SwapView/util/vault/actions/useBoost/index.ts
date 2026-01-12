@@ -34,7 +34,8 @@ const useBoost = (values: Input) => {
     walletMintedShares,
   } = useStore(storeSelector)
 
-  const vaultBalance = mintedShares - boostedShares
+  const sharesDiff = mintedShares - boostedShares
+  const vaultBalance = sharesDiff > 0n ? sharesDiff : 0n
 
   const maxBoostShares = vaultBalance > walletMintedShares
     ? walletMintedShares
@@ -44,7 +45,7 @@ const useBoost = (values: Input) => {
   const transactionPrice = useBoostTransactionPrice()
 
   const { isFetching: isSupplyCapsFetching, checkSupplyCap } = useBoostSupplyCapsCheck()
-  const { boostDisabledTooltip, isBoostDisabled } = useBoostDisabled({ field, checkSupplyCap })
+  const { boostDisabledTooltip, isBoostDisabled } = useBoostDisabled({ field, maxBoostShares, checkSupplyCap })
 
   const { isSubmitting, isAllowanceFetching, submit } = useBoostSubmit({
     field,
