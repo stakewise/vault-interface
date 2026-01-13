@@ -1,8 +1,8 @@
 import { createContract } from 'sdk'
 
 import addresses from './addresses'
-import { WrappedToken, MerkleDistributorV2 } from './types'
-import { WrappedTokenAbi, MerkleDistributorV2Abi } from './abis'
+import { MerkleDistributorV2 } from './types'
+import { MerkleDistributorV2Abi } from './abis'
 
 
 type CreateContractsInput = {
@@ -19,9 +19,6 @@ const getMerkleDistributorV2 = ({ provider, config }: CreateContractsInput) => c
 export const createContracts = (input: CreateContractsInput) => ({
   base: {
     merkleDistributorV2: getMerkleDistributorV2(input),
-  },
-  helpers: {
-    createWrappedToken: (address: string) => createContract<WrappedToken>(address, WrappedTokenAbi, input.provider),
   },
 })
 
