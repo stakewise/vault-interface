@@ -1,7 +1,8 @@
 import { useMemo } from 'react'
-import methods from 'helpers/methods'
 import { useConfig } from 'config'
 import { formatEther } from 'ethers'
+import getFiatValue from 'helpers/methods/getFiatValue'
+import formatFiatValue from 'helpers/methods/formatFiatValue'
 
 import useStore from './useStore'
 
@@ -37,7 +38,7 @@ const useClaimsTotal = () => {
         const tokenName = sdk.config.tokens[tokenKey as keyof typeof sdk.config.tokens]
         const value = formatEther(unclaimedAmounts[index])
 
-        const fiatValue = methods.getFiatValue({
+        const fiatValue = getFiatValue({
           token: tokenName,
           value,
           currency,
@@ -48,7 +49,7 @@ const useClaimsTotal = () => {
       })
 
       if (amount) {
-        return methods.formatFiatValue({
+        return formatFiatValue({
           value: amount,
           currencySymbol,
           isMinimal: true,
