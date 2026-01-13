@@ -1,7 +1,7 @@
 import date from 'modules/date'
 
 
-const formatDateToNumerical = (value: string | number | Date | ReturnType<Date.Time>, separator: string = '-') => {
+const formatDateToNumerical = (value: string | number | Date | Date.Time, separator: string = '-') => {
   let dayjsDate
 
   if (typeof value === 'string') {
