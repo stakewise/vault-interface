@@ -1,32 +1,12 @@
 export default {
   queue: {
-    en: `
-      The amount of {token} that enters the exit queue.
-      It may take up to {queueDays} day(s) for the exit request to process.
-    `,
-    ru: `
-      Количество {token}, которое входит в очередь выхода.
-      Обработка запроса на выход может занять до {queueDays} дней.
-    `,
-    fr: `
-      La quantité de {token} qui entre dans la file d'attente de sortie.
-      Le traitement de la demande de sortie peut prendre jusqu'à {queueDays} jour(s).
-    `,
-    es: `
-      La cantidad de {token} que ingresa a la cola de salida.
-      Puede tomar hasta {queueDays} día(s) procesar la solicitud de salida.
-    `,
-    pt: `
-      A quantidade de {token} que entra na fila de saída.
-      Pode levar até {queueDays} dia(s) para processar a solicitação de saída.
-    `,
-    de: `
-      Die Menge an {token}, die in die Austrittswarteschlange gelangt.
-      Es kann bis zu {queueDays} Tag(e) dauern, bis die Austrittsanfrage bearbeitet wird.
-    `,
-    zh: `
-      {token} 进入退出队列的数量。退出请求处理可能需要长达 {queueDays} 天。
-    `,
+    en: 'The amount of {token} that enters the exit queue.',
+    ru: 'Количество {token}, которое попадает в очередь выхода.',
+    fr: 'Le montant de {token} qui entre dans la file de sortie.',
+    es: 'La cantidad de {token} que entra en la cola de salida.',
+    pt: 'A quantidade de {token} que entra na fila de saída.',
+    de: 'Der Betrag von {token}, der in die Ausstiegswarteschlange gelangt.',
+    zh: '{token} 进入退出队列的数量。',
   },
   gas: {
     en: 'The fee (in {nativeToken}) you need to pay for the transaction to be confirmed by the network.',
@@ -154,5 +134,23 @@ export default {
     zh: `
       目前，验证器退出并让 {depositToken} 可申领需要最多 {queueDays} 天。
     `,
+  },
+  duration: {
+    en: 'It may take up to {queueDays, plural, one {# day} other {# days}} for an exit request to be processed on the {network} network.',
+    ru: 'Обработка запроса на выход в сети {network} может занять до {queueDays, plural, one {# дня} other {# дней}}.',
+    fr: 'Il peut falloir jusqu\'à {queueDays, plural, one {# jour} other {# jours}} pour qu\'une demande de sortie soit traitée sur le réseau {network}.',
+    es: 'Puede tardar hasta {queueDays, plural, one {# día} other {# días}} en procesarse una solicitud de salida en la red {network}.',
+    pt: 'Pode levar até {queueDays, plural, one {# dia} other {# dias}} para que um pedido de saída seja processado na rede {network}.',
+    de: 'Es kann bis zu {queueDays, plural, one {# Tag} other {# Tagen}} dauern, bis eine Ausstiegsanfrage im Netzwerk {network} bearbeitet wird.',
+    zh: '{network}网络上的退出请求可能需要最多{queueDays, plural, one {# 天} other {# 天}}来处理。',
+  },
+  avgDuration: {
+    en: 'On average, exits over the past month took {avgQueueDays, plural, one {# day} other {# days}} to complete',
+    ru: 'В среднем, выходы за прошлый месяц занимали {avgQueueDays, plural, one {# день} few {# дня} other {# дней}} для завершения',
+    fr: 'En moyenne, les sorties du mois dernier ont pris {avgQueueDays, plural, one {# jour} other {# jours}} pour se compléter',
+    es: 'En promedio, las salidas del último mes tomaron {avgQueueDays, plural, one {# día} other {# días}} en completarse',
+    pt: 'Em média, as saídas do último mês levaram {avgQueueDays, plural, one {# dia} other {# dias}} para serem concluídas',
+    de: 'Im Durchschnitt dauerten die Ausstiege im letzten Monat {avgQueueDays, plural, one {# Tag} other {# Tage}}',
+    zh: '平均而言，上个月完成退出耗时 {avgQueueDays, plural, one {# 天} other {# 天}}',
   },
 }

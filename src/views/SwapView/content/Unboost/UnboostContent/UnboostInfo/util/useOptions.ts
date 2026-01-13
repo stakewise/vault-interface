@@ -1,21 +1,17 @@
 import {  useMemo } from 'react'
 import { useConfig } from 'config'
 import { formatEther } from 'ethers'
-import { useFiatValues, useStore } from 'hooks'
+import { useFiatValues } from 'hooks'
 import { commonMessages, methods } from 'helpers'
 
 import { swapCtx, vaultHooks } from 'views/SwapView/util'
 import { TableProps } from 'views/SwapView/common'
 
 
-const storeSelector = (store: Store) => ({
-  queueDays: store.mintToken.queueDays,
-})
-
 const useOptions = () => {
   const { sdk } = useConfig()
   const { unboost } = swapCtx.useData()
-  const { queueDays } = useStore(storeSelector)
+  const [ queueDays, queueDaysTooltip ] = vaultHooks.helpers.useQueueDays()
 
   const { fiatTransactionPrice } = useFiatValues({
     fiatTransactionPrice: {
@@ -45,12 +41,17 @@ const useOptions = () => {
         tooltip: {
           ...commonMessages.tooltip.queue,
           values: {
-            queueDays,
             token: sdk.config.tokens.mintToken,
           },
         },
         isFetching,
         dataTestId: 'table-exiting-shares',
+      },
+      {
+        text: commonMessages.exitDuration,
+        tooltip: queueDaysTooltip,
+        value: queueDays,
+        dataTestId: 'table-exit-time',
       },
     ]
 
@@ -65,7 +66,6 @@ const useOptions = () => {
         tooltip: {
           ...commonMessages.tooltip.queue,
           values: {
-            queueDays,
             token: sdk.config.tokens.depositToken,
           },
         },
@@ -92,6 +92,7 @@ const useOptions = () => {
     isFetching,
     receiveShares,
     receiveAssets,
+    queueDaysTooltip,
     fiatTransactionPrice,
   ])
 }

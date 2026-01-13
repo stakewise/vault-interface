@@ -19,6 +19,15 @@ export default {
   transaction,
   notification,
   accessibility,
+  exitDuration: {
+    en: 'Exit duration',
+    ru: 'Продолжительность выхода',
+    fr: 'Durée de sortie',
+    es: 'Duración de salida',
+    pt: 'Duração de saída',
+    de: 'Austrittsdauer',
+    zh: '退出持续时间',
+  },
   upgradeLeverageStrategy: {
     en: 'Upgrade leverage strategy contract',
     ru: 'Обновить контракт стратегии с плечом',
