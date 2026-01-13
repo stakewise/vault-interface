@@ -10,10 +10,10 @@ export const createCheckTokenDropdown: Wrapper = ({ page, element }) => (
 
     await page.waitForLoadState('networkidle')
 
-    await element.checkVisibility({ testId: 'token-select-input' })
-    await element.checkVisibility({ testId: 'token-select-option-USDT' })
+    await element.checkVisibility({ testId: 'amount-input-input' })
+    await element.checkVisibility({ testId: 'amount-input-option-USDT' })
 
-    await page.getByTestId('token-select-option-USDT').click()
+    await page.getByTestId('amount-input-option-USDT').click()
 
     await element.checkText({ testId: 'amount-input-token', expectedText: 'USDT' })
 
@@ -21,11 +21,11 @@ export const createCheckTokenDropdown: Wrapper = ({ page, element }) => (
 
     await page.waitForLoadState('networkidle')
 
-    await page.getByTestId('token-select-input').fill(stakeToken)
+    await page.getByTestId('amount-input-input').fill(stakeToken)
 
-    await element.checkVisibility({ testId: `token-select-option-${stakeToken}` })
-    await element.checkVisibility({ testId: 'token-select-option-USDT', isVisible: false })
+    await element.checkVisibility({ testId: `amount-input-option-${stakeToken}` })
+    await element.checkVisibility({ testId: 'amount-input-option-USDT', isVisible: false })
 
-    await page.getByTestId(`token-select-option-${stakeToken}`).click()
+    await page.getByTestId(`amount-input-option-${stakeToken}`).click()
   }
 )
