@@ -1,5 +1,6 @@
+'use server'
 import { Network } from 'sdk'
-import { swapTokens, methods } from 'helpers'
+import { swapTokens, constants, methods } from 'helpers'
 import cacheStorage from 'modules/cache-storage'
 
 
@@ -46,13 +47,23 @@ const fetchSwapTokenRate = async ({ chainId, address }: { chainId: Network, addr
   }
 }
 
+const getChainTokens = (chainId: Network) => {
+  const chainTokens = swapTokens[chainId as keyof typeof swapTokens]
+
+  const appTokens: string[] = [
+    constants.tokens.osETH,
+    constants.tokens.osGNO,
+    constants.tokens.swise,
+  ]
+
+  return Object.fromEntries(
+    Object.entries(chainTokens).filter(([ token ]) => !appTokens.includes(token))
+  )
+}
+
 const fetchSwapTokenRates = async (chainId: Network) => {
   const cacheData = cache[chainId as keyof typeof cache]?.getData()
-  const chainTokens: Record<string, string> | undefined = swapTokens[chainId as keyof typeof swapTokens]
-
-  if (!chainTokens) {
-    return {}
-  }
+  const chainTokens = getChainTokens(chainId)
 
   if (cacheData) {
     return cacheData

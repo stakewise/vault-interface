@@ -72,7 +72,7 @@ export default {
     zh: '必须大于0',
   },
   invalidDate: {
-    en: 'Must be valid date',
+    en: 'Must be a valid date',
     ru: 'Должна быть действительная дата',
     fr: 'Doit être une date valide',
     es: 'Debe ser una fecha válida',
@@ -160,5 +160,14 @@ export default {
     pt: 'Não pode ser posterior a {maxDate}',
     de: 'Darf nicht größer als {maxDate} sein',
     zh: '不能大于 {maxDate}',
+  },
+  feeError: {
+    en: 'The amount is lower than the swap fee',
+    ru: 'Сумма меньше, чем комиссия за обмен',
+    fr: 'Le montant est inférieur aux frais d\'échange',
+    es: 'La cantidad es inferior a la tarifa de intercambio',
+    pt: 'O valor é inferior à taxa de troca',
+    de: 'Der Betrag ist niedriger als die Tauschgebühr',
+    zh: '金额低于兑换费用',
   },
 }

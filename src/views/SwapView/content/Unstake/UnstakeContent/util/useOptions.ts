@@ -13,7 +13,6 @@ import messages from './messages'
 type Output = TableProps['options']
 
 const storeSelector = (store: Store) => ({
-  queueDays: store.mintToken.queueDays,
   userApy: store.vault.user.balances.userAPY,
   vaultVersion: store.vault.base.data.versions.version,
   isV2Version: store.vault.base.data.versions.isV2Version,
@@ -26,11 +25,12 @@ const useOptions = () => {
 
   const {
     userApy,
-    queueDays,
     isV2Version,
     vaultVersion,
     isCollateralized,
   } = useStore(storeSelector)
+
+  const [ queueDays, queueDaysTooltip ] = vaultHooks.helpers.useQueueDays()
 
   const { newAPY, isApyHidden, isFetching: isApyFetching } = vaultHooks.helpers.useAPY({
     type: 'unstake',
@@ -88,6 +88,12 @@ const useOptions = () => {
         value: fieldAmount,
         logo: `token/${sdk.config.tokens.depositToken}`,
         dataTestId: 'table-unstake-queue',
+      },
+      {
+        text: commonMessages.exitDuration,
+        tooltip: queueDaysTooltip,
+        value: queueDays,
+        dataTestId: 'table-exit-time',
       })
     }
 
@@ -132,6 +138,7 @@ const useOptions = () => {
     isApyHidden,
     isImmediate,
     isReadOnlyMode,
+    queueDaysTooltip,
     newAPY,
     noteMessage,
     sdk,

@@ -1,8 +1,9 @@
 import React, { useCallback } from 'react'
-import device from 'modules/device'
+import cx from 'classnames'
+import { Network } from 'sdk'
 import { useConfig } from 'config'
 import forms from 'modules/forms'
-import { Network } from 'sdk'
+import device from 'modules/device'
 
 import Icon from '../Icon/Icon'
 import ButtonBase from '../ButtonBase/ButtonBase'
@@ -19,15 +20,21 @@ export type TokenDropdownProps = Omit<DropdownViewProps, 'children' | 'button' |
   value: Tokens
   tokens: SwapToken[]
   isDisabled?: boolean
+  isFetchingDisabled?: boolean
   onChange?: (value: string) => void
 }
 
 const TokenDropdown: React.FC<TokenDropdownProps> = (props) => {
-  const { className, contentClassName, value, tokens, dataTestId, isDisabled, onChange, ...rest } = props
+  const {
+    className, contentClassName, value, tokens, dataTestId = '', isDisabled, isFetchingDisabled,
+    onChange, ...rest
+  } = props
 
+  const { chainId } = useConfig()
   const { isMobile } = device.useData()
-  const { isReadOnlyMode, chainId } = useConfig()
-  const { isFetching, open } = useTokenDropdown()
+  const { isFetching, open } = useTokenDropdown({
+    isFetchingDisabled,
+  })
 
   const field = forms.useField<string>({
     valueType: 'string',
@@ -48,7 +55,7 @@ const TokenDropdown: React.FC<TokenDropdownProps> = (props) => {
     <TokenBase
       className="flex-shrink-0"
       token={value}
-      dataTestId="amount-input-token"
+      dataTestId={`${dataTestId}-token`}
     />
   )
 
@@ -58,7 +65,9 @@ const TokenDropdown: React.FC<TokenDropdownProps> = (props) => {
 
   return (
     <DropdownView
-      className={className}
+      className={cx(className, {
+        'opacity-50': isDisabled,
+      })}
       contentClassName={contentClassName}
       dataTestId={dataTestId}
       middleware={(
@@ -73,12 +82,10 @@ const TokenDropdown: React.FC<TokenDropdownProps> = (props) => {
           }
           : undefined
       )}
-      button={({ ref, isOpen }) => (
+      button={({ isOpen }) => (
         <ButtonBase
-          // @ts-ignore
-          ref={ref}
           className="flex items-center gap-8"
-          disabled={isReadOnlyMode || isDisabled}
+          disabled={isDisabled}
         >
           {tokenBaseNode}
           <Icon

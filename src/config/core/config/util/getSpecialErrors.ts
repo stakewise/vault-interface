@@ -35,18 +35,18 @@ const getSpecialErrors = (error: any) => {
       return messages.connectErrors.ledger.settings
     }
 
-    if (error.name === 'TransportStatusError') {
-      const statusCode = error.statusCode
-      const isNotOpened = statusCode === 0x650f || statusCode === 0x6511
+    if (error.name === 'LockedDeviceError' && error.statusCode === 0x5515) {
+      return messages.connectErrors.ledger.lock
+    }
 
-      return isNotOpened
-        ? messages.connectErrors.ledger.notOpened
-        : messages.connectErrors.ledger.lock
+    if (error.name === 'TransportStatusError' && [ 0x650f, 0x6511 ].includes(error.statusCode)) {
+      return messages.connectErrors.ledger.notOpened
     }
 
     const isNotConnected = (
-      errorMessage.indexOf('0x6804') !== -1
-      || errorMessage.indexOf('U2F DEVICE_INELIGIBLE') !== -1
+      errorMessage?.indexOf('0x6804') !== -1
+      || errorMessage?.indexOf('U2F DEVICE_INELIGIBLE') !== -1
+      || error.name === 'TransportOpenUserCancelled'
     )
 
     if (isNotConnected) {

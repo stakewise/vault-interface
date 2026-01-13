@@ -1,4 +1,4 @@
-import time from 'dayjs'
+import time, { Dayjs } from 'dayjs'
 
 import useTime from './useTime'
 
@@ -12,7 +12,7 @@ declare global {
 
   namespace Date {
 
-    type Time = ReturnType<typeof useTime>
+    type Time = Dayjs
   }
 }
 

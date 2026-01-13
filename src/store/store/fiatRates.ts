@@ -5,6 +5,8 @@ import type { PayloadAction } from '@reduxjs/toolkit'
 import storageNames from '../utils/storageNames'
 
 
+export type TokenSymbol = Exclude<(typeof constants.tokens)[keyof typeof constants.tokens], 'osToken'>
+
 export const currencies = {
   USD: 0,
   EUR: 0,
@@ -18,16 +20,7 @@ export const currencies = {
 export type CurrenciesObject = Record<keyof typeof currencies, number>
 
 export interface FiatRatesState {
-  data: {
-    [constants.tokens.gno]: CurrenciesObject
-    [constants.tokens.eth]: CurrenciesObject
-    [constants.tokens.ssv]: CurrenciesObject
-    [constants.tokens.obol]: CurrenciesObject
-    [constants.tokens.xdai]: CurrenciesObject
-    [constants.tokens.swise]: CurrenciesObject
-    [constants.tokens.osETH]: CurrenciesObject
-    [constants.tokens.osGNO]: CurrenciesObject
-  }
+  data: Record<TokenSymbol, CurrenciesObject>
   isFetching: boolean
 }
 

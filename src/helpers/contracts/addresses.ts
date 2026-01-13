@@ -9,6 +9,7 @@ const addresses = {
     },
     cow: {
       vaultRelayer: '0xc92e8bdf79f0507f65a392b0ab4667716bfe0110',
+      nativeToken: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
     },
   },
   [Network.Hoodi]: {
@@ -17,6 +18,7 @@ const addresses = {
     },
     cow: {
       vaultRelayer: ZeroAddress,
+      nativeToken: ZeroAddress,
     },
   },
   [Network.Gnosis]: {
@@ -25,6 +27,7 @@ const addresses = {
     },
     cow: {
       vaultRelayer: '0xc92e8bdf79f0507f65a392b0ab4667716bfe0110',
+      nativeToken: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE',
     },
   },
 }

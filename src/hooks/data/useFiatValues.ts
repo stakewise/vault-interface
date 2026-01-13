@@ -1,12 +1,13 @@
-import { methods } from 'helpers'
 import { useMemo, useCallback } from 'react'
-import { createSelector } from '@reduxjs/toolkit'
+import swGetFiatValue from 'helpers/methods/getFiatValue'
+import { useSelector, createSelector } from 'store'
+import formatFiatValue from 'helpers/methods/formatFiatValue'
 
-import useStore from '../data/useStore'
 
+type FiatToken = Extract<keyof Store['fiatRates']['data'], string>
 
 type Input<T extends string> = Record<T, {
-  token: keyof Store['fiatRates']['data']
+  token: FiatToken
   isMinimal?: boolean
   value: string
 }>
@@ -36,7 +37,7 @@ const mock = {
 }
 
 const useFiatValues = <T extends string>(values: Input<T>): Output<T> => {
-  const { fiatRates, swapTokenRates, currency, currencySymbol, isFetching } = useStore(storeSelector)
+  const { fiatRates, swapTokenRates, currency, currencySymbol, isFetching } = useSelector(storeSelector)
 
   const getFiatValue = useCallback((params: Input<T>[T]) => {
     const { token, value, isMinimal } = params
@@ -45,7 +46,7 @@ const useFiatValues = <T extends string>(values: Input<T>): Output<T> => {
       return mock
     }
 
-    const allRates = { ...fiatRates, ...swapTokenRates }
+    const allRates = { ...swapTokenRates, ...fiatRates }
 
     const isValidToken = Object.keys(allRates).includes(token)
 
@@ -54,7 +55,7 @@ const useFiatValues = <T extends string>(values: Input<T>): Output<T> => {
       return mock
     }
 
-    const fiatValue = methods.getFiatValue({
+    const fiatValue = swGetFiatValue({
       value,
       token,
       currency,
@@ -62,7 +63,7 @@ const useFiatValues = <T extends string>(values: Input<T>): Output<T> => {
       isMinimal,
     })
 
-    const formattedValue = methods.formatFiatValue({
+    const formattedValue = formatFiatValue({
       value: fiatValue,
       currencySymbol,
       isMinimal,

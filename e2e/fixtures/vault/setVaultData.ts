@@ -79,6 +79,7 @@ export const createSetVaultData: Wrapper = ({ page }) => (
       },
       isPostPectra: true,
       protocolFeePercent: String(feePercent / 100),
+      avgQueueDays: 1,
     }
 
     await page.addInitScript((payload) => {

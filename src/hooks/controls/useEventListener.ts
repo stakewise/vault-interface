@@ -5,7 +5,7 @@ import { useEffect, useRef, useCallback, RefObject } from 'react'
 const useEventListener = (
   eventName: string,
   handler: EventListener,
-  elementRef?: RefObject<HTMLElement>,
+  elementRef?: RefObject<HTMLElement | HTMLDivElement | null>,
   passive?: boolean
 ) => {
   const handlerRef = useRef<EventListener | null>(null)

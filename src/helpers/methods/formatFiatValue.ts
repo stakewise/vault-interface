@@ -14,7 +14,7 @@ const formatFiatValue = ({ value, currencySymbol, isMinimal }: Input) => {
     formattedResult = `< ${currencySymbol} 0.01`
   }
   else {
-    formattedResult = `${currencySymbol} ${formattedResult}`
+    formattedResult = `${currencySymbol}${formattedResult}`
   }
 
   return formattedResult

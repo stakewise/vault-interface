@@ -24,6 +24,7 @@ const useConfigContext = <T extends {}>(values: Input<T>): ConfigProvider.Contex
     serverNetworkId,
     supportedNetworkIds,
     onFinishConnect,
+    onChangeAddress,
     onConnectError,
     onStartConnect,
     onChangeChain,
@@ -43,6 +44,15 @@ const useConfigContext = <T extends {}>(values: Input<T>): ConfigProvider.Contex
   const setData = useCallback((data: Partial<ConfigProvider.State>) => {
     setState((state) => {
       const isChainChanged = data.networkId && data.networkId !== state.networkId
+      const isAddressChanged = (
+        state.autoConnectChecked
+        && data.address !== state.address
+        && typeof data.address !== 'undefined'
+      )
+
+      if (isAddressChanged && typeof onChangeAddress === 'function') {
+        onChangeAddress()
+      }
 
       if (isChainChanged && typeof onChangeChain === 'function') {
         onChangeChain()
@@ -53,7 +63,7 @@ const useConfigContext = <T extends {}>(values: Input<T>): ConfigProvider.Contex
         ...data,
       }
     })
-  }, [ onChangeChain, setState ])
+  }, [ onChangeChain, onChangeAddress, setState ])
 
   const configState = useMemo<ConfigProvider.ConfigState>(() => ({
     data: state,

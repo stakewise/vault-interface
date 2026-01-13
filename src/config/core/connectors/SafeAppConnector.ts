@@ -30,8 +30,27 @@ class SafeAppConnector extends WagmiConnector {
     })
   }
 
+  async handleGetProvider(count: number = 0): Promise<SafeAppProvider> {
+    try {
+      const provider = await this.connector.getProvider()
+
+      return provider as SafeAppProvider
+    }
+    catch (error: any) {
+      const nextCount = count + 1
+
+      if (nextCount < 10) {
+        await new Promise((resolve) => setTimeout(resolve, nextCount * 100))
+
+        return this.handleGetProvider(nextCount)
+      }
+
+      return Promise.reject(error)
+    }
+  }
+
   async getProvider() {
-    const provider = await this.connector.getProvider() as SafeAppProvider
+    const provider = await this.handleGetProvider() as SafeAppProvider
 
     const method = provider.request
 
@@ -63,7 +82,7 @@ class SafeAppConnector extends WagmiConnector {
           }
         }
         catch {
-          // getBySafeTxHash can catch error if hash if real and not a safeTxHash
+          // getBySafeTxHash can catch error if hash is real and not a safeTxHash
           return response
         }
       }
@@ -81,7 +100,7 @@ class SafeAppConnector extends WagmiConnector {
     }
 
     try {
-      const provider = await this.connector.getProvider()
+      const provider = await this.handleGetProvider()
 
       return Boolean(provider)
     }

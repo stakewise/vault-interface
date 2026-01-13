@@ -34,7 +34,7 @@ const getColors = () => {
         colors[theme][formattedTitle] = {
           hex: value,
           rgb: hexToRgb(value),
-          isGradientColor: /-(start|end)$/.test(formattedTitle),
+          isGradientColor: /-(start|end)$/.test(formattedTitle)
         }
       }
     })
@@ -98,7 +98,7 @@ const generateColors = () => {
     newBaseFile = newBaseFile
       .replace(
         new RegExp(`:root .body-${theme}-theme {[^}]*}\n`, 'g'),
-        `:root .body-${theme}-theme {\n${colorsBase[theme]}  }\n`
+        `:root .body-${theme}-theme {\n${colorsBase[theme]}  }\n`,
       )
   })
 

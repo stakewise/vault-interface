@@ -6,6 +6,7 @@ const walletsIds = Object.values(wallets).map(({ id }) => id)
 
 declare global {
   type WalletIds = typeof walletsIds[number]
+  type ReadOnlyConnector = ReadOnlyConnectorType
   type NetworkIds = OneOfArray<typeof networks.ids>
   type Connectors = Unpromise<ReturnType<typeof wallets[WalletIds]['getConnector']>>
 

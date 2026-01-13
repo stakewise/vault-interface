@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useRef, useMemo, useEffect } from 'react'
-import { useDeepMemo } from 'hooks'
+import useDeepMemo from 'hooks/controls/useDeepMemo'
 
 import createObserver, { CreateObserverResult } from './createObserver'
 

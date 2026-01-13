@@ -4,7 +4,7 @@ import { commonMessages } from 'helpers'
 import useModalClose from 'hooks/controls/useModalClose'
 
 import TransactionsModal from '../../../components/TransactionsModal/TransactionsModal'
-import type { SetTransaction, SetNextTransactionsFailed } from '../../../components/Transactions/types'
+import type { SetTransaction } from '../../../components/Transactions/types'
 import { TransactionStatus } from '../../../components/Transactions/util'
 
 
@@ -14,7 +14,6 @@ import type { TransactionsFlow, StepsData } from './types'
 
 type OnStartInput = {
   setTransaction: SetTransaction
-  setNextTransactionsFailed: SetNextTransactionsFailed
 }
 
 type Input = Modals.VisibilityProps & {
@@ -27,7 +26,7 @@ export const [ TransactionsFlowModal, openTransactionsFlowModal ] = (
   modal.wrapper(UNIQUE_FILE_ID, (props: Input) => {
     const { flow, stepsData, onStart, closeModal } = props
 
-    const { transactions, setTransaction, setNextTransactionsFailed } = useTransactionsFlow({
+    const { transactions, setTransaction } = useTransactionsFlow({
       flow,
       stepsData,
     })
@@ -35,10 +34,10 @@ export const [ TransactionsFlowModal, openTransactionsFlowModal ] = (
     useModalClose({ closeModal })
 
     const handleStart = useCallback(async () => {
-      await onStart({ setTransaction, setNextTransactionsFailed })
+      await onStart({ setTransaction })
 
       closeModal()
-    }, [ onStart, closeModal, setTransaction, setNextTransactionsFailed ])
+    }, [ onStart, closeModal, setTransaction ])
 
     useEffect(() => {
       handleStart()

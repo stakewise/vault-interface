@@ -6,7 +6,7 @@ import { commonMessages, modifiers } from 'helpers'
 import { useStore, useActions, useBalances, useSubgraphUpdate } from 'hooks'
 
 import { Transactions } from 'components'
-import type { StepsData, SetNextTransactionsFailed, SetTransaction } from 'components'
+import type { StepsData, SetTransaction } from 'components'
 import { Action, openTxCompletedModal } from 'layouts/modals/TxCompletedModal/TxCompletedModal'
 import { openTransactionsFlowModal } from 'layouts/modals/TransactionsFlowModal/TransactionsFlowModal'
 
@@ -28,7 +28,6 @@ type UpgradeInput = {
   userAddress: string
   vaultAddress: string
   setTransaction: SetTransaction
-  setNextTransactionsFailed: SetNextTransactionsFailed
 }
 
 type UnboostInput = {
@@ -45,7 +44,6 @@ type UnboostInput = {
 type OnStartInput = {
   percent: number
   setTransaction?: SetTransaction
-  setNextTransactionsFailed?: SetNextTransactionsFailed
 }
 
 type Input = {
@@ -117,7 +115,7 @@ const useUnboostSubmit = (values: Input) => {
   ])
 
   const upgrade = useCallback(async (values: UpgradeInput) => {
-    const { userAddress, vaultAddress, setTransaction, setNextTransactionsFailed } = values
+    const { userAddress, vaultAddress, setTransaction } = values
 
     try {
       setTransaction(UnboostStep.Upgrade, Transactions.Status.Confirm)
@@ -136,7 +134,7 @@ const useUnboostSubmit = (values: Input) => {
       return hash
     }
     catch (error) {
-      setNextTransactionsFailed(UnboostStep.Upgrade)
+      setTransaction(UnboostStep.Upgrade, Transactions.Status.Fail, true)
 
       return Promise.reject(error)
     }
@@ -204,7 +202,7 @@ const useUnboostSubmit = (values: Input) => {
   }, [ percentField, boostedShares, boostedRewardAssets, signSDK ])
 
   const onStart = useCallback(async (values: OnStartInput) => {
-    const { percent, setTransaction = () => {}, setNextTransactionsFailed = () => {} } = values
+    const { percent, setTransaction = () => {} } = values
 
     if (!percent || !address || !vaultAddress) {
       return
@@ -233,7 +231,6 @@ const useUnboostSubmit = (values: Input) => {
             userAddress: address,
             vaultAddress,
             setTransaction,
-            setNextTransactionsFailed,
           })
 
           _leverageStrategyData = {
@@ -295,9 +292,7 @@ const useUnboostSubmit = (values: Input) => {
       openTransactionsFlowModal({
         flow: 'unboost',
         stepsData,
-        onStart: ({ setTransaction, setNextTransactionsFailed }) => {
-          return onStart({ percent, setTransaction, setNextTransactionsFailed })
-        },
+        onStart: ({ setTransaction }) => onStart({ percent, setTransaction }),
       })
     }
     else {

@@ -34,7 +34,8 @@ const useBoost = (values: Input) => {
     walletMintedShares,
   } = useStore(storeSelector)
 
-  const vaultBalance = mintedShares - boostedShares
+  const sharesDiff = mintedShares - boostedShares
+  const vaultBalance = sharesDiff > 0n ? sharesDiff : 0n
 
   const maxBoostShares = vaultBalance > walletMintedShares
     ? walletMintedShares
@@ -44,7 +45,7 @@ const useBoost = (values: Input) => {
   const transactionPrice = useBoostTransactionPrice()
 
   const { isFetching: isSupplyCapsFetching, checkSupplyCap } = useBoostSupplyCapsCheck()
-  const { boostDisabledTooltip, isBoostDisabled } = useBoostDisabled({ field, checkSupplyCap })
+  const { boostDisabledTooltip, isBoostDisabled } = useBoostDisabled({ field, maxBoostShares, checkSupplyCap })
 
   const { isSubmitting, isAllowanceFetching, submit } = useBoostSubmit({
     field,
@@ -53,7 +54,7 @@ const useBoost = (values: Input) => {
   })
 
   const openModal = useCallback(() => {
-    const ltv = ltvPercent === '999900000000000000' ? 100 : 90
+    const ltv = BigInt(ltvPercent) === 999900000000000000n ? 100 : 90
 
     openGuideModal({ ltv })
   }, [ ltvPercent ])

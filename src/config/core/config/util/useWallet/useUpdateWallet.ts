@@ -1,7 +1,8 @@
 import { useEffect, useCallback } from 'react'
 import { getAddress, BrowserProvider } from 'ethers'
 import type { Eip1193Provider } from 'ethers'
-import { methods } from 'helpers'
+import getSDK from 'helpers/methods/getSDK'
+import ens from 'helpers/methods/ens'
 
 import networks from '../networks'
 
@@ -30,10 +31,10 @@ const useUpdateWallet = (values: Input) => {
 
   const handleENS = useCallback(async () => {
     const hasAccountName = Boolean(dataRef.current.accountName)
-    const sdk = methods.getSDK({ chainId })
+    const sdk = getSDK({ chainId })
 
     if (address) {
-      methods.ens.fetchName({
+      ens.fetchName({
         address,
         chainId,
         provider: sdk.provider,

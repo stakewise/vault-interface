@@ -11,6 +11,7 @@ import messages from './messages'
 
 type Input = {
   field: Forms.Field<bigint>
+  maxBoostShares: bigint
   checkSupplyCap: ReturnType<typeof useBoostSupplyCapsCheck>['checkSupplyCap']
 }
 
@@ -25,7 +26,7 @@ const storeSelector = (store: Store) => ({
 })
 
 const useBoostDisabled = (values: Input) => {
-  const { field, checkSupplyCap } = values
+  const { field, maxBoostShares, checkSupplyCap } = values
 
   const {
     vaultApy,
@@ -46,6 +47,7 @@ const useBoostDisabled = (values: Input) => {
     !address
     || isBoostQueued
     || !mintedShares
+    || !maxBoostShares
     || Boolean(error)
     || isReadOnlyMode
     || !isCollateralized
@@ -59,6 +61,13 @@ const useBoostDisabled = (values: Input) => {
   if (!mintedShares) {
     boostDisabledTooltip = {
       ...messages.boostTooltips.needMintToken,
+      values: { mintToken: sdk.config.tokens.mintToken },
+    }
+  }
+
+  if (!maxBoostShares) {
+    boostDisabledTooltip = {
+      ...messages.boostTooltips.needMintMore,
       values: { mintToken: sdk.config.tokens.mintToken },
     }
   }

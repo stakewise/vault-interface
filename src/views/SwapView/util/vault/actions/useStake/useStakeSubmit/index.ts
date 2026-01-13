@@ -1,16 +1,14 @@
 import { useCallback, useMemo, useState } from 'react'
 import addresses from 'helpers/contracts/addresses'
 import notifications from 'modules/notifications'
-import { useStore, useActions } from 'hooks'
+import { useStore, useActions, swapHooks } from 'hooks'
 import { StakeStep } from 'helpers/enums'
 import { commonMessages } from 'helpers'
 import { useConfig } from 'config'
 
 import { vaultHooks } from 'views/SwapView/util'
-import type { SetTransaction, SetNextTransactionsFailed } from 'components/Transactions/types'
+import type { SetTransaction } from 'components/Transactions/types'
 import { openTransactionsFlowModal } from 'layouts/modals/TransactionsFlowModal/TransactionsFlowModal'
-
-import { useSwapActions, useSwapTokens } from '../swap'
 
 import useStakeSteps from './useStakeSteps'
 import useStakeActions from './useStakeActions'
@@ -24,14 +22,13 @@ const storeSelector = (store: Store) => ({
 
 type OnStartInput = {
   setTransaction?: SetTransaction
-  setNextTransactionsFailed?: SetNextTransactionsFailed
 }
 
-type SwapActions = Pick<ReturnType<typeof useSwapActions>, 'swap' | 'cancelSwap'>
+type SwapActions = Pick<ReturnType<typeof swapHooks.useActions>, 'swap' | 'cancelSwap'>
 
 type Input = SwapActions & {
   field: Forms.Field<bigint>
-  swapTokens: ReturnType<typeof useSwapTokens>
+  swapTokens: ReturnType<typeof swapHooks.useTokens>
   fetchAllUserData: ReturnType<typeof vaultHooks.useUser>['fetchAllUserData']
 }
 
@@ -49,8 +46,8 @@ const useStakeSubmit = (values: Input) => {
     field,
     step: StakeStep.SwapApprove,
     recipient: addresses[chainId].cow.vaultRelayer,
-    tokenAddress: swapTokens.selected.address,
-    skip: !swapTokens.selected.address || !vaultAddress,
+    tokenAddress: swapTokens.sellToken.address,
+    skip: !swapTokens.sellToken.address || !vaultAddress,
   })
 
   const stakeApprove = useStakeApprove({
@@ -69,7 +66,7 @@ const useStakeSubmit = (values: Input) => {
   })
 
   const onStart = useCallback(async (values?: OnStartInput) => {
-    const { setTransaction = () => {}, setNextTransactionsFailed = () => {} } = values || {}
+    const { setTransaction = () => {} } = values || {}
 
     let assets = field.value || 0n
 
@@ -80,10 +77,17 @@ const useStakeSubmit = (values: Input) => {
     setSubmitting(true)
 
     const calls = {
-      [StakeStep.Swap]: async () => assets = await swap({ setTransaction }),
+      [StakeStep.Swap]: async () => {
+        const result = await swap({ sellAmount: assets, setTransaction })
+
+        assets = result.buyAmount
+
+        swapTokens.reset()
+        field.setValue(assets)
+      },
       [StakeStep.Stake]: (assets: bigint) => stake({ assets, setTransaction }),
-      [StakeStep.Approve]: () => stakeApprove.approve({ setTransaction, setNextTransactionsFailed }),
-      [StakeStep.SwapApprove]: () => swapApprove.approve({ setTransaction, setNextTransactionsFailed }),
+      [StakeStep.Approve]: () => stakeApprove.approve({ setTransaction }),
+      [StakeStep.SwapApprove]: () => swapApprove.approve({ setTransaction }),
     } as const
 
     try {
@@ -107,7 +111,6 @@ const useStakeSubmit = (values: Input) => {
     }
     finally {
       field.reset()
-      swapTokens.setSelected('')
       setSubmitting(false)
     }
   }, [

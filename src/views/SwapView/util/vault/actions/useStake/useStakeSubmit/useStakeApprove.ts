@@ -1,14 +1,13 @@
-import { useCallback, useMemo, useState, useEffect } from 'react'
-import { useFieldListener, useApprove } from 'hooks'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { StakeStep } from 'helpers/enums'
+import { useApprove, useFieldListener } from 'hooks'
 
-import { Transactions } from 'components'
-import type { SetNextTransactionsFailed, SetTransaction } from 'components'
+import type { SetTransaction } from 'components'
+import { Transactions, TransactionStatus } from 'components'
 
 
 type SubmitInput = {
   setTransaction: SetTransaction
-  setNextTransactionsFailed: SetNextTransactionsFailed
 }
 
 type Input = {
@@ -41,7 +40,7 @@ const useStakeApprove = (values: Input) => {
   }, [ allowance, skip, setApproveRequired ])
 
   const handleApprove = useCallback(async (values: SubmitInput) => {
-    const { setTransaction, setNextTransactionsFailed } = values
+    const { setTransaction } = values
 
     try {
       setTransaction(step, Transactions.Status.Confirm)
@@ -55,7 +54,7 @@ const useStakeApprove = (values: Input) => {
       setTransaction(step, Transactions.Status.Success)
     }
     catch (error) {
-      setNextTransactionsFailed(step)
+      setTransaction(step, TransactionStatus.Fail, true)
 
       return Promise.reject(error)
     }

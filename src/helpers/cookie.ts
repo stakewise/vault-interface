@@ -1,14 +1,15 @@
-import cookie, { CookieAttributes } from 'js-cookie'
+import cookie from 'js-cookie'
+import type Cookies from 'js-cookie'
 
 import cookieNames from './constants/cookieNames'
 
 
 const get = cookie.get
 
-const set = async (name: string, value: string, attributes: CookieAttributes = {}) => {
+const set = async (name: string, value: string, attributes: Cookies.CookieAttributes = {}) => {
   const isValid = Object.values(cookieNames).includes(name)
 
-  const options: CookieAttributes = attributes
+  const options: Cookies.CookieAttributes = attributes
 
   if (!isValid) {
     throw new Error(`Add cookie name "${name}" to constants`)

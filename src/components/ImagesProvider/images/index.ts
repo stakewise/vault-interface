@@ -27,6 +27,7 @@ import ezETH from './token/swap/ezETH.svg'
 import lsETH from './token/swap/lsETH.svg'
 import stETH from './token/swap/stETH.svg'
 import wbETH from './token/swap/wbETH.svg'
+import wxDAI from './token/swap/wxDAI.svg'
 import wstETH from './token/swap/wstETH.svg'
 import frxETH from './token/swap/frxETH.svg'
 
@@ -120,6 +121,7 @@ export default {
   'token/lsETH': lsETH.src,
   'token/stETH': stETH.src,
   'token/wbETH': wbETH.src,
+  'token/wxDAI': wxDAI.src,
   'token/wstETH': wstETH.src,
   'token/frxETH': frxETH.src,
 

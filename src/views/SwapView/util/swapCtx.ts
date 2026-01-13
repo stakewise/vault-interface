@@ -129,7 +129,7 @@ export const {
   })
 
   const stake = vaultHooks.actions.useStake({ fetchAllUserData })
-  const unstake =  vaultHooks.actions.useUnstake({ fetchAllUserData })
+  const unstake = vaultHooks.actions.useUnstake({ fetchAllUserData })
 
   const boost = vaultHooks.actions.useBoost({ fetchAllUserData })
   const unboost = vaultHooks.actions.useUnboost({ fetchAllUserData })

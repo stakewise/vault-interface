@@ -5,7 +5,7 @@ import { BoostStep } from 'helpers/enums'
 import { commonMessages } from 'helpers'
 import { useConfig } from 'config'
 
-import type { SetTransaction, SetNextTransactionsFailed } from 'components/Transactions/types'
+import type { SetTransaction } from 'components/Transactions/types'
 import { openTransactionsFlowModal } from 'layouts/modals'
 
 import vaultHooks from '../../../index'
@@ -19,7 +19,6 @@ type OnStartInput = {
   amount: bigint
   permitAddress?: string
   setTransaction?: SetTransaction
-  setNextTransactionsFailed?: SetNextTransactionsFailed
 }
 
 type Input = {
@@ -78,7 +77,7 @@ const useBoostSubmit = (values: Input): Output => {
   })
 
   const onStart = useCallback(async (values: OnStartInput) => {
-    const { amount, setTransaction = () => {}, setNextTransactionsFailed = () => {} } = values
+    const { amount, setTransaction = () => {} } = values
 
     try {
       if (!amount || !address || !vaultAddress) {
@@ -105,7 +104,6 @@ const useBoostSubmit = (values: Input): Output => {
             userAddress: address,
             vaultAddress,
             setTransaction,
-            setNextTransactionsFailed,
           })
 
           _leverageStrategyData = {
@@ -119,7 +117,6 @@ const useBoostSubmit = (values: Input): Output => {
             userAddress: address,
             vaultAddress,
             setTransaction,
-            setNextTransactionsFailed,
           })
         }
         if (step.id === BoostStep.Boost) {
@@ -184,9 +181,7 @@ const useBoostSubmit = (values: Input): Output => {
       openTransactionsFlowModal({
         flow: 'boost',
         stepsData,
-        onStart: ({ setTransaction, setNextTransactionsFailed }) => {
-          return onStart({ amount, setTransaction, setNextTransactionsFailed })
-        },
+        onStart: ({ setTransaction }) => onStart({ amount, setTransaction }),
       })
     }
     else {

@@ -1,16 +1,27 @@
-import { useCallback } from 'react'
+import { useCallback, useEffect } from 'react'
 import { useConfig } from 'config'
-import { useActions } from 'hooks'
-import { swapTokens, methods } from 'helpers'
+import { methods, swapTokens } from 'helpers'
 
-import fetchSwapTokenRates from './fetchSwapTokenRates'
+import useActions from '../../data/useActions'
+
+import { fetchSwapTokenRates } from './_SSR'
 
 
-const useFiatRates = () => {
+const useSwapTokenRates = () => {
   const actions = useActions()
-  const { sdk, chainId } = useConfig()
+  const { sdk, chainId, wallet } = useConfig()
 
   const chainTokens = swapTokens[chainId as keyof typeof swapTokens]
+
+  useEffect(() => {
+    const onChangeChain = actions.swapTokenRates.resetData
+
+    wallet.subscribeBeforeChange('chain', onChangeChain)
+
+    return () => {
+      wallet.unsubscribeBeforeChange('chain', onChangeChain)
+    }
+  }, [ actions, wallet ])
 
   return useCallback(async () => {
     if (!chainTokens) {
@@ -55,4 +66,4 @@ const useFiatRates = () => {
 }
 
 
-export default useFiatRates
+export default useSwapTokenRates

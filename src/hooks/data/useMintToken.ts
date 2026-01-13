@@ -1,9 +1,15 @@
 'use client'
 import { useCallback } from 'react'
+import insertMockE2E from 'helpers/methods/insertMockE2E'
 
 
 type Input = {
   sdk: SDK
+}
+
+type Output = {
+  apy: string
+  feePercent: number
 }
 
 const useMintToken = (values: Input) => {
@@ -11,6 +17,12 @@ const useMintToken = (values: Input) => {
 
   const fetchAPY = useCallback(async () => {
     try {
+      const mockE2E = insertMockE2E<Output>('fixtures/osToken/setOsTokenApy')
+
+      if (mockE2E) {
+        return mockE2E
+      }
+
       const response = await sdk.osToken.getAPY()
 
       return response

@@ -114,7 +114,7 @@ test('Stake info', async ({ swap, wallet }) => {
   expect(parseFloat(assetPrev)).toEqual(0)
   expect(parseFloat(assetNext)).toEqual(value)
 
-  expect(Number(gas.replace('$ ' , ''))).toBeGreaterThan(0)
+  expect(Number(gas.replace('$' , ''))).toBeGreaterThan(0)
 })
 
 test('Stake', async ({ wallet, swap }) => {

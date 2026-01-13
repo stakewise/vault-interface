@@ -1,6 +1,7 @@
 import { Network } from 'sdk'
 
 import * as methods from '../../methods'
+import fetchQueueDays from './fetchQueueDays'
 
 
 type Input = {
@@ -22,10 +23,12 @@ const fetchData = async ({ sdk, withTime, vaultAddress }: Input) => {
     data,
     versions,
     feePercent,
+    avgQueueDays,
   ] = await Promise.all([
     sdk.vault.getVault({ vaultAddress, withTime }),
     sdk.vault.getVaultVersion({ vaultAddress }),
     sdk.contracts.base.mintTokenController.feePercent(),
+    fetchQueueDays({ sdk, vaultAddress }),
   ])
 
   const chainId = sdk.config.network.chainId
@@ -41,6 +44,7 @@ const fetchData = async ({ sdk, withTime, vaultAddress }: Input) => {
     ...data,
     versions,
     isPostPectra,
+    avgQueueDays,
     protocolFeePercent: String(feePercent / 100n),
   }
 }

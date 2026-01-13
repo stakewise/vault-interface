@@ -36,7 +36,7 @@ const useAllowance = (values: Input) => {
 
   const { sdk, address } = useConfig()
 
-  const skip = values.skip || !address || recipient === ZeroAddress
+  const skip = values.skip || !address || !tokenAddress || recipient === ZeroAddress
 
   const handleTransaction = useTransaction()
 

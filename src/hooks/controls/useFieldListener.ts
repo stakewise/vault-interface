@@ -1,6 +1,6 @@
 'use client'
 import { useEffect } from 'react'
-import { methods } from 'helpers'
+import debounce from 'helpers/methods/debounce'
 
 
 type Procedure = (...args: any[]) => void
@@ -14,7 +14,7 @@ const useFieldListener = (
   useEffect(() => {
     if (typeof handler === 'function') {
       const handleChangeField = wait
-        ? methods.debounce(handler, wait)
+        ? debounce(handler, wait)
         : handler
 
       field.subscribe('change', handleChangeField)

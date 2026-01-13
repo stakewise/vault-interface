@@ -1,5 +1,7 @@
 import { useCallback } from 'react'
+import { localStorage } from 'sdk'
 import intl from 'modules/intl'
+import * as constants from 'helpers/constants'
 import notifications from 'modules/notifications'
 
 import wallets from '../../../wallets'
@@ -38,6 +40,8 @@ const useDisconnect = (values: Input) => {
         library: undefined,
         autoConnectChecked: true,
       })
+
+      localStorage.removeItem(constants.localStorageNames.walletName)
 
       if (activeWallet) {
         const { title } = wallets[activeWallet]

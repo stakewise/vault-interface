@@ -1,8 +1,10 @@
-import { Network } from 'sdk'
+import { Network, configs } from 'sdk'
 
 
 const swapTokens = {
   [Network.Mainnet]: {
+    osETH: configs[Network.Mainnet].addresses.tokens.mintToken,
+    SWISE: configs[Network.Mainnet].addresses.tokens.swise,
     stETH: '0xae7ab96520DE3A18E5e111B5EaAb095312D7fE84',
     wbETH: '0xa2E3356610840701BDf5611a53974510Ae27E2e1',
     rETH: '0xae78736Cd615f374D3085123A210448E74Fc6393',
@@ -24,17 +26,26 @@ const swapTokens = {
     cmETH: '0xE6829d9a7eE3040e1276Fa75293Bde931859e8fA',
   },
   [Network.Gnosis]: {
+    osGNO: configs[Network.Gnosis].addresses.tokens.mintToken,
+    SWISE: configs[Network.Gnosis].addresses.tokens.swise,
     wBTC: '0x8e5bBbb09Ed1ebdE8674Cda39A0c169401db4252',
     USDT: '0x4ECaBa5870353805a9F068101A40E0f32ed605C6',
     'USDC.e': '0x2a22f9c3b484c3629090FeED35F17Ff8F88f76F0',
     EURe: '0xcB444e90D8198415266c6a2724b7900fb12FC56E',
     sDAI: '0xaf204776c7245bF4147c2612BF6e5972Ee483701',
     wstETH: '0x6C76971f98945AE98dD7d4DFcA8711ebea946eA6',
+    wxDAI: '0xe91D153E0b41518A2Ce8Dd3D7944Fa863463a97d',
     WETH: '0x6A023CCd1ff6F2045C3309768eAd9E68F978f6e1',
+  },
+  [Network.Hoodi]: {
+    osETH: configs[Network.Hoodi].addresses.tokens.mintToken,
   },
 }
 
 const swapTokenTitles = {
+  osETH: 'StakeWise Staked ETH',
+  osGNO: 'StakeWise Staked GNO',
+  SWISE: 'StakeWise',
   USDT: 'Tether USD',
   USDC: 'USD Coin',
   'USDC.e': 'USD Coin',
@@ -57,10 +68,19 @@ const swapTokenTitles = {
   cmETH: 'Mantle Restaked ETH',
   sDAI: 'Savings xDAI',
   EURe: 'Monerium EUR emoney',
+  wxDAI: 'Wrapped xDAI',
+}
+
+const swapTokenCustomUnits = {
+  USDT: 6,
+  USDC: 6,
+  'USDC.e': 6,
+  wBTC: 8,
 }
 
 
 export {
   swapTokens,
   swapTokenTitles,
+  swapTokenCustomUnits,
 }

@@ -33,10 +33,10 @@ export const initialState: BalancesState = {
   userAPY: 0,
   stakedAssets: 0n,
   totalEarnedAssets: 0n,
-  maxWithdrawAssets: 0n,
-  totalRewardingAssets: 0n,
   totalStakeEarnedAssets: 0n,
   totalBoostEarnedAssets: 0n,
+  maxWithdrawAssets: 0n,
+  totalRewardingAssets: 0n,
   mintToken: {
     mintedAssets: 0n,
     mintedShares: 0n,

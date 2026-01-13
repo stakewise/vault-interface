@@ -1,6 +1,8 @@
 import { RefObject } from 'react'
 import { parseEther, isAddress, formatEther } from 'ethers'
 
+import date from '../../date'
+
 import messages from './messages'
 
 
@@ -108,15 +110,28 @@ const greaterThanZero = (value: Value) => {
   }
 }
 
+const minFee = (minFeeRef: RefObject<bigint>) => (value?: Forms.FieldValue) => {
+  const minFeeValue = minFeeRef.current
+
+  if (value && minFeeValue) {
+    if ((value as bigint) < minFeeValue) {
+      return messages.feeError
+    }
+  }
+}
+
 const min = (minValue: number | bigint, customMessage?: Intl.Message) => (value: Value) => {
-  if (Number(value) < minValue) {
+  const formattedMinValue = typeof minValue === 'bigint' ? Number(formatEther(minValue)) : minValue
+  const formattedValue = typeof value === 'bigint' ? Number(formatEther(value)) : Number(value)
+
+  if (formattedValue < formattedMinValue) {
     const message = customMessage || messages.min
 
     const error: Intl.Message = {
       ...message,
       values: {
         ...customMessage?.values,
-        minValue: Number(minValue),
+        minValue: formattedMinValue,
       },
     }
 
@@ -164,24 +179,22 @@ const length = (length: number) => (value: Value) => {
 
 const minDate = (minDate: string) => (value: Value) => {
   if (value && typeof value === 'string') {
+    const minimalDate = date.time(minDate).startOf('day')
+    const isMinDate = date.time(value).isBefore(minimalDate)
 
-    const dateToCompare = new Date(minDate)
-    const date = new Date(value)
-
-    if (date < dateToCompare) {
-      return { ...messages.minDate, values: { minDate } }
+    if (isMinDate) {
+      return { ...messages.minDate, values: { minDate: minimalDate.format('YYYY-MM-DD') } }
     }
   }
 }
 
 const maxDate = (maxDate: string) => (value: Value) => {
   if (value && typeof value === 'string') {
+    const maximalDate = date.time(maxDate).endOf('day')
+    const isMaxDate = date.time(value).isAfter(maximalDate)
 
-    const dateToCompare = new Date(maxDate)
-    const date = new Date(value)
-
-    if (date > dateToCompare) {
-      return { ...messages.maxDate, values: { maxDate } }
+    if (isMaxDate) {
+      return { ...messages.maxDate, values: { maxDate: maximalDate.format('YYYY-MM-DD') } }
     }
   }
 }
@@ -199,13 +212,13 @@ const compareDate = ({ moreThan, lessThan }: CompareDateProps) => (value: Value,
     const valueToCompare = fields[fieldName as string]?.value
 
     if (value && valueToCompare && typeof valueToCompare === 'string') {
-      const date = new Date(value)
-      const compareDate = new Date(valueToCompare)
+      const valueDate = date.time(value)
+      const compareDate = date.time(valueToCompare)
       const compareMore = Boolean(moreThan)
 
       const isError = compareMore
-        ? date <= compareDate
-        : date >= compareDate
+        ? !valueDate.isAfter(compareDate)
+        : !valueDate.isBefore(compareDate)
 
       if (isError) {
         const errorMessage = compareMore ? messages.mustBeMore : messages.mustBeLess
@@ -231,6 +244,7 @@ export default {
   minDate,
   length,
   number,
+  minFee,
   email,
   min,
   max,

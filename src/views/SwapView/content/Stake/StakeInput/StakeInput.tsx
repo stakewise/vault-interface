@@ -18,20 +18,20 @@ const StakeInput: React.FC = () => {
       field={stake.field}
       loading={stake.isStakeLoading}
       balance={{
-        value: stake.swapTokens.selected.balance,
-        token: stake.swapTokens.selected.name as Tokens,
-        units: stake.swapTokens.selected.units,
+        value: stake.swapTokens.sellToken.balance,
+        token: stake.swapTokens.sellToken.name as Tokens,
+        units: stake.swapTokens.sellToken.units,
       }}
       tokenNode={(
         <TokenDropdown
-          value={stake.swapTokens.selected.name as Tokens}
+          value={stake.swapTokens.sellToken.name as Tokens}
           tokens={stake.swapTokens.list}
-          dataTestId="token-select"
+          dataTestId="amount-input"
           isDisabled={stake.isStakeLoading}
-          onChange={(token) => {
-            if (token !== stake.swapTokens.selected.address) {
+          onChange={(sellToken) => {
+            if (sellToken !== stake.swapTokens.sellToken.address) {
               stake.field.reset()
-              stake.swapTokens.setSelected(token)
+              stake.swapTokens.set({ sellToken })
             }
           }}
         />
