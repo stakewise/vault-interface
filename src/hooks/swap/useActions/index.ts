@@ -8,7 +8,6 @@ import useActions from '../../data/useActions'
 import useBalances from '../../data/useBalances'
 
 import useQuote from '../useQuote'
-import useWrapFlow from './useWrapFlow'
 import useErc20Flow from './useErc20Flow'
 
 
@@ -42,7 +41,6 @@ const useSwapActions = (values: Input) => {
   const stateRef = useRef({ isCancelAvailable })
   stateRef.current = { isCancelAvailable }
 
-  const wrapFlow = useWrapFlow({ step })
   const erc20Flow = useErc20Flow({ step, setCancelAvailable })
 
   const swap = useCallback(async (values: SwapInput) => {
@@ -55,18 +53,9 @@ const useSwapActions = (values: Input) => {
 
       setTransaction(step, Transactions.Status.Confirm)
 
-      const { quoteRequest, isWrapFlow } = await fetchQuote(values)
+      const { quoteRequest } = await fetchQuote(values)
 
-      let result
-
-      const params = { quoteRequest, setTransaction }
-
-      if (isWrapFlow) {
-        result = await wrapFlow.sendOrder(params)
-      }
-      else {
-        result = await erc20Flow.sendOrder(params)
-      }
+      const result = await erc20Flow.sendOrder({ quoteRequest, setTransaction })
 
       refetchSwapTokenBalances()
       refetchDepositTokenBalance()
@@ -89,7 +78,6 @@ const useSwapActions = (values: Input) => {
   }, [
     address,
     actions,
-    wrapFlow,
     erc20Flow,
     fetchQuote,
     refetchSwapTokenBalances,

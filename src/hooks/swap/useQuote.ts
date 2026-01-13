@@ -5,10 +5,8 @@ import { ZeroAddress } from 'ethers'
 import addresses from 'helpers/contracts/addresses'
 import type { TradeParameters } from '@cowprotocol/cow-sdk'
 
-import { getFlow } from '../useFlow'
-import useTokens from '../useTokens'
-import useSwapSDK from '../useSwapSDK'
-import useTransactionPrice from './useTransactionPrice'
+import useTokens from './useTokens'
+import useSwapSDK from './useSwapSDK'
 
 
 type Input = {
@@ -33,7 +31,6 @@ const useQuote = ({ swapTokens }: Input) => {
   const nativeTokenAddress = addresses[chainId].cow.nativeToken
 
   const getSwapSDK = useSwapSDK()
-  const getTransactionPrice = useTransactionPrice()
 
   const swapTokensRef = useRef(swapTokens)
   swapTokensRef.current = swapTokens
@@ -81,41 +78,8 @@ const useQuote = ({ swapTokens }: Input) => {
   return useCallback(async (values: FetchQuoteInput) => {
     const { tradingSdk } = await getSwapSDK()
 
-    const isWrapFlow = getFlow({
-      swapTokens: swapTokensRef.current,
-      isEthereum,
-    })
-
-    let transactionPrice = 0n
-
-    const isTransactionPriceAvailable = address && !isReadOnlyMode && isWrapFlow
-
     try {
       const quoteRequest = getQuoteRequest(values)
-
-      if (isWrapFlow) {
-        if (isTransactionPriceAvailable) {
-          transactionPrice = await getTransactionPrice({
-            address,
-            amount: quoteRequest.amount,
-            isWithdraw: quoteRequest.buyToken === nativeTokenAddress,
-          })
-        }
-
-        return {
-          rate: constants.blockchain.amount1,
-          quote: {
-            kind: quoteRequest.kind,
-            buyAmount: quoteRequest.amount,
-            sellAmount: quoteRequest.amount,
-            feeAmount: '0',
-            validTo: Math.round(Date.now() / 1000 + 86400), // 1 day from now
-          },
-          quoteRequest,
-          transactionPrice,
-          isWrapFlow,
-        }
-      }
 
       const { quoteResults: { quoteResponse } } = await tradingSdk.getQuote(quoteRequest)
 
@@ -137,8 +101,6 @@ const useQuote = ({ swapTokens }: Input) => {
         rate,
         quote,
         quoteRequest,
-        transactionPrice,
-        isWrapFlow,
       }
     }
     catch (error: any) {
@@ -152,7 +114,7 @@ const useQuote = ({ swapTokens }: Input) => {
     }
   }, [
     address, isEthereum, isReadOnlyMode, nativeTokenAddress,
-    getRate, getSwapSDK, getTransactionPrice, getQuoteRequest,
+    getRate, getSwapSDK, getQuoteRequest,
   ])
 }
 

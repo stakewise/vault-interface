@@ -1,5 +1,4 @@
 import useFee from './useFee'
-import useFlow from './useFlow'
 import useData from './useData'
 import useQuote from './useQuote'
 import useToken from './useToken'
@@ -10,7 +9,6 @@ import useMaxAmount from './useMaxAmount'
 
 export default {
   useFee,
-  useFlow,
   useData,
   useQuote,
   useToken,
