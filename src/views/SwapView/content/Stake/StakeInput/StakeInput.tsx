@@ -26,7 +26,7 @@ const StakeInput: React.FC = () => {
         <TokenDropdown
           value={stake.swapTokens.sellToken.name as Tokens}
           tokens={stake.swapTokens.list}
-          dataTestId="token-select"
+          dataTestId="amount-input"
           isDisabled={stake.isStakeLoading}
           onChange={(sellToken) => {
             if (sellToken !== stake.swapTokens.sellToken.address) {
