@@ -20,7 +20,7 @@ const TimeRange: React.FC<TimeRangeProps> = (props) => {
 
   return (
     <ButtonRangePicker
-      className={cx(className, 'h-[30rem]')}
+      className={cx(className, 'h-[30px]')}
       field={field}
       range={range}
       dataTestId="stake-chart-time-range"

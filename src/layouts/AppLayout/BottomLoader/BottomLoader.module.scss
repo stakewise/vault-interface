@@ -1,5 +1,5 @@
 .loader {
-  backdrop-filter: blur(30rem);
+  backdrop-filter: blur(30px);
   transition: all 0.3s ease-in-out;
   animation: openLoader 0.3s ease-in-out;
 
@@ -34,7 +34,7 @@
 
 @keyframes openLoader {
   from {
-    transform: translateX(calc(100% + 24rem));
+    transform: translateX(calc(100% + 24px));
     opacity: 0;
   }
   to {

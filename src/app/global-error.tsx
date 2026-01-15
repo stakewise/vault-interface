@@ -81,7 +81,7 @@ const GlobalError = ({ error, reset }: GlobalErrorViewProps) => {
           locales={languages as unknown as Intl.LanguagesKeys[]}
         >
           <div className='width-container flex flex-1'>
-            <div className="flex flex-col items-center justify-center m-auto max-w-[520rem]">
+            <div className="flex flex-col items-center justify-center m-auto max-w-[520px]">
               <Text
                 className="text-center"
                 message={messages.error.title}

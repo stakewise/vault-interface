@@ -35,14 +35,14 @@ const AutoHeightToggle: React.FC<AutoHeightToggleProps> = (props) => {
       const marginTop = parseFloat(getComputedStyle(contentRef.current as HTMLDivElement).marginTop)
 
       if (containerRef.current) {
-        containerRef.current.style.height = `calc(${padding * 2}rem + ${contentHeight + containerHeight + marginTop}px)`
+        containerRef.current.style.height = `calc(${padding * 2}px + ${contentHeight + containerHeight + marginTop}px)`
       }
     }
     else {
       const height = childrenRef.current?.clientHeight
 
       if (containerRef.current) {
-        containerRef.current.style.height = `calc(${padding * 2}rem + ${height}px)`
+        containerRef.current.style.height = `calc(${padding * 2}px + ${height}px)`
       }
     }
   }, [ isOpen, toggleContent ])

@@ -47,7 +47,7 @@ const RangeSliderView: React.FC<RangeSliderViewProps> = (props: RangeSliderViewP
   })
 
   const percent = Math.min((value - min) / (max - min) * 100, 100)
-  const thumbStyle = { left: `calc(${percent}% - ${25 * percent / 100}rem)` }
+  const thumbStyle = { left: `calc(${percent}% - ${25 * percent / 100}px)` }
 
   return (
     <div

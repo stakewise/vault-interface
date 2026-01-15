@@ -19,27 +19,27 @@
   --color-white: var(--white);
 
   /* Border radius */
-  --radius-2: 2rem;
-  --radius-4: 4rem;
-  --radius-6: 6rem;
-  --radius-8: 8rem;
-  --radius-12: 12rem;
-  --radius-16: 16rem;
-  --radius-24: 24rem;
-  --radius-72: 72rem;
+  --radius-2: 2px;
+  --radius-4: 4px;
+  --radius-6: 6px;
+  --radius-8: 8px;
+  --radius-12: 12px;
+  --radius-16: 16px;
+  --radius-24: 24px;
+  --radius-72: 72px;
 
   /* Blur */
-  --blur-xs: 4rem;
-  --blur-sm: 8rem;
-  --blur-md: 12rem;
-  --blur-lg: 16rem;
-  --blur-xl: 24rem;
-  --blur-2xl: 40rem;
-  --blur-3xl: 64rem;
+  --blur-xs: 4px;
+  --blur-sm: 8px;
+  --blur-md: 12px;
+  --blur-lg: 16px;
+  --blur-xl: 24px;
+  --blur-2xl: 40px;
+  --blur-3xl: 64px;
 
   /* Animation */
   --animate-spin: spin 1s linear infinite;
 
   /* Other */
-  --spacing: 1rem;
+  --spacing: 1px;
 }

@@ -21,16 +21,16 @@ $bg-color-error-hover: rgba($color-error-rgb, .15);
   @include field-colors($border-color-default, $bg-color-default);
 
   &.isMultiline {
-    min-height: 20rem;
+    min-height: 20px;
 
     .crossButton {
-      top: 12rem;
-      right: 16rem;
+      top: 12px;
+      right: 16px;
     }
   }
 
   &:not(.isMultiline) {
-    height: 48rem;
+    height: 48px;
   }
 
   &:not(.disabled) {
@@ -60,7 +60,7 @@ $bg-color-error-hover: rgba($color-error-rgb, .15);
   &.focused {
 
     .label {
-      top: 5rem;
+      top: 5px;
     }
   }
 
@@ -74,7 +74,7 @@ $bg-color-error-hover: rgba($color-error-rgb, .15);
 }
 
 .label {
-  top: 14rem;
+  top: 14px;
   pointer-events: none;
   @include basic-transition();
 }
@@ -88,7 +88,7 @@ $bg-color-error-hover: rgba($color-error-rgb, .15);
   caret-color: $color-dark;
 
   &.isMultiline {
-    line-height: 20rem;
+    line-height: 20px;
   }
 
   &:focus {

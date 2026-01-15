@@ -1,5 +1,5 @@
 .button {
-  width: 90rem;
+  width: 90px;
   @include button-light-color(logo);
 }
 
@@ -8,7 +8,7 @@
 }
 
 .text {
-  max-width: 90rem;
+  max-width: 90px;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;

@@ -55,8 +55,8 @@ const TokenOptions: React.FC<TokenOptionsProps> = (props) => {
     <>
       <TokenSearch
         className={cx({
-          'min-w-[320rem]': !isMobile,
-          'w-[calc(100vw-48rem-2px)]': isMobile,
+          'min-w-[320px]': !isMobile,
+          'w-[calc(100vw-48px-2px)]': isMobile,
         })}
         field={field}
         dataTestId={dataTestId}
@@ -67,7 +67,7 @@ const TokenOptions: React.FC<TokenOptionsProps> = (props) => {
             className="overflow-y-auto"
             fadeClassName="fixed"
             style={{
-              height: `calc(5 * 56rem - 28rem)`,
+              height: `calc(5 * 56px - 28px)`,
             }}
           >
             <div>
@@ -85,8 +85,8 @@ const TokenOptions: React.FC<TokenOptionsProps> = (props) => {
               fadeClassName="fixed"
               style={{
                 height: filteredTokens.length > 5
-                  ? `calc(5 * 56rem - 28rem)`
-                  : `calc(${filteredTokens.length} * 56rem)`,
+                  ? `calc(5 * 56px - 28px)`
+                  : `calc(${filteredTokens.length} * 56px)`,
               }}
             >
               <div>

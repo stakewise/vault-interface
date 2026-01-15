@@ -43,7 +43,7 @@ const Chart: React.FC<ChartProps> = (props) => {
     <div
       ref={containerRef}
       className={cx(className, 'relative w-full')}
-      style={{ minHeight: `${height || 340}rem` }}
+      style={{ minHeight: `${height || 340}px` }}
       data-testid={dataTestId}
       onMouseOver={showLegend}
       onMouseLeave={hideLegend}

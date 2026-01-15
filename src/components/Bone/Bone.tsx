@@ -29,11 +29,11 @@ const Bone: React.FC<BoneProps> = (props: any) => {
     const style: any = styles
 
     if (width) {
-      style.width = style.minWidth = `${width}rem`
+      style.width = style.minWidth = `${width}px`
     }
 
     if (height) {
-      style.height = style.minHeight = `${height}rem`
+      style.height = style.minHeight = `${height}px`
     }
 
     return style
