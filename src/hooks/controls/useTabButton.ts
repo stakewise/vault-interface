@@ -13,7 +13,7 @@ const useTabButton = (props: Input, deps: any[] = []) => {
   const { gap = 0, index = 0, firstRenderClassName } = props || {}
 
   const { locale } = intl.useIntl()
-  const { isMobile } = device.useData()
+  const { isDesktop } = device.useData()
 
   const tabButtonRef = useRef<HTMLDivElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
@@ -70,7 +70,7 @@ const useTabButton = (props: Input, deps: any[] = []) => {
   useLayoutEffect(() => {
     setPosition()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ ...deps, locale, isMobile, setPosition ])
+  }, [ ...deps, locale, isDesktop, setPosition ])
 
   useEffect(() => {
     const children = containerRef.current?.children

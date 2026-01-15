@@ -20,7 +20,7 @@ const Arrows: React.FC<ArrowsProps> = (props) => {
 
   const swiper = useSwiper()
   const slide = useSwiperSlide()
-  const { isMobile } = device.useData()
+  const { isDesktop } = device.useData()
 
   const handlePrev = useCallback(() => swiper?.slidePrev(), [ swiper ])
   const handleNext = useCallback(() => swiper?.slideNext(), [ swiper ])
@@ -35,7 +35,7 @@ const Arrows: React.FC<ArrowsProps> = (props) => {
         className={cx(s.arrow, s.prev, prevClassName, 'absolute')}
         ariaLabel={messages.prevSlide}
         disabled={!swiper?.activeIndex}
-        size={isMobile ? 24 : 48}
+        size={!isDesktop ? 24 : 48}
         icon="arrow/left"
         iconColor="light"
         color="dark"
@@ -45,7 +45,7 @@ const Arrows: React.FC<ArrowsProps> = (props) => {
         className={cx(s.arrow, s.next, nextClassName, 'absolute')}
         ariaLabel={messages.nextSlide}
         disabled={swiper?.slides?.length - 1 === swiper?.activeIndex}
-        size={isMobile ? 24 : 48}
+        size={!isDesktop ? 24 : 48}
         icon="arrow/right"
         iconColor="light"
         color="dark"

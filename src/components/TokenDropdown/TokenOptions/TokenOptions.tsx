@@ -28,7 +28,7 @@ const TokenOptions: React.FC<TokenOptionsProps> = (props) => {
 
   const { sdk, isGnosis } = useConfig()
 
-  const { isMobile } = device.useData()
+  const { isDesktop } = device.useData()
   const { value: search } = forms.useFieldValue(field)
 
   const filteredTokens = useMemo(() => {
@@ -55,8 +55,8 @@ const TokenOptions: React.FC<TokenOptionsProps> = (props) => {
     <>
       <TokenSearch
         className={cx({
-          'min-w-[320px]': !isMobile,
-          'w-[calc(100vw-48px-2px)]': isMobile,
+          'min-w-[320px]': isDesktop,
+          'w-[calc(100vw-48px-2px)]': !isDesktop,
         })}
         field={field}
         dataTestId={dataTestId}

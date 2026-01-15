@@ -25,7 +25,7 @@ const APY: React.FC<APYProps> = (props) => {
   const { className } = props
 
   const { isEthereum } = useConfig()
-  const { isMobile } = device.useData()
+  const { isDesktop } = device.useData()
   const { apy, maxBoostApy } = useStore(storeSelector)
 
   const isProfitable = apy < maxBoostApy
@@ -62,13 +62,13 @@ const APY: React.FC<APYProps> = (props) => {
         }
       </div>
       <div
-        className={cx('flex items-center gap-4', { 'mt-4': isMobile })}
+        className={cx('flex items-center gap-4', { 'mt-4': !isDesktop })}
       >
         <Text
           className="opacity-40"
-          message={isMobile ? 'APY' : messages.apy}
+          message={!isDesktop ? 'APY' : messages.apy}
           color="dark"
-          size={isMobile ? 't12m' : 't14m'}
+          size={!isDesktop ? 't12m' : 't14m'}
         />
         {
           isBoostEnabled && (

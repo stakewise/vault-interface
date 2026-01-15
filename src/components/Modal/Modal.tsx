@@ -29,7 +29,7 @@ const Modal: React.FC<ModalProps> = (props) => {
   // This state use for animation
   const [ isOpen, setIsOpen ] = useState(true)
 
-  const { isMobile, isDesktop } = device.useData()
+  const { isDesktop } = device.useData()
 
   useEffect(() => {
     // Headless UI Dialog sets the #global-wrapper to inert,
@@ -117,8 +117,8 @@ const Modal: React.FC<ModalProps> = (props) => {
           >
             <DialogPanel
               className={cx(className, s.modal, 'relative m-auto p-24 bg-modal', s[size], {
-                'rounded-16': !isMobile,
-                'flex flex-col': isMobile,
+                'rounded-16': isDesktop,
+                'flex flex-col': !isDesktop,
               })}
               data-testid={dataTestId}
             >

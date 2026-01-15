@@ -37,10 +37,10 @@ import device from 'modules/device'
  */
 
 const useViewportHeight = () => {
-  const { isMobile } = device.useData()
+  const { isDesktop } = device.useData()
 
   useEffect(() => {
-    if (isMobile) {
+    if (!isDesktop) {
       const handler = () => {
         const vh = window.innerHeight  * 0.01
 
@@ -55,7 +55,7 @@ const useViewportHeight = () => {
         document.documentElement.style.removeProperty('--vh')
       }
     }
-  }, [ isMobile ])
+  }, [ isDesktop ])
 }
 
 

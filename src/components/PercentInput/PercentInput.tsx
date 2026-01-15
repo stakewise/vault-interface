@@ -36,7 +36,7 @@ export type PercentInputProps = {
 }
 
 const PercentInput: React.FC<PercentInputProps> = ({ field, isDisabled, dataTestId }) => {
-  const { isMobile } = device.useData()
+  const { isDesktop } = device.useData()
 
   const { value, error } = forms.useFieldValue(field)
 
@@ -111,7 +111,7 @@ const PercentInput: React.FC<PercentInputProps> = ({ field, isDisabled, dataTest
     >
       <div
         className={cx('flex justify-between items-center w-full gap-8', {
-          'pt-8': isMobile,
+          'pt-8': !isDesktop,
         })}
       >
         <AmountInput

@@ -13,7 +13,7 @@ const Skeleton: React.FC = () => {
   const searchParams = useSearchParams()
 
   const { tabs } = swapCtx.useData()
-  const { isMobile } = device.useData()
+  const { isDesktop } = device.useData()
 
   const isBalancesRef = useRef(Boolean(searchParams.get('balances')))
 
@@ -73,7 +73,7 @@ const Skeleton: React.FC = () => {
           <div className="mt-20">
             <Bone
               className="rounded-8"
-              h={isMobile ? 90 : 108}
+              h={!isDesktop ? 90 : 108}
               wFull
               delay={1}
             />

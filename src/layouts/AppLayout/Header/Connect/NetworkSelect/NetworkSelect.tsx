@@ -38,7 +38,7 @@ const dataTestId = 'network-select'
 const NetworkSelect: React.FC<NetworkSelectProps> = (props) => {
   const { className } = props
 
-  const { isMobile } = device.useData()
+  const { isDesktop } = device.useData()
   const isChangeChainDisabled = useChangeChainDisabled()
   const { sdk, networkId, wallet, address, isGnosis } = useConfig()
 
@@ -60,7 +60,7 @@ const NetworkSelect: React.FC<NetworkSelectProps> = (props) => {
     <Dropdown
       className={className}
       dataTestId={dataTestId}
-      placement={isMobile && !address ? 'bottom-start' : 'bottom-end'}
+      placement={!isDesktop && !address ? 'bottom-start' : 'bottom-end'}
       disabled={isChangeChainDisabled}
       button={({ isOpen }) => {
         const arrow = isOpen ? 'up' : 'down'
@@ -70,15 +70,15 @@ const NetworkSelect: React.FC<NetworkSelectProps> = (props) => {
             className="rounded-8"
             color="light"
             dataTestId={`${dataTestId}-button`}
-            title={isMobile ? '' : sdk.config.network.name}
+            title={!isDesktop ? '' : sdk.config.network.name}
             logo={isGnosis ? 'token/GNO' : 'token/ETH'}
-            arrow={!isMobile ? arrow : undefined}
+            arrow={isDesktop ? arrow : undefined}
             ariaLabel={commonMessages.accessibility.changeNetwork}
           />
         )
       }}
       value={networkId}
-      withArrow={!isMobile}
+      withArrow={isDesktop}
       options={networkOptions}
       onChange={handleChangeChain}
     />

@@ -21,7 +21,7 @@ export const [ ConnectWalletModal, openConnectWalletModal, closeConnectWalletMod
     const { closeModal } = props
 
     const pathname = usePathname()
-    const { isMobile } = device.useData()
+    const { isDesktop } = device.useData()
     const { address, wallet } = useConfig()
     const metaMaskOnboarding = useMetaMaskOnboarding()
     const [ selectedWalletId, setSelectedWalletId ] = useState<WalletIds | null>(null)
@@ -101,7 +101,7 @@ export const [ ConnectWalletModal, openConnectWalletModal, closeConnectWalletMod
         size="narrow"
         bottomNode={bottomNode}
         contentClassName={cx({
-          'flex justify-center': isMobile,
+          'flex justify-center': !isDesktop,
         })}
         closeModal={closeModal}
         onBackButtonClick={(isMonitorAddress || isLedger) ? () => setSelectedWalletId(null) : undefined}
