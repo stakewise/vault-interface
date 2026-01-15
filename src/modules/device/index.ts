@@ -7,6 +7,7 @@ declare global {
   namespace Device {
 
     type Context = {
+      isTablet: boolean
       isMobile: boolean
       isDesktop: boolean
       isCalculated: boolean
