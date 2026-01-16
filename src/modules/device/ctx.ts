@@ -4,8 +4,9 @@ import initContext from 'helpers/initContext'
 
 
 const initialContext: Device.Context = {
-  isDesktop: true,
   isMobile: false,
+  isTablet: false,
+  isDesktop: true,
   isCalculated: false,
 }
 
@@ -22,12 +23,14 @@ const {
   const [ deviceContext, setDeviceContext ] = useState<Device.Context>(initialValue || initialContext)
 
   useIsomorphicLayoutEffect(() => {
-    const mobileMediaQuery = window.matchMedia('(max-width: 999px)')
+    const mobileMediaQuery = window.matchMedia('(max-width: 576px)')
+    const tabletMediaQuery = window.matchMedia('(min-width: 577px) and (max-width: 999px)')
     const desktopMediaQuery = window.matchMedia('(min-width: 1000px)')
 
     const handleSetDevice = () => {
       const value = {
         isMobile: mobileMediaQuery.matches,
+        isTablet: tabletMediaQuery.matches,
         isDesktop: desktopMediaQuery.matches,
         isCalculated: true,
       }

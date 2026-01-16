@@ -3,146 +3,146 @@
   /* Typography */
   .text-h100 {
     font-weight: 700;
-    font-size: 100rem;
-    line-height: 110rem;
+    font-size: 100px;
+    line-height: 110px;
   }
 
   .text-h90 {
     font-weight: 700;
-    font-size: 90rem;
-    line-height: 100rem;
+    font-size: 90px;
+    line-height: 100px;
   }
 
   .text-h60 {
     font-weight: 700;
-    font-size: 60rem;
-    line-height: 72rem;
+    font-size: 60px;
+    line-height: 72px;
   }
 
   .text-h48 {
     font-weight: 700;
-    font-size: 48rem;
-    line-height: 56rem;
+    font-size: 48px;
+    line-height: 56px;
   }
 
   .text-h40 {
     font-weight: 700;
-    font-size: 40rem;
-    line-height: 48rem;
+    font-size: 40px;
+    line-height: 48px;
   }
 
   .text-h32 {
     font-weight: 700;
-    font-size: 32rem;
-    line-height: 44rem;
+    font-size: 32px;
+    line-height: 44px;
   }
 
   .text-h24 {
     font-weight: 700;
-    font-size: 24rem;
-    line-height: 32rem;
+    font-size: 24px;
+    line-height: 32px;
   }
 
   .text-h22 {
     font-weight: 700;
-    font-size: 22rem;
-    line-height: 26rem;
+    font-size: 22px;
+    line-height: 26px;
   }
 
   .text-h20 {
     font-weight: 700;
-    font-size: 20rem;
-    line-height: 24rem;
+    font-size: 20px;
+    line-height: 24px;
   }
 
   .text-t40m {
     font-weight: 500;
-    font-size: 40rem;
-    line-height: 48rem;
+    font-size: 40px;
+    line-height: 48px;
   }
 
   .text-t20b {
     font-weight: 700;
-    font-size: 20rem;
-    line-height: 32rem;
+    font-size: 20px;
+    line-height: 32px;
   }
 
   .text-t18m {
     font-weight: 500;
-    font-size: 18rem;
-    line-height: 24rem;
+    font-size: 18px;
+    line-height: 24px;
   }
 
   .text-t18b {
     font-weight: 700;
-    font-size: 18rem;
-    line-height: 24rem;
+    font-size: 18px;
+    line-height: 24px;
   }
 
   .text-t16m {
     font-weight: 500;
-    font-size: 16rem;
-    line-height: 22rem;
+    font-size: 16px;
+    line-height: 22px;
   }
 
   .text-t16b {
     font-weight: 700;
-    font-size: 16rem;
-    line-height: 22rem;
+    font-size: 16px;
+    line-height: 22px;
   }
 
   .text-t14m {
     font-weight: 500;
-    font-size: 14rem;
-    line-height: 20rem;
+    font-size: 14px;
+    line-height: 20px;
   }
 
   .text-t14b {
     font-weight: 700;
-    font-size: 14rem;
-    line-height: 20rem;
+    font-size: 14px;
+    line-height: 20px;
   }
 
   .text-t14 {
     font-weight: 400;
-    font-size: 14rem;
-    line-height: 20rem;
+    font-size: 14px;
+    line-height: 20px;
   }
 
   .text-t12m {
     font-weight: 500;
-    font-size: 12rem;
-    line-height: 18rem;
+    font-size: 12px;
+    line-height: 18px;
   }
 
   .text-t12b {
     font-weight: 700;
-    font-size: 12rem;
-    line-height: 18rem;
+    font-size: 12px;
+    line-height: 18px;
   }
 
   .text-t12 {
     font-weight: 400;
-    font-size: 12rem;
-    line-height: 18rem;
+    font-size: 12px;
+    line-height: 18px;
   }
 
   .text-n10m {
     font-weight: 500;
-    font-size: 10rem;
-    line-height: 16rem;
+    font-size: 10px;
+    line-height: 16px;
   }
 
   .text-n10b {
     font-weight: 700;
-    font-size: 10rem;
-    line-height: 16rem;
+    font-size: 10px;
+    line-height: 16px;
   }
 
   .text-n10 {
     font-weight: 400;
-    font-size: 10rem;
-    line-height: 16rem;
+    font-size: 10px;
+    line-height: 16px;
   }
 
   /* Ellipsis */

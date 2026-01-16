@@ -19,7 +19,7 @@ const TransactionsModal: React.FC<TransactionsModalProps> = ({ title, items, ...
     {...rest}
   >
     <Transactions.View
-      className="mx-auto w-[290rem]"
+      className="mx-auto w-[290px]"
       items={items}
     />
   </Modal>

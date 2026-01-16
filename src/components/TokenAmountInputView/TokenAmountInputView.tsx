@@ -45,7 +45,7 @@ const TokenAmountInputView: React.FC<TokenAmountInputViewProps> = (props) => {
     onMaxButtonClick,
   } = props
 
-  const { isMobile } = device.useData()
+  const { isDesktop } = device.useData()
   const { error } = forms.useFieldValue(field)
   const { formattedValue, handleChange, setSpecialFormat } = useSpecialFormat({
     field,
@@ -63,7 +63,7 @@ const TokenAmountInputView: React.FC<TokenAmountInputViewProps> = (props) => {
           <Text
             className="mb-16"
             message={label as string}
-            size={isMobile ? 't12' : 't14m'}
+            size={!isDesktop ? 't12' : 't14m'}
             color="dark"
             dataTestId={dataTestId ? `${dataTestId}-label` : ''}
           />
@@ -72,7 +72,7 @@ const TokenAmountInputView: React.FC<TokenAmountInputViewProps> = (props) => {
       <div className="pt-16 px-16 pb-8 flex flex-col bg-dark/5 rounded-8">
         <div
           className={cx('mb-16 flex justify-between items-center w-full', {
-            'pt-8': isMobile,
+            'pt-8': !isDesktop,
           })}
         >
           <Input
@@ -98,12 +98,12 @@ const TokenAmountInputView: React.FC<TokenAmountInputViewProps> = (props) => {
         </div>
         <div
           className={cx('flex items-end w-full', {
-            'justify-between' : !isMobile,
-            'justify-end' : isMobile,
+            'justify-between' : isDesktop,
+            'justify-end' : !isDesktop,
           })}
         >
           {
-            !isMobile && (
+            isDesktop && (
               <FiatAmount
                 amount={formattedValue || '0'}
                 token={balance.token}

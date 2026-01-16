@@ -8,9 +8,11 @@ const getUserAgentDevice = async () => {
   const serverUI = new UAParser(userAgent)
 
   const device = serverUI.getDevice().type
-  const isMobile = device === 'mobile' || device === 'tablet'
+  const isMobile = device === 'mobile'
+  const isTablet = device === 'tablet'
 
   return {
+    isTablet,
     isMobile: isMobile,
     isDesktop: !isMobile,
     isCalculated: false,

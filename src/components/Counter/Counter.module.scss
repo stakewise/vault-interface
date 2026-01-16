@@ -1,6 +1,6 @@
 .counter {
-  min-width: 20rem;
-  height: 20rem;
+  min-width: 20px;
+  height: 20px;
 
   @include dark-theme {
     color: $color-dark;

@@ -21,7 +21,7 @@ const LedgerTransportView: React.FC<LedgerTransportViewProps> = (props) => {
   const selectBLE = useCallback(() => wallet.connect(wallets.ledger.id, 'ble'), [ wallet ])
 
   return (
-    <div className={cx(className, 'mx-auto max-w-[300rem]')}>
+    <div className={cx(className, 'mx-auto max-w-[300px]')}>
       <Button
         title={messages.usbButton}
         onClick={selectUSB}

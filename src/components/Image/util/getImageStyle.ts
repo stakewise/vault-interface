@@ -8,7 +8,7 @@ type Input = {
 }
 
 const getImageStyle = ({ size, color, imageUrl }: Input) => {
-  const remSize = size ? `${size}rem` : undefined
+  const remSize = size ? `${size}px` : undefined
 
   const dimensions: CSSProperties = {
     width: remSize,

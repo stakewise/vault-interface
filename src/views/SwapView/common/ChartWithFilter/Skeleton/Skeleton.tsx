@@ -33,11 +33,11 @@ const tabsItems: ChartWithFilterProps['tabsItems'] =[
 const Skeleton: React.FC<SkeletonProps> = (props) => {
   const { className } = props
 
-  const { isMobile } = device.useData()
+  const { isDesktop } = device.useData()
   const options = useOptions(tabsItems)
   const { form } = useForm(options)
 
-  const View = isMobile ? Mobile : Desktop
+  const View = isDesktop ? Desktop : Mobile
 
   return (
     <View
@@ -49,7 +49,7 @@ const Skeleton: React.FC<SkeletonProps> = (props) => {
     >
       <Chart
         data={[]}
-        hideRightScale={isMobile}
+        hideRightScale={!isDesktop}
         pointType="percent"
         token="ETH"
         style="bar"

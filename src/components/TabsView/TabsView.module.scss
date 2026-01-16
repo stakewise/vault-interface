@@ -1,7 +1,7 @@
 .line {
   position: absolute;
   bottom: 0;
-  height: 2rem;
+  height: 2px;
   content: '';
   @include basic-transition();
 }

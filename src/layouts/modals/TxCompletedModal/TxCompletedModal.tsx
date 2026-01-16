@@ -41,7 +41,7 @@ export const [ TxCompletedModal, openTxCompletedModal ] = (
   modal.wrapper(UNIQUE_FILE_ID, (props: ModalProps) => {
     const { tokens, fails, hash, closeModal } = props
 
-    const { isMobile } = device.useData()
+    const { isDesktop } = device.useData()
     const { activeWallet } = useConfig()
 
     useModalClose({ closeModal })
@@ -106,8 +106,8 @@ export const [ TxCompletedModal, openTxCompletedModal ] = (
         }
         <div
           className={cx('hide-empty gap-16 mt-8', {
-            'grid': isMobile,
-            'flex': !isMobile,
+            'grid': !isDesktop,
+            'flex': isDesktop,
           })}
         >
           {

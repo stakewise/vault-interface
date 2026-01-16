@@ -1,5 +1,5 @@
 .container {
-  margin: 0 -25rem -25rem;
+  margin: 0 -25px -25px;
   border-top-left-radius: 0 !important;
   border-top-right-radius: 0 !important;
 
@@ -8,6 +8,6 @@
   }
 
   @include mobile {
-    bottom: 12rem;
+    bottom: 12px;
   }
 }

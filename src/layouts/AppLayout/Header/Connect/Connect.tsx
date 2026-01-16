@@ -24,7 +24,7 @@ const networkSizes = {
 const Connect: React.FC<Connect> = ({ className }) => {
   const { address, networkId, autoConnectChecked } = useConfig()
 
-  const { isMobile } = device.useData()
+  const { isDesktop } = device.useData()
 
   if (!autoConnectChecked) {
     const networkWidth = networkSizes[networkId] || networkSizes.mainnet
@@ -35,14 +35,14 @@ const Connect: React.FC<Connect> = ({ className }) => {
           supportedChains.length > 1 && (
             <Bone
               className="rounded-8"
-              w={isMobile ? 44 : networkWidth}
+              w={!isDesktop ? 44 : networkWidth}
               h={44}
             />
           )
         }
         <Bone
           className="rounded-8"
-          w={isMobile ? 136 : 180}
+          w={!isDesktop ? 136 : 180}
           h={44}
         />
       </div>
@@ -57,7 +57,7 @@ const Connect: React.FC<Connect> = ({ className }) => {
           <Account />
         ) : (
           <Button
-            title={isMobile
+            title={!isDesktop
               ? commonMessages.buttonTitle.connect
               : commonMessages.buttonTitle.connectWallet
             }

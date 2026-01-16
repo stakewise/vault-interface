@@ -1,6 +1,6 @@
 .notification {
-  min-width: 210rem;
-  max-width: 560rem;
+  min-width: 210px;
+  max-width: 560px;
   background-color: $color-light;
   animation: openNotification 500ms ease;
 
@@ -34,8 +34,8 @@
 
 .closeButton {
   top: 50%;
-  right: 16rem;
-  margin-top: -12rem;
+  right: 16px;
+  margin-top: -12px;
   background-color: rgba($color-dark-rgb, .05);
   pointer-events: auto;
 }

@@ -29,7 +29,7 @@ const AmountInput: React.FC<AmountInputProps> = (props) => {
   } = props
 
   const controlId = useId()
-  const { isMobile } = device.useData()
+  const { isDesktop } = device.useData()
   const testId = dataTestId || `input-${controlId}`
   const inputRef = useRef<HTMLInputElement>(null)
 
@@ -38,8 +38,8 @@ const AmountInput: React.FC<AmountInputProps> = (props) => {
       className={cx(s.input, className, 'w-full', {
         'text-dark': !error,
         'text-error': error,
-        'text-h20': isMobile,
-        'text-t40m': !isMobile,
+        'text-h20': !isDesktop,
+        'text-t40m': isDesktop,
       })}
       ref={inputRef}
       placeholder="0"

@@ -18,7 +18,7 @@ const ExportButton: React.FC<ExportButtonProps> = (props) => {
   const { className, vaultAddress, onClick } = props
 
   const { address } = useConfig()
-  const { isMobile } = device.useData()
+  const { isDesktop } = device.useData()
 
   const handleClick = useCallback(() => {
     if (typeof onClick === 'function') {
@@ -31,7 +31,7 @@ const ExportButton: React.FC<ExportButtonProps> = (props) => {
   return (
     <>
       {
-        isMobile ? (
+        !isDesktop ? (
           <Button
             size="s"
             color="light"

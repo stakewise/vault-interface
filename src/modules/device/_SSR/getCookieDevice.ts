@@ -11,10 +11,13 @@ const getCookieDevice = async () => {
       const parsedDevice = JSON.parse(cookieDevice)
 
       const isMobile = Boolean(parsedDevice?.isMobile)
+      const isTablet = Boolean(parsedDevice?.isTablet)
+      const isDesktop = Boolean(parsedDevice?.isDesktop)
 
       return {
-        isDesktop: !isMobile,
+        isTablet,
         isMobile,
+        isDesktop,
         isCalculated: false,
       }
     }

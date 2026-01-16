@@ -87,11 +87,11 @@ const Button: React.FC<ButtonProps> = (props) => {
   }, [ loading, disabled, color ])
 
   const buttonSizeClassName = cx({
-    'min-w-[28rem] h-[28rem]': size === 'xs',
+    'min-w-[28px] h-[28px]': size === 'xs',
     'min-w-32 h-32': size === 's',
-    'min-w-[44rem] h-[44rem]': size === 'm',
+    'min-w-[44px] h-[44px]': size === 'm',
     'min-w-60 h-60': size === 'l',
-    'min-w-[70rem] h-[70rem]': size === 'xl',
+    'min-w-[70px] h-[70px]': size === 'xl',
   })
 
   const buttonPaddingClassName = cx({

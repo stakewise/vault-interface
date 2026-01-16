@@ -1,7 +1,7 @@
 .arrow {
-  top: calc(100% - 10rem);
-  left: calc(50% - 10rem);
-  padding: 2rem;
+  top: calc(100% - 10px);
+  left: calc(50% - 10px);
+  padding: 2px;
   transition: .2s;
 
   @include dark-theme {

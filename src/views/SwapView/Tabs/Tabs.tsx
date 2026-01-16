@@ -27,7 +27,7 @@ const Tabs: React.FC<TabsProps> = (props) => {
 
   const { isEthereum } = useConfig()
   const { tabs } = swapCtx.useData()
-  const { isMobile } = device.useData()
+  const { isDesktop } = device.useData()
 
   const {
     isMoreV2,
@@ -46,13 +46,13 @@ const Tabs: React.FC<TabsProps> = (props) => {
   const withToggleButton = withMint || withBoost
 
   const { tabButtonRef, containerRef } = useTabButton({
-    gap: isMobile ? 4 : 12,
+    gap: !isDesktop ? 4 : 12,
     index: tabIndex,
   }, [ tabIndex, tabs.list, isClaimAvailable ])
 
   const gapClassName = cx({
-    'gap-12': !isMobile,
-    'gap-4': isMobile,
+    'gap-12': isDesktop,
+    'gap-4': !isDesktop,
   })
 
   return (

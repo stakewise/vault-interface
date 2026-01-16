@@ -7,7 +7,7 @@ import type { LogoProps } from 'components'
 
 
 const useAccount = () => {
-  const { isMobile } = device.useData()
+  const { isDesktop } = device.useData()
   const { address, accountName, activeWallet } = useConfig()
 
   const addressOption = accountName || methods.shortenAddress(address)
@@ -18,8 +18,8 @@ const useAccount = () => {
 
   return useMemo(() => ({
     logo,
-    title: isMobile ? '' : addressOption,
-  }), [ addressOption, isMobile, logo ])
+    title: !isDesktop ? '' : addressOption,
+  }), [ addressOption, isDesktop, logo ])
 }
 
 

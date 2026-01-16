@@ -1,16 +1,16 @@
 @include mobile {
 
   .notifications {
-    right: 16rem;
-    left: 16rem;
+    right: 16px;
+    left: 16px;
   }
 }
 
 @include tablet {
 
   .notifications {
-    right: 24rem;
-    left: 24rem;
+    right: 24px;
+    left: 24px;
   }
 }
 
@@ -18,7 +18,7 @@
 
   .notifications {
     left: 50%;
-    width: 560rem;
-    margin-left: -280rem;
+    width: 560px;
+    margin-left: -280px;
   }
 }

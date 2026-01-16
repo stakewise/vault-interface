@@ -16,7 +16,7 @@ export type TokenProps = {
 const Token: React.FC<TokenProps> = (props) => {
   const { className, token, dataTestId } = props
 
-  const { isMobile } = device.useData()
+  const { isDesktop } = device.useData()
 
   return (
     <div className={cx(className, 'flex justify-end items-center')}>
@@ -26,7 +26,7 @@ const Token: React.FC<TokenProps> = (props) => {
       />
       <Text
         message={token}
-        size={isMobile ? 't14b' : 'h20'}
+        size={!isDesktop ? 't14b' : 'h20'}
         color="dark"
         dataTestId={dataTestId}
       />

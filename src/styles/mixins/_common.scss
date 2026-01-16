@@ -128,7 +128,7 @@
 // Shadow
 
 @mixin shadow-md {
-  box-shadow: 0 2rem 12rem rgba($color-dark-rgb, .04);
+  box-shadow: 0 2px 12px rgba($color-dark-rgb, .04);
 }
 
 

@@ -26,7 +26,7 @@ export const [ GuideModal, openGuideModal ] = (
     useModalClose({ closeModal })
 
     const pathname = usePathname()
-    const { isMobile } = device.useData()
+    const { isDesktop } = device.useData()
 
     const slideMessages = (() => {
       const isVaultPage = /^\/vault\/./.test(pathname)
@@ -38,7 +38,7 @@ export const [ GuideModal, openGuideModal ] = (
       return texts.stakePage
     })()
 
-    const slideImages = isMobile ? images.portrait : images.landscape
+    const slideImages = !isDesktop ? images.portrait : images.landscape
     const slides: SliderProps['items'] = slideCounts.map((count) => ({
       text: slideMessages[count as keyof typeof slideMessages],
       image: slideImages[count as keyof typeof images.landscape],

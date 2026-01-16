@@ -9,13 +9,13 @@ import BurgerButton from './BurgerButton/BurgerButton'
 
 
 const Header: React.FC = () => {
-  const { isMobile } = device.useData()
+  const { isDesktop } = device.useData()
 
   const headerClassName = 'width-container flex items-center justify-end py-12'
 
   const [ active, setActive ] = useState(false)
 
-  if (isMobile) {
+  if (!isDesktop) {
     return (
       <>
         <header
