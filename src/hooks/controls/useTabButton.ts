@@ -33,7 +33,7 @@ const useTabButton = (props: Input, deps: any[] = []) => {
 
       if (widths[index] && height) {
         return {
-          left: `calc(${offset}px + ${gapOffset}rem)`,
+          left: `calc(${offset}px + ${gapOffset}px)`,
           width: `${widths[index]}px`,
           height: `${height}px`,
         }
