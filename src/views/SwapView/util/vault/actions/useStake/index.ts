@@ -27,6 +27,7 @@ const useStake = (values: Input) => {
   const swapTokens = swapHooks.useTokens({
     initialBuyToken: depositTokenAddress,
     initialSellToken: depositTokenAddress,
+    filterList: false,
   })
 
   const isSwapAvailable = Boolean(

@@ -47,7 +47,7 @@ const useStakeSubmit = (values: Input) => {
     step: StakeStep.SwapApprove,
     recipient: addresses[chainId].cow.vaultRelayer,
     tokenAddress: swapTokens.sellToken.address,
-    skip: !swapTokens.sellToken.address || !vaultAddress,
+    skip: !swapTokens.sellToken.address || !vaultAddress || !swapTokens.sellToken.address,
   })
 
   const stakeApprove = useStakeApprove({
