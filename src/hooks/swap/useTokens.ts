@@ -15,10 +15,11 @@ type SetTokensInput = {
 type Input = {
   initialBuyToken?: InitialToken
   initialSellToken?: InitialToken
+  filterList?: boolean
 }
 
 const useTokens = (values?: Input) => {
-  const { initialBuyToken, initialSellToken } = values || {}
+  const { initialBuyToken, initialSellToken, filterList = true } = values || {}
 
   const { sdk } = useConfig()
   const { list, isTokensListFetching } = useTokensList()
@@ -34,10 +35,12 @@ const useTokens = (values?: Input) => {
   })
 
   const filteredList = useMemo(() => (
-    list.filter(({ address }) => (
-      ![ buyToken.data.address, sellToken.data.address ].includes(address)
-    ))
-  ), [ buyToken, sellToken, list ])
+    filterList
+      ? list.filter(({ address }) => (
+        ![ buyToken.data.address, sellToken.data.address ].includes(address)
+      ))
+      : list
+  ), [ buyToken, sellToken, list, filterList ])
 
   const setTokens = useCallback((values: SetTokensInput) => {
     if (values.buyToken || values.buyToken === null) {

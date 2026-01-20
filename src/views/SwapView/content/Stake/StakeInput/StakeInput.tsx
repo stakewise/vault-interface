@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useMemo } from 'react'
 import { useConfig } from 'config'
 
 import { swapCtx } from 'views/SwapView/util'
@@ -6,12 +6,16 @@ import { TokenDropdown, TokenAmountInputView } from 'components'
 
 
 const StakeInput: React.FC = () => {
-  const { address } = useConfig()
   const { stake } = swapCtx.useData()
+  const { sdk, address } = useConfig()
 
   const onMaxButtonClick = useCallback(() => {
     stake.field.setValue(stake.maxStakeAmount)
   }, [ stake ])
+
+  const filteredList = useMemo(() => (
+    stake.swapTokens.list.filter(({ address }) => address !== sdk.config.addresses.tokens.mintToken)
+  ), [ sdk, stake.swapTokens.list ])
 
   return (
     <TokenAmountInputView
@@ -25,7 +29,7 @@ const StakeInput: React.FC = () => {
       tokenNode={(
         <TokenDropdown
           value={stake.swapTokens.sellToken.name as Tokens}
-          tokens={stake.swapTokens.list}
+          tokens={filteredList}
           dataTestId="amount-input"
           isDisabled={stake.isStakeLoading}
           onChange={(sellToken) => {
