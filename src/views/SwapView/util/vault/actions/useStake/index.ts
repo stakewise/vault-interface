@@ -22,9 +22,11 @@ const useStake = (values: Input) => {
 
   const { sdk, isTestnet, isEthereum } = useConfig()
   const { isBalancesFetching } = useStore(storeSelector)
+
+  const depositTokenAddress = isEthereum ? null : sdk.config.addresses.tokens.depositToken
   const swapTokens = swapHooks.useTokens({
-    initialBuyToken: sdk.config.addresses.tokens.mintToken,
-    initialSellToken: isEthereum ? null : sdk.config.addresses.tokens.depositToken,
+    initialBuyToken: depositTokenAddress,
+    initialSellToken: depositTokenAddress,
   })
 
   const isSwapAvailable = Boolean(
