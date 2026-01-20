@@ -4,7 +4,7 @@ $success-light-light-rgba: rgba(49, 212, 139, 0.3);
 
 
 .trackLine {
-  height: 6rem;
+  height: 6px;
 
   @include dark-theme {
     background-color: rgba($color-white-rgb, .2);
@@ -16,10 +16,10 @@ $success-light-light-rgba: rgba(49, 212, 139, 0.3);
 
   &::after {
     position: absolute;
-    top: -8rem;
+    top: -8px;
     left: 0;
     width: 100%;
-    height: 20rem;
+    height: 20px;
     content: '';
   }
 
@@ -27,25 +27,25 @@ $success-light-light-rgba: rgba(49, 212, 139, 0.3);
 
 .track {
   width: 100%;
-  height: 6rem;
-  margin-top: -6rem;
+  height: 6px;
+  margin-top: -6px;
 }
 
 .fill {
-  height: 6rem;
+  height: 6px;
 }
 
 .thumb {
-  width: 25rem;
-  height: 25rem;
-  margin-top: -10rem;
+  width: 25px;
+  height: 25px;
+  margin-top: -10px;
 
   &::before {
     position: absolute;
-    top: 5rem;
-    left: 5rem;
-    width: 15rem;
-    height: 15rem;
+    top: 5px;
+    left: 5px;
+    width: 15px;
+    height: 15px;
     background: $color-light;
     border-radius: 100%;
     content: '';
@@ -60,12 +60,12 @@ $success-light-light-rgba: rgba(49, 212, 139, 0.3);
   .thumb {
     background: linear-gradient(90deg, $success-light-light 5.26%, $primary-light 94.74%);
     background-color: $primary-light;
-    box-shadow: 0 0 8rem $success-light-light-rgba;
+    box-shadow: 0 0 8px $success-light-light-rgba;
   }
 
   .fill {
     background: linear-gradient(90deg, $success-light-light 0%, $primary-light 108.5%);
-    box-shadow: 0 0 6rem $success-light-light;
+    box-shadow: 0 0 6px $success-light-light;
   }
 }
 
@@ -73,12 +73,12 @@ $success-light-light-rgba: rgba(49, 212, 139, 0.3);
 
   .thumb {
     background-color: $primary-light;
-    box-shadow: 0 0 8rem $color-warning;
+    box-shadow: 0 0 8px $color-warning;
   }
 
   .fill {
     background: linear-gradient(90deg, $color-warning 0%, $primary-light 109.09%);
-    box-shadow: 0 0 6rem $color-warning;
+    box-shadow: 0 0 6px $color-warning;
   }
 }
 
@@ -86,12 +86,12 @@ $success-light-light-rgba: rgba(49, 212, 139, 0.3);
 
   .thumb {
     background-color: $primary-light;
-    box-shadow: 0 0 8rem rgba($color-error-rgb, .5);
+    box-shadow: 0 0 8px rgba($color-error-rgb, .5);
   }
 
   .fill {
     background: linear-gradient(90deg, $color-error 0%, $primary-light 100%);
-    box-shadow: 0 0 6rem $color-error;
+    box-shadow: 0 0 6px $color-error;
   }
 }
 
@@ -99,11 +99,11 @@ $success-light-light-rgba: rgba(49, 212, 139, 0.3);
 
   .thumb {
     background-color: $color-error;
-    box-shadow: 0 0 8rem rgba($color-primary-rgb, .5);
+    box-shadow: 0 0 8px rgba($color-primary-rgb, .5);
   }
 
   .fill {
     background: linear-gradient(90deg, $color-primary 0%, $color-error 100%);
-    box-shadow: 0 0 6rem $color-primary;
+    box-shadow: 0 0 6px $color-primary;
   }
 }

@@ -1,7 +1,7 @@
 .overlay {
   overflow-y: auto;
-  -webkit-backdrop-filter: blur(28rem);
-  backdrop-filter: blur(28rem);
+  -webkit-backdrop-filter: blur(28px);
+  backdrop-filter: blur(28px);
   @include fade-in(animation, 300ms, ease);
 
   @include light-theme {
@@ -51,10 +51,10 @@
 @include desktop {
 
   .narrow {
-    width: 480rem;
+    width: 480px;
   }
 
   .wide {
-    width: 800rem;
+    width: 800px;
   }
 }

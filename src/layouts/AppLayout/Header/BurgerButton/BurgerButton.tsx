@@ -25,7 +25,7 @@ const BurgerButton: React.FC<BurgerButtonProps> = (props) => {
 
   return (
     <ButtonBase
-      className={cx(className, s.wrapper, 'h-[44rem]')}
+      className={cx(className, s.wrapper, 'h-[44px]')}
       dataTestId={dataTestId}
       ariaLabel={ariaLabel}
       onClick={onClick}

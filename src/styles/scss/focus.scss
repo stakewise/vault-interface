@@ -3,11 +3,11 @@
 
 .js-focus-visible .focus-visible:focus {
   outline: 1px solid variables.$color-primary;
-  outline-offset: 2rem;
+  outline-offset: 2px;
 }
 
 *:focus-visible {
-  border-radius: 8rem;
+  border-radius: 8px;
   outline: none;
-  box-shadow: 0 0 0 3rem rgba(variables.$color-primary-rgb, .5);
+  box-shadow: 0 0 0 3px rgba(variables.$color-primary-rgb, .5);
 }

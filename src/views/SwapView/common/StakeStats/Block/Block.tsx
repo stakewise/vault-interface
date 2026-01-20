@@ -15,7 +15,7 @@ type BlockProps = {
 const Block: React.FC<BlockProps> = (props) => {
   const { className, value, text, dataTestId } = props
 
-  const { isMobile } = device.useData()
+  const { isDesktop } = device.useData()
 
   return (
     <div className={className}>
@@ -27,10 +27,10 @@ const Block: React.FC<BlockProps> = (props) => {
         dataTestId={dataTestId}
       />
       <Text
-        className={cx('opacity-40', { 'mt-4': isMobile })}
+        className={cx('opacity-40', { 'mt-4': !isDesktop })}
         message={text}
         color="dark"
-        size={isMobile ? 't12m' : 't14m'}
+        size={!isDesktop ? 't12m' : 't14m'}
       />
     </div>
   )

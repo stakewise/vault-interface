@@ -31,7 +31,7 @@ const TokenDropdown: React.FC<TokenDropdownProps> = (props) => {
   } = props
 
   const { chainId } = useConfig()
-  const { isMobile } = device.useData()
+  const { isDesktop } = device.useData()
   const { isFetching, open } = useTokenDropdown({
     isFetchingDisabled,
   })
@@ -71,7 +71,7 @@ const TokenDropdown: React.FC<TokenDropdownProps> = (props) => {
       contentClassName={contentClassName}
       dataTestId={dataTestId}
       middleware={(
-        isMobile
+        !isDesktop
           ? {
             offsetOptions: {
               mainAxis: 26,

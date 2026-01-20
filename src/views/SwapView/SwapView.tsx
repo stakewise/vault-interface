@@ -25,7 +25,7 @@ const SwapView: React.FC = () => {
 
   return (
     <div className="width-container">
-      <div className="max-w-[515rem] mx-auto mb-40 mt-96">
+      <div className="max-w-[515px] mx-auto mb-40 mt-96">
         <swapCtx.Provider value={ctx}>
           {
             ctx.isFetching ? (

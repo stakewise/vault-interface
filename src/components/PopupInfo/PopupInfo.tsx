@@ -30,12 +30,12 @@ export type PopupInfoProps = {
 const PopupInfo: React.FC<PopupInfoProps> = (props) => {
   const { className, buttonClassName, childClassName, headNode, children } = props
 
-  const { isMobile } = device.useData()
+  const { isDesktop } = device.useData()
   const [ isOpen, setIsOpen ] = useState(false)
 
   const { refs, floatingStyles, context } = useFloating({
     open: isOpen,
-    placement: isMobile ? 'top' : 'top-end',
+    placement: isDesktop ? 'top-end' : 'top',
     middleware: [
       offset(10),
       flip({
@@ -94,7 +94,7 @@ const PopupInfo: React.FC<PopupInfoProps> = (props) => {
                 {children}
               </div>
               {
-                isMobile && (
+                !isDesktop && (
                   <ButtonBase
                     className="absolute -top-40 right-0 rounded-full bg-background p-4 border border-dark/10"
                     ariaLabel={messages.closePopup}

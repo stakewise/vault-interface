@@ -19,7 +19,7 @@ const StakeStats: React.FC<StakeStatsProps> = (props) => {
   const { className } = props
 
   const { tvl } = swapCtx.useData()
-  const { isMobile } = device.useData()
+  const { isDesktop } = device.useData()
 
   return (
     <Box className={cx(className, 'flex justify-between items-start p-12')}>
@@ -30,7 +30,7 @@ const StakeStats: React.FC<StakeStatsProps> = (props) => {
         <Block
           className="flex flex-col items-center text-center"
           value={tvl}
-          text={isMobile ? 'TVL' : messages.tvl}
+          text={!isDesktop ? 'TVL' : messages.tvl}
           dataTestId="stake-tvl"
         />
       </div>

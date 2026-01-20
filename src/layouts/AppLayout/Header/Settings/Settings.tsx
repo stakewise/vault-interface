@@ -13,11 +13,11 @@ type SettingsProps = {
 }
 
 const Settings: React.FC<SettingsProps> = ({ className }) => {
-  const { isMobile } = device.useData()
+  const { isDesktop } = device.useData()
 
   const settingsOptions = useAppConfig()
 
-  if (isMobile) {
+  if (!isDesktop) {
     return (
       <div
         className={cx(className, 'flex items-center justify-center gap-32 pt-96 mt-96')}

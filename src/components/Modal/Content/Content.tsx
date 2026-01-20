@@ -43,7 +43,7 @@ const Content: React.FC<ContentProps> = (props) => {
     handleClose,
   } = props
 
-  const { isMobile } = device.useData()
+  const { isDesktop } = device.useData()
 
   const isWide = size === 'wide'
   const isNarrow = size === 'narrow'
@@ -119,7 +119,7 @@ const Content: React.FC<ContentProps> = (props) => {
       <Description
         as="div"
         className={cx(contentClassName, 'mt-24 relative h-full', {
-          'flex-1': isMobile,
+          'flex-1': !isDesktop,
         })}
       >
         {isNarrow && descriptionNode}

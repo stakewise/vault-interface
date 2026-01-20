@@ -24,7 +24,7 @@ const TokenSearch: React.FC<TokenSearchProps> = (props) => {
 
   return (
     <div
-      className={cx(className, 'flex justify-end items-center h-[44rem] border-bottom border-dark/10')}
+      className={cx(className, 'flex justify-end items-center h-[44px] border-bottom border-dark/10')}
     >
       <Icon
         className="opacity-60 ml-16"

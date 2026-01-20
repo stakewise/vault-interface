@@ -31,7 +31,7 @@ const ChartWithFilter: React.FC<ChartWithFilterProps> = (props) => {
   } = props
 
   const { sdk, address } = useConfig()
-  const { isMobile } = device.useData()
+  const { isDesktop } = device.useData()
 
   const {
     data,
@@ -42,7 +42,7 @@ const ChartWithFilter: React.FC<ChartWithFilterProps> = (props) => {
     values: { tab, type },
   } = useChart(tabsItems)
 
-  const View = isMobile ? Mobile : Desktop
+  const View = isDesktop ? Desktop : Mobile
 
   return (
     <View
@@ -58,7 +58,7 @@ const ChartWithFilter: React.FC<ChartWithFilterProps> = (props) => {
         className="mt-24"
         data={data}
         isFetching={isFetching}
-        hideRightScale={isMobile}
+        hideRightScale={!isDesktop}
         token={sdk.config.tokens.depositToken}
         noItemsDescription={noItemsDescription}
         dataTestId={`${dataTestId}-${tab}-${type}`}
