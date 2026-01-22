@@ -44,9 +44,11 @@ const {
 
     handleSetDevice()
 
+    tabletMediaQuery.addEventListener('change', handleSetDevice)
     desktopMediaQuery.addEventListener('change', handleSetDevice)
 
     return () => {
+      tabletMediaQuery.removeEventListener('change', handleSetDevice)
       desktopMediaQuery.removeEventListener('change', handleSetDevice)
     }
   }, [ onChange ])
