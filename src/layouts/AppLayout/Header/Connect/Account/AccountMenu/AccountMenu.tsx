@@ -15,18 +15,18 @@ type AccountMenuProps = {
   logo: LogoProps['name']
 }
 
+const disableDisconnect = new Set<string>([
+  wallets.dAppBrowser.id,
+  wallets.ledgerLive.id,
+])
+
 const AccountMenu: React.FC<AccountMenuProps> = (props) => {
   const { logo } = props
 
   const { activeWallet } = useConfig()
   const claimsTotal = useClaimsTotal()
 
-  const NON_DISCONNECTABLE_WALLET_IDS = new Set<string>([
-    wallets.dAppBrowser.id,
-    wallets.ledgerLive.id,
-  ])
-
-  const shouldShowDisconnect = activeWallet !== null && !NON_DISCONNECTABLE_WALLET_IDS.has(activeWallet)
+  const shouldShowDisconnect = activeWallet !== null && !disableDisconnect.has(activeWallet)
 
   return (
     <>
