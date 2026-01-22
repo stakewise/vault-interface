@@ -6,7 +6,7 @@ import coinbase from './coinbase'
 import gnosisSafe from './gnosisSafe'
 import walletConnect from './walletConnect'
 import monitorAddress from './monitorAddress'
-import { braveWallet, dAppBrowser, trustWallet, metaMask, rabby, taho, okx } from './injected'
+import { braveWallet, dAppBrowser, trustWallet, metaMask, rabby, taho, okx, ledgerLive } from './injected'
 
 
 // ATTN The order here is equal to the order in the UI not counting filters
@@ -19,6 +19,7 @@ const wallets = {
   dAppBrowser,
   okx,
   taho,
+  ledgerLive,
 
   walletConnect,
   ledger,

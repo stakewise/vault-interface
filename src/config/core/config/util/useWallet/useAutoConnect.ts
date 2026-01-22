@@ -89,6 +89,7 @@ const useAutoConnect = (values: UseAutoConnectProps) => {
     catch {}
 
     const isDesktop = window.innerWidth >= 1000
+    const isLedgerLive = window.ethereum?.isLedgerLive
     const isDAppBrowser = !isDesktop && hasInjectedProvider
     const isLedger = activeWallet === wallets.ledger.id
     const isBinance = hasInjectedProvider && window.ethereum?.isBinance
@@ -106,6 +107,9 @@ const useAutoConnect = (values: UseAutoConnectProps) => {
     }
     else if (isBinance) {
       connect(wallets.binance.id)
+    }
+    else if (isLedgerLive) {
+      connect(wallets.ledgerLive.id)
     }
     else if (isDAppBrowser) {
       connect(wallets.dAppBrowser.id)

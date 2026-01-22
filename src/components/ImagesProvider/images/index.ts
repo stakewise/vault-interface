@@ -37,6 +37,7 @@ import taho from './connector/taho.svg'
 import rabby from './connector/rabby.svg'
 import zengo from './connector/zengo.svg'
 import ledger from './connector/ledger.svg'
+import ledgerLive from './connector/ledgerLive.svg'
 import portis from './connector/portis.svg'
 import binance from './connector/binance.svg'
 import coinbase from './connector/coinbase.svg'
@@ -131,6 +132,7 @@ export default {
   'connector/taho': taho.src,
   'connector/zengo': zengo.src,
   'connector/ledger': ledger.src,
+  'connector/ledgerLive': ledgerLive.src,
   'connector/portis': portis.src,
   'connector/binance': binance.src,
   'connector/coinbase': coinbase.src,
