@@ -75,8 +75,8 @@
   },
   "dependencies": {
     "@binance/w3w-ethereum-provider": "1.1.8-alpha.0",
-    "@cowprotocol/cow-sdk": "7.2.5",
-    "@cowprotocol/sdk-ethers-v6-adapter": "0.3.0",
+    "@cowprotocol/cow-sdk": "8.0.0",
+    "@cowprotocol/sdk-ethers-v6-adapter": "0.3.11",
     "@floating-ui/react": "0.27.16",
     "@floating-ui/react-dom": "2.1.6",
     "@headlessui/react": "2.2.4",
