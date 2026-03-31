@@ -16,7 +16,7 @@ jobs:
 
     steps:
       - name: Get preview link
-        uses: zentered/vercel-preview-url@v1.4.0
+        uses: zentered/vercel-preview-url@fba568fc6d882ae788a9724d7e28dee618728771
         id: preview
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
@@ -26,17 +26,17 @@ jobs:
 
       - name: Checkout 🛎️
         if: ${{ steps.preview.outputs.deployment_state != 'CANCELED' }}
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
 
       - name: Setup pnpm
         if: ${{ steps.preview.outputs.deployment_state != 'CANCELED' }}
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1
         with:
           version: 10.25.0
 
       - name: Setup Node.js
         if: ${{ steps.preview.outputs.deployment_state != 'CANCELED' }}
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f
         with:
           node-version: '24.12.0'
           cache: pnpm
@@ -51,7 +51,7 @@ jobs:
 
       - name: Awaiting WEB deployment to be ready
         if: ${{ steps.preview.outputs.deployment_state != 'CANCELED' }}
-        uses: UnlyEd/github-action-await-vercel@v1.1.1
+        uses: UnlyEd/github-action-await-vercel@acd5b5d73234ad5a21031e954edaf9895643d36c
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
         with:
@@ -60,7 +60,7 @@ jobs:
 
       - name: Install Foundry
         if: ${{ steps.preview.outputs.deployment_state != 'CANCELED' }}
-        uses: foundry-rs/foundry-toolchain@v1
+        uses: foundry-rs/foundry-toolchain@8789b3e21e6c11b2697f5eb56eddae542f746c10
 
       - name: Run tests
         if: ${{ steps.preview.outputs.deployment_state != 'CANCELED' }}
@@ -76,7 +76,7 @@ jobs:
 
       - name: Upload Playwright report
         if: ${{ failure() }}
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: vault-interface-desktop
           path: ./playwright-report/
