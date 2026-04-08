@@ -20,8 +20,8 @@ export default {
         ce qui entraîne plus de récompenses.
       `,
       es: `
-        ¡Gana más recompensas con Boost!
-        Boost incrementa tu cantidad total de ETH staked usando ETH prestado en
+        ¡Gane más recompensas con Boost!
+        Boost incrementa su cantidad total de ETH staked usando ETH prestado en
         <Href to="{url}" className="{linkClassName}">Aave</Href>,
         lo que lleva a más recompensas.
       `,
@@ -57,8 +57,8 @@ export default {
         augmentant votre participation totale dans le Vault jusqu'à {increase} fois.
       `,
       es: `
-        Boost toma prestados {eth} ETH adicionales por cada 1 osETH que depositas,
-        aumentando tu participación total en el Vault hasta {increase} veces.
+        Boost toma prestados {eth} ETH adicionales por cada 1 osETH que deposita,
+        aumentando su participación total en el Vault hasta {increase} veces.
       `,
       pt: `
         O Boost empresta {eth} ETH adicionais para cada 1 osETH que você deposita,
@@ -87,7 +87,7 @@ export default {
       `,
       es: `
         Las recompensas de Boost son el excedente que queda después de ganar las recompensas del ETH
-        extra apostado y pagar su tarifa de préstamo.
+        extra staked y pagar su tarifa de préstamo.
       `,
       pt: `
         As recompensas do Boost são o excedente restante após ganhar as recompensas do ETH
@@ -117,7 +117,7 @@ export default {
       `,
       es: `
         Presione el botón + para depositar cualquier cantidad de osETH en el Boost.
-        Se utilizará para pedir prestado ETH adicional en Aave y aumentar su ETH total staked en el Vault.
+        Se utilizará para tomar prestado ETH adicional en Aave y aumentar su ETH total staked en el Vault.
       `,
       pt: `
         Pressione o botão + para depositar qualquer quantia de osETH no Boost.
@@ -146,8 +146,8 @@ export default {
         N'oubliez pas de réclamer vos actifs sortis après environ 9 jours.
       `,
       es: `
-        Presiona el botón - para retirar activos del Boost.
-        No olvides reclamar tus activos salidos después de aproximadamente 9 días.
+        Presione el botón - para retirar activos del Boost.
+        No olvide reclamar sus activos salidos después de aproximadamente 9 días.
       `,
       pt: `
         Pressione o botão - para retirar ativos do Boost.
@@ -172,19 +172,19 @@ export default {
       `,
       fr: `
         Avertissement sur les risques : vous perdrez une partie de votre dépôt dans le Boost
-        si vous l'utilisez lorsque le rendement annuel en pourcentage (APY) du Boost est négatif.
+        si vous l'utilisez lorsque l'APY du Boost est négatif.
       `,
       es: `
         Descargo de responsabilidad sobre riesgos: perderá parte de su depósito en el Boost
-        si lo usa cuando el rendimiento porcentual anual (APY) del Boost es negativo.
+        si lo usa cuando el APY del Boost es negativo.
       `,
       pt: `
         Aviso de risco: você perderá parte do seu depósito no Boost
-        se usá-lo quando o rendimento percentual anual (APY) do Boost for negativo.
+        se usá-lo quando o APY do Boost for negativo.
       `,
       de: `
         Risikohinweis: Sie werden einen Teil Ihrer Einzahlung in den Boost
-        verlieren, wenn Sie ihn nutzen, während der jährliche Prozentsatz des Ertrags (APY) des Boosts negativ ist.
+        verlieren, wenn Sie ihn nutzen, während der Boost-APY negativ ist.
       `,
       zh: `
         风险免责声明：如果在Boost年利率（APY）
@@ -208,8 +208,8 @@ export default {
         Sinon, vous payez plus pour emprunter des ETH que vous ne gagnez en récompenses de staking supplémentaires.
       `,
       es: `
-        ¡Vigila tu Boost APY! Usa el Boost solo cuando el APY del Boost indicado sea mayor que el APY de tu Vault.
-        De lo contrario, pagas más por pedir prestado ETH de lo que ganas en recompensas de staking adicionales.
+        ¡Vigile su Boost APY! Use el Boost solo cuando el APY del Boost indicado sea mayor que el APY de su Vault.
+        De lo contrario, paga más por pedir prestado ETH de lo que gana en recompensas de staking adicionales.
       `,
       pt: `
         Fique de olho no seu Boost APY! Use o Boost apenas quando o APY indicado no Boost for maior do que o APY do seu Vault.

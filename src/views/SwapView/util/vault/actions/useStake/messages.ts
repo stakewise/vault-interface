@@ -6,7 +6,7 @@ export default {
     es: 'La cantidad de {token} excede la capacidad del Vault',
     pt: 'A quantidade de {token} excede a capacidade do Vault',
     de: 'Die Menge an {token} überschreitet die Kapazität des Vaults',
-    zh: '{token} 数量超出金库容量',
+    zh: '{token} 数量超出Vault容量',
   },
   feeError: {
     en: 'The amount is lower than the swap fee',

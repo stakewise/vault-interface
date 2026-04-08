@@ -16,7 +16,7 @@ export default {
       es: 'Oscuro',
       pt: 'Escuro',
       de: 'Dunkel',
-      zh: '黑暗',
+      zh: '深色',
     },
     light: {
       en: 'Light',
