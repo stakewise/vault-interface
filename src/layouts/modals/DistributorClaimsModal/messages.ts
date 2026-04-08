@@ -17,10 +17,10 @@ export default {
       Получите дополнительные награды, которые вы заработали, участвуя в стейкинге в Волтах и используя ваш стейк в экосистеме StakeWise
     `,
     fr: `
-      Réclamez les récompenses supplémentaires que vous avez gagnées en stake dans les Vaults et en utilisant votre mise dans l'écosystème StakeWise
+      Réclamez les récompenses supplémentaires que vous avez gagnées en staking dans les Vaults et en utilisant votre mise dans l'écosystème StakeWise
     `,
     es: `
-      Reclama las recompensas adicionales que has ganado al hacer staking en las Vaults y utilizar tu participación en el ecosistema StakeWise
+      Reclame las recompensas adicionales que ha ganado al hacer staking en los Vaults y utilizar su participación en el ecosistema StakeWise
     `,
     pt: `
       Reivindique as recompensas adicionais que você ganhou fazendo staking nos Vaults e usando sua participação no ecossistema StakeWise

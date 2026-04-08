@@ -29,19 +29,19 @@ export default {
     `,
       fr: `
       Le protocole StakeWise collecte des frais de stabilité de {percent}% sur les récompenses {token}.
-      Les frais sont ajoutés au montant total de {token} miné par l'utilisateur.
+      Les frais sont ajoutés au montant total de {token} minté par l'utilisateur.
     `,
       es: `
       El protocolo StakeWise cobra una tarifa de estabilidad del {percent}% sobre las recompensas {token}.
-      La tarifa se añade al monto total de {token} acuñado por el usuario.
+      La tarifa se añade al monto total de {token} minteado por el usuario.
     `,
       pt: `
       O protocolo StakeWise cobra uma taxa de estabilidade de {percent}% sobre as recompensas {token}.
-      A taxa é adicionada ao montante total de {token} cunhado pelo usuário.
+      A taxa é adicionada ao montante total de {token} mintado pelo usuário.
     `,
       de: `
       Das StakeWise-Protokoll erhebt eine Stabilitätsgebühr von {percent}% auf {token}-Belohnungen.
-      Die Gebühr wird zur Gesamtmenge des vom Benutzer geprägten {token} hinzugefügt.
+      Die Gebühr wird zur Gesamtmenge des vom Benutzer geminteten {token} hinzugefügt.
     `,
       zh: `
       StakeWise 协议对 {token} 奖励收取 {percent}% 的稳定费

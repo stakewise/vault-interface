@@ -3,7 +3,7 @@ export default {
     en: 'You receive',
     ru: 'Вы получаете',
     fr: 'Vous recevez',
-    es: 'Recibes',
+    es: 'Usted recibe',
     pt: 'Você recebe',
     de: 'Sie erhalten',
     zh: '您收到',
@@ -41,8 +41,8 @@ export default {
         Pour retirer votre {depositToken} staké, vous devrez retourner les jetons {mintToken}.
       `,
       es: `
-        La cantidad de tokens {mintToken} que recibes en tu billetera.
-        Para retirar tu {depositToken} en staking, necesitarás devolver los tokens {mintToken}.
+        La cantidad de tokens {mintToken} que recibe en su billetera.
+        Para retirar su {depositToken} en staking, necesitará devolver los tokens {mintToken}.
       `,
       pt: `
         A quantidade de tokens {mintToken} que você recebe em sua carteira.
@@ -61,7 +61,7 @@ export default {
       en: 'The amount of staked {depositToken} you receive for each {swapToken}.',
       ru: 'Количество застейканного {depositToken}, которое вы получаете за каждый {swapToken}.',
       fr: 'La quantité de {depositToken} staké que vous recevez pour chaque {swapToken}.',
-      es: 'La cantidad de {depositToken} que recibe por cada {swapToken} en staking.',
+      es: 'La cantidad de {depositToken} staked que recibe por cada {swapToken}.',
       pt: 'A quantidade de {depositToken} staked que você recebe por cada {swapToken}.',
       de: 'Die Menge an gestakten {depositToken}, die Sie für jedes {swapToken} erhalten.',
       zh: '您为每个 {swapToken} 获得的质押 {depositToken} 的数量。',

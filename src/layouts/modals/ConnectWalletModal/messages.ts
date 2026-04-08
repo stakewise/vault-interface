@@ -30,7 +30,7 @@ export default {
     en: 'Don\'t have a wallet?',
     ru: 'Нет кошелька?',
     fr: 'Vous n\'avez pas de portefeuille ?',
-    es: 'No tienes una billetera?',
+    es: '¿No tiene una billetera?',
     pt: 'Não tem uma carteira?',
     de: 'Kein Wallet?',
     zh: '没有钱包？',

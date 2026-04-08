@@ -6,6 +6,6 @@ export default {
     es: 'Máxima quema: {balance}',
     pt: 'Queima máxima: {balance}',
     de: 'Max. Verbrennen: {balance}',
-    zh: '最大燃烧：{balance}',
+    zh: '最大销毁：{balance}',
   },
 }
