@@ -1,6 +1,6 @@
-import { configs, Network } from '@stakewise/v3-sdk'
 import { parseEther } from 'ethers'
 
+import { tokens } from './chains'
 import type { SupportedNetwork } from './chains'
 import type { Balance } from './helpers'
 import type { SetEthBalance } from './setEthBalance'
@@ -17,7 +17,7 @@ type Input = {
 export type SetBalance = (input: Input) => Promise<void>
 
 const tokenAddresses: Partial<Record<Token, string>> = {
-  osETH: configs[Network.Mainnet].addresses.tokens.mintToken,
+  osETH: tokens.mainnet.mintToken,
 }
 
 type Wrapper = (deps: {

@@ -2,7 +2,6 @@ import fs from 'fs'
 import path from 'path'
 import type { Page } from '@playwright/test'
 import { Wallet, JsonRpcProvider, getBytes, isHexString, parseEther, toBeHex } from 'ethers'
-import { configs } from '@stakewise/v3-sdk'
 
 import { chains, getAvailableChains } from '../chains'
 import type { SupportedNetwork } from '../chains'
@@ -16,21 +15,19 @@ const initialEthHex = toBeHex(parseEther('10000'))
 
 const cookieScript = `document.cookie = 'SW_e2e=true'`
 
-type InitProviderBase = {
+type InitProviderInput = {
   page: Page
   chainId: SupportedNetwork
+  address?: string
+  privateKey?: string
 }
-
-type InitProviderInput =
-  | InitProviderBase & { privateKey: string; address?: never }
-  | InitProviderBase & { address: string; privateKey?: never }
 
 const buildProviderScript = (address: string, chainId: SupportedNetwork) => {
   const chainMap = getAvailableChains()
 
   return providerScriptTemplate
     .replace('__MOCK_CHAINS_JSON__', () => JSON.stringify(chainMap))
-    .replace('__MOCK_DEFAULT_CHAIN_ID_HEX__', () => configs[chainId].network.hexadecimalChainId)
+    .replace('__MOCK_DEFAULT_CHAIN_ID_HEX__', () => chains[chainId].hexadecimalChainId)
     .replace('__MOCK_ADDRESS__', () => address)
 }
 
@@ -90,7 +87,7 @@ export const initProvider = async (input: InitProviderInput) => {
     throw new Error(`Unknown chainId: ${chainId}`)
   }
 
-  const address = input.address || new Wallet(input.privateKey).address
+  const address = input.address || new Wallet(input.privateKey as string).address
   const script = buildProviderScript(address, chainId)
 
   const impersonationTasks = Object.values(chains).map(async (entry) => {

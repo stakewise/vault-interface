@@ -108,6 +108,15 @@
     return json.result
   }
 
+  const mineImmediately = async (label) => {
+    try {
+      await rpcCall('anvil_mine', [ '0x1' ])
+    }
+    catch (error) {
+      console.warn(`[e2e wallet] anvil_mine after ${label} failed:`, error?.message || error)
+    }
+  }
+
   const compatProvider = {
     get connection() {
       return { url: chains[currentChainIdHex].rpcUrl }
@@ -181,6 +190,8 @@
       return String(parseInt(currentChainIdHex, 16))
     },
 
+    signer: { address },
+
     provider: compatProvider,
 
     on,
@@ -235,7 +246,19 @@
             tx.from = address
           }
 
-          return rpcCall('eth_sendTransaction', [ tx ])
+          const hash = await rpcCall('eth_sendTransaction', [ tx ])
+
+          await mineImmediately('eth_sendTransaction')
+
+          return hash
+        }
+
+        case 'eth_sendRawTransaction': {
+          const hash = await rpcCall('eth_sendRawTransaction', params)
+
+          await mineImmediately('eth_sendRawTransaction')
+
+          return hash
         }
 
         case 'personal_sign': {

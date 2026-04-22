@@ -1,6 +1,6 @@
 import type { Page } from '@playwright/test'
-import { configs } from '@stakewise/v3-sdk'
 
+import { chains } from './chains'
 import type { SupportedNetwork } from './chains'
 import type { State } from './init'
 
@@ -18,7 +18,7 @@ export const createSwitchChain: Wrapper = ({ page, state }) => (
           params: [ { chainId: chainIdHex } ],
         })
       },
-      configs[chainId].network.hexadecimalChainId
+      chains[chainId].hexadecimalChainId
     )
 
     state.chainId = chainId

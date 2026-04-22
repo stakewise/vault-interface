@@ -1,7 +1,6 @@
 import { JsonRpcProvider } from 'ethers'
-import { Network } from '@stakewise/v3-sdk'
 
-import { chains } from '../chains'
+import { chains, Network } from '../chains'
 import type { SupportedNetwork } from '../chains'
 import { impersonate, clearImpersonatedCache } from './impersonate'
 
