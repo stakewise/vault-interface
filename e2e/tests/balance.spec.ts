@@ -1,9 +1,8 @@
 import test from '../extendTest'
 
 
-test.beforeEach(async ({ gui, guardian }) => {
-  await guardian.fixProvider()
-  await gui.initializeChain(1)
+test.beforeEach(async ({ wallet }) => {
+  await wallet.init()
 })
 
 test('Enabled claim', async ({ wallet, swap, queue, user }) => {

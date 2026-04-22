@@ -46,14 +46,24 @@ const config: PlaywrightTestConfig = {
       },
     },
   ],
-  webServer: process.env.WITH_ANVIL
-    ? [
-      {
-        command: './scripts/fork-ci.sh',
-        url: 'http://localhost:8545',
-      },
-    ]
-    : [],
+  webServer: [],
+}
+
+if (process.env.WITH_ANVIL) {
+  config.webServer = [
+    {
+      command: './scripts/fork-ci.sh',
+      url: 'http://localhost:8545',
+    },
+  ]
+
+  if (process.env.GNOSIS_RPC_URL) {
+    config.webServer.push({
+      command: ':',
+      url: 'http://localhost:8546',
+      reuseExistingServer: true,
+    })
+  }
 }
 
 

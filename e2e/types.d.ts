@@ -1,5 +1,4 @@
 import type { BrowserContext, Page, TestFixture } from '@playwright/test'
-import type { GUI } from '@guardianui/test/dist/models/GUI'
 
 import type {
   ApiFixture,
@@ -8,14 +7,12 @@ import type {
   SwapFixture,
   QueueFixture,
   VaultFixture,
-  AnvilFixture,
   WalletFixture,
   OsTokenFixture,
   ElementFixture,
   HelpersFixture,
   GraphqlFixture,
   SettingsFixture,
-  GuardianFixture,
   TransactionsFixture,
 } from './fixtures'
 
@@ -25,7 +22,6 @@ declare global {
   namespace E2E {
 
     interface ExtendedTest {
-      gui: GUI
       page: Page
       api: ApiFixture
       sdk: SDKFixture
@@ -33,7 +29,6 @@ declare global {
       swap: SwapFixture
       queue: QueueFixture
       vault: VaultFixture
-      anvil: AnvilFixture
       wallet: WalletFixture
       osToken: OsTokenFixture
       context: BrowserContext
@@ -41,7 +36,6 @@ declare global {
       helpers: HelpersFixture
       graphql: GraphqlFixture
       settings: SettingsFixture
-      guardian: GuardianFixture
       transactions: TransactionsFixture
     }
 
@@ -56,6 +50,6 @@ declare global {
   }
 
   interface Window {
-    e2e: any
+    e2e: Record<string, unknown>
   }
 }

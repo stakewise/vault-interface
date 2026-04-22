@@ -42,8 +42,6 @@ export const createBoost: Wrapper = ({ page, transactions, api }) => (
       checkNotifications: false,
     })
 
-    await page.waitForLoadState('networkidle')
-
     await transactions.checkTxCompletedModal({
       action: 'boost',
       value: inputAmount,

@@ -8,8 +8,6 @@ export const createCheckTokenDropdown: Wrapper = ({ page, element }) => (
 
     await page.getByTestId('amount-input-token').click()
 
-    await page.waitForLoadState('networkidle')
-
     await element.checkVisibility({ testId: 'amount-input-input' })
     await element.checkVisibility({ testId: 'amount-input-option-USDT' })
 
@@ -19,8 +17,7 @@ export const createCheckTokenDropdown: Wrapper = ({ page, element }) => (
 
     await page.getByTestId('amount-input-token').click()
 
-    await page.waitForLoadState('networkidle')
-
+    await element.checkVisibility({ testId: 'amount-input-input' })
     await page.getByTestId('amount-input-input').fill(stakeToken)
 
     await element.checkVisibility({ testId: `amount-input-option-${stakeToken}` })

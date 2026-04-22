@@ -4,9 +4,8 @@ import { expect } from '@playwright/test'
 import test from '../extendTest'
 
 
-test.beforeEach(async ({ gui, guardian }) => {
-  await guardian.fixProvider()
-  await gui.initializeChain(1)
+test.beforeEach(async ({ wallet }) => {
+  await wallet.init()
 })
 
 test('Connect button', async ({ swap }) => {

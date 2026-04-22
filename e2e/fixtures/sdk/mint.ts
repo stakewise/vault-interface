@@ -1,7 +1,7 @@
 import { formatEther, parseEther } from 'ethers'
 
 
-type Wrapper = E2E.FixtureMethod<Mint, 'page'>
+type Wrapper = E2E.FixtureMethod<Mint, 'page' | 'wallet'>
 
 export type Mint = (values: Input) => Promise<string>
 
@@ -10,12 +10,10 @@ export type Input = {
   assets: string
 }
 
-export const createMint: Wrapper = ({ page }) => (
+export const createMint: Wrapper = ({ page, wallet }) => (
   async ({ vaultAddress, assets }: Input) => {
-    const shares = await page.evaluate(async ({ vaultAddress, stakeAssets }) => {
+    const shares = await page.evaluate(async ({ vaultAddress, stakeAssets, userAddress }) => {
       const sdk = window.e2e.sdk
-      // @ts-ignore
-      const userAddress = window.ethereum.signer.address
 
       const assets = BigInt(stakeAssets)
       const shares = await sdk.contracts.base.mintTokenController.convertToShares(assets)
@@ -32,6 +30,7 @@ export const createMint: Wrapper = ({ page }) => (
     }, {
       vaultAddress,
       stakeAssets: parseEther(assets).toString(),
+      userAddress: wallet.getAddress(),
     })
 
     return formatEther(shares)

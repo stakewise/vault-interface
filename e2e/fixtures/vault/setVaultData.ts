@@ -7,16 +7,18 @@ export type SetVaultData = (data?: any) => Promise<void>
 
 type Output = Store['vault']['base']['data']
 
-type Wrapper = E2E.FixtureMethod<SetVaultData, 'page'>
+type Wrapper = E2E.FixtureMethod<SetVaultData, 'page' | 'wallet'>
 
-export const createSetVaultData: Wrapper = ({ page }) => (
+export const createSetVaultData: Wrapper = ({ page, wallet }) => (
   async (data) => {
     let admin = data?.admin
     let address = ZeroAddress
 
     if (!admin) {
+      // Fall back to ZeroAddress when no wallet is injected yet: tests often mock
+      // GraphQL data before `wallet.init`, so the address may not be available.
       try {
-        admin = await page.evaluate('window.ethereum.signer.address')
+        admin = wallet.getAddress()
       }
       catch {}
     }

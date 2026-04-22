@@ -1,44 +1,53 @@
+import { configs, Network } from '@stakewise/v3-sdk'
 import { parseEther } from 'ethers'
 
+import type { SupportedNetwork } from './chains'
+import type { Balance } from './helpers'
+import type { SetEthBalance } from './setEthBalance'
 
-type Wrapper = E2E.FixtureMethod<SetBalance, 'gui' | 'anvil' | 'graphql'>
 
 export type Token = 'ETH' | 'osETH'
 
-export type SetBalance = (amount: string, token: Token) => Promise<void>
-
-const tokenAddresses = {
-  'osETH': '0xf1C9acDc66974dFB6dEcB12aA385b9cD01190E38',
+type Input = {
+  token: Token
+  amount: string
+  chainId?: SupportedNetwork
 }
 
-export const createSetBalance: Wrapper = ({ gui, anvil, graphql }) => (
-  async (amount: string, token: Token) => {
+export type SetBalance = (input: Input) => Promise<void>
+
+const tokenAddresses: Partial<Record<Token, string>> = {
+  osETH: configs[Network.Mainnet].addresses.tokens.mintToken,
+}
+
+type Wrapper = (deps: {
+  balance: Balance
+  setEthBalance: SetEthBalance
+  graphql: E2E.ExtendedTest['graphql']
+}) => SetBalance
+
+export const createSetBalance: Wrapper = ({ balance, setEthBalance, graphql }) => (
+  async ({ token, amount, chainId }) => {
     const amountWei = parseEther(amount)
 
     if (token === 'ETH') {
-      await gui.setEthBalance(amountWei)
+      await setEthBalance({ amount: amountWei, chainId })
+
+      return
     }
-    else {
-      const tokenAddress = tokenAddresses[token as keyof typeof tokenAddresses]
 
-      const isAnvil = token !== 'osETH' || process.env.CI
+    const tokenAddress = tokenAddresses[token]
 
-      const promises = [
-        isAnvil
-          ? anvil.setBalance({
-            amount: amountWei.toString(),
-            tokenAddress,
-          })
-          : gui.setBalance(tokenAddress, amountWei),
-      ]
-
-      if (token === 'osETH') {
-        promises.push(
-          graphql.mockMintTokenBalance(amount)
-        )
-      }
-
-      await Promise.all(promises)
+    if (!tokenAddress) {
+      throw new Error(`setBalance: missing address mapping for token ${token}`)
     }
+
+    const promises: Promise<void>[] = [ balance({ token: tokenAddress, amount: amountWei, chainId }) ]
+
+    if (token === 'osETH') {
+      promises.push(graphql.mockMintTokenBalance(amount))
+    }
+
+    await Promise.all(promises)
   }
 )

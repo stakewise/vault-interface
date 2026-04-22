@@ -31,7 +31,7 @@ export const createSetSdkTransactions: Wrapper = ({ page, sdk, graphql }) => (
     await graphql.mockAllocatorsData(deposit)
 
     await page.reload()
-    await page.waitForLoadState('networkidle')
+    await page.waitForLoadState('domcontentloaded')
 
     return shares
   }
