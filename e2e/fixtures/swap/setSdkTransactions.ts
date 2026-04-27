@@ -8,9 +8,9 @@ type Input = {
 
 export type SetSdkTransactions = (values: Input) => Promise<string | undefined>
 
-type Wrapper = E2E.FixtureMethod<SetSdkTransactions, 'page' | 'sdk' | 'graphql' | 'user'>
+type Wrapper = E2E.FixtureMethod<SetSdkTransactions, 'page' | 'sdk' | 'graphql'>
 
-export const createSetSdkTransactions: Wrapper = ({ page, sdk, graphql, user }) => (
+export const createSetSdkTransactions: Wrapper = ({ page, sdk, graphql }) => (
   async (values: Input) => {
     const { deposit, mint } = values
 
@@ -29,13 +29,6 @@ export const createSetSdkTransactions: Wrapper = ({ page, sdk, graphql, user }) 
     }
 
     await graphql.mockAllocatorsData(deposit)
-
-    await user.balances.setStakeBalance(deposit)
-    await user.balances.setMaxWithdrawAssets(deposit)
-    await user.balances.setMintTokenData({
-      mintedShares: shares || '0',
-      stakedAssets: deposit,
-    })
 
     await page.reload()
     await page.waitForSelector('[data-testid="tab-stake"]')

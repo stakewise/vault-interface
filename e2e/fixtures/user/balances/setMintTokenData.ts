@@ -12,40 +12,45 @@ export type SetMintTokenData = (values: Input) => Promise<void>
 
 type Wrapper = E2E.FixtureMethod<SetMintTokenData, 'page'>
 
-const LTV_PERCENT = 999900000000000000n
-const PRECISION = 1000000000000000000n
-
 export const createSetMintTokenData: Wrapper = ({ page }) => (
   async (values: Input) => {
     const { stakedAssets = '0', mintedShares = '0' } = values
 
-    const stakedAssetsBigInt = parseEther(stakedAssets)
-    const mintedSharesBigInt = parseEther(mintedShares)
-
-    const mintedAssets = mintedSharesBigInt
-    const maxMintedAssets = stakedAssetsBigInt * LTV_PERCENT / PRECISION
-    const maxMintShares = maxMintedAssets > mintedAssets ? maxMintedAssets - mintedAssets : 0n
-
-    const payload = {
-      mintedShares: mintedSharesBigInt.toString(),
-      mintedAssets: mintedAssets.toString(),
-      maxMintShares: maxMintShares.toString(),
-      hasMintBalance: mintedSharesBigInt > 0n,
+    const data = {
+      stakedAssets: parseEther(stakedAssets),
+      mintedShares: parseEther(mintedShares),
     }
 
-    await page.addInitScript((data) => {
-      const result = {
-        mintedShares: BigInt(data.mintedShares),
-        mintedAssets: BigInt(data.mintedAssets),
-        maxMintShares: BigInt(data.maxMintShares),
-        hasMintBalance: data.hasMintBalance,
+    await page.evaluate(async (payload) => {
+      const sdk = window.e2e.sdk
+
+      const avgRewardPerSecond = await sdk.contracts.base.mintTokenController.avgRewardPerSecond()
+      const ltvPercent = 999900000000000000n
+
+      const maxMintedAssets = payload.stakedAssets * ltvPercent / 1000000000000000000n
+      const maxMintedAssetsHourReward = (maxMintedAssets * avgRewardPerSecond * 3600n) / 1000000000000000000n
+      const mintedAssets = await sdk.contracts.base.mintTokenController.convertToAssets(payload.mintedShares)
+
+      const canMintAssets = maxMintedAssets - maxMintedAssetsHourReward - mintedAssets
+
+      let maxMintShares = 0n
+
+      if (canMintAssets > 0) {
+        maxMintShares = await sdk.contracts.base.mintTokenController.convertToShares(canMintAssets)
+      }
+
+      const result: Output = {
+        mintedAssets,
+        maxMintShares,
         isDisabled: false,
-      } satisfies Output
+        hasMintBalance: true,
+        mintedShares: payload.mintedShares,
+      }
 
       window.e2e = {
         ...window.e2e,
         ['user/balances/setMintTokenData']: result,
       }
-    }, payload)
+    }, data)
   }
 )
