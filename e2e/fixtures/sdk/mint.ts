@@ -30,6 +30,14 @@ export const createMint: Wrapper = ({ page, wallet }) => (
         throw new Error(`mint reverted: tx=${mintHash} status=${receipt?.status ?? 'no-receipt'}`)
       }
 
+      const balance = await sdk.contracts.tokens.mintToken.balanceOf(userAddress)
+
+      console.log(`[e2e mint] user=${userAddress} hash=${mintHash} status=${receipt.status} logs=${receipt.logs.length} balance=${balance}`)
+
+      if (balance === 0n) {
+        throw new Error(`mint succeeded (status=1) but balance still 0: tx=${mintHash} user=${userAddress} logs=${receipt.logs.length}`)
+      }
+
       return shares.toString()
     }, {
       vaultAddress,
