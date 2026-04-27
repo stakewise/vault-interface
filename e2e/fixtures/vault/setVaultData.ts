@@ -11,8 +11,6 @@ type Wrapper = E2E.FixtureMethod<SetVaultData, 'page' | 'wallet'>
 
 export const createSetVaultData: Wrapper = ({ page, wallet }) => (
   async (data) => {
-    // Fall back to ZeroAddress when no wallet is injected yet: tests often mock
-    // GraphQL data before `wallet.init`, so the address may not be available.
     const address = data?.admin || wallet.tryGetAddress() || ZeroAddress
 
     const vaultAddress = getAddress(data?.address || constants.metaVault)

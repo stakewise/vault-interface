@@ -10,9 +10,6 @@ export type Input = {
   assets: string
 }
 
-// Pull the address from the wallet fixture rather than reading
-// `window.ethereum.signer.address` in-page - keeps the SDK call typed and
-// removes a compat-shim dependency from the browser evaluate body.
 export const createDeposit: Wrapper = ({ page, wallet }) => (
   async ({ vaultAddress, assets }: Input) => (
     page.evaluate(async ({ vaultAddress, depositAssets, userAddress }) => {

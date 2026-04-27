@@ -1,8 +1,9 @@
 import { Wallet } from 'ethers'
 
 import { defaultChainId } from './chains'
-import type { SupportedNetwork } from './chains'
 import { initProvider } from './helpers'
+
+import type { SupportedNetwork } from './chains'
 
 
 type Input = {
@@ -22,14 +23,21 @@ type Wrapper = (deps: { page: E2E.ExtendedTest['page']; state: State }) => Init
 
 export const createInit: Wrapper = ({ page, state }) => (
   async (input) => {
-    const chainId = input?.chainId || defaultChainId
+    const params = {
+      page,
+      chainId: input?.chainId || defaultChainId,
+      address: input?.address,
+      privateKey: input?.privateKey,
+    }
 
-    const { address } = input?.address
-      ? await initProvider({ page, address: input.address, chainId })
-      : await initProvider({ page, privateKey: input?.privateKey || Wallet.createRandom().privateKey, chainId })
+    if (!params.address && !params.privateKey) {
+      params.privateKey = Wallet.createRandom().privateKey
+    }
+
+    const { address } = await initProvider(params)
 
     state.address = address
-    state.chainId = chainId
+    state.chainId = params.chainId
   }
 )
 

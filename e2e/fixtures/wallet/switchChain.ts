@@ -1,9 +1,13 @@
 import type { Page } from '@playwright/test'
 
 import { chains } from './chains'
-import type { SupportedNetwork } from './chains'
 import type { State } from './init'
+import type { SupportedNetwork } from './chains'
 
+
+type EthereumProvider = {
+  request: (args: { method: string, params: unknown[] }) => Promise<unknown>
+}
 
 export type SwitchChain = (chainId: SupportedNetwork) => Promise<void>
 
@@ -13,7 +17,9 @@ export const createSwitchChain: Wrapper = ({ page, state }) => (
   async (chainId) => {
     await page.evaluate(
       async (chainIdHex) => {
-        await (window as any).ethereum.request({
+        const { ethereum } = window as unknown as { ethereum: EthereumProvider }
+
+        await ethereum.request({
           method: 'wallet_switchEthereumChain',
           params: [ { chainId: chainIdHex } ],
         })

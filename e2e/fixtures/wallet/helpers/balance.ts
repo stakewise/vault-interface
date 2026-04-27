@@ -43,8 +43,7 @@ export const createBalance: Wrapper = ({ state }) => (
 
     if (!holder) {
       throw new Error(
-        `No known holder for token ${token} on chain ${targetChainId}. ` +
-        `Add it to chains.ts holders map.`
+        `No known holder for token ${token} on chain ${targetChainId}. Add it to chains.ts holders map.`
       )
     }
 

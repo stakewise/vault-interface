@@ -1,11 +1,12 @@
 import fs from 'fs'
 import path from 'path'
-import type { Page } from '@playwright/test'
 import { Wallet, JsonRpcProvider, getBytes, isHexString, parseEther, toBeHex } from 'ethers'
+import type { Page } from '@playwright/test'
 
+import * as constants from '../../../constants'
+import { impersonate } from './impersonate'
 import { chains, getAvailableChains } from '../chains'
 import type { SupportedNetwork } from '../chains'
-import { impersonate } from './impersonate'
 
 
 const providerScriptPath = path.join(__dirname, 'eip1193-provider.js')
@@ -13,7 +14,7 @@ const providerScriptTemplate = fs.readFileSync(providerScriptPath, 'utf-8')
 
 const initialEthHex = toBeHex(parseEther('10000'))
 
-const cookieScript = `document.cookie = 'SW_e2e=true'`
+const cookieScript = `document.cookie = '${constants.cookieNames.e2e}=true'`
 
 type InitProviderInput = {
   page: Page
@@ -87,17 +88,21 @@ export const initProvider = async (input: InitProviderInput) => {
     throw new Error(`Unknown chainId: ${chainId}`)
   }
 
-  const address = input.address || new Wallet(input.privateKey as string).address
+  let address = input.address
+
+  if (!address) {
+    if (!input.privateKey) {
+      throw new Error('initProvider: either address or privateKey must be provided')
+    }
+
+    address = new Wallet(input.privateKey).address
+  }
+
   const script = buildProviderScript(address, chainId)
 
-  const impersonationTasks = Object.values(chains).map(async (entry) => {
-    try {
-      await impersonateOnChain(entry.rpcUrl, address)
-    }
-    catch (error) {
-      console.warn(`[wallet.init] Skipping impersonation on ${entry.name}: ${(error as Error).message}`)
-    }
-  })
+  const impersonationTasks = Object.values(chains).map((entry) => (
+    impersonateOnChain(entry.rpcUrl, address)
+  ))
 
   const tasks = [ ...impersonationTasks ]
 

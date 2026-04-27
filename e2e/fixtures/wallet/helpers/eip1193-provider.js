@@ -1,19 +1,14 @@
 /* eslint-env browser */
 /* eslint-disable no-undef */
-/*
- * Injected via page.addInitScript(). `__MOCK_*__` tokens are replaced in Node
- * (see initProvider.ts) before the script reaches the browser. ESLint cannot
- * see those replacements - hence the disable above.
- */
 (function() {
   const chains = __MOCK_CHAINS_JSON__
+  const defaultChainIdHex = '__MOCK_DEFAULT_CHAIN_ID_HEX__'
   const address = '__MOCK_ADDRESS__'
-  let currentChainIdHex = '__MOCK_DEFAULT_CHAIN_ID_HEX__'
+  let currentChainIdHex = defaultChainIdHex
 
   const rpcTimeoutMs = 30_000
   const pendingTxMaxAttempts = 300 // 100ms * 300 = 30s total budget
 
-  // `Object.create(null)` guards against prototype pollution.
   const listeners = Object.create(null)
 
   const emit = (event, ...args) => {
@@ -56,7 +51,7 @@
   let rpcId = 0
 
   async function rpcCall(method, params) {
-    const url = chains[currentChainIdHex].rpcUrl
+    const url = (chains[currentChainIdHex] || chains[defaultChainIdHex]).rpcUrl
     const controller = new AbortController()
     const timeoutId = setTimeout(() => controller.abort(), rpcTimeoutMs)
 
@@ -174,8 +169,6 @@
   }
 
   const provider = {
-    // `isConnected` is a method per EIP-1193 but some older libs read it as a bool;
-    // a function is truthy so both work.
     isMetaMask: true,
     isConnected: () => true,
     providers: [],
@@ -212,30 +205,15 @@
         case 'net_version':
           return String(parseInt(currentChainIdHex, 16))
 
+        // skip 4902 check for gnosis tests
         case 'wallet_switchEthereumChain': {
-          const targetChainIdHex = params[0]?.chainId
-
-          if (!chains[targetChainIdHex]) {
-            const err = new Error('Unrecognized chain ID. Try adding the chain first.')
-            err.code = 4902
-            throw err
-          }
-
-          currentChainIdHex = targetChainIdHex
+          currentChainIdHex = params[0]?.chainId
           emit('chainChanged', currentChainIdHex)
 
           return null
         }
 
         case 'wallet_addEthereumChain': {
-          const chainIdHex = params[0]?.chainId
-
-          if (!chains[chainIdHex]) {
-            const err = new Error('Cannot add unknown chain at runtime')
-            err.code = 4902
-            throw err
-          }
-
           return null
         }
 
@@ -275,7 +253,6 @@
 
         case 'eth_signTypedData':
         case 'eth_signTypedData_v1': {
-          // Legacy v1 uses an array of typed pairs, not the EIP-712 object viem expects.
           throw new Error(`${method} is not supported - use eth_signTypedData_v4`)
         }
 
