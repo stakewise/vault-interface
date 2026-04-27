@@ -19,7 +19,7 @@ export const createCheckLink: Wrapper = ({ page }) => (
 
     if (isPopup) {
       const [ newPage ] = await Promise.all([
-        page.waitForEvent('popup'),
+        page.waitForEvent('popup', { timeout: 15_000 }),
         page.getByTestId(testId).click(),
       ])
 

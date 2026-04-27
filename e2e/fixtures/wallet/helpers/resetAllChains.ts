@@ -7,10 +7,7 @@ import { impersonate, clearImpersonatedCache } from './impersonate'
 
 const forkUrls: Record<SupportedNetwork, string | undefined> = {
   [Network.Mainnet]: process.env.RPC_URL,
-  [Network.Gnosis]: process.env.GNOSIS_RPC_URL,
 }
-
-const requiredChains: SupportedNetwork[] = [ Network.Mainnet ]
 
 const rpcTimeoutMs = 30_000
 
@@ -28,13 +25,7 @@ const resetChain = async (chainId: SupportedNetwork) => {
   const forkUrl = forkUrls[chainId]
 
   if (!forkUrl) {
-    if (requiredChains.includes(chainId)) {
-      throw new Error(`Required fork URL missing for chain ${chainId} - set RPC_URL in CI secrets`)
-    }
-
-    console.warn(`[anvil.reset] Skipping chain ${chainId} - no fork URL configured`)
-
-    return
+    throw new Error(`Fork URL missing for chain ${chainId} - set RPC_URL in CI secrets`)
   }
 
   const rpc = new JsonRpcProvider(chainEntry.rpcUrl)

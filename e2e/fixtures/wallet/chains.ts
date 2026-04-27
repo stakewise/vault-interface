@@ -1,10 +1,8 @@
 export enum Network {
   Mainnet = 1,
-  Gnosis = 100,
-  Hoodi = 560048,
 }
 
-export type SupportedNetwork = Network.Mainnet | Network.Gnosis
+export type SupportedNetwork = Network.Mainnet
 
 type ChainHolders = Record<string, string>
 
@@ -32,8 +30,6 @@ const ethereumHolders: ChainHolders = {
   [tokens.mainnet.v2RewardToken]: '0x0A2504b0B4a9d08b699BeaA72D53F0267bCFfFbb',
 }
 
-const gnosisHolders: ChainHolders = {}
-
 export const chains: Record<SupportedNetwork, ChainEntry> = {
   [Network.Mainnet]: {
     defaultPrivateKey,
@@ -41,13 +37,6 @@ export const chains: Record<SupportedNetwork, ChainEntry> = {
     hexadecimalChainId: '0x1',
     rpcUrl: 'http://127.0.0.1:8545',
     holders: ethereumHolders,
-  },
-  [Network.Gnosis]: {
-    defaultPrivateKey,
-    name: 'Gnosis Chain',
-    hexadecimalChainId: '0x64',
-    rpcUrl: 'http://127.0.0.1:8546',
-    holders: gnosisHolders,
   },
 }
 

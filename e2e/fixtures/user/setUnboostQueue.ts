@@ -1,6 +1,8 @@
 import { parseEther } from 'ethers'
 
 
+const waitingDurationSeconds = 604800
+
 type Input = {
   exitingShares: string
   exitingRewards: string
@@ -22,11 +24,11 @@ export const createSetUnboostQueue: Wrapper = ({ page }) => (
       isClaimable: Boolean(isClaimable),
       exitingShares: parseEther(exitingShares),
       exitingAssets: parseEther(exitingRewards),
-      duration: isClaimable ? 0 : 210258902756807306422,
+      duration: isClaimable ? 0 : waitingDurationSeconds,
       position: isClaimable ? {
         timestamp: '1730206212',
         positionTicket: '210258902756807306422',
-        exitQueueIndex: isClaimable ? '1' : null,
+        exitQueueIndex: '1',
       } : null,
     }
 

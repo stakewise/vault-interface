@@ -56,14 +56,6 @@ if (process.env.WITH_ANVIL) {
       url: 'http://localhost:8545',
     },
   ]
-
-  if (process.env.GNOSIS_RPC_URL) {
-    config.webServer.push({
-      command: ':',
-      url: 'http://localhost:8546',
-      reuseExistingServer: true,
-    })
-  }
 }
 
 

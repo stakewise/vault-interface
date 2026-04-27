@@ -24,6 +24,7 @@ export const createConnectWithBalance = ({ page, helpers, setBalance }: Deps): C
     )
 
     await page.getByTestId('connect-button').click()
+    await page.getByTestId('metaMask-connector-button').waitFor({ state: 'visible' })
     await page.getByTestId('metaMask-connector-button').click()
 
     await helpers.checkNotification(`Successfully connected with ${constants.walletTitles.metaMask}`)

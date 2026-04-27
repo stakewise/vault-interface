@@ -13,6 +13,7 @@ import { createSwitchChain, SwitchChain } from './switchChain'
 export type WalletFixture = {
   init: Init
   getAddress: () => string
+  tryGetAddress: () => string | null
   switchChain: SwitchChain
   connect: Connect
   disconnect: Disconnect
@@ -30,6 +31,8 @@ const wallet: E2E.Fixture<WalletFixture> = async ({ page, helpers, element, grap
   const setEthBalance = createSetEthBalance({ state })
   const setBalance = createSetBalance({ balance, setEthBalance, graphql })
 
+  const tryGetAddress = () => state.address || null
+
   const getAddress = () => {
     if (!state.address) {
       throw new Error('Wallet not initialized - call wallet.init() first')
@@ -41,6 +44,7 @@ const wallet: E2E.Fixture<WalletFixture> = async ({ page, helpers, element, grap
   await use({
     init: createInit({ page, state }),
     getAddress,
+    tryGetAddress,
     switchChain: createSwitchChain({ page, state }),
     connect: createConnect({ page, helpers }),
     disconnect: createDisconnect({ page, helpers }),
