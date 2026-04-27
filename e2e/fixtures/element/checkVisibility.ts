@@ -1,6 +1,3 @@
-import { expect } from '@playwright/test'
-
-
 type Wrapper = E2E.FixtureMethod<CheckVisibility, 'page'>
 
 type Input = {
@@ -15,14 +12,8 @@ export const createCheckVisibility: Wrapper = ({ page }) => (
     const { testId, isVisible = true } = values
 
     const selector = `[data-testid="${testId}"]`
+    const state = isVisible ? 'visible' : 'hidden'
 
-    if (isVisible) {
-      await page.waitForSelector(selector, { state: 'visible' })
-      expect(await page.isVisible(selector)).toBe(true)
-    }
-    else {
-      await page.waitForSelector(selector, { state: 'hidden' })
-      expect(await page.isVisible(selector)).toBe(false)
-    }
+    await page.waitForSelector(selector, { state })
   }
 )

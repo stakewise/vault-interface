@@ -1,3 +1,7 @@
+export const cookieNames = {
+  e2e: 'SW_e2e',
+}
+
 export const walletNames = {
   monitorAddress: 'monitorAddress',
   walletConnect: 'walletConnect',

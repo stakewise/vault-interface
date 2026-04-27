@@ -7,23 +7,11 @@ export type SetVaultData = (data?: any) => Promise<void>
 
 type Output = Store['vault']['base']['data']
 
-type Wrapper = E2E.FixtureMethod<SetVaultData, 'page'>
+type Wrapper = E2E.FixtureMethod<SetVaultData, 'page' | 'wallet'>
 
-export const createSetVaultData: Wrapper = ({ page }) => (
+export const createSetVaultData: Wrapper = ({ page, wallet }) => (
   async (data) => {
-    let admin = data?.admin
-    let address = ZeroAddress
-
-    if (!admin) {
-      try {
-        admin = await page.evaluate('window.ethereum.signer.address')
-      }
-      catch {}
-    }
-
-    if (admin) {
-      address = admin
-    }
+    const address = data?.admin || wallet.tryGetAddress() || ZeroAddress
 
     const vaultAddress = getAddress(data?.address || constants.metaVault)
     const capacity = data?.capacity || String(constants.maxUint256)
