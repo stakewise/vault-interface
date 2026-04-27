@@ -2,13 +2,6 @@ import { parseEther } from 'ethers'
 import * as constants from '../../../constants'
 
 
-type Output = Pick<Store['vault']['user']['balances'],
-  'stakedAssets'
-  | 'totalEarnedAssets'
-  | 'totalStakeEarnedAssets'
-  | 'totalBoostEarnedAssets'
->
-
 export type SetStakeBalance = (amount: string) => Promise<void>
 
 type Wrapper = E2E.FixtureMethod<SetStakeBalance, 'page'>
@@ -16,19 +9,25 @@ type Wrapper = E2E.FixtureMethod<SetStakeBalance, 'page'>
 export const createSetStakeBalance: Wrapper = ({ page }) => (
   async (amount: string) => {
     const assets = Number(amount) ? parseEther(amount) : 0n
+    const stakedAssets = assets > constants.minimalAmount ? assets : 0n
 
-    const data: Output = {
-      totalEarnedAssets: parseEther('220'),
-      totalBoostEarnedAssets: parseEther('190'),
-      totalStakeEarnedAssets: parseEther('100'),
-      stakedAssets: assets > constants.minimalAmount ? assets : 0n,
+    const payload = {
+      stakedAssets: stakedAssets.toString(),
+      totalEarnedAssets: parseEther('220').toString(),
+      totalBoostEarnedAssets: parseEther('190').toString(),
+      totalStakeEarnedAssets: parseEther('100').toString(),
     }
 
-    await page.evaluate((payload) => {
+    await page.addInitScript((data) => {
       window.e2e = {
         ...window.e2e,
-        ['user/balances/setStakeBalance']: payload,
+        ['user/balances/setStakeBalance']: {
+          stakedAssets: BigInt(data.stakedAssets),
+          totalEarnedAssets: BigInt(data.totalEarnedAssets),
+          totalBoostEarnedAssets: BigInt(data.totalBoostEarnedAssets),
+          totalStakeEarnedAssets: BigInt(data.totalStakeEarnedAssets),
+        },
       }
-    }, data)
+    }, payload)
   }
 )

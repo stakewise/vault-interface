@@ -79,7 +79,7 @@ const swap: E2E.Fixture<SwapFixture> = async ({ page, graphql, transactions, ele
     submitAmount: createSubmitAmount({ page }),
     submit: createSubmit({ page, transactions }),
 
-    setSdkTransactions: createSetSdkTransactions({ page, sdk, graphql }),
+    setSdkTransactions: createSetSdkTransactions({ page, sdk, graphql, user }),
 
     actions: {
       unstake: createUnstake({ page, transactions }),

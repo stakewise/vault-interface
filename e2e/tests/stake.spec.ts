@@ -21,13 +21,14 @@ test('Token dropdown', async ({ swap, wallet }) => {
   await swap.helpers.checkTokenDropdown()
 })
 
-test('Max balance minus gas', async ({ swap, wallet, graphql }) => {
+test('Max balance minus gas', async ({ swap, wallet }) => {
   await swap.openPage()
   await wallet.connectWithBalance({ ETH: '100' })
 
   await swap.input.fill()
-  await graphql.waitForResponse('HarvestParams')
-  await graphql.waitForResponse('HarvestParams')
+
+  await expect.poll(async () => Number(await swap.input.value()), { timeout: 10_000 })
+    .toBeGreaterThan(0)
 
   const value = await swap.input.value()
 

@@ -1,22 +1,19 @@
 import { parseEther } from 'ethers'
 
 
-type Output = Store['vault']['user']['balances']['maxWithdrawAssets']
-
 export type SetMaxWithdrawAssets = (asset: string) => Promise<void>
 
 type Wrapper = E2E.FixtureMethod<SetMaxWithdrawAssets, 'page'>
 
 export const createSetMaxWithdrawAssets: Wrapper = ({ page }) => (
   async (asset: string) => {
+    const value = parseEther(asset).toString()
 
-    const data: Output = parseEther(asset)
-
-    await page.evaluate((payload) => {
+    await page.addInitScript((payload) => {
       window.e2e = {
         ...window.e2e,
-        ['user/balances/setMaxWithdrawAssets']: payload,
+        ['user/balances/setMaxWithdrawAssets']: BigInt(payload),
       }
-    }, data)
+    }, value)
   }
 )
