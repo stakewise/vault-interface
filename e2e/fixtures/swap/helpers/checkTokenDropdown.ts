@@ -1,14 +1,16 @@
-import { expect, Locator } from '@playwright/test'
+import { expect } from '@playwright/test'
+
+import type { Locator } from '@playwright/test'
 
 
 type Wrapper = E2E.FixtureMethod<CheckTokenDropdown, 'page' | 'element'>
 
 export type CheckTokenDropdown = (network?: string) => Promise<void>
 
-const TRIGGER_TIMEOUT = 15_000
+const triggerTimeout = 15_000
 
 const clickTrigger = async (trigger: Locator) => {
-  await expect(trigger).toBeEnabled({ timeout: TRIGGER_TIMEOUT })
+  await expect(trigger).toBeEnabled({ timeout: triggerTimeout })
   await trigger.click()
 }
 
