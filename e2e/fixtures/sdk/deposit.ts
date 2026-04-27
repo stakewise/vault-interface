@@ -25,7 +25,11 @@ export const createDeposit: Wrapper = ({ page, wallet }) => (
         assets,
       })
 
-      await sdk.provider.waitForTransaction(depositHash)
+      const receipt = await sdk.provider.waitForTransaction(depositHash)
+
+      if (!receipt || receipt.status !== 1) {
+        throw new Error(`deposit reverted: tx=${depositHash} status=${receipt?.status ?? 'no-receipt'}`)
+      }
     }, {
       vaultAddress,
       depositAssets: parseEther(assets).toString(),

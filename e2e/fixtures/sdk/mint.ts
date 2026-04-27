@@ -24,7 +24,11 @@ export const createMint: Wrapper = ({ page, wallet }) => (
         shares,
       })
 
-      await sdk.provider.waitForTransaction(mintHash)
+      const receipt = await sdk.provider.waitForTransaction(mintHash)
+
+      if (!receipt || receipt.status !== 1) {
+        throw new Error(`mint reverted: tx=${mintHash} status=${receipt?.status ?? 'no-receipt'}`)
+      }
 
       return shares.toString()
     }, {
