@@ -4,9 +4,8 @@ import * as constants from '../constants'
 import test from '../extendTest'
 
 
-test('Connect wallet | Disconnect wallet', async ({ page, wallet, swap, gui, guardian }) => {
-  await guardian.fixProvider()
-  await gui.initializeChain(1)
+test('Connect wallet | Disconnect wallet', async ({ page, wallet, swap }) => {
+  await wallet.init()
 
   await page.goto('/')
   await swap.helpers.checkSwapRender()

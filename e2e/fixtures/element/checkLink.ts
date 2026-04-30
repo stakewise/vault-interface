@@ -19,7 +19,7 @@ export const createCheckLink: Wrapper = ({ page }) => (
 
     if (isPopup) {
       const [ newPage ] = await Promise.all([
-        page.waitForEvent('popup'),
+        page.waitForEvent('popup', { timeout: 15_000 }),
         page.getByTestId(testId).click(),
       ])
 
@@ -33,7 +33,6 @@ export const createCheckLink: Wrapper = ({ page }) => (
       await expect(page).toHaveURL(expectedURL)
 
       if (!skipPageHeadingCheck) {
-        await page.waitForLoadState('networkidle')
         await expect(page.getByTestId('page-heading')).toBeVisible()
       }
     }

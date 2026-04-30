@@ -1,4 +1,4 @@
-import { test as base } from '@guardianui/test'
+import { test as base } from '@playwright/test'
 
 import {
   api,
@@ -7,16 +7,15 @@ import {
   swap,
   vault,
   queue,
-  anvil,
   wallet,
   osToken,
   graphql,
   element,
   helpers,
   settings,
-  guardian,
   transactions,
 } from './fixtures'
+import { resetAllChains } from './fixtures/wallet/helpers'
 
 
 const baseTest = base.extend<E2E.ExtendedTest>({
@@ -26,14 +25,12 @@ const baseTest = base.extend<E2E.ExtendedTest>({
   swap,
   queue,
   vault,
-  anvil,
   wallet,
   osToken,
   graphql,
   element,
   helpers,
   settings,
-  guardian,
   transactions,
 })
 
@@ -54,6 +51,10 @@ const log = {
 }
 
 const getFileName = (value: string) => value.replace(/^.*\/(.*)\//gm, '$1/')
+
+baseTest.beforeAll(async () => {
+  await resetAllChains()
+})
 
 baseTest.afterEach(async ({}, testInfo) => {
   const { title, error, duration, file, retry } = testInfo

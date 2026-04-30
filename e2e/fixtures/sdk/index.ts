@@ -7,10 +7,10 @@ export type SDKFixture = {
   deposit: Deposit
 }
 
-const sdk: E2E.Fixture<SDKFixture> = async ({ page }, use) => {
+const sdk: E2E.Fixture<SDKFixture> = async ({ page, wallet }, use) => {
   await use({
-    mint: createMint({ page }),
-    deposit: createDeposit({ page }),
+    mint: createMint({ page, wallet }),
+    deposit: createDeposit({ page, wallet }),
   })
 }
 
