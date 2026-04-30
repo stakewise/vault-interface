@@ -1,4 +1,5 @@
 # Vault interface
+
 This is an open-source repository for the Vault interface.
 You can customize this UI for your own vault on the
 Mainnet, Gnosis and Hoodi networks.
@@ -10,11 +11,23 @@ allowing you to select the desired network.
 ### Demo
 [Genesis vault interface](https://vault-interface-lemon.vercel.app/)
 
-### Setup and Launch
+### Quick start (recommended)
+
+Use the CLI to scaffold a configured project in seconds:
+
+```bash
+npx @stakewise/create-vault-interface
+```
+
+It will ask you a few questions (networks, vault addresses, RPC URLs, theme,
+WalletConnect ID, etc.), generate a `.env` file, install dependencies, and
+optionally deploy to Vercel. See [`cli/README.md`](./cli/README.md) for details.
+
+### Manual setup
 1. Clone the repository.
-2. Create a `.env.local` file in the root of the project.
-3. Copy the contents of `.env.example` into your `.env.local` file.
-4. Replace the values in `.env.local` with your specific configurations:
+2. Create a `.env` file in the root of the project.
+3. Copy the contents of `.env.example` into your `.env` file.
+4. Replace the values in `.env` with your specific configurations:
 
 - <b>Mainnet Vault</b>:
   - Add the vault address to `NEXT_PUBLIC_MAINNET_VAULT_ADDRESS`.
@@ -30,10 +43,9 @@ allowing you to select the desired network.
 - <b>Testnet Vaults</b>:
   - Add the vault address to `NEXT_PUBLIC_HOODI_VAULT_ADDRESS`.
   - Set the RPC URL in `NEXT_PUBLIC_HOODI_NETWORK_URL`.
-  - Testnet networks will only be displayed in the network selection if `NEXT_PUBLIC_IS_PROD` is set to `false`. In a production environment, you can switch to the testnet only through the wallet interface.
+  - Test environment networks will appear in the network list only if the `VERCEL_ENV` variable is not set to `production`. In a production environment, you can switch to the testnet only through the wallet interface.
 
 - <b>Vault Ownership</b>:
-  - Add your vault owner’s title in `NEXT_PUBLIC_OWNER`.
   - Specify the owner’s domain in `NEXT_PUBLIC_OWNER_DOMAIN`.
   - Add the X account for metadata as `NEXT_PUBLIC_OWNER_X_ACCOUNT`.
 
@@ -47,17 +59,17 @@ allowing you to select the desired network.
   - The UI supports 7 languages by default (en, ru, fr, es, pt, de, zh). To exclude any languages, set the `NEXT_PUBLIC_LOCALES` variable. For instance, for English and Chinese only, use `NEXT_PUBLIC_LOCALES=en, zh`.
 
 - <b>Currency Configuration</b>:
-  - The UI supports 7 currencies by default (USD, EUR, GBP, JPY, CNY, CHF, AUD). To exclude currencies, set the `NEXT_PUBLIC_CURRENCIES` variable. For example, for USD and EUR only, use `NEXT_PUBLIC_CURRENCIES=USD, EUR`.
+  - The UI supports 7 currencies by default (usd, eur, gbp, cny, jpy, krw, aud). To exclude currencies, set the `NEXT_PUBLIC_CURRENCIES` variable. For example, for USD and EUR only, use `NEXT_PUBLIC_CURRENCIES=usd, eur`.
 
 - <b>Content-Security-Policy Configuration</b>:
   - If you want your site to open in a frame, you can list sites where this is possible. `NEXT_PUBLIC_CONTENT_SECURITY_POLICY=https://app.safe.global https://*.blockscout.com`.
 
-- Set `NEXT_PUBLIC_IS_PROD=false` for development and `NEXT_PUBLIC_IS_PROD=true` for production. It will make code optimizations for production build.
-5. Verify Node Version: Ensure your Node.js version is `20.12.2` or higher.
-6. Run `npm install` to install the necessary dependencies.
-7. <b>Start the Development Server</b>: Run `npm run dev` to start the server. Then navigate to [http://localhost:5005](http://localhost:5005) in your browser to view the application.
-8. <b>Build for Production using Vercel</b>: Follow [Vercel instructions](https://vercel.com/docs/getting-started-with-vercel/import) to connect your repository to Vercel and automatically build and serve the app.
-9. <b>Build for Production using hosting</b>: Run `npm run build` to prepare the app for production. After that, deploy the build files to your hosting service.
+5. Verify Node Version: Ensure your Node.js version is `24.12.0` or higher (see `.nvmrc`).
+6. Install pnpm if you don't have it: `corepack enable && corepack prepare pnpm@latest --activate`.
+7. Run `pnpm install` to install the necessary dependencies.
+8. <b>Start the Development Server</b>: Run `pnpm dev` to start the server. Then navigate to [http://localhost:5005](http://localhost:5005) in your browser to view the application.
+9. <b>Build for Production using Vercel</b>: Follow [Vercel instructions](https://vercel.com/docs/getting-started-with-vercel/import) to connect your repository to Vercel and automatically build and serve the app.
+10. <b>Build for Production using hosting</b>: Run `pnpm build` to prepare the app for production. After that, deploy the build files to your hosting service.
 
 ### Vault actions
 The vault interface allows you to perform the following actions:
@@ -71,17 +83,17 @@ The vault interface allows you to perform the following actions:
 - <b>Balance Tab</b>: Displays current user stats, unstake/unboost queue data, and claim actions.
 
 ### Environment Variables
-Add `.env.local` file in the root of the project.
+Add a `.env` file in the root of the project (or `.env.local` — both are gitignored).
 Copy environment variables from the `.env.example` file and replace the values with the actual values.
 Add vault address, rpc urls for the vault network, owner data, wallet connect id (if needed) and interface settings (locales, currencies).
 
 ### Themes and colors
 There are light and dark themes available.
-The default user will see theme that is the same as system. It will be light if the system theme is light and dark if the system theme is dark.
-Theme can be changed in the settings menu.
+By default the user will see a theme matching the system preference: light if the system theme is light, dark otherwise.
+The theme can be changed in the settings menu.
 
 Colors are defined in the `src/styles/settings.scss` file and can be customized to your preferences.
-After updating the colors, run `npm run colors` — this script will generate RGB versions from your hex codes and update the following files:
+After updating the colors, run `pnpm colors` — this script will generate RGB versions from your hex codes and update the following files:
 
 - `src/styles/tailwind/layers/base.css`
 - `src/styles/tailwind/theme.css`

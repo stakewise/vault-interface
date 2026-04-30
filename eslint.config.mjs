@@ -136,6 +136,7 @@ export default [
     files: [
       '**/*.config.*',
       'scripts/**/*.{js,ts,jsx,tsx}',
+      'cli/**/*.{js,ts,jsx,tsx}',
     ],
     languageOptions: {
       globals: {

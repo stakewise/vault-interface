@@ -6,7 +6,7 @@ const CircularDependencyPlugin = require('circular-dependency-plugin')
 
 const mainRPC = process.env.NEXT_PUBLIC_MAINNET_NETWORK_URL
 const fallbackRPC = process.env.NEXT_PUBLIC_MAINNET_FALLBACK_URL
-const isProduction = process.env.NEXT_PUBLIC_IS_PROD !== 'false'
+const isProduction = process.env.VERCEL_ENV === 'production'
 
 console.log('-------------------------------information---------------------------------')
 console.log('Main RPC:', mainRPC)

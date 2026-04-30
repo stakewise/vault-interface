@@ -109,8 +109,8 @@ const Button: React.FC<ButtonProps> = (props) => {
 
   const bgClassName = cx({
     [gradientClassName]: color === 'primary' || color === 'secondary',
-    'from-primary-start to-primary-end': color === 'primary',
-    'from-secondary-start to-secondary-end': color === 'secondary',
+    'bg-primary': color === 'primary',
+    'bg-secondary': color === 'secondary',
     'bg-dark/5 hover:bg-dark/10 active:bg-dark/15': color === 'light',
   })
 
@@ -125,6 +125,7 @@ const Button: React.FC<ButtonProps> = (props) => {
       'bg-dark/15 opacity-30': disabled || loading,
       [buttonPaddingClassName]: title && !withoutPadding,
     }
+    
   )
 
   return (

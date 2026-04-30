@@ -1,0 +1,6 @@
+export { default as installDependencies } from './installDependencies'
+export { default as deployToVercel } from './deployToVercel'
+export { default as collectAnswers } from './collectAnswers'
+export { default as applyTheme } from './applyTheme'
+export { default as buildEnv } from './buildEnv'
+export { default as gitInit } from './gitInit'

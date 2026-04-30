@@ -1,0 +1,54 @@
+{
+  "name": "@stakewise/create-vault-interface",
+  "version": "0.1.2",
+  "description": "CLI for creating a StakeWise Vault Interface application",
+  "type": "module",
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "start": "node dist/index.js",
+    "prepublishOnly": "npm run build"
+  },
+  "bin": {
+    "create-vault-interface": "./dist/index.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "stakewise",
+    "vault",
+    "ethereum",
+    "staking",
+    "cli"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/stakewise/vault-interface#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/stakewise/vault-interface.git",
+    "directory": "cli"
+  },
+  "bugs": {
+    "url": "https://github.com/stakewise/vault-interface/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "degit": "2.8.4",
+    "execa": "9.5.2",
+    "picocolors": "1.1.1",
+    "prompts": "2.4.2"
+  },
+  "devDependencies": {
+    "@types/degit": "2.8.6",
+    "@types/node": "22.10.0",
+    "@types/prompts": "2.4.9",
+    "tsup": "8.3.5",
+    "typescript": "5.6.3"
+  }
+}
