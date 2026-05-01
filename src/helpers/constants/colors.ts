@@ -10,10 +10,6 @@ const colors = [
   'warning',
   'success',
   'success-light',
-  'primary-start',
-  'primary-end',
-  'secondary-start',
-  'secondary-end',
 ] as const
 
 

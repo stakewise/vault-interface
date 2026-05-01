@@ -16,7 +16,7 @@ import 'styles/globals.scss'
 import 'styles/tailwind/config.css'
 
 
-const owner = process.env.NEXT_PUBLIC_OWNER || ''
+const envTitle = process.env.NEXT_PUBLIC_TITLE || ''
 const domain = process.env.NEXT_PUBLIC_OWNER_DOMAIN || ''
 const ownerTwitter = process.env.NEXT_PUBLIC_OWNER_X_ACCOUNT || ''
 
@@ -25,7 +25,7 @@ export const generateMetadata: GenerateMetadata = async () => {
   const metaDescription = commonMessages.meta.home.description[locale] || ''
 
   let title = commonMessages.meta.home.title[locale]
-  let description = owner ? `${owner} | ${metaDescription}` : metaDescription
+  let description = envTitle ? `${envTitle} | ${metaDescription}` : metaDescription
   let image = '/og-image.png'
 
   const url = `https://${domain}/`
@@ -35,7 +35,7 @@ export const generateMetadata: GenerateMetadata = async () => {
     const vaultData = vaultBase?.data
 
     if (vaultData?.displayName) {
-      title = owner ? `${vaultData.displayName} | ${owner}` : vaultData.displayName
+      title = envTitle ? `${vaultData.displayName} | ${envTitle}` : vaultData.displayName
     }
     if (vaultData?.description) {
       description = vaultData.description
@@ -51,11 +51,11 @@ export const generateMetadata: GenerateMetadata = async () => {
   return {
     description,
     metadataBase: new URL(url),
-    applicationName: owner ? `${owner} Vault Interface` : 'Vault Interface',
+    applicationName: envTitle ? `${envTitle} Vault Interface` : 'Vault Interface',
     manifest: new URL('/manifest.json', url),
-    keywords: [ owner, 'staking', 'ETH', 'osETH' ].filter(Boolean),
+    keywords: [ envTitle, 'staking', 'ETH', 'osETH' ].filter(Boolean),
     title: {
-      template: owner ? `${owner} | %s` : '%s',
+      template: envTitle ? `${envTitle} | %s` : '%s',
       absolute: title,
     },
     icons: {
@@ -86,17 +86,17 @@ export const generateMetadata: GenerateMetadata = async () => {
       description,
       type: 'website',
       images: image,
-      siteName: owner,
+      siteName: envTitle,
     },
     twitter: {
       url,
       title,
       domain,
       description,
-      siteName: owner,
+      siteName: envTitle,
       images: {
         url: image,
-        alt: owner ? `${owner} logo` : 'logo',
+        alt: envTitle ? `${envTitle} logo` : 'logo',
       },
       creator: ownerTwitter,
       card: 'summary_large_image',

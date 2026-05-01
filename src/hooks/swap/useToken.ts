@@ -3,7 +3,7 @@ import { useConfig } from 'config'
 import { constants } from 'helpers'
 import { ZeroAddress } from 'ethers'
 
-import { LogoName } from 'components'
+import type { LogoName } from 'components/Image/Image'
 
 import useChangeEffect from '../controls/useChangeEffect'
 import useTokensList from './useTokensList'

@@ -1,4 +1,4 @@
-import { methods } from 'helpers'
+import fetch from 'helpers/methods/fetch'
 
 
 type AvgExitQueueQueryPayload = {
@@ -15,7 +15,7 @@ const fetchQueueDays = async (values: Input) => {
   const { sdk, vaultAddress } = values
 
   try {
-    const result = await methods.fetch<AvgExitQueueQueryPayload>(sdk.config.api.backend, {
+    const result = await fetch<AvgExitQueueQueryPayload>(sdk.config.api.backend, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

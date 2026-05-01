@@ -2,7 +2,8 @@ import { useMemo, useCallback, useState, useRef } from 'react'
 import { useConfig } from 'config'
 import { StakeStep } from 'helpers/enums'
 
-import { SetTransaction, Transactions } from 'components'
+import Transactions from 'components/Transactions/Transactions'
+import type { SetTransaction } from 'components/Transactions/types'
 
 import useActions from '../../data/useActions'
 

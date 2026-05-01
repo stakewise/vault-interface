@@ -2,7 +2,8 @@ import { useMemo, useCallback } from 'react'
 import { StakeStep } from 'helpers/enums'
 import type { TradeParameters } from '@cowprotocol/cow-sdk'
 
-import { SetTransaction, Transactions } from 'components'
+import Transactions from 'components/Transactions/Transactions'
+import type { SetTransaction } from 'components/Transactions/types'
 
 import useTrade from './useTrade'
 import useSwapSDK from '../useSwapSDK'
