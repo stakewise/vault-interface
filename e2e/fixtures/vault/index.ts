@@ -5,9 +5,9 @@ export type VaultFixture = {
   setVaultData: SetVaultData
 }
 
-const vault: E2E.Fixture<VaultFixture> = async ({ page }, use) => {
+const vault: E2E.Fixture<VaultFixture> = async ({ page, wallet }, use) => {
   await use({
-    setVaultData: createSetVaultData({ page }),
+    setVaultData: createSetVaultData({ page, wallet }),
   })
 }
 

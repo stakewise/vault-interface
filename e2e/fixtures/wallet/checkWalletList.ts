@@ -1,9 +1,9 @@
 import * as constants from '../../constants'
 
 
-type Wrapper = E2E.FixtureMethod<checkWalletList, 'page' | 'element'>
+type Wrapper = E2E.FixtureMethod<CheckWalletList, 'page' | 'element'>
 
-export type checkWalletList = (isMobile?: boolean, withWalletConnect?: boolean) => Promise<void>
+export type CheckWalletList = (isMobile?: boolean, withWalletConnect?: boolean) => Promise<void>
 
 const walletList = [
   {
@@ -40,12 +40,12 @@ const mobileList = [
   constants.walletNames.coinbase,
   constants.walletNames.walletConnect,
   constants.walletNames.monitorAddress,
-] as string[]
+]
 
 const mobileWallets = walletList.filter(({ id }) => mobileList.includes(id))
 const desktopWallets = walletList.filter(({ id }) => id !== constants.walletNames.dAppBrowser)
 
-export const createcheckWalletList: Wrapper = ({ page, element }) => (
+export const createCheckWalletList: Wrapper = ({ page, element }) => (
   async (isMobile?: boolean, withWalletConnect = true) => {
     let currentList = isMobile ? mobileWallets : desktopWallets
 

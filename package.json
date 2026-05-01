@@ -44,7 +44,6 @@
   },
   "devDependencies": {
     "@eslint/js": "9.28.0",
-    "@guardianui/test": "1.0.4",
     "@next/eslint-plugin-next": "16.0.10",
     "@playwright/test": "1.57.0",
     "@typechain/ethers-v6": "0.5.1",
