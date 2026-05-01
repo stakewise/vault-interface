@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 import { useConfig } from 'config'
 import { swapTokens, swapTokenTitles, swapTokenCustomUnits, constants } from 'helpers'
 
-import { LogoName } from 'components'
+import type { LogoName } from 'components/Image/Image'
 
 import useStore from '../data/useStore'
 
