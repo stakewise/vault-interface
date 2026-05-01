@@ -51,7 +51,7 @@ The CLI walks you through a few questions, generates a configured project in the
 
 ## Requirements
 
-- Node.js `>=18`
+- Node.js `>=20`
 - Git (recommended — the CLI initializes a repo)
 - pnpm (recommended — `corepack enable && corepack prepare pnpm@latest --activate`)
 

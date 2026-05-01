@@ -6,7 +6,7 @@ import { log, hasCommand } from '../helpers'
 
 const gitInit = async (targetDir: string): Promise<void> => {
   if (!(await hasCommand('git'))) {
-    log(pc.yellow('  git not found — skipping repository init'))
+    log(pc.yellow('git not found — skipping repository init. Install: https://git-scm.com/downloads'))
 
     return
   }
@@ -19,7 +19,7 @@ const gitInit = async (targetDir: string): Promise<void> => {
   catch (error) {
     const msg = error instanceof Error ? error.message : String(error)
 
-    log(pc.yellow(`  git init failed: ${msg}`))
+    log(pc.yellow(`git init failed: ${msg}`))
   }
 }
 

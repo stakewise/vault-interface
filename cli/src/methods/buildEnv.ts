@@ -7,7 +7,6 @@ const buildEnv = (config: Config): string => {
 
   const has = (net: Network): boolean => config.networks.includes(net)
 
-  lines.push('NEXT_PUBLIC_IS_PROD=true', '')
   lines.push('# RPC URLs')
 
   for (const network of networks) {

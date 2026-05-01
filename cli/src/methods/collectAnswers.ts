@@ -88,7 +88,7 @@ const collectAnswers = async (): Promise<Config> => {
     choices: networkChoices,
     min: 1,
     instructions: false,
-    hint: 'Space to toggle, Enter to confirm',
+    hint: 'Space to select, Enter to confirm',
   }) as { networks: Network[] }
 
   const vaultAddresses: Partial<Record<Network, string>> = {}
@@ -172,7 +172,7 @@ const collectAnswers = async (): Promise<Config> => {
         choices: localeChoices.map((choice) => ({ ...choice, selected: true })),
         min: 1,
         instructions: false,
-        hint: 'Space to toggle, Enter to confirm',
+        hint: 'Space to select, Enter to confirm',
       },
       {
         type: 'multiselect',
@@ -181,7 +181,7 @@ const collectAnswers = async (): Promise<Config> => {
         choices: currencyChoices.map((choice) => ({ ...choice, selected: true })),
         min: 1,
         instructions: false,
-        hint: 'Space to toggle, Enter to confirm',
+        hint: 'Space to select, Enter to confirm',
       },
       {
         type: 'text',
