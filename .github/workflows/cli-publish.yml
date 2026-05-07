@@ -1,0 +1,56 @@
+name: Publish CLI to npm
+
+on:
+  push:
+    tags:
+      - 'cli-[0-9]+.[0-9]+.[0-9]+'
+
+permissions: {}
+
+jobs:
+  publish:
+    name: Publish @stakewise/create-vault-interface
+    runs-on: ubuntu-latest
+    environment:
+      name: npm-publish-cli
+      url: https://www.npmjs.com/package/@stakewise/create-vault-interface
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd
+        with:
+          persist-credentials: false
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1
+        with:
+          version: 10.25.0
+
+      - name: Setup Node
+        uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f
+        with:
+          cache: pnpm
+          node-version: '24.12.0'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Verify tag matches cli/package.json version
+        run: |
+          TAG_VERSION="${GITHUB_REF_NAME#cli-}"
+          PKG_VERSION=$(node -p "require('./cli/package.json').version")
+          if [ "$TAG_VERSION" != "$PKG_VERSION" ]; then
+            echo "::error::Tag $GITHUB_REF_NAME (parsed as $TAG_VERSION) does not match cli/package.json version $PKG_VERSION"
+            exit 1
+          fi
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile --ignore-scripts
+
+      - name: Build CLI
+        working-directory: cli
+        run: pnpm build
+
+      - name: Publish to npm with provenance
+        working-directory: cli
+        run: npm publish --provenance --access public --ignore-scripts
