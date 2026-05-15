@@ -1,6 +1,6 @@
 {
   "name": "@stakewise/create-vault-interface",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "CLI for creating a StakeWise Vault Interface application",
   "type": "module",
   "scripts": {
