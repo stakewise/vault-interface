@@ -20,7 +20,7 @@ const useForm = <F extends Forms.FormValues>(config: Forms.FieldsConfig<F>): For
       }
     }, {} as Forms.Form<F>['fields'])
 
-    const methods = createFormMethods<Forms.FieldValue, F>(fields)
+    const methods = createFormMethods<Forms.FieldValue, F>(fields, formRef)
 
     return {
       fields,

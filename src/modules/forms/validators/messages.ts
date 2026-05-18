@@ -17,6 +17,15 @@ export default {
     de: 'Eine gültige E-Mail-Adresse ist erforderlich',
     zh: '需要有效的电子邮件地址',
   },
+  httpsUrl: {
+    en: 'Valid HTTPS url required',
+    ru: 'Требуется действительный HTTPS url',
+    fr: 'url HTTPS valide requise',
+    es: 'Se requiere una url HTTPS válida',
+    pt: 'url HTTPS válida necessária',
+    de: 'Gültige HTTPS-url erforderlich',
+    zh: '需要有效的 HTTPS url',
+  },
   ethAddress: {
     en: 'Valid Ethereum address required',
     ru: 'Требуется действительный адрес Ethereum',

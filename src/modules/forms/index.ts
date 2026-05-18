@@ -52,9 +52,9 @@ declare global {
 
       validateWithoutError: () => boolean
 
-      subscribe: (event: Events, handler: EventHandler<FieldValue>) => void
+      subscribe: (event: Events, handler: FormEventHandler<F>) => void
 
-      unsubscribe: (event: Events, handler: EventHandler<FieldValue>) => void
+      unsubscribe: (event: Events, handler: FormEventHandler<F>) => void
 
       getValues: () => {
         [K in keyof F]: Field<F[K]>['value']
@@ -103,6 +103,8 @@ declare global {
     type FieldValue = string | number | boolean | bigint
 
     type EventHandler<V extends FieldValue> = (field: Field<V>) => void
+
+    type FormEventHandler<F extends FormValues> = (form: Form<F>) => void
 
     type Validator<F extends FormValues> = (value: FieldValue | undefined, form: Form<F>['fields']) => Intl.Message | undefined
   }
