@@ -87,14 +87,14 @@ class WagmiConnector {
     return accounts[0]
   }
 
-  async activate(networkId: NetworkIds) {
+  async activate(networkId: NetworkIds, _locale?: string, isReconnecting = false) {
     const chainId = networks.chainById[networkId]
 
     try {
       const data = await this.connector.connect({
         chainId,
         // ATTN https://github.com/wevm/wagmi/blob/main/packages/core/src/connectors/injected.ts#L167
-        isReconnecting: false,
+        isReconnecting,
       })
 
       return data

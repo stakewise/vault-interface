@@ -14,7 +14,7 @@ const getConnector = async () => {
 
   const connector = new WalletLinkConnector({
     projectId: process.env.NEXT_PUBLIC_WALLET_CONNECT_ID as string,
-    isNewChainsStale: true,
+    isNewChainsStale: false,
     showQrModal: true,
     qrModalOptions: {
       themeVariables: {
@@ -32,7 +32,7 @@ const walletConnect = {
   logo: 'connector/walletConnect',
   isAddTokenEnabled: false,
   isInjectedWallet: false,
-  isLocalStorageSave: false,
+  isLocalStorageSave: true,
   isDisableSwitchChain: false,
   activationMessage: messages.authMessages.waitingAuth,
   networks: [
