@@ -38,6 +38,8 @@ class WalletLinkConnector extends WagmiConnector {
     if (isGnosisSafe) {
       const method = provider.request
 
+      const chainId = provider.chainId
+
       provider.request = async (data) => {
         const response = await method.bind(provider)(data)
 
@@ -55,7 +57,15 @@ class WalletLinkConnector extends WagmiConnector {
             while (true) {
               let timer = 0
 
-              const safeAPI = 'https://safe-transaction-gnosis-chain.safe.global/api/v1/multisig-transactions'
+              const chainNames: Record<number, string> = {
+                1: 'eth',
+                100: 'gno',
+              }
+
+              const chainName = chainNames[chainId]
+
+              const safeAPI = `https://api.safe.global/tx-service/${chainName}/api/v1/multisig-transactions`
+
               const response = await fetch(`${safeAPI}/${safeHash}`)
 
               if (!response.ok) {
