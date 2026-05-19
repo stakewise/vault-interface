@@ -68,6 +68,9 @@ export type { LoadingProps } from './Loading/Loading'
 export { default as Logo } from './Logo/Logo'
 export type { LogoProps } from './Logo/Logo'
 
+export { default as WalletIcon } from './WalletIcon/WalletIcon'
+export type { WalletIconProps } from './WalletIcon/WalletIcon'
+
 export { default as MagicIcon } from './MagicIcon/MagicIcon'
 export type { MagicIconProps } from './MagicIcon/MagicIcon'
 

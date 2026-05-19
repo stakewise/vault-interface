@@ -1,10 +1,12 @@
-import { configs } from 'sdk'
 import { injected } from '@wagmi/connectors'
 import type { InjectedParameters } from '@wagmi/connectors'
 
 import { WagmiConnector } from './helpers'
-import networks from '../config/util/networks'
 
+
+type Input = InjectedParameters & {
+  networks: ConfigProvider.Networks
+}
 
 type InjectedProvider = {
   request: (values: {
@@ -14,25 +16,27 @@ type InjectedProvider = {
 }
 
 class InjectedConnector extends WagmiConnector {
-  constructor({ target, shimDisconnect }: InjectedParameters) {
+
+  constructor({ target, networks, shimDisconnect }: Input) {
     const creator = injected({ target, shimDisconnect })
 
-    super({ creator })
+    super({ creator, networks })
   }
 
-  async activate(networkId: NetworkIds): Promise<any> {
+  async activate(networkId: string): Promise<any> {
     const connectorChainId = await this.connector.getChainId()
-    const chainId = networks.chainById[networkId]
+    const chainId = this.networks.chainById[networkId]
 
     // fix to prevent infinite promise on super.activate
-    if (chainId !== connectorChainId) {
+    // skip if wallet doesn't respond before connect (e.g. Infinex returns connectorChainId 0)
+    if (connectorChainId && chainId !== connectorChainId) {
       await this.changeChainId(chainId)
     }
 
     return super.activate(networkId)
   }
 
-  async changeChainId(chainId: ChainIds): Promise<any> {
+  async changeChainId(chainId: number): Promise<any> {
     try {
       const provider = await this.getProvider() as InjectedProvider
 
@@ -40,15 +44,18 @@ class InjectedConnector extends WagmiConnector {
         throw new Error('Provider not found')
       }
 
-      const config = configs[chainId]
+      const networkId = this.networks.idByChain[chainId]
+      const config = this.networks.configs[networkId]
 
       if (!config) {
         throw new Error(`Config for "${chainId} chain" not found`)
       }
 
+      const hexadecimalChainId = config.hexadecimalChainId
+
       await provider.request({
         method: 'wallet_switchEthereumChain',
-        params: [ { chainId: config.network.hexadecimalChainId } ],
+        params: [ { chainId: hexadecimalChainId } ],
       })
 
       const hexChainId = await provider.request({

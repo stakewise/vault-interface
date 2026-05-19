@@ -3,8 +3,6 @@ import { methods } from 'helpers'
 import device from 'modules/device'
 import { useConfig, wallets } from 'config'
 
-import type { LogoProps } from 'components'
-
 
 const useAccount = () => {
   const { isDesktop } = device.useData()
@@ -12,9 +10,8 @@ const useAccount = () => {
 
   const addressOption = accountName || methods.shortenAddress(address)
 
-  const logo: LogoProps['name'] =  activeWallet
-    ? wallets[activeWallet].logo
-    : 'connector/monitorAddress'
+  const wallet = activeWallet ? wallets[activeWallet] : null
+  const logo = wallet?.logo || 'connector/monitorAddress'
 
   return useMemo(() => ({
     logo,

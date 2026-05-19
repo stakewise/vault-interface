@@ -3,23 +3,41 @@ import type { SafeAppProvider } from '@safe-global/safe-apps-provider'
 import type { WalletConnectParameters } from '@wagmi/connectors'
 import { ChainNotConfiguredError } from '@wagmi/core'
 import { walletConnect } from '@wagmi/connectors'
-import apiUrls from 'helpers/methods/apiUrls'
 
-import { WagmiConnector, chains } from './helpers'
-import networks from '../config/util/networks'
+import { WagmiConnector } from './helpers'
 
+
+const initialWalletData = {
+  name: null,
+  iconUrl: null,
+  chains: [],
+  support: {
+    eip712: false,
+    addChain: false,
+    switchChanin: false,
+  },
+}
 
 type Provider = {
   request: (params: any) => Promise<any>
 }
 
+type Input = WalletConnectParameters & {
+  networks: ConfigProvider.Networks
+}
+
 class WalletLinkConnector extends WagmiConnector {
+  walletData: ConfigProvider.WalletConnectData = initialWalletData
+  networks: ConfigProvider.Networks
 
-  constructor(values: WalletConnectParameters) {
-    const creator = walletConnect(values)
+  constructor(values: Input) {
+    const { networks, ...rest } = values
 
-    super({ creator })
+    const creator = walletConnect(rest)
 
+    super({ creator, networks })
+
+    this.networks = networks
     this.connector.switchChain = this.switchChain.bind(this)
   }
 
@@ -27,6 +45,46 @@ class WalletLinkConnector extends WagmiConnector {
     return new Promise((resolve) => {
       setTimeout(() => resolve({ timeoutError: true }), timeout)
     })
+  }
+
+  async activate(networkId: string, _locale?: string, isReconnecting = false) {
+    return super.activate(networkId, _locale, isReconnecting)
+      .then(async () => {
+        const provider = await this.connector.getProvider() as any
+
+        const walletName = provider?.session?.peer?.metadata?.name || null
+        const walletIcons = provider?.session?.peer?.metadata?.icons || []
+
+        const supportedChains = Object.values(this.networks.default).map(({ chainId }) => chainId)
+
+        const chains = (provider?.signer?.namespaces?.eip155?.chains || [])
+          .map((value = '') => Number(value.replace('eip155:', '')))
+          .filter((chainId: number) => supportedChains.includes(chainId))
+
+        const methods = provider?.signer?.namespaces?.eip155?.methods || []
+
+        const support = {
+          eip712: methods.includes('eth_signTypedData_v4'),
+          addChain: methods.includes('wallet_addEthereumChain'),
+          switchChanin: methods.includes('wallet_switchEthereumChain'),
+        }
+
+        this.walletData = {
+          iconUrl: walletIcons[0] || null,
+          name: walletName,
+          support,
+          chains,
+        }
+      })
+  }
+
+  async deactivate() {
+    return super.deactivate()
+      .finally(() => this.walletData = initialWalletData)
+  }
+
+  getWalletData() {
+    return this.walletData
   }
 
   async getProvider() {
@@ -108,21 +166,25 @@ class WalletLinkConnector extends WagmiConnector {
       const provider = await this.getProvider()
 
       if (provider) {
-        const networkId = networks.idByChain[chainId as ChainIds]
+        const networkId = this.networks.idByChain[chainId as number]
 
-        const network = networks.configs[networkId]
-
-        const url = apiUrls.getWeb3Url(chainId)
+        const {
+          rpc,
+          name,
+          nativeCurrency,
+          blockExplorerUrl,
+          hexadecimalChainId,
+        } = this.networks.configs[networkId]
 
         await (provider as any).request({
           method: 'wallet_addEthereumChain',
           params: [
             {
-              blockExplorerUrls: [ network.blockExplorerUrl ],
-              nativeCurrency: network.nativeCurrency,
-              chainId: network.hexadecimalChainId,
-              rpcUrls: [ url ],
-              chainName: network.name,
+              chainName: name,
+              chainId: hexadecimalChainId,
+              nativeCurrency: nativeCurrency,
+              blockExplorerUrls: [ blockExplorerUrl ],
+              rpcUrls: Array.isArray(rpc) ? rpc : [ rpc ],
             },
           ],
         })
@@ -142,7 +204,8 @@ class WalletLinkConnector extends WagmiConnector {
   }
 
   async switchChain({ chainId, timeout }: { chainId: number, timeout?: number }) {
-    const chain = chains.find((chain) => chain.id === chainId)
+    const networkId = this.networks.idByChain[chainId as number]
+    const chain = this.networks.configs[networkId as string]
 
     if (!chain) {
       throw new SwitchChainError(new ChainNotConfiguredError())

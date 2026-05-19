@@ -1,4 +1,4 @@
-const getInitialState = (serverNetworkId?: NetworkIds): ConfigProvider.State => {
+const getInitialState = (serverNetworkId?: string): ConfigProvider.State => {
   const networkId = serverNetworkId || 'mainnet'
 
   return {
@@ -7,6 +7,7 @@ const getInitialState = (serverNetworkId?: NetworkIds): ConfigProvider.State => 
     connector: null,
     accountName: null,
     activeWallet: null,
+    walletConnectData: null,
     autoConnectChecked: false,
   }
 }

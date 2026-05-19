@@ -4,13 +4,13 @@ import { useCopyToClipboard } from 'hooks'
 import { useConfig } from 'config'
 import cx from 'classnames'
 
-import { Text, Logo, RoundButton } from 'components'
+import { Text, WalletIcon, RoundButton } from 'components'
 import type { LogoName } from 'components'
 
 
 type AddressProps = {
   className?: string
-  logo: LogoName
+  logo: LogoName | string
 }
 
 const Address: React.FC<AddressProps> = (props) => {
@@ -33,8 +33,8 @@ const Address: React.FC<AddressProps> = (props) => {
   return (
     <div className={cx(className, 'flex justify-center items-center')}>
       <div className="mr-24 flex justify-start items-center">
-        <Logo
-          name={logo as LogoName}
+        <WalletIcon
+          logo={logo}
           size={16}
         />
         <Text

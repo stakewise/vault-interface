@@ -6,36 +6,31 @@ import EventAggregator from 'modules/event-aggregator'
 import { PathTypes } from './enum'
 import { Transport } from './types'
 import LedgerProvider from './LedgerProvider'
-import networks from '../../config/util/networks'
 
 
 export type Input = {
   chainId: Network
   transport?: Transport
-  params: Record<number, {
-    chainId: number
-    name: string
-    url: string
-  }>
+  networks: ConfigProvider.Networks
   onError?: () => void
 }
 
 class LedgerConnector extends AbstractProvider {
   private chainId?: number
   events: EventAggregator
-  private params: Input['params']
   private transport: Transport = 'usb'
   private account: string | null = null
   private providerInstance?: LedgerProvider
+  private networks: ConfigProvider.Networks
   private onError?: () => void | null
 
-  constructor({ params, transport, chainId, onError }: Input) {
+  constructor({ transport, chainId, networks, onError }: Input) {
     super()
 
-    this.params = params
     this.chainId = chainId
     this.transport = transport || 'usb'
     this.events = new EventAggregator()
+    this.networks = networks
 
     this.onError = onError
     this.#initActiveAccount()
@@ -49,9 +44,10 @@ class LedgerConnector extends AbstractProvider {
     return this.providerInstance.pathType
   }
 
-  async activate(networkId: NetworkIds) {
-    const chainId = networks.chainById[networkId]
-    const { url } = this.params[chainId]
+  async activate(networkId: string) {
+    const { chainId, rpc } = this.networks.configs[networkId]
+
+    const url = Array.isArray(rpc) ? rpc[0] : rpc
 
     const providerInstance = this.#initProvider(chainId, url)
 
@@ -89,7 +85,10 @@ class LedgerConnector extends AbstractProvider {
   }
 
   async changeChainId(chainId: number) {
-    const { url } = this.params[chainId]
+    const networkId = this.networks.idByChain[chainId]
+    const { rpc } = this.networks.configs[networkId]
+
+    const url = Array.isArray(rpc) ? rpc[0] : rpc
 
     if (!url) {
       console.error(`Invalid rpc url for chainId: ${chainId}`)

@@ -119,6 +119,15 @@ export default {
       de: 'Das ausgewählte Netzwerk wird nicht unterstützt',
       zh: '所选网络不受支持',
     },
+    unsupportedNetwork: {
+      en: 'The connected {wallet} does not support the selected network.',
+      ru: 'Подключённый кошелёк {wallet} не поддерживает выбранную сеть.',
+      fr: 'Le portefeuille {wallet} connecté ne prend pas en charge le réseau sélectionné.',
+      es: 'La billetera {wallet} conectada no es compatible con la red seleccionada.',
+      pt: 'A carteira {wallet} conectada não suporta a rede selecionada.',
+      de: 'Die verbundene {wallet}-Wallet unterstützt das ausgewählte Netzwerk nicht.',
+      zh: '已连接的 {wallet} 钱包不支持所选网络。',
+    },
     chainIdError: {
       en: 'Current chain id is not supported',
       ru: 'Текущий идентификатор цепи не поддерживается',

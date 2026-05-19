@@ -6,20 +6,22 @@ import * as constants from 'helpers/constants'
 import notifications from 'modules/notifications'
 import { getAddress, BrowserProvider } from 'ethers'
 
-import networks from '../networks'
 import wallets from '../../../wallets'
 import getSpecialErrors from '../getSpecialErrors'
+import WalletLinkConnector from '../../../connectors/WalletLinkConnector'
 
 import messages from '../../../messages'
 
 
 type Input = Pick<ConfigProvider.Callbacks, 'onError' | 'onStartConnect' | 'onConnectError' | 'onFinishConnect'> & {
+  networks: ConfigProvider.Networks
   configState: ConfigProvider.ConfigState
   disconnect: () => Promise<void>
 }
 
 const useConnect = (values: Input) => {
   const {
+    networks,
     configState,
     disconnect,
     onError,
@@ -83,6 +85,7 @@ const useConnect = (values: Input) => {
     const isWalletConnect = walletName === wallets.walletConnect.id
 
     const connector = await getConnector(chainId, {
+      networks,
       transport,
       disconnect,
     }) as Connectors
@@ -129,7 +132,7 @@ const useConnect = (values: Input) => {
       if (isGnosisSafe) {
         chainId = connectorChainId
 
-        const isSupported = networks.chains.includes(chainId)
+        const isSupported = Object.values(networks.configs).some((c) => c.chainId === chainId)
 
         if (!isSupported) {
           notifications.open({
@@ -146,6 +149,35 @@ const useConnect = (values: Input) => {
       const isWCReconnect = isWalletConnect && isAutoConnect
 
       const data = await connector.activate(dataRef.current.networkId, intlRef.current.locale, isWCReconnect)
+
+      let walletConnectData: ConfigProvider.WalletConnectData | null = null
+
+      if (isWalletConnect) {
+        walletConnectData = (connector as WalletLinkConnector).getWalletData()
+
+        const isSupportedNetwork = walletConnectData?.chains.includes(chainId)
+
+        if (!isSupportedNetwork) {
+          inProgressRef.current = false
+
+          onConnectError()
+          setData({ autoConnectChecked: true })
+          localStorage.removeItem(constants.localStorageNames.walletName)
+
+          notifications.open({
+            type: 'error',
+            thread: 'connect',
+            text: walletConnectData.name ? ({
+              ...messages.connectErrors.unsupportedNetwork,
+              values: { wallet: walletConnectData.name },
+            }) : (
+              messages.connectErrors.networkError
+            ),
+          })
+
+          return
+        }
+      }
 
       if (Number(connectorChainId) !== chainId) {
         await connector.changeChainId(chainId)
@@ -204,6 +236,7 @@ const useConnect = (values: Input) => {
         library,
         connector,
         networkId,
+        walletConnectData,
         activeWallet: walletName,
         autoConnectChecked: true,
       })
@@ -259,6 +292,7 @@ const useConnect = (values: Input) => {
   }, [
     intlRef,
     dataRef,
+    networks,
     setData,
     onError,
     disconnect,

@@ -2,6 +2,8 @@ import { Network } from 'sdk'
 
 import { Location, IsDisabled } from './types'
 
+import { getInjectedConnector } from './injected/helpers'
+
 import messages from '../messages'
 
 
@@ -25,23 +27,17 @@ const target = () => {
   }
 }
 
-const getConnector = async (chainId: Network) => {
+const getConnector = async (chainId: Network, options: GetConnectorOptions) => {
   // When we access the site through mobile app then we will have injected provider,
   // but if we visit the site through desktop, then the logic is like wallet connect
 
   if (window.ethereum?.isBinance) {
-    const InjectedConnector = (await import('../connectors/InjectedConnector')).default
-
-    const connector = new InjectedConnector({ target, shimDisconnect: false })
-
-    return connector
+    return getInjectedConnector({ target, shimDisconnect: false })(chainId, options)
   }
   else {
     const BinanceConnector = (await import('../connectors/BinanceConnector')).default
 
-    const connector = new BinanceConnector({ chainId })
-
-    return connector
+    return new BinanceConnector({ chainId, ...options })
   }
 }
 
@@ -49,6 +45,7 @@ const binance = {
   id: 'binance',
   title: 'Binance',
   logo: 'connector/binance',
+  isAutoConnect: false,
   isAddTokenEnabled: false,
   isInjectedWallet: false,
   isLocalStorageSave: false,

@@ -1,4 +1,3 @@
-import networks from './config/util/networks'
 import wallets from './wallets'
 
 
@@ -7,14 +6,15 @@ const walletsIds = Object.values(wallets).map(({ id }) => id)
 declare global {
   type WalletIds = typeof walletsIds[number]
   type ReadOnlyConnector = ReadOnlyConnectorType
-  type NetworkIds = OneOfArray<typeof networks.ids>
+  type NetworkIds = 'mainnet' | 'gnosis' | 'hoodi'
   type Connectors = Unpromise<ReturnType<typeof wallets[WalletIds]['getConnector']>>
+  type RefObject<T> = { current: T }
 
   namespace LocalStorageData {
 
     type SavedNetwork = {
-      id: NetworkIds
-      chainId: ChainIds
+      id: string
+      chainId: number
     }
 
     type LedgerSelectedAccount = {
@@ -26,5 +26,6 @@ declare global {
   type GetConnectorOptions = {
     transport?: 'usb' | 'ble'
     disconnect?: () => void
+    networks: ConfigProvider.Networks
   }
 }

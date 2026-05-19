@@ -23,9 +23,12 @@ const useDisconnect = (values: Input) => {
 
   return useCallback(async () => {
     try {
-      const { activeWallet, connector } = dataRef.current
+      const { activeWallet, connector, library } = dataRef.current
 
       if (activeWallet !== wallets.monitorAddress.id) {
+        // Stop pending requests that may trigger eth_requestAccounts
+        library?.destroy()
+
         await connector?.deactivate()
       }
 

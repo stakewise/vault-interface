@@ -1,4 +1,5 @@
 import type { BrowserProvider } from 'ethers'
+import type { Chain } from 'viem/chains'
 
 import useCancelOnChange from './util/useCancelOnChange'
 import type { Subscription } from './util/useWallet/useCallsOnChange'
@@ -10,17 +11,18 @@ declare global {
 
     type ConnectorData = {
       account?: string
-      chainId?: ChainIds
+      chainId?: number
     }
 
     type State = {
-      networkId: NetworkIds
+      networkId: string
       address: string | null
       library?: BrowserProvider
       accountName: string | null
       autoConnectChecked: boolean
       connector: Connectors | null
       activeWallet: WalletIds | null
+      walletConnectData: WalletConnectData | null
     }
 
     type ConfigState = {
@@ -33,7 +35,7 @@ declare global {
     type Wallet = {
       disconnect: () => Promise<void>
       setAddress: (address: string) => void
-      changeChain: (networkId: NetworkIds) => Promise<void>
+      changeChain: (networkId: string) => Promise<void>
       connect: (walletName: WalletIds,  transport?: 'usb' | 'ble') => Promise<void>
       subscribeBeforeChange: Subscription
       unsubscribeBeforeChange: Subscription
@@ -41,8 +43,10 @@ declare global {
 
     type Context<T = {}> = T & State & {
       wallet: Wallet
-      chainId: ChainIds
+      chainId: number
       isReadOnlyMode: boolean
+      network: SupportedNetwork
+      readOnlyProvider: StakeWise.Provider
       cancelOnChange: ReturnType<typeof useCancelOnChange>
     }
 
@@ -56,6 +60,41 @@ declare global {
       onError?: (message: string, error?: any) => void
     }
 
-    type Middleware<T> = (ctx: Context) => Context<T>
+    type Middleware<T> = (ctx: Context, networks: Networks) => Context<T>
+
+    type SupportedNetwork = {
+      id: string
+      name: string
+      logo: string
+      chainId: number
+      rpc: string | string[]
+      hexadecimalChainId: string
+      blockExplorerUrl: string
+      nativeCurrency: {
+        name: string
+        symbol: string
+        decimals: number
+      }
+      viem: Chain
+      isTestnet: boolean
+    }
+
+    type Networks = {
+      configs: Record<string, SupportedNetwork>
+      default: Record<number, SupportedNetwork>
+      idByChain: Record<number, string>
+      chainById: Record<string, number>
+    }
+
+    type WalletConnectData = {
+      name: string | null
+      iconUrl: string | null
+      chains: Array<number>
+      support: {
+        eip712: boolean
+        addChain: boolean
+        switchChanin: boolean
+      }
+    }
   }
 }

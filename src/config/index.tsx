@@ -3,8 +3,9 @@ import { configs, chains } from 'sdk'
 import modal from 'modules/modal'
 import { methods } from 'helpers'
 
+import networks from './networks'
+import { createConfig, wallets } from './core'
 import useActions from '../hooks/data/useActions'
-import { createConfig, networks, wallets } from './core'
 import connectModalId from '../layouts/modals/ConnectWalletModal/modalId'
 
 
@@ -29,18 +30,14 @@ const middleware = (ctx: ConfigProvider.Context) => {
 
   const supportedChain = supportedChains.find((chain) => chain.id === ctx.networkId) || supportedChains[0]
 
-  const networkId = supportedChain.id
-  const chainId = supportedChain.chainId as ConfigProvider.Context['chainId']
+  const networkId = supportedChain.id as NetworkIds
+  const chainId = supportedChain.chainId as ChainIds
 
   const sdk = methods.getSDK({ chainId })
   const signSDK = methods.getSDK({ chainId, library })
 
   const isGnosis = networkId === networks.configs.gnosis.id
-
-  const isEthereum = (
-    networkId === networks.configs.mainnet.id
-    || networkId === networks.configs.hoodi.id
-  )
+  const isEthereum = networkId === networks.configs.mainnet.id || networkId === networks.configs.hoodi.id
 
   return {
     ...ctx,
@@ -58,7 +55,7 @@ const middleware = (ctx: ConfigProvider.Context) => {
 const {
   useConfig,
   ConfigProvider: InitialConfigProvider,
-} = createConfig(middleware)
+} = createConfig({ networks, middleware })
 
 type ConfigProviderProps = {
   serverNetworkId: NetworkIds
@@ -117,7 +114,7 @@ const ConfigProvider: React.FC<ConfigProviderProps> = (props) => {
 }
 
 const getConfig = (networkId: NetworkIds): Config => {
-  const chainId = networks.chainById[networkId]
+  const chainId = networks.chainById[networkId] as ChainIds
   const config = configs[chainId]
 
   if (!config) {

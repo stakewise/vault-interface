@@ -5,27 +5,26 @@ import { Location } from './types'
 import messages from '../messages'
 
 
-const getConnector = async () => {
+const getConnector = async (_: any, options: GetConnectorOptions) => {
   const CoinbaseConnector = (await import('../connectors/CoinbaseConnector')).default
 
-  const connector = new CoinbaseConnector()
-
-  return connector
+  return new CoinbaseConnector(options)
 }
 
 const coinbase = {
   id: 'coinbase',
   title: 'Coinbase',
   logo: 'connector/coinbase',
-  networks: [
-    Network.Mainnet,
-    Network.Gnosis,
-  ] as ChainIds[],
+  isAutoConnect: false,
   isAddTokenEnabled: false,
   isInjectedWallet: false,
   isLocalStorageSave: true,
   isDisableSwitchChain: false,
   activationMessage: messages.authMessages.waitingAuth,
+  networks: [
+    Network.Mainnet,
+    Network.Gnosis,
+  ] as ChainIds[],
   location: IS_LIGHTWEIGHT_MODE
     ? [] as Location
     : [ 'desktop', 'mobile' ] as Location,

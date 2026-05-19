@@ -1,11 +1,11 @@
 import React from 'react'
 import cx from 'classnames'
 
-import Logo from '../../Logo/Logo'
 import Loading from '../../Loading/Loading'
-import Text, { TextSize, TextColor } from '../../Text/Text'
 import Icon, { IconProps } from '../../Icon/Icon'
+import WalletIcon from '../../WalletIcon/WalletIcon'
 import { IconName, LogoName } from '../../Image/Image'
+import Text, { TextSize, TextColor } from '../../Text/Text'
 
 
 export type ButtonContentProps = {
@@ -15,7 +15,7 @@ export type ButtonContentProps = {
   titleSize: TextSize
   iconSize: IconProps['size']
   icon?: IconName
-  logo?: LogoName
+  logo?: LogoName | string
   arrow?: 'up' | 'down'
   color?: IconProps['color']
   loading?: boolean
@@ -46,9 +46,8 @@ const ButtonContent: React.FC<ButtonContentProps> = (props) => {
       }
       {
         Boolean(logo) && (
-          <Logo
-            className="flex-none"
-            name={logo as LogoName}
+          <WalletIcon
+            logo={logo}
             size={iconSize}
           />
         )

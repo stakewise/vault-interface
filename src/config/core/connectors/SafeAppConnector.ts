@@ -8,13 +8,17 @@ import { WagmiConnector } from './helpers'
 import messages from '../messages'
 
 
+type Input = {
+  networks: ConfigProvider.Networks
+}
+
 class SafeAppConnector extends WagmiConnector {
   private sdk: SafeAppsSDK
 
-  constructor() {
+  constructor({ networks }: Input) {
     const creator = safe()
 
-    super({ creator })
+    super({ creator, networks })
 
     this.sdk = new SafeAppsSDK()
   }

@@ -1,7 +1,7 @@
 import React from 'react'
 import cx from 'classnames'
 
-import { Href , ButtonBase, Logo, LogoName, Text, Loading } from 'components'
+import { Href , ButtonBase, WalletIcon, LogoName, Text, Loading } from 'components'
 
 import s from './ConnectorButton.module.scss'
 
@@ -9,7 +9,7 @@ import s from './ConnectorButton.module.scss'
 type ConnectorButtonProps = {
   className?: string
   title: Intl.Message | string
-  logo: LogoName
+  logo: LogoName | string
   isDisabled: boolean
   isLoading: boolean
   deepLink?: string
@@ -28,8 +28,8 @@ const ConnectorButton: React.FC<ConnectorButtonProps> = (props) => {
         dataTestId={dataTestId}
       >
         <div className={cx(s.logo, 'p-16 rounded-8')}>
-          <Logo
-            name={logo}
+          <WalletIcon
+            logo={logo}
             size={48}
           />
         </div>
@@ -58,8 +58,8 @@ const ConnectorButton: React.FC<ConnectorButtonProps> = (props) => {
               <Loading size={32} />
             </div>
           ) : (
-            <Logo
-              name={logo}
+            <WalletIcon
+              logo={logo}
               size={48}
             />
           )

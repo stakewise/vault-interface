@@ -1,5 +1,5 @@
 import { cookies } from 'next/headers'
-import { networks } from 'config/core'
+import networks from 'config/networks'
 
 import { constants, getters, requests } from '../../../index'
 import { getSDK } from '../../../methods'
