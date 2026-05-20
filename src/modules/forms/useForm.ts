@@ -1,3 +1,4 @@
+'use client'
 import { useMemo, useRef, useEffect } from 'react'
 
 import Field from './Field'

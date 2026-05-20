@@ -46,8 +46,14 @@ const _reset = <F extends Forms.FormValues>(fields: Forms.Form<F>['fields']) => 
   })
 }
 
-const _validateWithoutError = <F extends Forms.FormValues>(fields: Forms.Form<F>['fields']) => (
-  Object.values(fields).every((field) => field.validateWithoutError())
+const _validateWithoutError = <F extends Forms.FormValues>(fields: Forms.Form<F>['fields'], options?: Forms.ValidateOptions) => (
+  Object.values(fields).every((field) => {
+    if (options?.group && field.group !== options.group) {
+      return true
+    }
+
+    return field.validateWithoutError()
+  })
 )
 
 const createFormMethods = <
@@ -91,7 +97,7 @@ const createFormMethods = <
     getValues: () => _getValues(fields),
     hasErrors: () => _hasErrors(fields),
     isFormValid: () => _isFormValid(fields),
-    validateWithoutError: () => _validateWithoutError(fields),
+    validateWithoutError: (options?: Forms.ValidateOptions) => _validateWithoutError(fields, options),
   }
 }
 

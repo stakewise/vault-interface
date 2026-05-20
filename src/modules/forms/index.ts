@@ -50,7 +50,7 @@ declare global {
 
       isFormValid: () => boolean
 
-      validateWithoutError: () => boolean
+      validateWithoutError: (options: Forms.ValidateOptions) => boolean
 
       subscribe: (event: Events, handler: FormEventHandler<F>) => void
 
@@ -63,6 +63,7 @@ declare global {
 
     type FieldConfig<V = FieldValue> = {
       mask?: 'date'
+      group?: string
       initialValue?: V
       pattern?: string
       typeInput?: GetTypesInput
@@ -94,6 +95,10 @@ declare global {
       [K in keyof F]: Field<F[K]>['value'] | undefined
     }
 
+    type ValidateOptions = {
+      group?: string
+    }
+
     type Events = 'change' | 'error'
 
     type Error = Intl.Message | string | null
@@ -110,6 +115,7 @@ declare global {
   }
 }
 
+import validatorsMessages from './validators/messages'
 import useFieldValidate from './useFieldValidate'
 import useFormValidate from './useFormValidate'
 import useFieldFilled from './useFieldFilled'
@@ -123,6 +129,7 @@ import Field from './Field'
 
 
 export default {
+  validatorsMessages,
   useFieldValidate,
   useFormValidate,
   useFieldFilled,
