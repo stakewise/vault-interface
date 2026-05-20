@@ -31,6 +31,9 @@ export type { DropdownProps } from './Dropdown/Dropdown'
 export { default as DropdownView } from './Dropdown/DropdownView/DropdownView'
 export type { DropdownViewProps } from './Dropdown/DropdownView/DropdownView'
 
+export { default as DatePicker } from './DatePicker/DatePicker'
+export type { DatePickerProps } from './DatePicker/DatePicker'
+
 export { default as FiatAmount } from './FiatAmount/FiatAmount'
 export type { FiatAmountProps } from './FiatAmount/FiatAmount'
 

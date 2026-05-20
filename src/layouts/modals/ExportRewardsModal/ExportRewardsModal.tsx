@@ -4,7 +4,7 @@ import { useModalClose } from 'hooks'
 import device from 'modules/device'
 import modal from 'modules/modal'
 
-import { Input, Modal, Select, FormValid, Button } from 'components'
+import { DatePicker, Modal, Select, FormValid, Button } from 'components'
 
 import { useExport, UseExportInput, formatOptions } from './util'
 import messages from './messages'
@@ -34,17 +34,18 @@ export const [ ExportRewardsModal, openExportRewardsModal ] = (
         closeModal={closeModal}
       >
         <div className="flex flex-1 flex-col h-full gap-32">
-          <Input
+          <DatePicker
             label={messages.fromDate}
             field={form.fields.from}
             dataTestId="export-rewards-from-input"
           />
-          <Input
+          <DatePicker
             label={messages.toDate}
             field={form.fields.to}
             dataTestId="export-rewards-to-input"
           />
           <Select
+            className="flex flex-col"
             placement="bottom-end"
             options={formatOptions}
             field={form.fields.format}
