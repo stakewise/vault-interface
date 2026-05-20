@@ -73,6 +73,7 @@ const useUnboostSubmit = (values: Input) => {
   } = useStore(storeSelector)
 
   const subgraphUpdate = useSubgraphUpdate()
+  const wrapTransaction = Transactions.useAction()
   const [ isSubmitting, setSubmitting ] = useState(false)
 
   const stepsData = useMemo(() => {
@@ -117,61 +118,47 @@ const useUnboostSubmit = (values: Input) => {
   const upgrade = useCallback(async (values: UpgradeInput) => {
     const { userAddress, vaultAddress, setTransaction } = values
 
-    try {
-      setTransaction(UnboostStep.Upgrade, Transactions.Status.Confirm)
-
-      const hash = await signSDK.boost.upgradeLeverageStrategy({
+    await wrapTransaction({
+      step: UnboostStep.Upgrade,
+      action: () => signSDK.boost.upgradeLeverageStrategy({
         userAddress,
         vaultAddress,
-      })
-
-      setTransaction(UnboostStep.Upgrade, Transactions.Status.Processing)
-
-      await subgraphUpdate({ hash })
-
-      setTransaction(UnboostStep.Upgrade, Transactions.Status.Success)
-
-      return hash
-    }
-    catch (error) {
-      setTransaction(UnboostStep.Upgrade, Transactions.Status.Fail, true)
-
-      return Promise.reject(error)
-    }
+      }),
+      confirm: subgraphUpdate,
+      setTransaction,
+    })
   }, [
     signSDK,
     subgraphUpdate,
+    wrapTransaction,
   ])
 
   const unboost = useCallback(async (values: UnboostInput) => {
     const { percent, userAddress, vaultAddress, leverageStrategyData, setTransaction } = values
 
-    try {
-      setTransaction(UnboostStep.Unboost, Transactions.Status.Confirm)
+    let hash
 
-      const hash = await signSDK.boost.unlock({
+    await wrapTransaction({
+      step: UnboostStep.Unboost,
+      action: () => signSDK.boost.unlock({
         percent,
         userAddress,
         vaultAddress,
         leverageStrategyData,
-      })
+      }),
+      confirm: (values) => {
+        hash = values.hash
 
-      setTransaction(UnboostStep.Unboost, Transactions.Status.Processing)
+        return subgraphUpdate(values)
+      },
+      setTransaction,
+    })
 
-      await subgraphUpdate({ hash })
-
-      setTransaction(UnboostStep.Unboost, Transactions.Status.Success)
-
-      return hash
-    }
-    catch (error) {
-      setTransaction(UnboostStep.Unboost, Transactions.Status.Fail)
-
-      return Promise.reject(error)
-    }
+    return hash
   }, [
     signSDK,
     subgraphUpdate,
+    wrapTransaction,
   ])
 
   const handleSuccess = useCallback(async (values: HandleSuccessInput) => {

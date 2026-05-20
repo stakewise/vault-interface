@@ -18,7 +18,7 @@ type Output = {
   isFetching: boolean
   isSubmitting: boolean
   getGas: (amount?: bigint) => Promise<bigint>
-  approve: (amount?: bigint) => Promise<string | undefined>
+  approve: (amount?: bigint) => Promise<string>
   checkAllowance: (values: CheckAllowanceInput) => Promise<void>
 }
 
@@ -71,7 +71,7 @@ const useApprove: Hook = (values) => {
 
   const approve = useCallback(async (amount?: bigint) => {
     if (!address) {
-      return
+      return Promise.reject('Address is not defined')
     }
 
     setSubmitting(true)
@@ -138,7 +138,7 @@ useApprove.mock = {
   isFetching: false,
   isSubmitting: false,
   getGas: async () => 0n,
-  approve: async () => undefined,
+  approve: async () => '',
   checkAllowance: async () => undefined,
 }
 

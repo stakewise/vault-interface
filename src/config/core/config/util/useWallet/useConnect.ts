@@ -97,6 +97,8 @@ const useConnect = (values: Input) => {
     const isLedger = walletName === wallets.ledger.id
     const isInjected = wallets[walletName].isInjectedWallet
     const isGnosisSafe = walletName === wallets.gnosisSafe.id
+    const isAutoConnect = Boolean(walletName) && !dataRef.current.autoConnectChecked
+    const isWCReconnect = isWalletConnect && isAutoConnect
 
     try {
       if (isInjected) {
@@ -114,7 +116,7 @@ const useConnect = (values: Input) => {
         resetConnectTimer = setTimeout(resetConnection, 10_000)
       }
 
-      if (isLedger) {
+      if (isLedger || isWCReconnect) {
         resetConnectTimer = setTimeout(resetConnection, 10_000)
       }
 
@@ -144,9 +146,6 @@ const useConnect = (values: Input) => {
           return
         }
       }
-
-      const isAutoConnect = Boolean(walletName) && !dataRef.current.autoConnectChecked
-      const isWCReconnect = isWalletConnect && isAutoConnect
 
       const data = await connector.activate(dataRef.current.networkId, intlRef.current.locale, isWCReconnect)
 

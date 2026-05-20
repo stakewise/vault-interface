@@ -2,7 +2,7 @@ import React from 'react'
 import cx from 'classnames'
 
 import TransactionView from './TransactionView/TransactionView'
-import { ModifiedTransaction, TransactionStatus, useLogic } from './util'
+import { ModifiedTransaction, TransactionStatus, useLogic, useAction } from './util'
 
 import s from './Transactions.module.scss'
 
@@ -40,6 +40,7 @@ const Transactions = {
   View: React.memo(View),
   Status: TransactionStatus,
   useLogic,
+  useAction,
 }
 
 
