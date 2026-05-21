@@ -14,7 +14,10 @@ const StakeInput: React.FC = () => {
   }, [ stake ])
 
   const filteredList = useMemo(() => (
-    stake.swapTokens.list.filter(({ address }) => address !== sdk.config.addresses.tokens.mintToken)
+    stake.swapTokens.list.filter(({ address }) => (
+      address !== sdk.config.addresses.tokens.mintToken
+      && address !== sdk.config.addresses.tokens.swise
+    ))
   ), [ sdk, stake.swapTokens.list ])
 
   return (

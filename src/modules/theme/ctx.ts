@@ -1,3 +1,4 @@
+'use client'
 import { useCallback, useEffect, useLayoutEffect, useMemo } from 'react'
 import useObjectState from 'hooks/controls/useObjectState'
 import * as constants from 'helpers/constants'

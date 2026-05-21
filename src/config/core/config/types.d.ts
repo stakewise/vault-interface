@@ -53,10 +53,10 @@ declare global {
     type Callbacks = {
       onStartConnect: (activationMessage: Intl.Message | string) => void
       onChangeAddress?: () => void
-      onFinishConnect: () => void
       onConnectError: () => void
       onChangeChain?: () => void
       onDisconnect?: () => void
+      onFinishConnect: (wallet: string) => void
       onError?: (message: string, error?: any) => void
     }
 

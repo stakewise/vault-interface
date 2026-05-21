@@ -10,6 +10,7 @@ const ledgerLive = createInjectedWallet({
   logo: 'connector/ledgerLive',
   networks: [
     Network.Mainnet,
+    Network.Gnosis,
     Network.Hoodi,
   ],
   isAutoConnect: true,

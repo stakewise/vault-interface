@@ -226,7 +226,7 @@ const useConnect = (values: Input) => {
         thread: 'connect',
       })
 
-      onFinishConnect()
+      onFinishConnect(walletConnectData?.name || walletName)
 
       const networkId = networks.idByChain[chainId]
 

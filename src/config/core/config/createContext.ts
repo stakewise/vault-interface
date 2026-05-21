@@ -22,6 +22,8 @@ const createContext = <T extends {}>(values: Input<T>): (
 
     chainId: selectedChain,
 
+    isGnosis: false,
+    isEthereum: false,
     isReadOnlyMode: false,
 
     wallet: {

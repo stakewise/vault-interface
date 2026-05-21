@@ -1,13 +1,16 @@
-import { useState, RefObject } from 'react'
+'use client'
+import { useState, useCallback, useEffect, RefCallback } from 'react'
+import { useDeepMemo } from 'hooks'
 
-import useEntryListener, { Opts, UseEntryListenerResult } from './useEntryListener'
 
+export type Opts = Partial<IntersectionObserverInit & {
+  once: boolean
+}>
 
-type Result = {
-  ref: RefObject<any>,
-  entry: IntersectionObserverEntry | null,
-  isVisible: boolean,
-  unobserve: UseEntryListenerResult['observer']['unobserve'],
+type Result<T extends Element = Element> = {
+  ref: RefCallback<T>
+  entry: IntersectionObserverEntry | null
+  isVisible: boolean
 }
 
 /** Calls re-render each time the entry changes.
@@ -27,18 +30,47 @@ type Result = {
  *    </>
  *  )
  */
-const useEntry = (opts: Opts = {}): Result => {
+const useEntry = <T extends Element = Element>(opts: Opts = {}): Result<T> => {
   const [ entry, setEntry ] = useState<IntersectionObserverEntry | null>(null)
-  const { ref, observer } = useEntryListener(setEntry, opts)
+  const [ node, setNode ] = useState<T | null>(null)
 
-  const isVisible = Boolean(entry?.isIntersecting)
-  const unobserve = observer?.unobserve
+  const ref = useCallback<RefCallback<T>>((element) => {
+    setNode(element)
+  }, [])
+
+  const stableOpts = useDeepMemo(() => opts, [ opts ])
+
+  useEffect(() => {
+    if (!node || typeof IntersectionObserver === 'undefined') {
+      setEntry(null)
+
+      return
+    }
+
+    const { once, ...observerProps } = stableOpts
+    const observer = new IntersectionObserver(([ intersectionEntry ]) => {
+      if (!intersectionEntry) {
+        return
+      }
+
+      setEntry(intersectionEntry)
+
+      if (once && intersectionEntry.isIntersecting) {
+        observer.disconnect()
+      }
+    }, observerProps)
+
+    observer.observe(node)
+
+    return () => {
+      observer.disconnect()
+    }
+  }, [ node, stableOpts ])
 
   return {
     ref,
     entry,
-    isVisible,
-    unobserve,
+    isVisible: Boolean(entry?.isIntersecting),
   }
 }
 
