@@ -17,10 +17,14 @@ const storeSelector = (store: Store) => ({
 const useMaxAmount = (values: Input) => {
   const { token, transactionPrice } = values
 
-  const { activeWallet, isGnosis } = useConfig()
+  const { address, activeWallet, isGnosis } = useConfig()
   const { nativeTokenBalance } = useStore(storeSelector)
 
   return useMemo(() => {
+    if (!address) {
+      return token.emptyBalance
+    }
+
     if (token?.address) {
       return token.balance
     }
@@ -34,7 +38,7 @@ const useMaxAmount = (values: Input) => {
     const maxAmount = nativeTokenBalance - (transactionPrice * 2n)
 
     return maxAmount > 0n ? maxAmount : 0n
-  }, [ token, activeWallet, transactionPrice, nativeTokenBalance, isGnosis ])
+  }, [ token, address, activeWallet, transactionPrice, nativeTokenBalance, isGnosis ])
 }
 
 

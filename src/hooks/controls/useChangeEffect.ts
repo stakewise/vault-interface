@@ -11,7 +11,7 @@ const useUpdateEffect: typeof useEffect = (effect, deps) => {
       firstMount.current = false
       return
     }
-    effect()
+    return effect()
   }, deps)
 }
 
@@ -32,7 +32,7 @@ const useChangeEffect = <T extends ChangeEffectDeps>(
   const prevValue = usePrevious<T>(deps)
 
   useUpdateEffect(() => {
-    effect(...prevValue)
+    return effect(...prevValue)
   }, deps)
 }
 

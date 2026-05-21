@@ -16,10 +16,9 @@ type AddressProps = {
 const Address: React.FC<AddressProps> = (props) => {
   const { className, logo } = props
 
-  const { sdk, address } = useConfig()
+  const { address, getBlockExplorerUrl } = useConfig()
 
   const copyToClipboard = useCopyToClipboard()
-  const scanLink = `${sdk.config.network.blockExplorerUrl}/address/`
   const shortAddress = methods.shortenAddress(address)
 
   const handleCopy = useCallback(() => {
@@ -27,8 +26,8 @@ const Address: React.FC<AddressProps> = (props) => {
   }, [ address, copyToClipboard ])
 
   const handleCLickToLink = useCallback(() => {
-    window.open(`${scanLink}${address}`, '_blank')
-  }, [ address, scanLink ])
+    window.open(getBlockExplorerUrl({ address }), '_blank')
+  }, [ address, getBlockExplorerUrl ])
 
   return (
     <div className={cx(className, 'flex justify-center items-center')}>

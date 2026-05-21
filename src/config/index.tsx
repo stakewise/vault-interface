@@ -11,6 +11,38 @@ import connectModalId from '../layouts/modals/ConnectWalletModal/modalId'
 
 type SupportedChain = typeof chains.mainnet | typeof chains.hoodi | typeof chains.gnosis
 
+type GetBlockExplorerUrlInput = {
+  address?: string | null
+  token?: string
+  hash?: string
+}
+
+const getBlockExplorerUrl = (blockExplorerUrl: string) => (values: GetBlockExplorerUrlInput) => {
+  const { hash, token, address } = values
+
+  const value = hash || token || address || ''
+
+  if (/^http/.test(value)) {
+    return value
+  }
+
+  let page
+
+  if (address) {
+    page = 'address'
+  }
+
+  if (token) {
+    page = 'token'
+  }
+
+  if (hash) {
+    page = 'tx'
+  }
+
+  return `${blockExplorerUrl}/${page}/${address || hash || token}`
+}
+
 const supportedChains: SupportedChain[] = []
 
 if (process.env.NEXT_PUBLIC_MAINNET_VAULT_ADDRESS) {
@@ -49,6 +81,7 @@ const middleware = (ctx: ConfigProvider.Context) => {
     isEthereum,
     isTestnet: sdk.config.network.isTestnet,
     isMainnet: networkId === chains.mainnet.id,
+    getBlockExplorerUrl: getBlockExplorerUrl(sdk.config.network.blockExplorerUrl),
   }
 }
 

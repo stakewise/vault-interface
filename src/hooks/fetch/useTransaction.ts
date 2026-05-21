@@ -7,10 +7,10 @@ import waitForTransaction from './util/waitForTransaction'
 
 const useTransaction = () => {
   const actions = useActions()
-  const { sdk } = useConfig()
+  const { networkId, readOnlyProvider, getBlockExplorerUrl } = useConfig()
 
-  const configNetworkIdRef = useRef(sdk.config.network.id)
-  configNetworkIdRef.current = sdk.config.network.id
+  const configNetworkIdRef = useRef(networkId)
+  configNetworkIdRef.current = networkId
 
   return useCallback(async (hash: string) => {
     actions.ui.resetBottomLoader()
@@ -19,17 +19,19 @@ const useTransaction = () => {
       return Promise.reject()
     }
 
-    actions.ui.setBottomLoaderTransaction(`${sdk.config.network.blockExplorerUrl}/tx/${hash}`)
+    const blockExplorerUrl = getBlockExplorerUrl({ hash })
+
+    actions.ui.setBottomLoaderTransaction(blockExplorerUrl)
 
     const isSuccess = await waitForTransaction({
       hash,
-      provider: sdk.provider,
+      provider: readOnlyProvider,
     })
 
     actions.ui.resetBottomLoader()
 
     return isSuccess
-  }, [ sdk, actions ])
+  }, [ actions, readOnlyProvider, getBlockExplorerUrl ])
 }
 
 

@@ -79,7 +79,7 @@ const useFee = (values: Input) => {
         .divide(100)
         .multiply(percent)
         .decimals(0)
-        .toNumber()
+        .toString()
 
       return BigInt(result)
     }

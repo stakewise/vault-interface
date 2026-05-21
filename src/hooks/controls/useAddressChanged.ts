@@ -3,14 +3,15 @@ import { useConfig } from 'config'
 import useChangeEffect from './useChangeEffect'
 
 
-type Callback = () => any
+type Address = string | null
+type Callback = (address: Address) => any
 
 const useAddressChanged = (callback: Callback) => {
   const { address, autoConnectChecked } = useConfig()
 
-  useChangeEffect<[ string | null, boolean, Callback ]>((prevAddress, prevAutoConnectChecked) => {
+  useChangeEffect<[ Address, boolean, Callback ]>((prevAddress, prevAutoConnectChecked) => {
     if (prevAutoConnectChecked && prevAddress !== address) {
-      callback()
+      callback(address)
     }
   }, [ address, autoConnectChecked, callback ])
 }

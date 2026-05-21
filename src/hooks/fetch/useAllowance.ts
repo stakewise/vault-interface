@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef } from 'react'
 import { useConfig } from 'config'
 import { ZeroAddress } from 'ethers'
+import { createErc20Contract } from 'sdk'
 
 import { commonMessages } from 'helpers'
 import notifications from 'modules/notifications'
@@ -34,7 +35,7 @@ type Input = {
 const useAllowance = (values: Input) => {
   const { recipient, tokenAddress } = values
 
-  const { sdk, address } = useConfig()
+  const { address, readOnlyProvider } = useConfig()
 
   const skip = values.skip || !address || !tokenAddress || recipient === ZeroAddress
 
@@ -54,7 +55,7 @@ const useAllowance = (values: Input) => {
     }
 
     try {
-      const tokenContract = sdk.contracts.helpers.createErc20(tokenAddress)
+      const tokenContract = createErc20Contract(tokenAddress, readOnlyProvider)
       const allowance = await tokenContract.allowance(address, recipient)
 
       setState({
@@ -76,7 +77,7 @@ const useAllowance = (values: Input) => {
 
       return allowanceRef.current
     }
-  }, [ sdk, address, tokenAddress, recipient, setState ])
+  }, [ address, tokenAddress, recipient, readOnlyProvider, setState ])
 
   useEffect(() => {
     if (skip) {

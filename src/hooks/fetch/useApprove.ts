@@ -1,5 +1,5 @@
 import { useCallback, useMemo, useState } from 'react'
-import { formatEther, MaxInt256 } from 'ethers'
+import { formatEther, MaxUint256 } from 'ethers'
 import { requests } from 'helpers'
 import { useConfig } from 'config'
 
@@ -80,7 +80,7 @@ const useApprove: Hook = (values) => {
     setSubmitting(true)
 
     try {
-      const approveAmount = amount || MaxInt256
+      const approveAmount = amount || MaxUint256
 
       const { hash } = await requests.approve({
         provider: library,
@@ -95,7 +95,7 @@ const useApprove: Hook = (values) => {
 
       if (hash) {
         console.log('approve', {
-          amount: approveAmount === MaxInt256 ? 'MAX' : formatEther(approveAmount),
+          amount: approveAmount === MaxUint256 ? 'MAX' : formatEther(approveAmount),
           tokenAddress,
           recipient,
         })

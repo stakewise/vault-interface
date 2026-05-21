@@ -29,7 +29,7 @@ const useOrderId = () => {
       throw new Error('Order not found')
     }
     catch (error) {
-      if (count < 10) {
+      if (count < 20) {
         await new Promise((resolve) => setTimeout(resolve, count * 300))
 
         return fetchOrder(orderId, count + 1)
