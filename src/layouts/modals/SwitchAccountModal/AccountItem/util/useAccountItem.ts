@@ -25,12 +25,12 @@ const useAccountItem = (values: AccountItemProps): Output => {
   const cachedData = cache.getData() || {}
   const cachedValue = cachedData[address]
 
-  const { sdk } = useConfig()
+  const { sdk, readOnlyProvider } = useConfig()
   const [ balance, setBalance ] = useState<string>(cachedValue)
 
   useEffect(() => {
-    if (!cachedValue && sdk.provider?.getBalance) {
-      sdk.provider.getBalance(address)
+    if (!cachedValue && readOnlyProvider.getBalance) {
+      readOnlyProvider.getBalance(address)
         .then((value: bigint) => {
           const formattedValue = methods.formatTokenValue(formatEther(value))
 

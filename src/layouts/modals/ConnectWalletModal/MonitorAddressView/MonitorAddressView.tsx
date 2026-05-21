@@ -19,8 +19,8 @@ type MonitorAddressViewProps = {
 const MonitorAddressView: React.FC<MonitorAddressViewProps> = (props) => {
   const { className } = props
 
-  const { sdk, wallet } = useConfig()
   const [ isSubmitting, setSubmitting ] = useState(false)
+  const { chainId, readOnlyProvider, wallet } = useConfig()
 
   const addressField = forms.useField<string>({
     valueType: 'string',
@@ -39,9 +39,9 @@ const MonitorAddressView: React.FC<MonitorAddressViewProps> = (props) => {
     }
     else if (value) {
       const result = await methods.ens.fetchAddress({
-        provider: sdk.provider,
-        chainId: sdk.config.network.chainId,
+        provider: readOnlyProvider,
         ensName: value,
+        chainId,
       })
 
       const isValidAddress = isAddress(result)
@@ -61,7 +61,7 @@ const MonitorAddressView: React.FC<MonitorAddressViewProps> = (props) => {
     }
 
     setSubmitting(false)
-  }, [ sdk, wallet, addressField ])
+  }, [ chainId, wallet, readOnlyProvider, addressField ])
 
   return (
     <Form

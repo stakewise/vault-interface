@@ -33,8 +33,8 @@ export const formatOptions: FormatOption[] = [
 const projectLaunchDate = '2023-11-28'
 
 const useForm = () => {
-  const toDate = date.time().subtract(1, 'day')
-  const fromDate = toDate.subtract(30, 'day')
+  const toDate = date.time().utcOffset(0, false).subtract(1, 'day')
+  const fromDate = toDate.subtract(29, 'day')
   const formattedToDate = modifiers.formatDateToNumerical(toDate)
 
   const form = forms.useForm<ExportForm>({
