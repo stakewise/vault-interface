@@ -99,14 +99,14 @@ const useStakeSubmit = (values: Input) => {
         await call(assets)
       }
     }
-    catch (error) {
+    catch (error: any) {
       actions.ui.resetBottomLoader()
 
       console.error('Deposit send transaction error', error)
 
       notifications.open({
-        type: 'error',
-        text: commonMessages.notification.failed,
+        type: error.isCancel ? 'info' : 'error',
+        text: error.isCancel ? commonMessages.notification.cancelled : commonMessages.notification.failed,
       })
     }
     finally {

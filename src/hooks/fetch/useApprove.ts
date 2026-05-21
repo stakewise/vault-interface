@@ -30,7 +30,7 @@ interface Hook {
 const useApprove: Hook = (values) => {
   const { recipient, tokenAddress, skip } = values
 
-  const { signSDK, address } = useConfig()
+  const { library, address } = useConfig()
   const { refetchNativeTokenBalance } = useBalances()
 
   const { allowance, isFetching, checkAllowance } = useAllowance({
@@ -42,13 +42,13 @@ const useApprove: Hook = (values) => {
   const [ isSubmitting, setSubmitting ] = useState(false)
 
   const getGas = useCallback(async (amount?: bigint): Promise<bigint> => {
-    if (!address) {
+    if (!address || !library) {
       return 0n
     }
 
     try {
       const gas = await requests.getApproveGas({
-        signSDK,
+        provider: library,
         from: address,
         to: recipient,
         tokenAddress,
@@ -64,7 +64,7 @@ const useApprove: Hook = (values) => {
     }
   }, [
     address,
-    signSDK,
+    library,
     recipient,
     tokenAddress,
   ])
@@ -73,6 +73,9 @@ const useApprove: Hook = (values) => {
     if (!address) {
       return Promise.reject('Address is not defined')
     }
+    if (!library) {
+      return Promise.reject('Library is not defined')
+    }
 
     setSubmitting(true)
 
@@ -80,11 +83,11 @@ const useApprove: Hook = (values) => {
       const approveAmount = amount || MaxInt256
 
       const { hash } = await requests.approve({
-        signSDK,
+        provider: library,
         from: address,
         to: recipient,
         tokenAddress,
-        amount: amount?.toString(),
+        amount,
       })
 
       refetchNativeTokenBalance()
@@ -110,7 +113,7 @@ const useApprove: Hook = (values) => {
     }
   }, [
     address,
-    signSDK,
+    library,
     recipient,
     tokenAddress,
     refetchNativeTokenBalance,

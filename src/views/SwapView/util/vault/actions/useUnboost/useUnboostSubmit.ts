@@ -240,14 +240,14 @@ const useUnboostSubmit = (values: Input) => {
         await handleSuccess({ hash, percent })
       }
     }
-    catch (error) {
+    catch (error: any) {
       actions.ui.resetBottomLoader()
 
       console.error('Unboost: submit failed', error as Error)
 
       notifications.open({
-        text: commonMessages.notification.failed,
-        type: 'error',
+        type: error.isCancel ? 'info' : 'error',
+        text: error.isCancel ? commonMessages.notification.cancelled : commonMessages.notification.failed,
       })
 
       return Promise.reject(error)

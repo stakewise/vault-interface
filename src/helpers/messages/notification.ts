@@ -26,6 +26,15 @@ export default {
     de: 'Fehler beim Senden der Transaktion. Bitte versuchen Sie es erneut.',
     zh: '交易发送失败。请再试一次。',
   },
+  cancelled: {
+    en: 'The transaction has been cancelled.',
+    ru: 'Транзакция была отменена.',
+    fr: 'La transaction a été annulée.',
+    es: 'La transacción ha sido cancelada.',
+    pt: 'A transação foi cancelada.',
+    de: 'Die Transaktion wurde abgebrochen.',
+    zh: '交易已被取消。',
+  },
   insufficientFunds: {
     en: 'Insufficient funds to pay for the transaction',
     ru: 'Недостаточно средств для оплаты транзакции',
