@@ -18,7 +18,10 @@ const getUrls = ({ chainId }: Input): StakeWise.Options['endpoints'] => {
 
   const formattedWeb3 = urls.map((url) => ({
     url,
-    headers: {},
+    headers: {
+      // For SSR
+      Origin: 'https://app.stakewise.io',
+    },
   }))
 
   return {

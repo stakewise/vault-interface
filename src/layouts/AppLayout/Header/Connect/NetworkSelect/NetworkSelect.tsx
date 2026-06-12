@@ -40,7 +40,7 @@ const NetworkSelect: React.FC<NetworkSelectProps> = (props) => {
 
   const { isDesktop } = device.useData()
   const isChangeChainDisabled = useChangeChainDisabled()
-  const { sdk, networkId, wallet, address, isGnosis } = useConfig()
+  const { network, networkId, wallet, address, isGnosis } = useConfig()
 
   const handleChangeChain = useCallback(async (selectedNetworkId: string) => {
     if (selectedNetworkId !== networkId) {
@@ -70,7 +70,7 @@ const NetworkSelect: React.FC<NetworkSelectProps> = (props) => {
             className="rounded-8"
             color="light"
             dataTestId={`${dataTestId}-button`}
-            title={!isDesktop ? '' : sdk.config.network.name}
+            title={!isDesktop ? '' : network.name}
             logo={isGnosis ? 'token/GNO' : 'token/ETH'}
             arrow={isDesktop ? arrow : undefined}
             ariaLabel={commonMessages.accessibility.changeNetwork}

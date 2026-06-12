@@ -1,13 +1,12 @@
 import { useEffect, useCallback } from 'react'
-import { getAddress, BrowserProvider } from 'ethers'
+import { getAddress, toNumber, BrowserProvider } from 'ethers'
 import type { Eip1193Provider } from 'ethers'
 import getSDK from 'helpers/methods/getSDK'
 import ens from 'helpers/methods/ens'
 
-import networks from '../networks'
-
 
 type Input = {
+  networks: ConfigProvider.Networks
   chainId: number
   supportedNetworkIds: NetworkIds[]
   configState: ConfigProvider.ConfigState
@@ -18,6 +17,7 @@ type Input = {
 
 const useUpdateWallet = (values: Input) => {
   const {
+    networks,
     chainId,
     configState,
     supportedNetworkIds,
@@ -62,29 +62,31 @@ const useUpdateWallet = (values: Input) => {
       return
     }
 
-    const handleNetworkChanged = async (chainId: ChainIds) => {
-      const networkId = networks.idByChain[chainId]
-      const isSupported = supportedNetworkIds.includes(networkId)
+    const handleNetworkChanged = async (chainId: number | string) => {
+      const isHex = String(chainId).startsWith('0x')
+
+      if (isHex) {
+        chainId = toNumber(chainId)
+      }
+
+      const networkId = networks.idByChain[chainId as number]
+      const isSupported = Boolean(networkId) && supportedNetworkIds.includes(networkId as NetworkIds)
 
       if (isSupported) {
         const oldChainId = networks.chainById[dataRef.current.networkId]
 
         if (chainId !== oldChainId) {
-          const networkId = networks.idByChain[chainId]
+          const connector = dataRef.current.connector
 
-          if (networkId) {
-            const connector = dataRef.current.connector
-
-            if (!connector) {
-              return
-            }
-
-            const provider = await connector.getProvider()
-            const library = new BrowserProvider(provider as Eip1193Provider)
-
-            onChangeChain()
-            setData({ library, networkId })
+          if (!connector) {
+            return
           }
+
+          const provider = await connector.getProvider()
+          const library = new BrowserProvider(provider as Eip1193Provider)
+
+          onChangeChain()
+          setData({ library, networkId })
         }
       }
       else {
@@ -134,6 +136,7 @@ const useUpdateWallet = (values: Input) => {
   }, [
     address,
     dataRef,
+    networks,
     autoConnectChecked,
     supportedNetworkIds,
     setData,

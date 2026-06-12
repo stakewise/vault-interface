@@ -6,8 +6,6 @@ import device from 'modules/device'
 import { useConfig } from 'config'
 import cx from 'classnames'
 
-import { LogoProps } from 'components'
-
 import ConnectorButton from './ConnectorButton/ConnectorButton'
 
 
@@ -28,7 +26,7 @@ const ConnectorsView: React.FC<ConnectorsViewProps> = (props) => {
   const { isDesktop } = device.useData()
 
   const setDeepLink = useCallback((id: WalletIds) => {
-    if (id === wallets.metaMask.id && !isDesktop) {
+    if (id === 'io.metamask' && !isDesktop) {
       const hostname = methods.getHostName()
 
       return `https://metamask.app.link/dapp/${hostname}${pathname}`
@@ -42,7 +40,7 @@ const ConnectorsView: React.FC<ConnectorsViewProps> = (props) => {
       .filter((wallet) => wallet.networks.includes(chainId))
       .map((wallet) => {
         const title: Intl.Message | string = wallet.title
-        const logo: LogoProps['name'] = wallet.logo
+        const logo = wallet.logo as string
 
         return {
           ...wallet,

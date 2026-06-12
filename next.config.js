@@ -19,6 +19,9 @@ console.log('-------------------------------------------------------------------
  */
 const nextConfig = {
   reactStrictMode: false,
+  allowedDevOrigins: [
+    'local.stakewise.io',
+  ],
   sassOptions: {
     additionalData: `
       @use 'src/styles/variables' as *;

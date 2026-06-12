@@ -11,6 +11,7 @@ class Field<V extends Forms.FieldValue> implements Forms.Field<V> {
   #error: Forms.Field<V>['error']
 
   readonly #mask?: 'date'
+  readonly #group?: string
   readonly #initialValue?: V
   readonly #pattern?: string
   readonly #isRequired: boolean
@@ -28,6 +29,7 @@ class Field<V extends Forms.FieldValue> implements Forms.Field<V> {
     }
 
     this.#error = null
+    this.#group = values.group
     this.#formRef = values.formRef
     this.#valueType = values.valueType
     this.#events = new EventAggregator()
@@ -171,6 +173,10 @@ class Field<V extends Forms.FieldValue> implements Forms.Field<V> {
 
   public get value(): V | undefined {
     return this.#value
+  }
+
+  public get group(): string | undefined {
+    return this.#group
   }
 
   public get error(): Forms.Field<V>['error'] {

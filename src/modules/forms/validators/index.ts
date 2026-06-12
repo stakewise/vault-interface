@@ -90,6 +90,23 @@ const numberWithDot = (value: Value) => {
   }
 }
 
+const httpsUrl = (value: Value) => {
+  if (typeof value !== 'string' || !value) {
+    return
+  }
+
+  try {
+    const parsed = new URL(value.trim())
+
+    if (parsed.protocol !== 'https:' || !parsed.hostname) {
+      return messages.httpsUrl
+    }
+  }
+  catch {
+    return messages.httpsUrl
+  }
+}
+
 const sufficientBalance = (balance: RefObject<bigint>) => (value: Value) => {
   if (value && !hasSufficientBalance(balance, value)) {
     return messages.insufficientBalance
@@ -238,6 +255,7 @@ export default {
   ethAddress,
   validDate,
   selected,
+  httpsUrl,
   required,
   exclude,
   maxDate,

@@ -1,8 +1,8 @@
 'use client'
 import { useRef, useMemo, useCallback } from 'react'
+import getSDK from 'helpers/methods/getSDK'
 import useObjectState from 'hooks/controls/useObjectState'
 
-import networks from './networks'
 import useWallet from './useWallet'
 import wallets from '../../wallets'
 import getInitialState from './getInitialState'
@@ -11,8 +11,9 @@ import useCancelOnChange from './useCancelOnChange'
 
 
 export type BaseInput = ConfigProvider.Callbacks & {
-  serverNetworkId: NetworkIds
+  serverNetworkId: string
   supportedNetworkIds: NetworkIds[]
+  networks: ConfigProvider.Networks
 }
 
 type Input<T> = BaseInput & {
@@ -21,6 +22,7 @@ type Input<T> = BaseInput & {
 
 const useConfigContext = <T extends {}>(values: Input<T>): ConfigProvider.Context<T> => {
   const {
+    networks,
     serverNetworkId,
     supportedNetworkIds,
     onFinishConnect,
@@ -65,21 +67,32 @@ const useConfigContext = <T extends {}>(values: Input<T>): ConfigProvider.Contex
     })
   }, [ onChangeChain, onChangeAddress, setState ])
 
-  const configState = useMemo<ConfigProvider.ConfigState>(() => ({
-    data: state,
-    dataRef: stateRef,
-    initialData: initialState,
-    setData,
-  }), [ state, stateRef, initialState, setData ])
+  const configState = useMemo<ConfigProvider.ConfigState>(() => {
+    const data = state
 
-  useStorageUpdate(configState)
+    // Fallback to mainnet if current networkId is not supported anymore
+    if (!networks.configs[state.networkId]) {
+      data.networkId = 'mainnet'
+      stateRef.current.networkId = data.networkId
+    }
+
+    return {
+      data,
+      dataRef: stateRef,
+      initialData: initialState,
+      setData,
+    }
+  }, [ state, stateRef, networks, initialState, setData ])
+
+  useStorageUpdate({ networks, configState })
 
   const { data } = configState
 
-  const config = networks.configs[data.networkId]
+  const chainId = networks.chainById[data.networkId]
 
   const wallet = useWallet({
-    chainId: config.chainId,
+    networks,
+    chainId,
     configState,
     supportedNetworkIds,
     onFinishConnect,
@@ -90,16 +103,28 @@ const useConfigContext = <T extends {}>(values: Input<T>): ConfigProvider.Contex
   })
 
   const cancelOnChange = useCancelOnChange({
-    chainId: config.chainId,
+    chainId: chainId as ChainIds,
     address: state.address,
   })
 
+  const detectChain = useCallback((chainId: number) => {
+    const networkId = networks.idByChain[chainId]
+    const network = networks.configs[networkId]
+
+    const readOnlyProvider = getSDK({ chainId: network.chainId as ChainIds }).provider
+
+    return {
+      network,
+      readOnlyProvider,
+    }
+  }, [ networks ])
+
   return useMemo(() => {
-    const chainId = config.chainId
     const isReadOnlyMode = data.activeWallet === wallets.monitorAddress.id
 
     const ctx = {
       ...state,
+      ...detectChain(chainId),
       wallet,
       chainId,
       isReadOnlyMode,
@@ -107,16 +132,18 @@ const useConfigContext = <T extends {}>(values: Input<T>): ConfigProvider.Contex
     }
 
     if (typeof middleware === 'function') {
-      return middleware(ctx)
+      return middleware(ctx, networks)
     }
 
     return ctx as ConfigProvider.Context<T>
   }, [
     data,
-    wallet,
-    config,
     state,
+    wallet,
+    chainId,
+    networks,
     middleware,
+    detectChain,
     cancelOnChange,
   ])
 }

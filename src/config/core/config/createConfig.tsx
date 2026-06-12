@@ -4,12 +4,19 @@ import createContext from './createContext'
 import useConfigContext, { BaseInput } from './util/useConfigContext'
 
 
-type ConfigProviderProps = BaseInput & {
+type Input<T> = {
+  middleware?: ConfigProvider.Middleware<T>
+  networks: ConfigProvider.Networks
+}
+
+type ConfigProviderProps = Omit<BaseInput, 'networks'> & {
   children: React.ReactNode
 }
 
-const createConfig = <T extends {}>(middleware?: ConfigProvider.Middleware<T>) => {
-  const ConfigContext = createContext<T>({ middleware })
+const createConfig = <T extends {}>(values: Input<T>) => {
+  const { networks, middleware } = values
+
+  const ConfigContext = createContext<T>({ networks, middleware })
 
   const ConfigProvider: React.FC<ConfigProviderProps> = (props) => {
     const {
@@ -26,8 +33,9 @@ const createConfig = <T extends {}>(middleware?: ConfigProvider.Middleware<T>) =
     } = props
 
     const context = useConfigContext<T>({
-      supportedNetworkIds,
+      networks,
       serverNetworkId,
+      supportedNetworkIds,
       onFinishConnect,
       onChangeAddress,
       onStartConnect,

@@ -1,19 +1,20 @@
+'use client'
 import { useState, useCallback, useEffect, useRef } from 'react'
 
 
-const useFormValidate = <F extends Forms.FormValues>(form: Forms.Form<F>) => {
-  const [ isValid, setValid ] = useState<boolean>(form.validateWithoutError())
+const useFormValidate = <F extends Forms.FormValues>(form: Forms.Form<F>, options: Forms.ValidateOptions = {}) => {
+  const [ isValid, setValid ] = useState<boolean>(form.validateWithoutError(options))
 
   const savedValidStatusRef = useRef<boolean>(null)
   savedValidStatusRef.current = isValid
 
   const handleChange = useCallback(() => {
-    const isValid = form.validateWithoutError()
+    const isValid = form.validateWithoutError(options)
 
     if (savedValidStatusRef.current !== isValid) {
       setValid(isValid)
     }
-  }, [ form ])
+  }, [ form, options ])
 
   useEffect(() => {
     form.subscribe('change', handleChange)

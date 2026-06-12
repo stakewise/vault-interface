@@ -9,6 +9,7 @@ const monitorAddress = {
   id: 'monitorAddress',
   title: 'Check wallet',
   logo: 'connector/monitorAddress',
+  isAutoConnect: false,
   isAddTokenEnabled: false,
   isInjectedWallet: false,
   isLocalStorageSave: true,

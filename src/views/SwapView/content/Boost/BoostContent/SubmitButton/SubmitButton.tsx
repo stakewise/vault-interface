@@ -48,7 +48,6 @@ const SubmitButton: React.FC<SubmitButtonProps> = (props) => {
       loading={isBoostLoading}
       title={title}
       field={field}
-      color="secondary"
       onClick={submit}
     />
   )

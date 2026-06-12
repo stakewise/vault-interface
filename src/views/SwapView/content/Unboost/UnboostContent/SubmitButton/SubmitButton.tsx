@@ -22,7 +22,6 @@ const SubmitButton: React.FC<SubmitButtonProps> = (props) => {
       title={commonMessages.buttonTitle.unboost}
       disabled={unboost.isUnboostDisabled}
       loading={unboost.isUnboostLoading}
-      color="primary"
       onClick={unboost.submit}
     />
   )

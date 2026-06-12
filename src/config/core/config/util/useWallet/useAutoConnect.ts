@@ -70,10 +70,11 @@ const _getSavedState = (initialState: ConfigProvider.State): ConfigProvider.Stat
 type UseAutoConnectProps = {
   configState: ConfigProvider.ConfigState
   connect: ConfigProvider.Context['wallet']['connect']
+  networks: ConfigProvider.Networks
 }
 
 const useAutoConnect = (values: UseAutoConnectProps) => {
-  const { connect, configState } = values
+  const { connect, networks, configState } = values
 
   const { setData } = configState
 
@@ -98,7 +99,7 @@ const useAutoConnect = (values: UseAutoConnectProps) => {
     // ATTN: The order in this code is important!
 
     if (isFrame) {
-      const gnosisConnector = await wallets.gnosisSafe.getConnector()
+      const gnosisConnector = await wallets.gnosisSafe.getConnector(undefined as any, { networks }) as any
       const isGnosisSafeApp = await gnosisConnector.isSafeApp()
 
       if (isGnosisSafeApp) {
@@ -126,13 +127,17 @@ const useAutoConnect = (values: UseAutoConnectProps) => {
     else {
       setData(savedState)
     }
-  }, [ connect, setData ])
+  }, [ networks, connect, setData ])
 
   useEffect(() => {
+    if (configState.data.autoConnectChecked) {
+      return
+    }
+
     const savedState = _getSavedState(configState.initialData)
 
     handleAutoConnect(savedState)
-  }, [ handleAutoConnect, configState.initialData ])
+  }, [ handleAutoConnect, configState.initialData, configState.data.autoConnectChecked ])
 }
 
 

@@ -139,14 +139,14 @@ const useBoostSubmit = (values: Input): Output => {
         })
       }
     }
-    catch (error) {
+    catch (error: any) {
       actions.ui.resetBottomLoader()
 
       console.error('Boost send transaction error', error as Error)
 
       notifications.open({
-        text: commonMessages.notification.failed,
-        type: 'error',
+        type: error.isCancel ? 'info' : 'error',
+        text: error.isCancel ? commonMessages.notification.cancelled : commonMessages.notification.failed,
       })
 
       return Promise.reject(error)

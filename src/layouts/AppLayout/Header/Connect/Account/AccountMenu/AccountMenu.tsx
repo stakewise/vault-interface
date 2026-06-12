@@ -2,8 +2,6 @@ import React from 'react'
 import { useConfig, wallets } from 'config'
 import { useClaimsTotal } from 'hooks'
 
-import type { LogoProps } from 'components'
-
 import Menu from './Menu/Menu'
 import Address from './Address/Address'
 import Balances from './Balances/Balances'
@@ -12,7 +10,7 @@ import ClaimAmountButton from './ClaimAmountButton/ClaimAmountButton'
 
 
 type AccountMenuProps = {
-  logo: LogoProps['name']
+  logo: string
 }
 
 const disableDisconnect = new Set<string>([

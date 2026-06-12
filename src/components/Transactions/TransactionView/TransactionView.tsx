@@ -47,7 +47,7 @@ const TransactionView: React.FC<StepProps> = (props) => {
   const isClose = closeStatuses.includes(status)
   const isLast = lastStatuses.includes(status)
 
-  const iconClassName = cx('flex items-center justify-center flex-none rounded-full w-32 h-32', {
+  const iconClassName = cx('mt-8 flex items-center justify-center flex-none rounded-full w-32 h-32', {
     'bg-dark/5': !isLast,
     'bg-success-light': status === TransactionStatus.Success,
     'bg-error': status === TransactionStatus.Fail,
@@ -69,7 +69,7 @@ const TransactionView: React.FC<StepProps> = (props) => {
 
   return (
     <div
-      className={cx(className, 'flex items-center', {
+      className={cx(className, 'flex items-start', {
         'opacity-40': status === TransactionStatus.Waiting,
       })}
       data-testid={dataTestId}

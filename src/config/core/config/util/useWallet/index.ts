@@ -17,6 +17,7 @@ type Input = Omit<BaseInput, 'serverNetworkId'> & {
 
 const useWallet = (values: Input): ConfigProvider.Wallet => {
   const {
+    networks,
     chainId,
     configState,
     supportedNetworkIds,
@@ -37,6 +38,7 @@ const useWallet = (values: Input): ConfigProvider.Wallet => {
   const disconnect = useDisconnect({ configState, onError, onDisconnect })
 
   const changeChain = useChangeChain({
+    networks,
     configState,
     supportedNetworkIds,
     onChangeChain,
@@ -44,6 +46,7 @@ const useWallet = (values: Input): ConfigProvider.Wallet => {
   })
 
   const connect = useConnect({
+    networks,
     configState,
     onError,
     disconnect,
@@ -64,10 +67,12 @@ const useWallet = (values: Input): ConfigProvider.Wallet => {
 
   useAutoConnect({
     configState,
+    networks,
     connect,
   })
 
   useUpdateWallet({
+    networks,
     supportedNetworkIds,
     configState,
     chainId,

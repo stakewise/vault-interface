@@ -29,7 +29,7 @@ const apiUrls = {
   },
   [Network.Hoodi]: {
     backend: configs[Network.Hoodi].api.backend,
-    web3: 'https://ethereum-hoodi-rpc.publicnode.com',
+    web3: 'https://eth-hoodi.stakewise.io',
     subgraph: IS_PROD
       ? configs[Network.Hoodi].api.subgraph
       : `https://graphs.stakewise.io/hoodi/subgraphs/name/stakewise/${defaultType}`,

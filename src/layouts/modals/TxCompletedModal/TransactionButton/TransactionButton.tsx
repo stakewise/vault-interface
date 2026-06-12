@@ -14,9 +14,9 @@ type TransactionButtonProps = {
 const TransactionButton: React.FC<TransactionButtonProps> = (props) => {
   const { className, hash } = props
 
-  const { sdk } = useConfig()
+  const { getBlockExplorerUrl } = useConfig()
 
-  const link = `${sdk.config.network.blockExplorerUrl}/tx/${hash}`
+  const link = getBlockExplorerUrl({ hash })
 
   return (
     <Button

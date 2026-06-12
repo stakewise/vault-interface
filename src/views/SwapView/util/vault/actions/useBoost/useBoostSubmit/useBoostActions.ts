@@ -16,7 +16,7 @@ type Input = {
   vaultAddress: string
   permitAddress: string | null
   field:  Forms.Field<bigint>
-  approve: () => Promise<string | undefined>
+  approve: () => Promise<string>
   fetchAllUserData: ReturnType<typeof vaultHooks.useUser>['fetchAllUserData']
   checkAllowance: (params: { hash?: string, allowance: bigint }) => Promise<void>
 }
@@ -77,27 +77,20 @@ const useBoostActions = (values: Input) => {
 
   const { sdk, signSDK, address, chainId, cancelOnChange } = useConfig()
 
+  const wrapTransaction = Transactions.useAction()
   const subgraphUpdate = useSubgraphUpdate()
   const { refetchMintTokenBalance, refetchNativeTokenBalance } = useBalances()
 
   const handleApprove = useCallback(async (values: ApproveInput) => {
     const { setTransaction } = values
 
-    try {
-      const hash = await approve()
-
-      setTransaction(BoostStep.Permit, Transactions.Status.Processing)
-
-      await checkAllowance({ hash, allowance })
-
-      setTransaction(BoostStep.Permit, Transactions.Status.Success)
-    }
-    catch (error) {
-      setTransaction(BoostStep.Permit, Transactions.Status.Fail, true)
-
-      return Promise.reject(error)
-    }
-  }, [ allowance, approve, checkAllowance ])
+    await wrapTransaction({
+      step: BoostStep.Permit,
+      action: approve,
+      confirm: ({ hash }) => checkAllowance({ hash, allowance }),
+      setTransaction,
+    })
+  }, [ allowance, approve, checkAllowance, wrapTransaction ])
 
   const handleGetUserApy = useCallback(async () => {
     if (vaultAddress && address) {
@@ -145,36 +138,33 @@ const useBoostActions = (values: Input) => {
   const boost = useCallback(async (values: BoostInput) => {
     const { amount, userAddress, vaultAddress, permitParams, leverageStrategyData, setTransaction } = values
 
-    try {
-      setTransaction(BoostStep.Boost, Transactions.Status.Confirm)
+    const referrerAddress = getters.getReferrer()
 
-      const referrerAddress = getters.getReferrer()
+    let hash
 
-      const hash = await signSDK.boost.lock({
+    await wrapTransaction({
+      step: BoostStep.Boost,
+      action: () => signSDK.boost.lock({
         amount,
         userAddress,
         vaultAddress,
         referrerAddress,
         permitParams,
         leverageStrategyData,
-      })
+      }),
+      confirm: (values) => {
+        hash = values.hash
 
-      setTransaction(BoostStep.Boost, Transactions.Status.Processing)
+        return subgraphUpdate(values)
+      },
+      setTransaction,
+    })
 
-      await subgraphUpdate({ hash })
-
-      setTransaction(BoostStep.Boost, Transactions.Status.Success)
-
-      return hash
-    }
-    catch (error) {
-      setTransaction(BoostStep.Boost, Transactions.Status.Fail)
-
-      return Promise.reject(error)
-    }
+    return hash
   }, [
     signSDK,
     subgraphUpdate,
+    wrapTransaction,
   ])
 
   const approveOrPermit = useCallback(async (values: ApproveOrPermitInput) => {
@@ -253,32 +243,19 @@ const useBoostActions = (values: Input) => {
   const upgrade = useCallback(async (values: UpgradeInput) => {
     const { userAddress, vaultAddress, setTransaction } = values
 
-    try {
-      setTransaction(BoostStep.Upgrade, Transactions.Status.Confirm)
-
-      const hash = await signSDK.boost.upgradeLeverageStrategy({
+    await wrapTransaction({
+      step: BoostStep.Upgrade,
+      action: () => signSDK.boost.upgradeLeverageStrategy({
         userAddress,
         vaultAddress,
-      })
-
-      setTransaction(BoostStep.Upgrade, Transactions.Status.Processing)
-
-      await subgraphUpdate({ hash })
-
-      setTransaction(BoostStep.Upgrade, Transactions.Status.Success)
-
-      return hash
-    }
-    catch (error) {
-      setTransaction(BoostStep.Upgrade, Transactions.Status.Fail)
-      setTransaction(BoostStep.Permit, Transactions.Status.Fail)
-      setTransaction(BoostStep.Boost, Transactions.Status.Fail)
-
-      return Promise.reject(error)
-    }
+      }),
+      confirm: subgraphUpdate,
+      setTransaction,
+    })
   }, [
     signSDK,
     subgraphUpdate,
+    wrapTransaction,
   ])
 
   return useMemo(() => ({

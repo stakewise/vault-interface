@@ -1,31 +1,7 @@
 import { injected, coinbaseWallet, walletConnect, safe } from '@wagmi/connectors'
-import { mainnet, hoodi, gnosis } from 'viem/chains'
 import EventAggregator from 'modules/event-aggregator'
-import apiUrls from 'helpers/methods/apiUrls'
 import type { Chain } from 'viem/chains'
 
-import networks from '../../config/util/networks'
-
-
-const viemChains = [ mainnet, hoodi, gnosis ]
-
-const chains: Chain[] = []
-
-networks.chains.forEach((chainId) => {
-  const viemChain = viemChains.find((data) => data.id === Number(chainId))
-
-  if (viemChain) {
-    const result: Chain = { ...viemChain }
-    const url = apiUrls.getWeb3Url(chainId)
-
-    // Inside wagmi there is use of contracts as a helper, it looks dangerous, better to remove it
-    delete result.contracts
-
-    result.rpcUrls.default.http = Array.isArray(url) ? [ url[0] ] : [ url ]
-
-    chains.push(result)
-  }
-})
 
 type Creators = ReturnType<
   typeof injected
@@ -36,11 +12,13 @@ type Creators = ReturnType<
 
 type Input = {
   creator: Creators
+  networks: ConfigProvider.Networks
 }
 
 class WagmiConnector {
   events: EventAggregator
   connector: ReturnType<Creators>
+  networks: ConfigProvider.Networks
 
   emitter = {
     emit: (type: string, data: any) => {
@@ -59,7 +37,21 @@ class WagmiConnector {
   }
 
   constructor(values: Input) {
+    this.networks = values.networks
     this.events = new EventAggregator()
+
+    const chains: Chain[] = Object.values(this.networks.default).map(({ viem, id }) => {
+      const { rpc } = this.networks.configs[id]
+
+      const chain: Chain = { ...viem }
+
+      // Inside wagmi there is use of contracts as a helper, it looks dangerous, better to remove it
+      delete chain.contracts
+
+      chain.rpcUrls.default.http = Array.isArray(rpc) ? rpc : [ rpc ]
+
+      return chain
+    })
 
     this.connector = values.creator({
       // @ts-ignore
@@ -87,14 +79,14 @@ class WagmiConnector {
     return accounts[0]
   }
 
-  async activate(networkId: NetworkIds) {
-    const chainId = networks.chainById[networkId]
+  async activate(networkId: string, _locale?: string, isReconnecting = false) {
+    const chainId = this.networks.chainById[networkId]
 
     try {
       const data = await this.connector.connect({
         chainId,
         // ATTN https://github.com/wevm/wagmi/blob/main/packages/core/src/connectors/injected.ts#L167
-        isReconnecting: false,
+        isReconnecting,
       })
 
       return data
@@ -114,21 +106,25 @@ class WagmiConnector {
       const provider = await this.connector.getProvider()
 
       if (provider) {
-        const networkId = networks.idByChain[chainId as ChainIds]
+        const networkId = this.networks.idByChain[chainId as number]
 
-        const network = networks.configs[networkId]
-
-        const url = apiUrls.getWeb3Url(chainId)
+        const {
+          rpc,
+          name,
+          nativeCurrency,
+          blockExplorerUrl,
+          hexadecimalChainId,
+        } = this.networks.configs[networkId]
 
         await (provider as any).request({
           method: 'wallet_addEthereumChain',
           params: [
             {
-              blockExplorerUrls: [ network.blockExplorerUrl ],
-              nativeCurrency: network.nativeCurrency,
-              chainId: network.hexadecimalChainId,
-              chainName: network.name,
-              rpcUrls: [ url ],
+              chainName: name,
+              chainId: hexadecimalChainId,
+              nativeCurrency: nativeCurrency,
+              blockExplorerUrls: [ blockExplorerUrl ],
+              rpcUrls: Array.isArray(rpc) ? rpc : [ rpc ],
             },
           ],
         })
@@ -165,7 +161,5 @@ class WagmiConnector {
   }
 }
 
-
-export { chains }
 
 export default WagmiConnector

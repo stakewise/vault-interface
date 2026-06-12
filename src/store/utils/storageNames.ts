@@ -2,7 +2,7 @@ export default {
   swapTokenBalances: 'swapTokenBalances',
   distributorClaims: 'distributorClaims',
   vaultUserRewards: 'vaultUserRewards',
-  vaultUnboostQueue: 'vaultBoostQueue',
+  vaultUnboostQueue: 'vaultUnboostQueue',
   vaultUnstakeQueue: 'vaultUnstakeQueue',
   accountBalances: 'accountBalances',
   swapTokenRates: 'swapTokenRates',

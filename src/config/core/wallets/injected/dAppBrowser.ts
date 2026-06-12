@@ -1,37 +1,23 @@
 import { Network } from 'sdk'
 
-import { Location, IsDisabled } from '../types'
-
-import messages from '../../messages'
+import { createInjectedWallet } from './helpers'
 
 
-const getConnector = async () => {
-  const InjectedConnector = (await import('../../connectors/InjectedConnector')).default
-
-  const connector = new InjectedConnector({ shimDisconnect: false })
-
-  return connector
-}
-
-const dAppBrowser = {
+const dAppBrowser = createInjectedWallet({
   id: 'dAppBrowser',
   title: 'DApp Browser',
   logo: 'connector/monitorAddress',
-  isAddTokenEnabled: false,
-  isInjectedWallet: true,
-  isLocalStorageSave: false,
-  isDisableSwitchChain: false,
-  activationMessage: messages.authMessages.waitingAuth,
   networks: [
     Network.Mainnet,
     Network.Gnosis,
     Network.Hoodi,
-  ] as ChainIds[],
-  location: [ 'mobile' ] as Location,
-  isDisabled: (() => !window.ethereum) as IsDisabled,
-  getProvider: () => window.ethereum,
-  getConnector,
-} as const
+  ],
+  location: [ 'mobile' ],
+  isAutoConnect: true,
+  isAddTokenEnabled: false,
+  isLocalStorageSave: false,
+  fallbackProvider: () => window.ethereum,
+})
 
 
 export default dAppBrowser

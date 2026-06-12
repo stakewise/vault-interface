@@ -3,6 +3,7 @@ import { useEffect, useMemo, useState } from 'react'
 import dayjs from 'dayjs'
 
 import intl from '../intl'
+import { changeLocale } from './locales'
 
 
 const useTime = () => {
@@ -10,7 +11,7 @@ const useTime = () => {
   const [ dep, setDep ] = useState(0)
 
   useEffect(() => {
-    dayjs.changeLocale(locale)
+    changeLocale(locale)
       .then(() => setDep((value) => ++value))
   }, [ locale ])
 

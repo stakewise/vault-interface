@@ -44,8 +44,8 @@ const useRewards = (input: Input) => {
     }
 
     try {
-      const fromInMs = date.time(from).utcOffset(0, true).valueOf()
-      const toInMs = date.time(to).utcOffset(0, true).valueOf()
+      const fromInMs = date.time(from).utcOffset(0, false).valueOf()
+      const toInMs = date.time(to).endOf('day').utcOffset(0, false).valueOf()
 
       const params: FetcherParams = {
         userAddress: address,

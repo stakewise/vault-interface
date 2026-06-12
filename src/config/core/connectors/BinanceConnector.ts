@@ -2,22 +2,15 @@
 import { getProvider } from '@binance/w3w-ethereum-provider'
 import EventAggregator from 'modules/event-aggregator'
 import { AbstractProvider } from 'ethers'
-import apiUrls from 'helpers/methods/apiUrls'
-import { Network  } from 'sdk'
-
-import networks from '../config/util/networks'
+import { Network } from 'sdk'
 
 
 export type Input = {
   chainId: Network
+  networks: ConfigProvider.Networks
 }
 
 type Provider = ReturnType<typeof getProvider>
-
-const rpc = Object.values(networks.configs).reduce((acc, config) => ({
-  ...acc,
-  [config.chainId]: apiUrls.getWeb3Url(config.chainId),
-}), {} as Record<string, string>)
 
 const languages: Record<Intl.LanguagesKeys, string> = {
   ru: 'ru-RU',
@@ -32,18 +25,25 @@ const languages: Record<Intl.LanguagesKeys, string> = {
 class BinanceConnector extends AbstractProvider {
   events: EventAggregator
   private chainId?: number
+  private networks: ConfigProvider.Networks
   private account: string | null = null
   private providerInstance?: Provider
 
-  constructor({ chainId }: Input) {
+  constructor({ chainId, networks }: Input) {
     super()
 
     this.chainId = chainId
+    this.networks = networks
     this.events = new EventAggregator()
   }
 
-  async activate(networkId: NetworkIds, locale: Intl.LanguagesKeys) {
-    const chainId = networks.chainById[networkId]
+  async activate(networkId: string, locale: Intl.LanguagesKeys) {
+    const chainId = this.networks.chainById[networkId]
+
+    const rpc = Object.values(this.networks.configs).reduce((acc, config) => ({
+      ...acc,
+      [config.chainId]: Array.isArray(config.rpc) ? config.rpc[0] : config.rpc,
+    }), {} as Record<string, string>)
 
     const providerInstance = getProvider({
       lng: languages[locale],
@@ -63,7 +63,7 @@ class BinanceConnector extends AbstractProvider {
       })
     })
 
-    this.providerInstance.on('chainChanged', (chainId: ChainIds) => {
+    this.providerInstance.on('chainChanged', (chainId: number) => {
       this.events.dispatch('change', {
         chainId,
       })
@@ -111,8 +111,8 @@ class BinanceConnector extends AbstractProvider {
       return
     }
 
-    const networkId = networks.idByChain[chainId]
-    const { hexadecimalChainId } = networks.configs[networkId]
+    const networkId = this.networks.idByChain[chainId]
+    const { hexadecimalChainId } = this.networks.configs[networkId]
 
     try {
       await this.providerInstance.request({
@@ -134,7 +134,7 @@ class BinanceConnector extends AbstractProvider {
 
     if (!this.account || force) {
       const accounts = await this.providerInstance.request({
-        method: "eth_accounts",
+        method: 'eth_accounts',
       })
 
       this.account = accounts[0]

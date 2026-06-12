@@ -1,35 +1,22 @@
 import { Network } from 'sdk'
 
-import { Location, IsDisabled } from '../types'
-
-import messages from '../../messages'
+import { createInjectedWallet } from './helpers'
 
 
-const getConnector = async () => {
-  const InjectedConnector = (await import('../../connectors/InjectedConnector')).default
-
-  const connector = new InjectedConnector({ shimDisconnect: false })
-
-  return connector
-}
-
-const ledgerLive = {
+const ledgerLive = createInjectedWallet({
   id: 'ledgerLive',
+  rdns: 'com.ledger',
   title: 'Ledger Live',
   logo: 'connector/ledgerLive',
-  isAddTokenEnabled: false,
-  isInjectedWallet: true,
-  isLocalStorageSave: true,
-  activationMessage: messages.authMessages.waitingAuth,
   networks: [
     Network.Mainnet,
+    Network.Gnosis,
     Network.Hoodi,
-  ] as ChainIds[],
-  location: [ 'desktop', 'mobile' ] as Location,
-  isDisabled: (() => !window.ethereum?.isLedgerLive) as IsDisabled,
-  getProvider: () => window.ethereum,
-  getConnector,
-} as const
+  ],
+  isAutoConnect: true,
+  isAddTokenEnabled: false,
+  fallbackProvider: () => window.ethereum?.isLedgerLive ? window.ethereum : null,
+})
 
 
 export default ledgerLive

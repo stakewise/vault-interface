@@ -6,20 +6,22 @@ import * as constants from 'helpers/constants'
 import notifications from 'modules/notifications'
 import { getAddress, BrowserProvider } from 'ethers'
 
-import networks from '../networks'
 import wallets from '../../../wallets'
 import getSpecialErrors from '../getSpecialErrors'
+import WalletLinkConnector from '../../../connectors/WalletLinkConnector'
 
 import messages from '../../../messages'
 
 
 type Input = Pick<ConfigProvider.Callbacks, 'onError' | 'onStartConnect' | 'onConnectError' | 'onFinishConnect'> & {
+  networks: ConfigProvider.Networks
   configState: ConfigProvider.ConfigState
   disconnect: () => Promise<void>
 }
 
 const useConnect = (values: Input) => {
   const {
+    networks,
     configState,
     disconnect,
     onError,
@@ -45,6 +47,23 @@ const useConnect = (values: Input) => {
     window.location.reload()
   }, [ onConnectError ])
 
+  const resetWCConnection = useCallback(() => {
+    localStorage.removeItem(constants.localStorageNames.walletName)
+
+    const dbReq = indexedDB.open('WALLET_CONNECT_V2_INDEXED_DB')
+
+    dbReq.onsuccess = () => {
+      const db = dbReq.result
+      const tx = db.transaction('keyvaluestorage', 'readwrite')
+
+      tx.objectStore('keyvaluestorage').clear()
+      tx.oncomplete = () => {
+        db.close()
+        window.location.reload()
+      }
+    }
+  }, [])
+
   const connectWallet = useCallback(async (walletName: WalletIds, transport?: 'usb' | 'ble'): Promise<void> => {
     let resetConnectTimer: NodeJS.Timeout | null = null
 
@@ -63,7 +82,10 @@ const useConnect = (values: Input) => {
     const { name: chainName } = networks.configs[dataRef.current.networkId]
     let { chainId } = networks.configs[dataRef.current.networkId]
 
+    const isWalletConnect = walletName === wallets.walletConnect.id
+
     const connector = await getConnector(chainId, {
+      networks,
       transport,
       disconnect,
     }) as Connectors
@@ -75,7 +97,8 @@ const useConnect = (values: Input) => {
     const isLedger = walletName === wallets.ledger.id
     const isInjected = wallets[walletName].isInjectedWallet
     const isGnosisSafe = walletName === wallets.gnosisSafe.id
-    const isWalletConnect = walletName === wallets.walletConnect.id
+    const isAutoConnect = Boolean(walletName) && !dataRef.current.autoConnectChecked
+    const isWCReconnect = isWalletConnect && isAutoConnect
 
     try {
       if (isInjected) {
@@ -93,7 +116,7 @@ const useConnect = (values: Input) => {
         resetConnectTimer = setTimeout(resetConnection, 10_000)
       }
 
-      if (isLedger) {
+      if (isLedger || isWCReconnect) {
         resetConnectTimer = setTimeout(resetConnection, 10_000)
       }
 
@@ -111,7 +134,7 @@ const useConnect = (values: Input) => {
       if (isGnosisSafe) {
         chainId = connectorChainId
 
-        const isSupported = networks.chains.includes(chainId)
+        const isSupported = Object.values(networks.configs).some((c) => c.chainId === chainId)
 
         if (!isSupported) {
           notifications.open({
@@ -124,7 +147,36 @@ const useConnect = (values: Input) => {
         }
       }
 
-      const data = await connector.activate(dataRef.current.networkId, intlRef.current.locale)
+      const data = await connector.activate(dataRef.current.networkId, intlRef.current.locale, isWCReconnect)
+
+      let walletConnectData: ConfigProvider.WalletConnectData | null = null
+
+      if (isWalletConnect) {
+        walletConnectData = (connector as WalletLinkConnector).getWalletData()
+
+        const isSupportedNetwork = walletConnectData?.chains.includes(chainId)
+
+        if (!isSupportedNetwork) {
+          inProgressRef.current = false
+
+          onConnectError()
+          setData({ autoConnectChecked: true })
+          localStorage.removeItem(constants.localStorageNames.walletName)
+
+          notifications.open({
+            type: 'error',
+            thread: 'connect',
+            text: walletConnectData.name ? ({
+              ...messages.connectErrors.unsupportedNetwork,
+              values: { wallet: walletConnectData.name },
+            }) : (
+              messages.connectErrors.networkError
+            ),
+          })
+
+          return
+        }
+      }
 
       if (Number(connectorChainId) !== chainId) {
         await connector.changeChainId(chainId)
@@ -174,7 +226,7 @@ const useConnect = (values: Input) => {
         thread: 'connect',
       })
 
-      onFinishConnect()
+      onFinishConnect(walletConnectData?.name || walletName)
 
       const networkId = networks.idByChain[chainId]
 
@@ -183,6 +235,7 @@ const useConnect = (values: Input) => {
         library,
         connector,
         networkId,
+        walletConnectData,
         activeWallet: walletName,
         autoConnectChecked: true,
       })
@@ -203,7 +256,7 @@ const useConnect = (values: Input) => {
       connector.deactivate?.()
 
       if (isWalletConnect) {
-        localStorage.clearAll()
+        resetWCConnection()
       }
 
       const isCancelAutoconnectSwitchChain = error.code === 4001 && !dataRef.current.address
@@ -238,10 +291,12 @@ const useConnect = (values: Input) => {
   }, [
     intlRef,
     dataRef,
+    networks,
     setData,
     onError,
     disconnect,
     resetConnection,
+    resetWCConnection,
     onConnectError,
     onStartConnect,
     onFinishConnect,

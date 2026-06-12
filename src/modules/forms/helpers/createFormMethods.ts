@@ -1,3 +1,6 @@
+import { RefObject } from 'react'
+
+
 const _getValues = <F extends Forms.FormValues>(fields: Forms.Form<F>['fields']): Forms.Values<F> => (
   Object.keys(fields).reduce((acc, name) => {
     const value = fields[name].value
@@ -37,52 +40,66 @@ const _hasErrors = <F extends Forms.FormValues>(fields: Forms.Form<F>['fields'])
   return hasErrors
 }
 
-const _subscribe = <V extends Forms.FieldValue, F extends Forms.FormValues = {}>(values: {
-  handler: Forms.EventHandler<V>
-  fields: Forms.Form<F>['fields']
-  event: Forms.Events
-}) => {
-  const { fields, event, handler } = values
-
-  Object.values(fields).forEach((field) => {
-    field.subscribe(event, handler)
-  })
-}
-
-const _unsubscribe = <V extends Forms.FieldValue, F extends Forms.FormValues = {}>(values: {
-  handler: Forms.EventHandler<V>
-  fields: Forms.Form<F>['fields']
-  event: Forms.Events
-}) => {
-  const { fields, event, handler } = values
-
-  Object.values(fields).forEach((field) => {
-    field.unsubscribe(event, handler)
-  })
-}
-
 const _reset = <F extends Forms.FormValues>(fields: Forms.Form<F>['fields']) => {
   Object.values(fields).forEach((field) => {
     field.reset()
   })
 }
 
-const _validateWithoutError = <F extends Forms.FormValues>(fields: Forms.Form<F>['fields']) => (
-  Object.values(fields).every((field) => field.validateWithoutError())
+const _validateWithoutError = <F extends Forms.FormValues>(fields: Forms.Form<F>['fields'], options?: Forms.ValidateOptions) => (
+  Object.values(fields).every((field) => {
+    if (options?.group && field.group !== options.group) {
+      return true
+    }
+
+    return field.validateWithoutError()
+  })
 )
 
 const createFormMethods = <
   V extends Forms.FieldValue,
   F extends Forms.FormValues = {}
->(fields: Forms.Form<F>['fields']) => ({
-  reset: () => _reset(fields),
-  getValues: () => _getValues(fields),
-  hasErrors: () => _hasErrors(fields),
-  isFormValid: () => _isFormValid(fields),
-  validateWithoutError: () => _validateWithoutError(fields),
-  subscribe: (event: Forms.Events, handler: Forms.EventHandler<V>) => _subscribe({ fields, event, handler }),
-  unsubscribe: (event: Forms.Events, handler: Forms.EventHandler<V>) => _unsubscribe({ fields, event, handler }),
-})
+>(fields: Forms.Form<F>['fields'], formRef: RefObject<Forms.Form<F> | null>) => {
+  const wrappers = new Map<Forms.FormEventHandler<F>, Forms.EventHandler<V>>()
+
+  const subscribe = (event: Forms.Events, handler: Forms.FormEventHandler<F>) => {
+    const wrapper: Forms.EventHandler<V> = () => {
+      if (formRef.current) {
+        handler(formRef.current)
+      }
+    }
+
+    wrappers.set(handler, wrapper)
+
+    Object.values(fields).forEach((field) => {
+      field.subscribe(event, wrapper)
+    })
+  }
+
+  const unsubscribe = (event: Forms.Events, handler: Forms.FormEventHandler<F>) => {
+    const wrapper = wrappers.get(handler)
+
+    if (!wrapper) {
+      return
+    }
+
+    Object.values(fields).forEach((field) => {
+      field.unsubscribe(event, wrapper)
+    })
+
+    wrappers.delete(handler)
+  }
+
+  return {
+    subscribe,
+    unsubscribe,
+    reset: () => _reset(fields),
+    getValues: () => _getValues(fields),
+    hasErrors: () => _hasErrors(fields),
+    isFormValid: () => _isFormValid(fields),
+    validateWithoutError: (options?: Forms.ValidateOptions) => _validateWithoutError(fields, options),
+  }
+}
 
 
 export default createFormMethods

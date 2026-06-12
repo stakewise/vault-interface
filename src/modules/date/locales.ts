@@ -11,12 +11,6 @@ const modules: Record<Intl.LanguagesKeys, () => Promise<any>> = {
   zh: () => import('dayjs/locale/zh'),
 }
 
-declare module 'dayjs' {
-  function changeLocale(locale: Intl.LanguagesKeys): Promise<any>
-}
-
-const changeLocale = (locale: Intl.LanguagesKeys) => {
+export const changeLocale = (locale: Intl.LanguagesKeys) => {
   return modules[locale]().then(() => dayjs.locale(locale))
 }
-
-dayjs.changeLocale = changeLocale

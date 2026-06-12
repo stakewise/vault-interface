@@ -17,10 +17,10 @@ type ResolveTransactionProps = {
 
 const useSubgraphUpdate = () => {
   const actions = useActions()
-  const { sdk } = useConfig()
+  const { sdk, networkId, readOnlyProvider, getBlockExplorerUrl } = useConfig()
 
-  const configNetworkIdRef = useRef(sdk.config.network.id)
-  configNetworkIdRef.current = sdk.config.network.id
+  const configNetworkIdRef = useRef(networkId)
+  configNetworkIdRef.current = networkId
 
   const fetchTransaction = useCallback(async (hash: string, attempt: number = 0) => {
     try {
@@ -43,7 +43,7 @@ const useSubgraphUpdate = () => {
     const { hash, expectedCount } = props
 
     const count = await fetchTransaction(hash)
-    const isConfigChanged = configNetworkIdRef.current !== sdk.config.network.id
+    const isConfigChanged = configNetworkIdRef.current !== networkId
 
     if (!isConfigChanged && (!count || count < expectedCount)) {
       return new Promise((resolve) => {
@@ -54,7 +54,7 @@ const useSubgraphUpdate = () => {
         }, 1000)
       })
     }
-  }, [ sdk, fetchTransaction ])
+  }, [ networkId, fetchTransaction ])
 
   return useCallback(async ({ hash, count = 1 }: Input) => {
     actions.ui.resetBottomLoader()
@@ -63,11 +63,13 @@ const useSubgraphUpdate = () => {
       return Promise.reject('Empty hash on subgraphUpdate')
     }
 
-    actions.ui.setBottomLoaderTransaction(`${sdk.config.network.blockExplorerUrl}/tx/${hash}`)
+    const blockExplorerUrl = getBlockExplorerUrl({ hash })
+
+    actions.ui.setBottomLoaderTransaction(blockExplorerUrl)
 
     await waitForTransaction({
       hash,
-      provider: sdk.provider,
+      provider: readOnlyProvider,
       onSuccess: () => (
         resolveTransaction({
           hash,
@@ -77,7 +79,7 @@ const useSubgraphUpdate = () => {
     })
 
     actions.ui.resetBottomLoader()
-  }, [ sdk, actions, resolveTransaction ])
+  }, [ actions, readOnlyProvider, resolveTransaction, getBlockExplorerUrl ])
 }
 
 

@@ -1,7 +1,7 @@
 {
-  "name": "Vaul Interface",
-  "short_name": "Vaul Interface",
-  "description": "Vaul Interface",
+  "name": "Vault Interface",
+  "short_name": "Vault Interface",
+  "description": "Vault Interface",
   "icons": [
     {
       "src": "favicon.ico",

@@ -1,14 +1,15 @@
 import { useCallback } from 'react'
-import { useConfig } from 'config'
+import { createErc20Contract } from 'sdk'
 import { swapTokens } from 'helpers'
+import { useConfig } from 'config'
 
 
-type Input = {
+type ModifyResultInput = {
   values: bigint[]
   chainTokens: Record<string, string>
 }
 
-const modifyResult = ({ values, chainTokens }: Input) => {
+const modifyResult = ({ values, chainTokens }: ModifyResultInput) => {
   const result: Record<string, bigint> = {}
   const tokenNames = Object.keys(chainTokens)
 
@@ -22,7 +23,7 @@ const modifyResult = ({ values, chainTokens }: Input) => {
 }
 
 const useSwapTokenBalances = () => {
-  const { sdk, chainId, address } = useConfig()
+  const { chainId, address, readOnlyProvider } = useConfig()
 
   const fetchSwapTokenBalance = useCallback(async (tokenAddress: string) => {
     if (!address) {
@@ -30,7 +31,8 @@ const useSwapTokenBalances = () => {
     }
 
     try {
-      const tokenContract = sdk.contracts.helpers.createErc20(tokenAddress)
+      const tokenContract = createErc20Contract(tokenAddress, readOnlyProvider)
+
       const balance = await tokenContract.balanceOf(address)
 
       return balance
@@ -40,17 +42,19 @@ const useSwapTokenBalances = () => {
 
       return 0n
     }
-  }, [ sdk, address ])
+  }, [ address, readOnlyProvider ])
 
-  return useCallback(async () => {
-    const chainTokens = swapTokens[chainId as keyof typeof swapTokens]
+  return useCallback(async (tokens?: Record<string, string>) => {
+    const chainTokens = tokens || swapTokens[chainId as keyof typeof swapTokens]
 
     if (!chainTokens) {
       return {}
     }
 
     const values = await Promise.all(
-      Object.values(chainTokens).map((tokenAddress) => fetchSwapTokenBalance(tokenAddress))
+      Object.values(chainTokens).map((tokenAddress) => (
+        fetchSwapTokenBalance(tokenAddress)
+      ))
     )
 
     return modifyResult({ values, chainTokens })

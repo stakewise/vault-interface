@@ -1,27 +1,28 @@
-import { MaxUint256, parseEther } from 'ethers'
+import { BrowserProvider, MaxUint256 } from 'ethers'
+import { createErc20Contract } from 'sdk'
 
 import { getGasMargin } from '../methods'
 
 
 type Input = {
-  signSDK: SDK
   to: string
   from: string
-  amount?: string
+  amount?: bigint
   tokenAddress: string
+  provider: BrowserProvider
 }
 
 const approve = async (values: Input) => {
-  const { from, to, amount, tokenAddress, signSDK } = values
+  const { from, to, amount, tokenAddress, provider } = values
 
-  const tokenContract = signSDK.contracts.helpers.createErc20(tokenAddress)
-  const signer = await signSDK.provider.getSigner(from)
+  const tokenContract = createErc20Contract(tokenAddress, provider)
+  const signer = await provider.getSigner(from)
   const signedContract = tokenContract.connect(signer)
-  const value = amount ? parseEther(amount) : MaxUint256
+  const value = amount || MaxUint256
 
   const [ gasCost, feeData ] = await Promise.all([
     signedContract.approve.estimateGas(to, value),
-    signSDK.provider.getFeeData(),
+    provider.getFeeData(),
   ])
 
   const { maxFeePerGas, maxPriorityFeePerGas } = feeData

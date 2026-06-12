@@ -4,22 +4,21 @@ import { useCopyToClipboard } from 'hooks'
 import { useConfig } from 'config'
 import cx from 'classnames'
 
-import { Text, Logo, RoundButton } from 'components'
+import { Text, WalletIcon, RoundButton } from 'components'
 import type { LogoName } from 'components'
 
 
 type AddressProps = {
   className?: string
-  logo: LogoName
+  logo: LogoName | string
 }
 
 const Address: React.FC<AddressProps> = (props) => {
   const { className, logo } = props
 
-  const { sdk, address } = useConfig()
+  const { address, getBlockExplorerUrl } = useConfig()
 
   const copyToClipboard = useCopyToClipboard()
-  const scanLink = `${sdk.config.network.blockExplorerUrl}/address/`
   const shortAddress = methods.shortenAddress(address)
 
   const handleCopy = useCallback(() => {
@@ -27,14 +26,14 @@ const Address: React.FC<AddressProps> = (props) => {
   }, [ address, copyToClipboard ])
 
   const handleCLickToLink = useCallback(() => {
-    window.open(`${scanLink}${address}`, '_blank')
-  }, [ address, scanLink ])
+    window.open(getBlockExplorerUrl({ address }), '_blank')
+  }, [ address, getBlockExplorerUrl ])
 
   return (
     <div className={cx(className, 'flex justify-center items-center')}>
       <div className="mr-24 flex justify-start items-center">
-        <Logo
-          name={logo as LogoName}
+        <WalletIcon
+          logo={logo}
           size={16}
         />
         <Text

@@ -1,3 +1,4 @@
+'use client'
 import { useMemo, useRef, useEffect } from 'react'
 
 import Field from './Field'
@@ -20,7 +21,7 @@ const useForm = <F extends Forms.FormValues>(config: Forms.FieldsConfig<F>): For
       }
     }, {} as Forms.Form<F>['fields'])
 
-    const methods = createFormMethods<Forms.FieldValue, F>(fields)
+    const methods = createFormMethods<Forms.FieldValue, F>(fields, formRef)
 
     return {
       fields,

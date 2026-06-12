@@ -1,3 +1,4 @@
+'use client'
 import { useCallback, useEffect, useRef } from 'react'
 
 import { open } from './manager'

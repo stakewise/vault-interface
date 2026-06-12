@@ -1,5 +1,5 @@
 import { useCallback, useMemo, useState } from 'react'
-import { formatEther, MaxInt256 } from 'ethers'
+import { formatEther, MaxUint256 } from 'ethers'
 import { requests } from 'helpers'
 import { useConfig } from 'config'
 
@@ -18,7 +18,7 @@ type Output = {
   isFetching: boolean
   isSubmitting: boolean
   getGas: (amount?: bigint) => Promise<bigint>
-  approve: (amount?: bigint) => Promise<string | undefined>
+  approve: (amount?: bigint) => Promise<string>
   checkAllowance: (values: CheckAllowanceInput) => Promise<void>
 }
 
@@ -30,7 +30,7 @@ interface Hook {
 const useApprove: Hook = (values) => {
   const { recipient, tokenAddress, skip } = values
 
-  const { signSDK, address } = useConfig()
+  const { library, address } = useConfig()
   const { refetchNativeTokenBalance } = useBalances()
 
   const { allowance, isFetching, checkAllowance } = useAllowance({
@@ -42,13 +42,13 @@ const useApprove: Hook = (values) => {
   const [ isSubmitting, setSubmitting ] = useState(false)
 
   const getGas = useCallback(async (amount?: bigint): Promise<bigint> => {
-    if (!address) {
+    if (!address || !library) {
       return 0n
     }
 
     try {
       const gas = await requests.getApproveGas({
-        signSDK,
+        provider: library,
         from: address,
         to: recipient,
         tokenAddress,
@@ -64,27 +64,30 @@ const useApprove: Hook = (values) => {
     }
   }, [
     address,
-    signSDK,
+    library,
     recipient,
     tokenAddress,
   ])
 
   const approve = useCallback(async (amount?: bigint) => {
     if (!address) {
-      return
+      return Promise.reject('Address is not defined')
+    }
+    if (!library) {
+      return Promise.reject('Library is not defined')
     }
 
     setSubmitting(true)
 
     try {
-      const approveAmount = amount || MaxInt256
+      const approveAmount = amount || MaxUint256
 
       const { hash } = await requests.approve({
-        signSDK,
+        provider: library,
         from: address,
         to: recipient,
         tokenAddress,
-        amount: amount?.toString(),
+        amount,
       })
 
       refetchNativeTokenBalance()
@@ -92,7 +95,7 @@ const useApprove: Hook = (values) => {
 
       if (hash) {
         console.log('approve', {
-          amount: approveAmount === MaxInt256 ? 'MAX' : formatEther(approveAmount),
+          amount: approveAmount === MaxUint256 ? 'MAX' : formatEther(approveAmount),
           tokenAddress,
           recipient,
         })
@@ -110,7 +113,7 @@ const useApprove: Hook = (values) => {
     }
   }, [
     address,
-    signSDK,
+    library,
     recipient,
     tokenAddress,
     refetchNativeTokenBalance,
@@ -138,7 +141,7 @@ useApprove.mock = {
   isFetching: false,
   isSubmitting: false,
   getGas: async () => 0n,
-  approve: async () => undefined,
+  approve: async () => '',
   checkAllowance: async () => undefined,
 }
 

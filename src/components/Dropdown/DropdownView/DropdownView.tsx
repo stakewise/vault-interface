@@ -74,7 +74,7 @@ const DropdownView: DropdownViewComponent = (props: DropdownViewProps) => {
           {
             ({ open }) => {
               if (open && !isOpenRef.current && typeof onOpen === 'function') {
-                onOpen()
+                setTimeout(onOpen)
               }
 
               if (!open && isOpenRef.current && typeof onClose === 'function') {

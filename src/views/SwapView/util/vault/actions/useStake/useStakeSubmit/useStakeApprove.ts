@@ -3,7 +3,7 @@ import { StakeStep } from 'helpers/enums'
 import { useApprove, useFieldListener } from 'hooks'
 
 import type { SetTransaction } from 'components'
-import { Transactions, TransactionStatus } from 'components'
+import { Transactions } from 'components'
 
 
 type SubmitInput = {
@@ -20,6 +20,8 @@ type Input = {
 
 const useStakeApprove = (values: Input) => {
   const { step, field, tokenAddress, recipient, skip } = values
+
+  const wrapTransaction = Transactions.useAction()
 
   const [ isApproveRequired, setApproveRequired ] = useState(false)
 
@@ -42,23 +44,13 @@ const useStakeApprove = (values: Input) => {
   const handleApprove = useCallback(async (values: SubmitInput) => {
     const { setTransaction } = values
 
-    try {
-      setTransaction(step, Transactions.Status.Confirm)
-
-      const hash = await approve()
-
-      setTransaction(step, Transactions.Status.Processing)
-
-      await checkAllowance({ hash, allowance })
-
-      setTransaction(step, Transactions.Status.Success)
-    }
-    catch (error) {
-      setTransaction(step, TransactionStatus.Fail, true)
-
-      return Promise.reject(error)
-    }
-  }, [ step, allowance, approve, checkAllowance ])
+    await wrapTransaction({
+      step,
+      action: approve,
+      confirm: ({ hash }) => checkAllowance({ hash, allowance }),
+      setTransaction,
+    })
+  }, [ step, allowance, approve, checkAllowance, wrapTransaction ])
 
   useFieldListener(field, handleApproveRequired)
 

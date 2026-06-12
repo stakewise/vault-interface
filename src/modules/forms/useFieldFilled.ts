@@ -1,3 +1,4 @@
+'use client'
 import { useState, useCallback, useEffect, useRef } from 'react'
 
 
@@ -8,7 +9,7 @@ const useFieldFilled = <V extends Forms.FieldValue>(field: Forms.Field<V>) => {
   savedFilledStatusRef.current = isFilled
 
   const handleFilledate = useCallback((field: Forms.Field<V>) => {
-    const isFilled = Boolean(field.value)
+    const isFilled = Boolean(typeof field.value === 'string' ? field.value?.trim() : field.value)
 
     if (savedFilledStatusRef.current !== isFilled) {
       setFilled(isFilled)

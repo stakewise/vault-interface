@@ -4,24 +4,29 @@ import cookie from 'helpers/cookie'
 import * as constants from 'helpers/constants'
 
 import wallets from '../../wallets'
-import networks from './networks'
 
 
-const useStorageUpdate = (configState: ConfigProvider.ConfigState) => {
+type Input = {
+  networks: ConfigProvider.Networks
+  configState: ConfigProvider.ConfigState
+}
+
+const useStorageUpdate = ({ networks, configState }: Input) => {
   const { networkId, address, activeWallet, autoConnectChecked } = configState.data
 
   const chainId = networks.chainById[networkId]
 
   // Update cookie network
   useEffect(() => {
-    const isSupportedNetwork = networks.ids.includes(networkId as any) && (
-      IS_PROD ? !networks.configs[networkId].isTestnet : true
+    const networkConfig = networks.configs[networkId]
+    const isSupportedNetwork = Boolean(networkConfig) && (
+      IS_PROD ? !networkConfig.isTestnet : true
     )
 
     if (autoConnectChecked && isSupportedNetwork) {
       cookie.set(constants.cookieNames.networkId, networkId)
     }
-  }, [ networkId, chainId, autoConnectChecked ])
+  }, [ networks, networkId, chainId, autoConnectChecked ])
 
   // Update localStorage wallet name
   useEffect(() => {

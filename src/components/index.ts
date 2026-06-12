@@ -31,6 +31,9 @@ export type { DropdownProps } from './Dropdown/Dropdown'
 export { default as DropdownView } from './Dropdown/DropdownView/DropdownView'
 export type { DropdownViewProps } from './Dropdown/DropdownView/DropdownView'
 
+export { default as DatePicker } from './DatePicker/DatePicker'
+export type { DatePickerProps } from './DatePicker/DatePicker'
+
 export { default as FiatAmount } from './FiatAmount/FiatAmount'
 export type { FiatAmountProps } from './FiatAmount/FiatAmount'
 
@@ -67,6 +70,9 @@ export type { LoadingProps } from './Loading/Loading'
 
 export { default as Logo } from './Logo/Logo'
 export type { LogoProps } from './Logo/Logo'
+
+export { default as WalletIcon } from './WalletIcon/WalletIcon'
+export type { WalletIconProps } from './WalletIcon/WalletIcon'
 
 export { default as MagicIcon } from './MagicIcon/MagicIcon'
 export type { MagicIconProps } from './MagicIcon/MagicIcon'
