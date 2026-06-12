@@ -286,4 +286,20 @@
   window.ethereum = provider
 
   window.dispatchEvent(new Event('ethereum#initialized'))
+
+  const eip6963Info = Object.freeze({
+    uuid: '350670db-19fa-4704-a166-e52e178b59d2',
+    name: 'MetaMask',
+    icon: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciLz4=',
+    rdns: 'metaMask',
+  })
+
+  const announceProvider = () => {
+    window.dispatchEvent(new CustomEvent('eip6963:announceProvider', {
+      detail: Object.freeze({ info: eip6963Info, provider }),
+    }))
+  }
+
+  window.addEventListener('eip6963:requestProvider', announceProvider)
+  announceProvider()
 })()

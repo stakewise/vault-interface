@@ -103,4 +103,3 @@ After updating the colors, run `pnpm colors` — this script will generate RGB v
 ### Favicon
 The favicon is a 16x16 image that is displayed in the browser tab. It is located in the `public` folder.
 By default, osETH logo is used as the favicon.
-

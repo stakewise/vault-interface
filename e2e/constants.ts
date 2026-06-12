@@ -5,30 +5,24 @@ export const cookieNames = {
 export const walletNames = {
   monitorAddress: 'monitorAddress',
   walletConnect: 'walletConnect',
-  trustWallet: 'trustWallet',
   dAppBrowser: 'dAppBrowser',
   gnosisSafe: 'gnosisSafe',
   coinbase: 'coinbase',
   metaMask: 'metaMask',
+  binance: 'binance',
   ledger: 'ledger',
-  zenGo: 'zenGo',
-  taho: 'taho',
-  okx: 'okx',
 }
 
 export const walletTitles = {
   walletConnect: 'WalletConnect',
   monitorAddress: 'Check wallet',
   dAppBrowser: 'DApp Browser',
-  trustWallet: 'Trust Wallet',
   gnosisSafe: 'Gnosis Safe',
   ledgerLive: 'Ledger Live',
   metaMask: 'MetaMask',
+  binance: 'Binance',
   coinbase: 'Coinbase',
   ledger: 'Ledger',
-  zenGo: 'ZenGo',
-  taho: 'Taho',
-  okx: 'OKX',
 } as const
 
 export const addresses = {
