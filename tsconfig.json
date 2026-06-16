@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
     "strict": true,
     "jsx": "react-jsx",
     "rootDir": ".",
@@ -19,13 +18,13 @@
     "forceConsistentCasingInFileNames": true,
     "paths": {
       "*": [
-        "src/*"
+        "./src/*"
       ],
       "scripts/*": [
-        "scripts/*"
+        "./scripts/*"
       ],
       "sdk": [
-        "node_modules/@stakewise/v3-sdk"
+        "./node_modules/@stakewise/v3-sdk"
       ]
     },
     "lib": [
