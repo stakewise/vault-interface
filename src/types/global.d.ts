@@ -52,4 +52,6 @@ declare global {
     const content: any
     export default content
   }
+
+  declare module 'swiper/css*'
 }

@@ -24,12 +24,12 @@ const nextConfig = {
   ],
   sassOptions: {
     additionalData: `
-      @use 'src/styles/variables' as *;
-      @use 'src/styles/mixins/media' as *;
-      @use 'src/styles/mixins/common' as *;
-      @use 'src/styles/mixins/animation' as *;
+      @use 'variables' as *;
+      @use 'mixins/media' as *;
+      @use 'mixins/common' as *;
+      @use 'mixins/animation' as *;
     `,
-    includePaths: [
+    loadPaths: [
       path.join(__dirname, 'src', 'styles'),
     ],
   },

@@ -69,8 +69,8 @@
     "tailwindcss": "4.1.7",
     "terser-webpack-plugin": "5.3.14",
     "typechain": "8.3.2",
-    "typescript": "5.8.3",
-    "typescript-eslint": "8.50.0"
+    "typescript": "6.0.3",
+    "typescript-eslint": "8.61.1"
   },
   "dependencies": {
     "@binance/w3w-ethereum-provider": "1.1.8-alpha.0",
