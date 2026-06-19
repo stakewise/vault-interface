@@ -4,10 +4,10 @@ import cx from 'classnames'
 import ButtonBase from '../../../ButtonBase/ButtonBase'
 import Text from '../../../Text/Text'
 
-import s from './Day.module.scss'
+import s from './Cell.module.scss'
 
 
-type DayProps = {
+type CellProps = {
   className?: string
   title: string
   isActive?: boolean
@@ -16,7 +16,7 @@ type DayProps = {
   onClick: () => void
 }
 
-const Day: React.FC<DayProps> = (props) => {
+const Cell: React.FC<CellProps> = (props) => {
   const { className, title, isActive, isSelected, isDisabled, onClick } = props
 
   const defaultClassName = cx({
@@ -29,7 +29,7 @@ const Day: React.FC<DayProps> = (props) => {
 
   return (
     <ButtonBase
-      className={cx(className, 'transition-opacity duration-500 rounded-4 py-4', {
+      className={cx(className, 'transition-colors rounded-4 py-4', {
         [defaultClassName]: !isDisabled,
         'opacity-10': isDisabled,
       })}
@@ -46,4 +46,4 @@ const Day: React.FC<DayProps> = (props) => {
 }
 
 
-export default React.memo(Day)
+export default React.memo(Cell)
