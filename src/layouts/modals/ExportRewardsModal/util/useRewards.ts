@@ -6,6 +6,7 @@ import forms from 'modules/forms'
 import { useStore } from 'hooks'
 import date from 'modules/date'
 
+import { exportColumns } from './columns'
 import type { ExportForm } from './useForm'
 
 
@@ -24,6 +25,7 @@ type Input = {
 
 const storeSelector = (store: Store) => ({
   currency: store.currency.selected,
+  totalBoostEarnedAssets: store.vault.user.balances.totalBoostEarnedAssets,
 })
 
 const formatFiat = (value: number) => {
@@ -35,8 +37,10 @@ const useRewards = (input: Input) => {
 
   const { sdk, address } = useConfig()
 
-  const { currency } = useStore(storeSelector)
+  const { currency, totalBoostEarnedAssets } = useStore(storeSelector)
   const { values: { from, to } } = forms.useFormValues<ExportForm>(form)
+
+  const hasBoost = totalBoostEarnedAssets > 0n
 
   return useCallback(async () => {
     if (!address || !from || !to) {
@@ -70,6 +74,8 @@ const useRewards = (input: Input) => {
           dailyRewardsJpy,
           dailyRewardsKrw,
           dailyRewardsAud,
+          dailyStakeRewards,
+          dailyBoostRewards,
         } = values
 
         const currentFiatValue = {
@@ -85,20 +91,26 @@ const useRewards = (input: Input) => {
         return ({
           date,
           value: dailyRewards,
+          stakeValue: dailyStakeRewards,
+          boostValue: dailyBoostRewards,
           fiatValue: currentFiatValue[currency],
         })
       })
 
-      const rewards = response.map(({ date: rewardsDate, value, fiatValue }) => {
-        const formattedDate = modifiers.formatDateToNumerical(rewardsDate)
-        const reportDate = `${formattedDate} 00:00 UTC`
-        const formattedFiatValue = Number(fiatValue.replace(',', '.'))
+      const columns = exportColumns.filter((column) => hasBoost || !column.boostOnly)
 
-        return [
-          value,
-          formattedFiatValue,
-          reportDate,
-        ]
+      const rewards = response.map(({ date: rewardsDate, value, stakeValue, boostValue, fiatValue }) => {
+        const formattedDate = modifiers.formatDateToNumerical(rewardsDate)
+
+        const row = {
+          stake: stakeValue,
+          boost: boostValue,
+          total: value,
+          totalFiat: Number(fiatValue.replace(',', '.')),
+          date: `${formattedDate} 00:00 UTC`,
+        }
+
+        return columns.map((column) => row[column.key])
       })
 
       return rewards
@@ -106,7 +118,7 @@ const useRewards = (input: Input) => {
     catch (error: any) {
       console.error('Fetch user rewards fail', error)
     }
-  }, [ sdk, address, vaultAddress, currency, from, to ])
+  }, [ sdk, address, vaultAddress, currency, from, to, hasBoost ])
 }
 
 

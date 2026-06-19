@@ -1,36 +1,38 @@
 type FileFormat = 'xlsx' | 'csv'
 
+const contentTypes: Record<FileFormat, string> = {
+  csv: 'text/csv',
+  xlsx: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+}
+
 const fetchXlsxFile = async (data: any, format: FileFormat = 'xlsx') => {
-  const contentType = {
-    csv: 'text/csv',
-    xlsx: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-  }[format]
+  const { Workbook } = await import('exceljs')
 
-  const { utils, write } = await import('xlsx')
+  const workbook = new Workbook()
+  const workSheet = workbook.addWorksheet('Sheet')
 
-  const workbook = utils.book_new()
-  const workSheet = utils.aoa_to_sheet(data)
+  workSheet.addRows(data)
 
   const maxWidths: number[] = []
 
-  data.forEach((row: any) => {
-    row.forEach((cell: any, index: number) => {
+  data.forEach((row: any[]) => {
+    row.forEach((cell, index) => {
       const cellLength = (cell) ? cell.toString().length : 0
       maxWidths[index] = Math.max(maxWidths[index] || 0, cellLength)
     })
   })
 
-  workSheet['!cols'] = maxWidths.map((width) => ({ wch: Math.max(width, 10) }))
-
-  utils.book_append_sheet(workbook, workSheet)
-
-  const result = write(workbook, { type: 'base64', bookType: format })
-
-  const blob = new Blob([ Buffer.from(result, 'base64') ], {
-    type: contentType,
+  maxWidths.forEach((width, index) => {
+    workSheet.getColumn(index + 1).width = Math.max(width, 10)
   })
 
-  return result ? URL.createObjectURL(blob) : ''
+  const buffer = (format === 'csv')
+    ? await workbook.csv.writeBuffer({ formatterOptions: { writeBOM: true } })
+    : await workbook.xlsx.writeBuffer()
+
+  const blob = new Blob([ buffer ], { type: contentTypes[format] })
+
+  return URL.createObjectURL(blob)
 }
 
 

@@ -6,6 +6,7 @@ import { useConfig } from 'config'
 import { useStore } from 'hooks'
 
 import type { ExportForm } from './useForm'
+import { exportColumns } from './columns'
 import messages from './messages'
 
 
@@ -16,6 +17,7 @@ type Input = {
 
 const storeSelector = (store: Store) => ({
   currency: store.currency.selected,
+  totalBoostEarnedAssets: store.vault.user.balances.totalBoostEarnedAssets,
 })
 
 const useXLSX = (input: Input) => {
@@ -23,16 +25,19 @@ const useXLSX = (input: Input) => {
 
   const { sdk, address } = useConfig()
   const { formatMessage } = intl.useIntl()
-  const { currency } = useStore(storeSelector)
+  const { currency, totalBoostEarnedAssets } = useStore(storeSelector)
   const { values: { from, to, format } } = forms.useFormValues<ExportForm>(form)
 
-  const titles = useMemo(() => (
-    Object.keys(messages.file.headings).map((key) => {
-      const title = messages.file.headings[key as unknown as keyof typeof messages.file.headings]
+  const hasBoost = totalBoostEarnedAssets > 0n
 
-      return formatMessage(title, { token: sdk.config.tokens.depositToken, currency })
-    })
-  ), [ currency, sdk, formatMessage ])
+  const titles = useMemo(() => {
+    const columns = exportColumns.filter((column) => hasBoost || !column.boostOnly)
+
+    return columns.map((column) => formatMessage(messages.file.headings[column.key], {
+      token: sdk.config.tokens.depositToken,
+      currency,
+    }))
+  }, [ hasBoost, currency, sdk, formatMessage ])
 
   return useCallback(async (data: (string | number)[][]) => {
     const response = await requests.fetchXlsxFile([ titles, ...data ], format)
