@@ -1,8 +1,8 @@
 import React, { KeyboardEventHandler, ReactElement, ReactNode, useRef } from 'react'
 import cx from 'classnames'
 import type { Placement } from '@floating-ui/react'
-import { autoUpdate, flip, useFloating } from '@floating-ui/react-dom'
 import { offset, shift, OffsetOptions } from '@floating-ui/react'
+import { autoUpdate, flip, useFloating } from '@floating-ui/react-dom'
 import { Listbox, ListboxButton, ListboxOptions, ListboxOption } from '@headlessui/react'
 
 import s from './Dropdown.module.scss'
@@ -64,17 +64,33 @@ const DropdownView: DropdownViewComponent = (props: DropdownViewProps) => {
   })
 
   return (
-    <div className={cx(className, s.dropdown, 'inline-flex relative')}>
+    <div
+      ref={refs.setReference}
+      className={cx(className, s.dropdown, 'inline-flex relative', {
+        'opacity-50 pointer-events-none': disabled,
+      })}
+    >
       <Listbox
         disabled={disabled}
         value={value}
         onChange={onChange}
       >
-        <ListboxButton as="div" ref={refs.setReference}>
+        <ListboxButton
+          as="div"
+          onKeyDown={(event: React.KeyboardEvent<HTMLDivElement>) => {
+            if (event.key === 'Enter') {
+              // headlessui intercepts the event, so re-dispatch it as space to open the dropdown from the keyboard
+              const spaceEvent = new KeyboardEvent('keydown', { key: ' ', bubbles: true })
+
+              event.preventDefault()
+              event.currentTarget.dispatchEvent(spaceEvent)
+            }
+          }}
+        >
           {
             ({ open }) => {
               if (open && !isOpenRef.current && typeof onOpen === 'function') {
-                setTimeout(onOpen)
+                onOpen()
               }
 
               if (!open && isOpenRef.current && typeof onClose === 'function') {
@@ -90,6 +106,7 @@ const DropdownView: DropdownViewComponent = (props: DropdownViewProps) => {
           }
         </ListboxButton>
         <ListboxOptions
+          modal={false}
           ref={refs.setFloating}
           className={cx(
             s.options,

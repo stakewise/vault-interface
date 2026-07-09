@@ -61,7 +61,7 @@ const Tooltip: React.FC<TooltipProps> = props => {
               dataTestId={`${dataTestId}-content`}
               message={content as Intl.Message}
               color="white"
-              size="t12"
+              size="xs"
               html
             />
           )

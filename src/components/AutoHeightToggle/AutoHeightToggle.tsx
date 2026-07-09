@@ -1,5 +1,5 @@
-import React, { useRef } from 'react'
-import { useIsomorphicLayoutEffect } from 'hooks'
+import React, { useCallback, useRef } from 'react'
+import { useEventListener, useIsomorphicLayoutEffect } from 'hooks'
 import cx from 'classnames'
 
 import s from './AutoHeightToggle.module.scss'
@@ -22,30 +22,30 @@ const AutoHeightToggle: React.FC<AutoHeightToggleProps> = (props) => {
   const childrenRef = useRef<HTMLDivElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
 
-  useIsomorphicLayoutEffect(() => {
-    const isInit = containerRef.current && contentRef.current && childrenRef.current
-
-    if (!isInit) {
+  const updateHeight = useCallback(() => {
+    if (!containerRef.current || !childrenRef.current) {
       return
     }
 
-    if (isOpen) {
-      const contentHeight = contentRef.current?.clientHeight as number
-      const containerHeight = childrenRef.current?.clientHeight as number
-      const marginTop = parseFloat(getComputedStyle(contentRef.current as HTMLDivElement).marginTop)
+    if (isOpen && contentRef.current) {
+      const contentHeight = contentRef.current.clientHeight
+      const childrenHeight = childrenRef.current.clientHeight
+      const marginTop = parseFloat(getComputedStyle(contentRef.current).marginTop)
 
-      if (containerRef.current) {
-        containerRef.current.style.height = `calc(${padding * 2}px + ${contentHeight + containerHeight + marginTop}px)`
-      }
+      containerRef.current.style.height = `calc(${padding * 2}px + ${contentHeight + childrenHeight + marginTop}px)`
     }
     else {
-      const height = childrenRef.current?.clientHeight
+      const height = childrenRef.current.clientHeight
 
-      if (containerRef.current) {
-        containerRef.current.style.height = `calc(${padding * 2}px + ${height}px)`
-      }
+      containerRef.current.style.height = `calc(${padding * 2}px + ${height}px)`
     }
+  }, [ isOpen, padding ])
+
+  useIsomorphicLayoutEffect(() => {
+    updateHeight()
   }, [ isOpen, toggleContent ])
+
+  useEventListener('resize', updateHeight)
 
   const containerClassName = cx(className, s.container, `p-${padding} relative`)
 

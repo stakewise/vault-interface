@@ -73,8 +73,12 @@ $bg-color-error-hover: rgba($color-error-rgb, .15);
   }
 }
 
+.crossButton:focus {
+  opacity: 1;
+}
+
 .label {
-  top: 14px;
+  top: 12px;
   pointer-events: none;
   @include basic-transition();
 }
@@ -103,4 +107,15 @@ $bg-color-error-hover: rgba($color-error-rgb, .15);
 .crossButton {
   opacity: 0;
   @include basic-transition();
+}
+
+.isCustomFocus {
+
+  &:not(.disabled) {
+    &.focused {
+      @include shadow-xl;
+      @include field-colors($border-color-hover, rgba($color-white-rgb, .5));
+    }
+  }
+
 }

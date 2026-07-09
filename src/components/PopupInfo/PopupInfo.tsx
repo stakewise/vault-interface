@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import cx from 'classnames'
 import device from 'modules/device'
+import cx from 'classnames'
 import {
   flip,
   shift,
@@ -35,7 +35,7 @@ const PopupInfo: React.FC<PopupInfoProps> = (props) => {
 
   const { refs, floatingStyles, context } = useFloating({
     open: isOpen,
-    placement: isDesktop ? 'top-end' : 'top',
+    placement: !isDesktop ? 'top' : 'top-end',
     middleware: [
       offset(10),
       flip({
@@ -69,7 +69,7 @@ const PopupInfo: React.FC<PopupInfoProps> = (props) => {
   return (
     <div className={cx(className, 'relative')}>
       <div
-        className={cx(buttonClassName, 'flex cursor-pointer')}
+        className={cx(buttonClassName, 'cursor-pointer')}
         ref={refs.setReference}
         {...getReferenceProps()}
       >

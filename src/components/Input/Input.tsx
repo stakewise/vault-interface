@@ -1,11 +1,24 @@
 import React, { useCallback, useState } from 'react'
 import { formatEther, parseEther } from 'ethers'
 import forms from 'modules/forms'
+import intl from 'modules/intl'
 
 import InputView, { InputViewProps } from './InputView/InputView'
 
 
+type InputMask = keyof typeof forms.masks
+
+const applyMask = (value: string, mask: InputMask | undefined): string => {
+  if (mask && typeof forms.masks[mask] === 'function') {
+    return forms.masks[mask](value)
+  }
+
+  return value
+}
+
 export type InputProps = Omit<InputViewProps, 'value'> & {
+  type?: React.HTMLInputTypeAttribute
+  mask?: InputMask
   withCrossButton?: boolean
   withChangeValue?: boolean
   field: Forms.Field<string | bigint>
@@ -15,40 +28,44 @@ export type InputProps = Omit<InputViewProps, 'value'> & {
 const Input: React.FC<InputProps> = (props) => {
   const {
     className, field, label, disabled, autoFocus, dataTestId,
-    buttonTitle, description, secondaryButtonTitle, multiline,
-    elementClassName,
+    buttonTitle, description, isButtonDisabled, multiline,
+    elementClassName, placeholder, isCustomFocus, mask,
 
     withCrossButton = true,
     withChangeValue = true,
 
-    onButtonClick, onSecondaryButtonClick, onChange, onFocus, onBlur, ...otherProps
+    onButtonClick, onChange, onFocus, onBlur, onEnter, ...otherProps
   } = props
 
   const [ dot, setDot ] = useState(false)
   const { value, error } = forms.useFieldValue(field)
 
-  const handleChange = useCallback((value: string) => {
+  const intlRef = intl.useIntlRef()
+
+  const handleChange = useCallback((rawValue: string) => {
+    const maskedValue = applyMask(rawValue, mask)
+
     if (typeof onChange === 'function') {
-      onChange(value)
+      onChange(maskedValue)
     }
 
     if (withChangeValue) {
-      if (value === undefined) {
-        field.setValue(value)
+      if (maskedValue === undefined) {
+        field.setValue(maskedValue)
 
         return
       }
 
       if (field.isBigInt) {
-        if (!value) {
+        if (!maskedValue) {
           field.setValue(undefined)
 
           return
         }
 
-        const isValid = /^\d+\.?\d*$/.test(value)
+        const isValid = /^\d+\.?\d*$/.test(maskedValue)
 
-        if (value[value.length - 1] === '.') {
+        if (maskedValue[maskedValue.length - 1] === '.') {
           setDot(true)
         }
         else {
@@ -59,15 +76,15 @@ const Input: React.FC<InputProps> = (props) => {
           return
         }
 
-        const result = parseEther(value)
+        const result = parseEther(maskedValue)
 
         field.setValue(result)
       }
       else {
-        field.setValue(value)
+        field.setValue(maskedValue)
       }
     }
-  }, [ field, withChangeValue, onChange ])
+  }, [ field, withChangeValue, onChange, mask ])
 
   const handleCrossClick = withCrossButton
     ? () => field.reset()
@@ -75,6 +92,10 @@ const Input: React.FC<InputProps> = (props) => {
 
   if (!field.isString && !field.isBigInt) {
     throw new Error('Input should work with bigint or string field')
+  }
+
+  if (label && placeholder) {
+    throw new Error('You should use either label or placeholder, not both')
   }
 
   const formattedValue: string | undefined = (() => {
@@ -91,6 +112,12 @@ const Input: React.FC<InputProps> = (props) => {
     return field.value as string
   })()
 
+  const formattedPlaceholder: Intl.Message | string | undefined = (() => {
+    if (placeholder) {
+      return intlRef.current.formatMessage(placeholder as Intl.MessageTranslation)
+    }
+  })()
+
   return (
     <InputView
       className={className}
@@ -104,14 +131,16 @@ const Input: React.FC<InputProps> = (props) => {
       buttonTitle={buttonTitle}
       description={description}
       isRequired={field.isRequired}
+      isCustomFocus={isCustomFocus}
+      placeholder={formattedPlaceholder}
+      isButtonDisabled={isButtonDisabled}
       elementClassName={elementClassName}
-      secondaryButtonTitle={secondaryButtonTitle}
       onBlur={onBlur}
       onFocus={onFocus}
+      onEnter={onEnter}
       onChange={handleChange}
       onButtonClick={onButtonClick}
       onCrossClick={handleCrossClick}
-      onSecondaryButtonClick={onSecondaryButtonClick}
       {...otherProps}
     />
   )

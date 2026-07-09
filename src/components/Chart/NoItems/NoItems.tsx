@@ -17,17 +17,18 @@ const NoItems: React.FC<NoItemsProps> = (props) => {
     <div className={className}>
       <div className="absolute h-full w-full flex items-center flex-col justify-center">
         <Text
+          className="font-medium"
           message={messages.noItems}
           color="dark"
-          size="t18m"
+          size="lg"
         />
         {
           description && (
             <Text
-              className="mt-4 opacity-50 text-center"
+              className="mt-4 opacity-50 text-center font-medium"
               message={description}
               color="dark"
-              size="t14m"
+              size="sm"
             />
           )
         }

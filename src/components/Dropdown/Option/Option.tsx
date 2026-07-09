@@ -18,39 +18,42 @@ type OptionProps = {
   logo?: LogoName
   icon?: IconName
   active?: boolean
+  focused?: boolean
   isError?: boolean
   withArrow?: boolean
   onClick?: () => void
 }
 
 const Option: React.FC<OptionProps> = (props) => {
-  const { className, title, subTitle, logo, icon, active, isError, withArrow, onClick } = props
+  const { className, title, subTitle, logo, icon, active, focused, isError, withArrow, onClick } = props
 
   const titleClassName = cx('whitespace-nowrap', {
     'ml-12': logo || icon,
+    'opacity-70': !active,
   })
 
   return (
     <div
       className={cx(s.option, className, 'flex items-center pl-16 pr-24 cursor-pointer', {
         'bg-primary/10': active,
+        'bg-dark/5': focused && !active,
         [s.withSubTitle]: subTitle,
       })}
       onClick={onClick}
     >
       {
         Boolean(logo || icon) && (
-          <div className={cx(s.logo, 'flex rounded-full p-4')}>
+          <div className={cx(s.logo, 'rounded-full p-4')}>
             {
               logo ? (
                 <Logo
                   name={logo as LogoName}
-                  size={24}
+                  size={20}
                 />
               ) : (
                 <Icon
                   name={icon as IconName}
-                  size={24}
+                  size={20}
                   color="dark"
                 />
               )
@@ -67,9 +70,8 @@ const Option: React.FC<OptionProps> = (props) => {
               withArrow={withArrow}
             />
             <Text
-              className="opacity-50"
               message={subTitle as string}
-              size="t12"
+              size="xs"
               color="dark"
             />
           </div>

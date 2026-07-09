@@ -1,10 +1,10 @@
-<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path opacity="0.4" d="M14.0025 7.99998H12.0017" stroke="white" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/>
-<path opacity="0.7" d="M1.99756 7.99998H3.99839" stroke="white" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/>
-<path opacity="0.9" d="M7.99998 1.99756V3.99839" stroke="white" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/>
-<path opacity="0.5" d="M7.99998 14.0025V12.0017" stroke="white" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/>
-<path opacity="0.4" d="M12.2444 12.2444L10.8298 10.8298" stroke="white" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/>
-<path opacity="0.8" d="M3.75562 3.75562L5.1702 5.1702" stroke="white" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/>
-<path opacity="0.2" d="M10.8298 5.1702L12.2444 3.75562" stroke="white" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/>
-<path opacity="0.6" d="M5.1702 10.8298L3.75562 12.2444" stroke="white" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/>
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M12.421 4L12.421 7.36842" stroke="black" stroke-linecap="round"/>
+    <path d="M12.421 16.8L12.421 20.1684" stroke="black" stroke-opacity="0.3" stroke-linecap="round"/>
+    <path d="M20 12.4932L16.6316 12.4932" stroke="black" stroke-opacity="0.1" stroke-linecap="round"/>
+    <path d="M7.36841 12.4932L3.99999 12.4932" stroke="black" stroke-opacity="0.6" stroke-linecap="round"/>
+    <path d="M17.8401 6.59848L15.4583 8.98031" stroke="black" stroke-opacity="0.05" stroke-linecap="round"/>
+    <path d="M8.9082 15.5304L6.52637 17.9122" stroke="black" stroke-opacity="0.4" stroke-linecap="round"/>
+    <path d="M6.52637 6.59848L8.9082 8.98031" stroke="black" stroke-opacity="0.8" stroke-linecap="round"/>
+    <path d="M15.4581 15.5304L17.84 17.9122" stroke="black" stroke-opacity="0.2" stroke-linecap="round"/>
 </svg>

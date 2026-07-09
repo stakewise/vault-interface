@@ -4,7 +4,7 @@ import Token from '../Token/Token'
 import TokenAmountInputView, { TokenAmountInputViewProps } from '../TokenAmountInputView/TokenAmountInputView'
 
 
-export type TokenAmountInputProps = Omit<TokenAmountInputViewProps, 'disabled' | 'tokenNode'>
+export type TokenAmountInputProps = Omit<TokenAmountInputViewProps, 'tokenNode'>
 
 const TokenAmountInput: React.FC<TokenAmountInputProps> = (props) => {
   const {
@@ -12,7 +12,7 @@ const TokenAmountInput: React.FC<TokenAmountInputProps> = (props) => {
     label,
     field,
     balance,
-    loading,
+    disabled,
     dataTestId,
     bottomNode,
     onChange,
@@ -26,7 +26,7 @@ const TokenAmountInput: React.FC<TokenAmountInputProps> = (props) => {
       className={className}
       label={label}
       field={field}
-      loading={loading}
+      disabled={disabled}
       balance={balance}
       dataTestId={dataTestId}
       bottomNode={bottomNode}

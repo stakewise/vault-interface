@@ -1,13 +1,13 @@
 import React, { useMemo } from 'react'
-import cx from 'classnames'
 import { useTabButton } from 'hooks'
+import theme from 'modules/theme'
 import forms from 'modules/forms'
+import cx from 'classnames'
 
 import Text from '../Text/Text'
 import ButtonBase from '../ButtonBase/ButtonBase'
 import type { SelectProps } from '../Select/Select'
 
-import s from './ButtonRangePicker.module.scss'
 import messages from './messages'
 
 
@@ -21,6 +21,7 @@ export type ButtonRangePickerProps = {
 const ButtonRangePicker: React.FC<ButtonRangePickerProps> = (props) => {
   const { className, field, dataTestId, range } = props
 
+  const { isDark } = theme.useData()
   const { value } = forms.useFieldValue(field)
 
   const activeIndex = useMemo(() => {
@@ -37,7 +38,7 @@ const ButtonRangePicker: React.FC<ButtonRangePickerProps> = (props) => {
       className={cx(
         className,
         'relative',
-        'flex rounded-12 border border-secondary/10'
+        'flex rounded-16 border border-dark/10'
       )}
       data-testid={dataTestId}
     >
@@ -45,29 +46,28 @@ const ButtonRangePicker: React.FC<ButtonRangePickerProps> = (props) => {
         range.map((item, index) => (
           <ButtonBase
             key={item.value}
-            className={cx(s.rounded, 'py-4 px-8')}
+            className="rounded-16 py-4 px-8"
             dataTestId={`${dataTestId}-button`}
             ariaLabel={messages.buttonRange}
             onClick={() => field.setValue(item.value)}
           >
             <Text
-              className={cx('hover:opacity-100', {
+              className={cx('hover:opacity-100 font-medium', {
                 'opacity-50': index !== activeIndex,
               })}
               message={item.title || ''}
               color="dark"
-              size="t14m"
+              size="sm"
             />
           </ButtonBase>
         ))
       }
       <div
         ref={tabButtonRef}
-        className={cx(
-          s.rounded,
-          'bg-dark/3 py-4 px-8',
-          'absolute top-0 left-0 transition-all duration-200 pointer-events-none'
-        )}
+        className={cx('absolute py-4 px-8 rounded-16 top-0 left-0 transition-all duration-200 pointer-events-none',{
+          'bg-white/25': isDark,
+          'bg-dark/10': !isDark,
+        })}
       />
     </div>
   )

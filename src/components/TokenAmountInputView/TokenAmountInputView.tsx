@@ -17,12 +17,14 @@ export type TokenAmountInputViewProps = {
   className?: string
   field: Forms.Field<string | bigint>
   label?: Intl.Message | string
-  loading?: boolean
+  disabled?: boolean
   balance: {
     title?: Intl.Message
     value?: bigint
     token: Tokens
     units?: number
+    hidden?: boolean
+    isFetching?: boolean
   }
   dataTestId?: string
   tokenNode: ReactNode
@@ -36,7 +38,7 @@ const TokenAmountInputView: React.FC<TokenAmountInputViewProps> = (props) => {
     className,
     label,
     field,
-    loading,
+    disabled,
     balance,
     tokenNode,
     dataTestId,
@@ -54,36 +56,43 @@ const TokenAmountInputView: React.FC<TokenAmountInputViewProps> = (props) => {
 
   return (
     <div
-      className={cx(className, {
-        'opacity-50': loading,
-      })}
+      className={className}
     >
       {
         Boolean(label) && (
           <Text
-            className="mb-16"
+            className={cx('mb-16', {
+              'font-medium': isDesktop,
+              'opacity-50': disabled,
+            })}
             message={label as string}
-            size={!isDesktop ? 't12' : 't14m'}
+            size={!isDesktop ? 'xs' : 'sm'}
             color="dark"
             dataTestId={dataTestId ? `${dataTestId}-label` : ''}
           />
         )
       }
-      <div className="pt-16 px-16 pb-8 flex flex-col bg-dark/5 rounded-8">
+      <div
+        className={cx('pt-16 px-16 pb-8 flex flex-col bg-dark/5 rounded-8', {
+          'opacity-30': disabled,
+        })}
+      >
         <div
           className={cx('mb-16 flex justify-between items-center w-full', {
             'pt-8': !isDesktop,
           })}
         >
           <Input
-            className="flex-1"
+            className={cx('flex-1', {
+              'opacity-50': disabled,
+            })}
             value={formattedValue}
             error={Boolean(error)}
-            disabled={loading || !balance.value}
+            disabled={disabled || !balance.value}
             isRequired={field.isRequired}
             dataTestId={dataTestId}
             onChange={(value: string) => {
-              if (loading) {
+              if (disabled) {
                 return
               }
 
@@ -100,29 +109,36 @@ const TokenAmountInputView: React.FC<TokenAmountInputViewProps> = (props) => {
           className={cx('flex items-end w-full', {
             'justify-between' : isDesktop,
             'justify-end' : !isDesktop,
+            'opacity-50': disabled,
           })}
         >
           {
             isDesktop && (
               <FiatAmount
+                className="opacity-70"
                 amount={formattedValue || '0'}
                 token={balance.token}
-                color="secondary"
-                size="t14"
+                color="dark"
+                size="sm"
               />
             )
           }
           {
-            typeof onMaxButtonClick === 'function' && (
+            !balance.hidden && (
               <Balance
-                loading={loading}
+                disabled={disabled}
                 title={balance.title}
                 value={formatUnits(balance.value || 0n, balance.units || 18)}
+                isFetching={balance.isFetching}
                 dataTestId={dataTestId ? `${dataTestId}-balance` : ''}
-                onClick={() => {
-                  setSpecialFormat(null)
-                  onMaxButtonClick()
-                }}
+                onClick={(
+                  typeof onMaxButtonClick === 'function'
+                    ? () => {
+                      setSpecialFormat(null)
+                      onMaxButtonClick()
+                    }
+                    : undefined
+                )}
               />
             )
           }
@@ -131,9 +147,9 @@ const TokenAmountInputView: React.FC<TokenAmountInputViewProps> = (props) => {
         {
           error && (
             <Text
-              className="flex-1 mt-6"
+              className="flex-1 mt-6 font-medium"
               message={error}
-              size="t14m"
+              size="sm"
               color="error"
             />
           )

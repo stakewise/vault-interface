@@ -1,0 +1,38 @@
+export default {
+  boost: {
+    en: 'Boost',
+    ru: 'Буст',
+    fr: 'Boost',
+    es: 'Boost',
+    pt: 'Boost',
+    de: 'Boost',
+    zh: 'Boost',
+  },
+  stake: {
+    en: 'Stake',
+    ru: 'Стейкинг',
+    fr: 'Staking',
+    es: 'Staking',
+    pt: 'Staking',
+    de: 'Staking',
+    zh: '质押',
+  },
+  total: {
+    en: 'Total',
+    ru: 'Всего',
+    fr: 'Total',
+    es: 'Total',
+    pt: 'Total',
+    de: 'Gesamt',
+    zh: '总计',
+  },
+  rewards: {
+    en: 'Your rewards',
+    ru: 'Ваши награды',
+    fr: 'Vos récompenses',
+    es: 'Sus recompensas',
+    pt: 'Suas recompensas',
+    de: 'Ihre Belohnungen',
+    zh: '您的奖励',
+  },
+}

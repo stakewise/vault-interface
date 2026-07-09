@@ -2,6 +2,7 @@ import React from 'react'
 import { methods } from 'helpers'
 import device from 'modules/device'
 
+import Bone from '../../Bone/Bone'
 import Text from '../../Text/Text'
 import ButtonBase from '../../ButtonBase/ButtonBase'
 
@@ -11,13 +12,14 @@ import messages from './messages'
 export type BalanceProps = {
   title?: Intl.Message
   value?: bigint | string
-  loading?: boolean
+  disabled?: boolean
   dataTestId?: string
+  isFetching?: boolean
   onClick?: () => void
 }
 
 const Balance: React.FC<BalanceProps> = (props) => {
-  const { title, loading, value, dataTestId, onClick } = props
+  const { title, disabled, value, dataTestId, isFetching, onClick } = props
 
   const { isDesktop } = device.useData()
   const formattedBalance = methods.formatTokenValue(value || 0n)
@@ -27,33 +29,44 @@ const Balance: React.FC<BalanceProps> = (props) => {
       className="flex items-end"
       data-testid={dataTestId}
     >
-      <Text
-        className="whitespace-nowrap"
-        message={{
-          ...(title || messages.balance),
-          values: {
-            balance: formattedBalance,
-          },
-        }}
-        size={isDesktop ? 't14m' : 't12m'}
-        color="secondary"
-      />
       {
-        Boolean(Number(value)) && typeof onClick === 'function' && (
-          <ButtonBase
-            className="ml-8 hover:opacity-90"
-            disabled={loading}
-            type="button"
-            dataTestId="max-button"
-            ariaLabel={messages.setMaxValue}
-            onClick={onClick}
-          >
+        isFetching ? (
+          <Bone
+            textSize={isDesktop ? 'sm' : 'xs'}
+            w={140}
+          />
+        ) : (
+          <>
             <Text
-              message="Max"
-              color="primary"
-              size={isDesktop ? 't14b' : 't12b'}
+              className="whitespace-nowrap opacity-70"
+              message={{
+                ...(title || messages.balance),
+                values: {
+                  balance: formattedBalance,
+                },
+              }}
+              size={isDesktop ? 'sm' : 'xs'}
+              color="dark"
             />
-          </ButtonBase>
+            {
+              Boolean(Number(value)) && typeof onClick === 'function' && (
+                <ButtonBase
+                  className="ml-8 hover:opacity-90 font-bold"
+                  disabled={disabled}
+                  type="button"
+                  dataTestId="max-button"
+                  ariaLabel={messages.setMaxValue}
+                  onClick={onClick}
+                >
+                  <Text
+                    message="Max"
+                    color="primary"
+                    size={isDesktop ? 'sm' : 'xs'}
+                  />
+                </ButtonBase>
+              )
+            }
+          </>
         )
       }
     </div>

@@ -1,7 +1,7 @@
 .overlay {
   overflow-y: auto;
-  -webkit-backdrop-filter: blur(28px);
-  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
   @include fade-in(animation, 300ms, ease);
 
   @include light-theme {
@@ -36,7 +36,13 @@
   transition: all;
 }
 
-@include except-desktop {
+@include mobile {
+  .modal {
+    border: none !important;
+  }
+}
+
+@include mobile {
 
   .modal {
     width: 100%;
@@ -45,6 +51,18 @@
 
   .content {
     overflow: auto;
+  }
+}
+
+@include tablet {
+
+  .narrow {
+    width: 400px;
+  }
+
+  .wide {
+    width: calc(100% - 48px);
+    max-width: 600px;
   }
 }
 

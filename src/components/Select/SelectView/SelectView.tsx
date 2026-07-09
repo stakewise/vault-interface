@@ -15,6 +15,7 @@ export type SelectViewProps = {
   placement?: DropdownProps['placement']
   dataTestId?: string
   isError?: boolean
+  disabled?: boolean
   label?: Intl.Message | string
   options: DropdownOption[]
   onChange: (value: string) => void
@@ -22,7 +23,7 @@ export type SelectViewProps = {
 
 const SelectView: React.FC<SelectViewProps> = (props) => {
   const {
-    className, value, label, options, placement, dataTestId = 'select', isError,
+    className, value, label, options, placement, dataTestId = 'select', isError, disabled,
     onChange, ...otherProps
   } = props
 
@@ -38,6 +39,7 @@ const SelectView: React.FC<SelectViewProps> = (props) => {
       placement={placement}
       options={options}
       value={value}
+      disabled={disabled}
       withArrow
       dataTestId={dataTestId}
       button={({ isOpen }) => label ? (
@@ -45,6 +47,7 @@ const SelectView: React.FC<SelectViewProps> = (props) => {
           className="w-full"
           label={label}
           fullWidth
+          disabled={disabled}
           isError={isError}
           title={selectedOption?.title}
           dataTestId={`${dataTestId}-button`}
@@ -55,6 +58,7 @@ const SelectView: React.FC<SelectViewProps> = (props) => {
         <SelectButton
           className="w-full"
           fullWidth
+          disabled={disabled}
           isError={isError}
           logo={selectedOption?.logo}
           title={selectedOption?.title}

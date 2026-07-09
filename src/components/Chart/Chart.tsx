@@ -4,6 +4,7 @@ import cx from 'classnames'
 import Legend from './Legend/Legend'
 import NoItems from './NoItems/NoItems'
 import Skeleton from './Skeleton/Skeleton'
+import ExtraRewards from './ExtraRewards/ExtraRewards'
 import NotConnected from './NotConnected/NotConnected'
 
 import { useChart, Views } from './util'
@@ -21,6 +22,7 @@ export type ChartProps = {
   isNotConnected?: boolean
   hideRightScale?: boolean
   showLegendOnHover?: boolean
+  showExtraRewards?: boolean
   pointType: Charts.PointType
   noItemsDescription?: Intl.Message
   expandSettings?: Charts.ExpandSettings
@@ -28,7 +30,18 @@ export type ChartProps = {
 }
 
 const Chart: React.FC<ChartProps> = (props) => {
-  const { className, token, height, pointType, dataTestId, legendClassName, noItemsDescription, connect } = props
+  const {
+    className,
+    data,
+    token,
+    height,
+    pointType,
+    dataTestId,
+    legendClassName,
+    showExtraRewards,
+    noItemsDescription,
+    connect,
+  } = props
 
   const {
     view,
@@ -67,15 +80,25 @@ const Chart: React.FC<ChartProps> = (props) => {
       }
       {
         view === Views.Legend && (
-          <div className="absolute top-6 left-6 z-10">
-            <Legend
-              className={legendClassName}
-              chart={chart as Charts.Chart}
-              pointType={pointType}
-              dataArr={dataArr}
+          showExtraRewards ? (
+            <ExtraRewards
+              data={data}
               token={token}
+              container={containerRef}
+              series={dataArr[0]?.series}
+              chart={chart as Charts.Chart}
             />
-          </div>
+          ) : (
+            <div className="absolute top-6 left-6 z-10">
+              <Legend
+                className={legendClassName}
+                chart={chart as Charts.Chart}
+                pointType={pointType}
+                dataArr={dataArr}
+                token={token}
+              />
+            </div>
+          )
         )
       }
     </div>

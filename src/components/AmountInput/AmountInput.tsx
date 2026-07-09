@@ -35,7 +35,7 @@ const AmountInput: React.FC<AmountInputProps> = (props) => {
 
   return (
     <input
-      className={cx(s.input, className, 'w-full', {
+      className={cx(s.input, className, 'w-full font-medium', {
         'text-dark': !error,
         'text-error': error,
         'text-h20': !isDesktop,

@@ -1,5 +1,4 @@
 import React, { useRef, useEffect, useCallback } from 'react'
-import 'modules/notifications' // for get types
 import cx from 'classnames'
 
 import Icon from '../Icon/Icon'
@@ -13,9 +12,9 @@ import messages from './messages'
 
 
 const typesOfLogos = {
-  info: 'image/information',
   error: 'image/error',
   success: 'image/success',
+  info: 'image/information',
 }
 
 const Notification: React.FC<Notifications.NotificationProps> = (props) => {
@@ -49,7 +48,7 @@ const Notification: React.FC<Notifications.NotificationProps> = (props) => {
 
   const notificationClassName = cx(
     s.notification,
-    'relative inline-flex items-center rounded-12 px-16 py-8 pr-56 mt-12 relative overflow-hidden',
+    'relative inline-flex items-center px-16 py-8 pr-56 mt-12 shadow-md',
     s[type]
   )
 
@@ -73,11 +72,11 @@ const Notification: React.FC<Notifications.NotificationProps> = (props) => {
         size={24}
       />
       <Text
-        className="overflow-hidden ml-16 relative"
+        className="overflow-hidden ml-16 relative font-medium"
         id={`${dataTestId}-text`}
         message={text}
         color="dark"
-        size="t12m"
+        size="xs"
         dataTestId={`${dataTestId}-text`}
         html
       />

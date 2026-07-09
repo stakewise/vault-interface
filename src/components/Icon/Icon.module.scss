@@ -1,11 +1,11 @@
 .down {
-  transform: rotate(180deg);
+  transform: rotate(90deg);
 }
 
 .left {
-  transform: rotate(-90deg);
+  transform: rotate(180deg);
 }
 
-.right {
-  transform: rotate(90deg);
+.up {
+  transform: rotate(-90deg);
 }

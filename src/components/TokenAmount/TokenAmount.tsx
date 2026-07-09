@@ -32,15 +32,15 @@ export type TokenAmountProps = {
 const params = {
   sm: {
     logoSize: 16,
-    textSize: 't14m',
+    textSize: 'sm',
   },
   md: {
-    logoSize: 24,
-    textSize: 't18m',
+    logoSize: 18,
+    textSize: 'md',
   },
   xl: {
-    logoSize: 24,
-    textSize: 'h20',
+    logoSize: 20,
+    textSize: 'lg',
   },
 } as const
 
@@ -69,7 +69,7 @@ const TokenAmount: React.FC<TokenAmountProps> = (props) => {
         size={logoSize}
       />
       <Text
-        className="ml-4"
+        className="ml-4 font-medium"
         message={methods.formatTokenValue(value, withMinimalValue)}
         size={textSize}
         color={textColor}

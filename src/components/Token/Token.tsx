@@ -25,8 +25,9 @@ const Token: React.FC<TokenProps> = (props) => {
         name={`token/${token}`}
       />
       <Text
+        className="font-bold"
         message={token}
-        size={!isDesktop ? 't14b' : 'h20'}
+        size={!isDesktop ? 'sm' : 'lg'}
         color="dark"
         dataTestId={dataTestId}
       />

@@ -1,5 +1,5 @@
 import React from 'react'
-import device from 'modules/device'
+import { device } from 'sw-utils/modules'
 
 import Bone from '../../Bone/Bone'
 
@@ -10,15 +10,15 @@ type SkeletonProps = {
 
 const Skeleton: React.FC<SkeletonProps> = ({ className }) => {
   const { isDesktop } = device.useData()
-  const columns = isDesktop ? 6 : 4
+  const columns = !isDesktop ? 4 : 6
 
   return (
     <div className={className}>
       <div className="absolute top-4 right-4 pb-32 h-full">
-        <Bone className="mr-48 h-full w-px bg-dark/3" />
+        <Bone className="mr-48 h-full w-px bg-moon/3" />
       </div>
       <div className="absolute w-full pr-48 bottom-4">
-        <Bone className="mb-32 w-full h-px bg-dark/3" />
+        <Bone className="mb-32 w-full h-px bg-moon/3" />
       </div>
       <div>
         {
