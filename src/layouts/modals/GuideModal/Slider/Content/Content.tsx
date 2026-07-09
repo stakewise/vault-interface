@@ -53,12 +53,12 @@ const Content: React.FC<ContentProps> = (props) => {
             }}
           >
             <Text
-              className={cx('py-24 px-12', {
+              className={cx('py-24 px-12 font-medium', {
                 'min-h-[88px]': isDesktop,
               })}
               message={text as Intl.Message}
               color="dark"
-              size="t14m"
+              size="sm"
               HrefComponent={withHref ? Href : undefined}
               html={withHref}
             />

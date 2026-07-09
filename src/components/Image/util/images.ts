@@ -48,6 +48,7 @@ export const logos = [
 
   'image/file',
   'image/error',
+  'image/magic',
   'image/party',
   'image/cancel',
   'image/success',

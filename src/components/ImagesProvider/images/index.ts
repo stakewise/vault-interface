@@ -43,6 +43,7 @@ import monitorAddress from './connector/monitorAddress.svg'
 
 import file from './image/file.svg'
 import error from './image/error.svg'
+import magic from './image/magic.svg'
 import party from './image/party.svg'
 import cancel from './image/cancel.svg'
 import success from './image/success.svg'
@@ -181,6 +182,7 @@ export default {
 
   'image/file': file.src,
   'image/error': error.src,
+  'image/magic': magic.src,
   'image/party': party.src,
   'image/cancel': cancel.src,
   'image/success': success.src,

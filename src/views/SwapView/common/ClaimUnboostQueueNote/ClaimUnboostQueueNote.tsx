@@ -32,10 +32,10 @@ const ClaimUnboostQueueNote: React.FC<ClaimUnboostQueueNoteProps> = (props) => {
       dataTestId="exit-queue-note"
       CustomComponent={() => (
         <Text
-          className="underline lowercase align-baseline"
+          className="underline font-medium lowercase align-baseline"
           color="warning"
           tag="button"
-          size="t14m"
+          size="sm"
           dataTestId="balances-link"
           message={commonMessages.buttonTitle.claimed}
           onClick={() => tabs.setTab(Tab.Balance)}

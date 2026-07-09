@@ -37,10 +37,10 @@ const Address: React.FC<AddressProps> = (props) => {
           size={16}
         />
         <Text
-          className="ml-8"
+          className="ml-8 font-medium"
           message={shortAddress}
           color="dark"
-          size="t14m"
+          size="sm"
         />
       </div>
       <div className="flex justify-end items-center">

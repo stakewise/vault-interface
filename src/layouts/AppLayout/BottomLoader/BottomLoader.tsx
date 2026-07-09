@@ -63,9 +63,9 @@ const BottomLoader: React.FC = (): React.ReactPortal | null => {
           size={16}
         />
         <Text
-          className="ml-16"
+          className="ml-16 font-medium"
           message={content as Intl.Message}
-          size="t12m"
+          size="xs"
           color="dark"
           dataTestId="bottom-loader-text"
         />

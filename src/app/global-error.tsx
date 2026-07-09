@@ -86,13 +86,13 @@ const GlobalError = ({ error, reset }: GlobalErrorViewProps) => {
                 className="text-center"
                 message={messages.error.title}
                 color="dark"
-                size="h32"
+                size="h4"
               />
               <Text
                 className="mt-16 text-center"
                 message={messages.error.text}
                 color="dark"
-                size="t14"
+                size="sm"
               />
               <Button
                 className="mt-32"

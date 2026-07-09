@@ -46,11 +46,11 @@ const Note: React.FC<NoteProps> = (props) => {
       data-testid={dataTestId}
     >
       <Text
-        className={cx({ 'text-center': center })}
+        className={cx('font-medium', { 'text-center': center })}
         HrefComponent={Href}
         message={text}
         color={textColor}
-        size="t14m"
+        size="sm"
         html
         {...rest}
       />

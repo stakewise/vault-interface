@@ -23,7 +23,7 @@ const Block: React.FC<BlockProps> = (props) => {
         className="opacity-60"
         message={value}
         color="dark"
-        size="t14"
+        size="sm"
         dataTestId={dataTestId}
       />
       <Text

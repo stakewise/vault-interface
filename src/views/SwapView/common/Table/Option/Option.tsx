@@ -20,10 +20,10 @@ const Option: React.FC<OptionProps> = (props) => {
     <div className={cx(className, 'flex justify-between items-center')}>
       <div className="flex justify-start items-center">
         <Text
-          className="opacity-50"
+          className="opacity-50 font-medium"
           message={text}
           color="dark"
-          size="t14m"
+          size="sm"
         />
         {
           Boolean(tooltip) && (

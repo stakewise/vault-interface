@@ -127,8 +127,9 @@ export const [ DistributorClaimsModal, openDistributorClaimsModal ] = (
                 })}
               >
                 <Text
+                  className="font-medium"
                   message={token}
-                  size="t16m"
+                  size="md"
                   color="dark"
                 />
                 <div className="flex flex-col items-end">
@@ -138,11 +139,11 @@ export const [ DistributorClaimsModal, openDistributorClaimsModal ] = (
                     size="sm"
                   />
                   <FiatAmount
-                    className="opacity-60"
+                    className="opacity-60 font-medium"
                     token={token as 'osETH'}
                     amount={value}
                     color="dark"
-                    size="t12m"
+                    size="xs"
                   />
                 </div>
               </div>

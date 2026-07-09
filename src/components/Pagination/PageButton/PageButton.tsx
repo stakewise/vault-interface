@@ -27,7 +27,7 @@ const PageButton: React.FC<PageButtonProps> = (props) => {
         color="dark"
         message={String(page)}
         tag="span"
-        size="t14"
+        size="sm"
       />
     </PaginationButton>
   )

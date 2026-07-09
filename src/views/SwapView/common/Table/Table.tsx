@@ -25,10 +25,10 @@ const Table: React.FC<TableProps> = (props) => {
       {
         title && (
           <Text
-            className="text-center mb-12"
+            className="text-center mb-12 font-bold"
             message={title}
             color="dark"
-            size="t14b"
+            size="sm"
           />
         )
       }

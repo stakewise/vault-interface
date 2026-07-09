@@ -44,9 +44,10 @@ const Skeleton: React.FC = () => {
                   )
                 }
                 <Text
+                  className="font-medium"
                   message={title}
                   color="dark"
-                  size="t14m"
+                  size="sm"
                 />
               </div>
             </Bone>

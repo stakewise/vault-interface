@@ -38,7 +38,7 @@ const APY: React.FC<APYProps> = (props) => {
           className="opacity-60"
           message={methods.formatApy(apy)}
           color="dark"
-          size="t14"
+          size="sm"
           dataTestId="vault-apy"
         />
         {
@@ -49,7 +49,7 @@ const APY: React.FC<APYProps> = (props) => {
                 className="opacity-60"
                 message="-"
                 color="dark"
-                size="t14"
+                size="sm"
               />
               &nbsp;
               <MagicPercent

@@ -114,10 +114,10 @@ const TokenOptions: React.FC<TokenOptionsProps> = (props) => {
             </ScrollableContainer>
           ) : (
             <Text
-              className="my-24 text-center"
+              className="my-24 text-center font-medium"
               message={messages.noData}
               color="dark"
-              size="t16m"
+              size="md"
             />
           )
         )

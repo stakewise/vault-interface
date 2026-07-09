@@ -135,9 +135,10 @@ const PercentInput: React.FC<PercentInputProps> = ({ field, isDisabled, dataTest
                 onClick={() => field.setValue(value)}
               >
                 <Text
+                  className="font-medium"
                   color="dark"
                   message={title}
-                  size="t14m"
+                  size="sm"
                 />
               </ButtonBase>
             ))

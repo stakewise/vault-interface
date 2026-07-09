@@ -24,13 +24,13 @@ const TokenSkeleton: React.FC<TokenSkeletonProps> = (props) => {
         <div>
           <Bone
             className="rounded-4"
-            textSize="t14"
+            textsize="sm"
             w={40}
             delay={1}
           />
           <Bone
             className="rounded-4"
-            textSize="t12"
+            textsize="xs"
             w={65}
             delay={1}
           />
@@ -39,13 +39,13 @@ const TokenSkeleton: React.FC<TokenSkeletonProps> = (props) => {
       <div className="flex flex-col items-end">
         <Bone
           className="rounded-4"
-          textSize="t14"
+          textsize="sm"
           w={56}
           delay={2}
         />
         <Bone
           className="rounded-4"
-          textSize="t12"
+          textsize="xs"
           w={32}
           delay={2}
         />

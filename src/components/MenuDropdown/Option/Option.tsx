@@ -76,7 +76,7 @@ const Option: React.FC<OptionProps> = (props) => {
               dataTestId={`${dataTestId}-subtitle`}
               message={subTitle}
               color="dark"
-              size="t12"
+              size="xs"
             />
           </div>
         )

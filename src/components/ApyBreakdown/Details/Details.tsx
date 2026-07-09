@@ -82,8 +82,9 @@ const Details: React.FC<DetailsProps> = (props) => {
                 />
                 <div className="flex flex-col">
                   <Text
+                    className="font-medium"
                     message={tokenList[token]}
-                    size="t14m"
+                    size="sm"
                     color="dark"
                   />
                   {
@@ -98,7 +99,7 @@ const Details: React.FC<DetailsProps> = (props) => {
                             },
                           }}
                           color="dark"
-                          size="t12"
+                          size="xs"
                         />
                       </div>
                     )
@@ -106,7 +107,8 @@ const Details: React.FC<DetailsProps> = (props) => {
                 </div>
               </div>
               <Text
-                size="t18m"
+                className="font-medium"
+                size="md"
                 color="dark"
                 message={methods.formatApy(Number(apy))}
               />
@@ -117,10 +119,10 @@ const Details: React.FC<DetailsProps> = (props) => {
       {
         withText && (
           <Text
-            className={cx('border-dark/20 text-center opacity-70', {
+            className={cx('border-dark/20 text-center opacity-70 font-medium', {
               'pt-12 mt-12 border-top': data.length,
             })}
-            size="t14m"
+            size="sm"
             color="dark"
             message={{
               ...messages.tooltip,

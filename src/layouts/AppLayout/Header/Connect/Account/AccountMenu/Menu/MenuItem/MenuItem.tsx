@@ -18,9 +18,10 @@ const MenuItem: React.FC<MenuItemProps> = (props) => {
   const itemNode = (
     <div className={cx(className, 'flex justify-between items-center w-full')}>
       <Text
+        className="font-medium"
         message={title}
         color="dark"
-        size="t14m"
+        size="sm"
       />
       <Icon
         name="arrow/right"
