@@ -1,5 +1,5 @@
 import React from 'react'
-import { device } from 'sw-utils/modules'
+import device from 'modules/device'
 
 import Bone from '../../Bone/Bone'
 

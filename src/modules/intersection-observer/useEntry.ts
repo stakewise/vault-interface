@@ -1,6 +1,7 @@
 'use client'
 import { useState, useCallback, useEffect, RefCallback } from 'react'
-import { useDeepMemo } from 'hooks'
+
+import useDeepMemo from '../../hooks/controls/useDeepMemo'
 
 
 export type Opts = Partial<IntersectionObserverInit & {
@@ -43,7 +44,6 @@ const useEntry = <T extends Element = Element>(opts: Opts = {}): Result<T> => {
   useEffect(() => {
     if (!node || typeof IntersectionObserver === 'undefined') {
       setEntry(null)
-
       return
     }
 

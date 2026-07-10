@@ -19,7 +19,7 @@ const BurnInput: React.FC = () => {
   return (
     <TokenAmountInput
       field={burn.field}
-      loading={burn.isBurnLoading}
+      disabled={burn.isBurnLoading}
       balance={{
         token: sdk.config.tokens.mintToken,
         value: address ? burn.maxBurnShares : constants.blockchain.emptyBalance,

@@ -113,9 +113,7 @@ $bg-color-error-hover: rgba($color-error-rgb, .15);
 
   &:not(.disabled) {
     &.focused {
-      @include shadow-xl;
       @include field-colors($border-color-hover, rgba($color-white-rgb, .5));
     }
   }
-
 }

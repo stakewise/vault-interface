@@ -23,7 +23,7 @@ const StakeInput: React.FC = () => {
   return (
     <TokenAmountInputView
       field={stake.field}
-      loading={stake.isStakeLoading}
+      disabled={stake.isStakeLoading}
       balance={{
         value: stake.swapTokens.sellToken.balance,
         token: stake.swapTokens.sellToken.name as Tokens,

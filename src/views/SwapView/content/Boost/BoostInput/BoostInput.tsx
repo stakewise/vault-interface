@@ -24,7 +24,7 @@ const BoostInput: React.FC<Input> = (props) => {
     <TokenAmountInput
       className={className}
       field={field}
-      loading={isLoading}
+      disabled={isLoading}
       balance={{
         token: sdk.config.tokens.mintToken,
         value: address ? balance : undefined,

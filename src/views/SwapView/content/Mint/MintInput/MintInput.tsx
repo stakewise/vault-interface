@@ -26,7 +26,7 @@ const MintInput: React.FC = () => {
   return (
     <TokenAmountInput
       field={mint.field}
-      loading={mint.isMintLoading}
+      disabled={mint.isMintLoading}
       balance={{
         token: sdk.config.tokens.mintToken,
         value: address ? maxMintShares : constants.blockchain.emptyBalance,
