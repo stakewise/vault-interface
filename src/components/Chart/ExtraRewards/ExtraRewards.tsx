@@ -69,7 +69,7 @@ const ExtraRewards: React.FC<ExtraRewardsProps> = (props) => {
     `,
     {
       'bg-white/70': !isDark,
-      'bg-dark/80': isDark,
+      'bg-black/80': isDark,
     },
     className
   )

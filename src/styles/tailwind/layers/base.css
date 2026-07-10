@@ -137,12 +137,6 @@
     resize: none;
   }
 
-  input::-webkit-contacts-auto-fill-button,
-  select::-webkit-contacts-auto-fill-button,
-  textarea::-webkit-contacts-auto-fill-button {
-    visibility: hidden;
-  }
-
   input:-webkit-autofill,
   select:-webkit-autofill,
   textarea:-webkit-autofill,
@@ -157,8 +151,7 @@
     color: transparent;
     text-shadow: 0 0 0 #000;
     -webkit-appearance: none;
-    -moz-appearance: radio-container;
-    appearance: normal;
+    appearance: auto;
   }
 
   select::-ms-expand {

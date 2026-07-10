@@ -7,12 +7,12 @@ import typesParams from './helpers/typesParams'
 
 class Field<V extends Forms.FieldValue> implements Forms.Field<V> {
 
+  #initialValue?: V
   #value: V | undefined
   #error: Forms.Field<V>['error']
 
-  readonly #mask?: 'date'
+  readonly #mask?: 'date' | 'time'
   readonly #group?: string
-  readonly #initialValue?: V
   readonly #pattern?: string
   readonly #isRequired: boolean
   readonly #events: EventAggregator
@@ -145,6 +145,10 @@ class Field<V extends Forms.FieldValue> implements Forms.Field<V> {
   public setError(error: Forms.Error) {
     this.#error = error
     this.#events.dispatch('error', this)
+  }
+
+  public setInitialValue(value: V | undefined) {
+    this.#initialValue = value
   }
 
   public subscribe(event: Forms.Events, handler: Forms.EventHandler<V>) {

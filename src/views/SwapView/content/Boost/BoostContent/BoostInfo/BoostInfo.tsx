@@ -57,7 +57,7 @@ const BoostInfo: React.FC<BoostInfoProps> = (props) => {
           onClick={openGuideModal}
         >
           <Text
-            className="font-medium"
+            className="font-medium text-link"
             message={commonMessages.buttonTitle.boostGuideLink}
             color="primary"
             size="sm"

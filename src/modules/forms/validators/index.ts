@@ -73,7 +73,7 @@ const ethAddress = (value: Value) => {
 }
 
 const ethOrEnsAddress = (value: Value) => {
-  if (typeof value === 'string' && !isAddress(value) && !ensAddressRegex.test(value)) {
+  if (typeof value === 'string' && value && !isAddress(value) && !ensAddressRegex.test(value)) {
     return messages.ethOrEnsAddress
   }
 }
@@ -81,12 +81,6 @@ const ethOrEnsAddress = (value: Value) => {
 const email = (value: Value) => {
   if (typeof value === 'string' && !emailRegex.test(value)) {
     return messages.email
-  }
-}
-
-const numberWithDot = (value: Value) => {
-  if (!isValidNumberWithDot(value)) {
-    return messages.invalidNumberWithDot
   }
 }
 
@@ -104,6 +98,12 @@ const httpsUrl = (value: Value) => {
   }
   catch {
     return messages.httpsUrl
+  }
+}
+
+const numberWithDot = (value: Value) => {
+  if (!isValidNumberWithDot(value)) {
+    return messages.invalidNumberWithDot
   }
 }
 
@@ -177,7 +177,7 @@ const number = (value: Value) => {
 }
 
 const validDate = (value: Value) => {
-  if (typeof value === 'string' && !/^\d\d\d\d-\d\d-\d\d$/.test(value)) {
+  if (typeof value === 'string' && !/^\d{4}-\d{2}-\d{2}$/.test(value)) {
     return messages.invalidDate
   }
 }
@@ -188,9 +188,15 @@ const selected = (value: Value) => {
   }
 }
 
-const length = (length: number) => (value: Value) => {
-  if (typeof value === 'string' && value?.length > length) {
-    return { ...messages.length, values: { length } }
+const maxLength = (maxLength: number) => (value: Value) => {
+  if (typeof value === 'string' && value?.length > maxLength) {
+    return { ...messages.maxLength, values: { maxLength } }
+  }
+}
+
+const minLength = (minLength: number) => (value: Value) => {
+  if (typeof value === 'string' && value.length > 0 && value.length < minLength) {
+    return { ...messages.minLength, values: { minLength } }
   }
 }
 
@@ -254,13 +260,14 @@ export default {
   compareDate,
   ethAddress,
   validDate,
-  selected,
+  maxLength,
+  minLength,
   httpsUrl,
+  selected,
   required,
   exclude,
   maxDate,
   minDate,
-  length,
   number,
   minFee,
   email,

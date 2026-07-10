@@ -39,7 +39,7 @@ const AmountInput: React.FC<AmountInputProps> = (props) => {
         'text-dark': !error,
         'text-error': error,
         'text-h20': !isDesktop,
-        'text-t40m': isDesktop,
+        'text-h3': isDesktop,
       })}
       ref={inputRef}
       placeholder="0"

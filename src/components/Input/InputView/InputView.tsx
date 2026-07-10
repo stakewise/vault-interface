@@ -159,7 +159,7 @@ const InputView: React.FC<InputViewProps> = (props) => {
   const inputClassName = cx(
     s.field,
     elementClassName,
-    'w-full text-sm font-medium overflow-ellipsis whitespace-nowrap text-moon flex-1',
+    'w-full text-sm font-medium overflow-ellipsis whitespace-nowrap text-dark flex-1',
     {
       'mt-16': Boolean(label),
       'cursor-default': disabled,

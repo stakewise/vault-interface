@@ -15,10 +15,10 @@ const Skeleton: React.FC<SkeletonProps> = ({ className }) => {
   return (
     <div className={className}>
       <div className="absolute top-4 right-4 pb-32 h-full">
-        <Bone className="mr-48 h-full w-px bg-moon/3" />
+        <Bone className="mr-48 h-full w-px bg-dark/3" />
       </div>
       <div className="absolute w-full pr-48 bottom-4">
-        <Bone className="mb-32 w-full h-px bg-moon/3" />
+        <Bone className="mb-32 w-full h-px bg-dark/3" />
       </div>
       <div>
         {

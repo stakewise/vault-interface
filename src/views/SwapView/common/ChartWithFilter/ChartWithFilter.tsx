@@ -16,6 +16,7 @@ export type ChartWithFilterProps = {
   tabsItems: TabsItems
   vaultAddress: string
   dataTestId?: string
+  showExtraRewards?: boolean
   noItemsDescription?: Intl.Message
   onExportButtonClick?: () => void
 }
@@ -26,6 +27,7 @@ const ChartWithFilter: React.FC<ChartWithFilterProps> = (props) => {
     tabsItems,
     dataTestId,
     vaultAddress,
+    showExtraRewards,
     noItemsDescription,
     onExportButtonClick,
   } = props
@@ -44,6 +46,8 @@ const ChartWithFilter: React.FC<ChartWithFilterProps> = (props) => {
 
   const View = isDesktop ? Desktop : Mobile
 
+  const isExtraRewardsTooltip = showExtraRewards && tab === Tab.User && type === Type.Rewards
+
   return (
     <View
       className={className}
@@ -60,6 +64,7 @@ const ChartWithFilter: React.FC<ChartWithFilterProps> = (props) => {
         isFetching={isFetching}
         hideRightScale={!isDesktop}
         token={sdk.config.tokens.depositToken}
+        showExtraRewards={isExtraRewardsTooltip}
         noItemsDescription={noItemsDescription}
         dataTestId={`${dataTestId}-${tab}-${type}`}
         style={type === Type.Rewards ? 'bar' : 'line'}

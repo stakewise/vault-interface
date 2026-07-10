@@ -57,6 +57,46 @@ const createMaskWithModifiers: CreateMaskWithModifiers = ({ mask, preModify, pos
   }
 }
 
+// Mask result - HH:mm
+const initTimeMask = () => (raw: string): string => {
+  const digits = raw.replace(/\D/g, '').slice(0, 4)
+
+  if (!digits.length) {
+    return ''
+  }
+
+  if (digits.length === 1) {
+    const firstDigit = Number(digits[0])
+
+    if (firstDigit > 2) {
+      return `0${digits[0]}:`
+    }
+
+    return digits
+  }
+
+  let hour = digits.slice(0, 2)
+
+  if (Number(hour) > 23) {
+    hour = '23'
+  }
+
+  if (digits.length === 2) {
+    return hour
+  }
+
+  let minute = digits.slice(2, 4)
+
+  if (minute.length === 1 && Number(minute) > 5) {
+    minute = `0${minute}`
+  }
+  else if (minute.length === 2 && Number(minute) > 59) {
+    minute = '59'
+  }
+
+  return `${hour}:${minute}`
+}
+
 // Mask result - YYYY-MM-DD
 const initDateMask = (): Mask => {
   const preModify = (value: string) => value.replace(/\D/g, '')
@@ -106,4 +146,5 @@ const initDateMask = (): Mask => {
 
 export default {
   date: initDateMask(),
+  time: initTimeMask(),
 }

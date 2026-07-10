@@ -39,7 +39,9 @@ const Icon: React.FC<IconProps> = (props) => {
   return (
     <Image
       ref={ref}
-      className={cx(arrowDirection && s[arrowDirection], className)}
+      className={cx(className, s.icon, {
+        [`${s[arrowDirection as string]}`]: arrowDirection,
+      })}
       name={name}
       size={size}
       color={color}

@@ -60,7 +60,7 @@ const Content: React.FC<ContentProps> = (props) => {
           )
         }
         <Text
-          className={isMagicValue ? 'text-secondary-gradient font-medium' : 'font-medium'}
+          className={isMagicValue ? 'text-primary font-medium' : 'font-medium'}
           message={values.next}
           color="dark"
           size="sm"

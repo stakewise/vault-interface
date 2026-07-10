@@ -141,7 +141,7 @@ const RootLayout = async (props: RootLayoutProps) => {
   return (
     <html lang={locale}>
       <body
-        className={cx(font.className, 'text-t14', {
+        className={cx(font.className, 'text-sm', {
           'body-dark-theme': serverTheme.value === ThemeColor.Dark,
           'body-light-theme': serverTheme.value === ThemeColor.Light,
         })}

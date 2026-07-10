@@ -26,6 +26,8 @@ declare global {
 
       setError(error: Error): void
 
+      setInitialValue(value: V): void
+
       validateWithoutError(): boolean
 
       setValue(value: V | undefined): void
@@ -62,7 +64,7 @@ declare global {
     }
 
     type FieldConfig<V = FieldValue> = {
-      mask?: 'date'
+      mask?: 'date' | 'time'
       group?: string
       initialValue?: V
       pattern?: string
@@ -125,6 +127,7 @@ import useFormFilled from './useFormFilled'
 import validators from './validators'
 import useField from './useField'
 import useForm from './useForm'
+import masks from './masks'
 import Field from './Field'
 
 
@@ -139,5 +142,6 @@ export default {
   validators,
   useField,
   useForm,
+  masks,
   Field,
 }
