@@ -83,8 +83,4 @@
   .overflow-ellipsis:not(.block) {
     display: -webkit-box;
   }
-
-  .line-height-0 {
-    line-height: 0;
-  }
 }

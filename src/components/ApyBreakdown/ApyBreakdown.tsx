@@ -20,7 +20,6 @@ const ApyBreakdown: React.FC<ApyBreakdownProps> = (props) => {
     <PopupInfo
       className={className}
       headNode={children}
-      buttonClassName="line-height-0"
     >
       <Details
         data={data || []}

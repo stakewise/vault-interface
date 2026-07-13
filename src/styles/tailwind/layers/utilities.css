@@ -168,4 +168,18 @@
   .scrollbar-none::-webkit-scrollbar {
     display: none;
   }
+
+  .custom-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: var(--secondary);
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    width: 10px;
+    background-color: var(--secondary);
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: transparent;
+  }
 }
