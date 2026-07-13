@@ -12,7 +12,6 @@ type BaseData = Omit<GetVaultData, 'version'> & {
   avgQueueDays: number
   protocolFeePercent: string
   subVaultsCurator: string | null
-  isStateUpdateRequired: boolean
   versions: Awaited<ReturnType<StakeWiseSDK['vault']['getVaultVersion']>>
 }
 
@@ -72,7 +71,6 @@ export const initialState: BaseState = {
     isPostPectra: false,
     isSmoothingPool: false,
     isCollateralized: false,
-    isStateUpdateRequired: false,
 
     osTokenConfig: {
       ltvPercent: '0',

@@ -39,10 +39,7 @@ const getVaultBase = async () => {
   const data = await requests.vault.fetchData({ sdk, vaultAddress, withTime: true })
 
   return {
-    data: {
-      ...data,
-      isStateUpdateRequired: false,
-    },
+    data,
     isSSR: true,
     isFetching: false,
   }
