@@ -31,7 +31,6 @@ export const createSetVaultData: Wrapper = ({ page, wallet }) => (
       subVaultsRegistry: '',
       pendingMetaSubVault: '',
       protocolFeePercent: '0',
-      isStateUpdateRequired: false,
       imageUrl: data?.imageUrl || '',
       isErc20: data?.isErc20 ?? false,
       vaultAdmin: getAddress(address),
