@@ -171,12 +171,12 @@
 
   .custom-scrollbar {
     scrollbar-width: thin;
-    scrollbar-color: var(--secondary);
+    scrollbar-color: rgba(var(--secondary-rgb), .5);
   }
 
   .custom-scrollbar::-webkit-scrollbar-track {
     width: 10px;
-    background-color: var(--secondary);
+    background-color: rgba(var(--secondary-rgb), .5);
   }
 
   .custom-scrollbar::-webkit-scrollbar-thumb {
