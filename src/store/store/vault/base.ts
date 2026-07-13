@@ -11,6 +11,8 @@ type BaseData = Omit<GetVaultData, 'version'> & {
   isPostPectra: boolean
   avgQueueDays: number
   protocolFeePercent: string
+  subVaultsCurator: string | null
+  isStateUpdateRequired: boolean
   versions: Awaited<ReturnType<StakeWiseSDK['vault']['getVaultVersion']>>
 }
 
@@ -24,7 +26,7 @@ export interface BaseState {
 
 export const initialState: BaseState = {
   data: {
-    apy: 0,
+     apy: 0,
     baseApy: 0,
     imageUrl: '',
     createdAt: 0,
@@ -43,13 +45,21 @@ export const initialState: BaseState = {
     feeRecipient: '',
     blocklistCount: 0,
     whitelistCount: 0,
+    subVaultsCount: 0,
     lastFeePercent: 0,
+    canHarvest: false,
     queuedShares: '0',
+    exitingAssets: '0',
+    exitingTickets: '0',
     depositDataRoot: '',
     whitelistManager: '',
     blocklistManager: '',
+    subVaultsCurator: '',
+    ejectingSubVault: '',
     validatorsManager: '',
+    subVaultsRegistry: '',
     depositDataManager: '',
+    pendingMetaSubVault: '',
     protocolFeePercent: '0',
     allocatorMaxBoostApy: 0,
     lastFeeUpdateTimestamp: '0',
@@ -62,6 +72,7 @@ export const initialState: BaseState = {
     isPostPectra: false,
     isSmoothingPool: false,
     isCollateralized: false,
+    isStateUpdateRequired: false,
 
     osTokenConfig: {
       ltvPercent: '0',
