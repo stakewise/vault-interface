@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react'
 import cx from 'classnames'
-import theme from 'modules/theme'
 import { offset } from '@floating-ui/react'
 import type { Placement } from '@floating-ui/react'
 import { autoUpdate, useFloating } from '@floating-ui/react-dom'
@@ -17,8 +16,6 @@ export type DatePickerProps = Omit<InputProps, 'field'> & Omit<CalendarProps, 'o
 
 const DatePicker: React.FC<DatePickerProps> = (props) => {
   const { className, field, minDate, maxDate, placement = 'bottom-start', ...rest } = props
-
-  const { isDark } = theme.useData()
 
   const { refs, floatingStyles } = useFloating({
     placement,
@@ -53,9 +50,7 @@ const DatePicker: React.FC<DatePickerProps> = (props) => {
           </PopoverButton>
           <PopoverPanel
             ref={refs.setFloating}
-            className={cx('bg-background border border-dark/10 shadow-md p-16 rounded-12 z-20', {
-              'bg-black/50!': isDark,
-            })}
+            className="p-16 rounded-8 bg-background border border-dark/10 shadow-md z-20"
             style={floatingStyles}
           >
             <Calendar
