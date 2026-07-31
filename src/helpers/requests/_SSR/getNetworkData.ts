@@ -1,8 +1,6 @@
 import { cookies } from 'next/headers'
-import networks from 'config/networks'
 
-import { constants, getters, requests } from '../../../index'
-import { getSDK } from '../../../methods'
+import { constants, getters } from '../../index'
 
 
 const getNetworkData = async () => {
@@ -26,24 +24,5 @@ const getNetworkData = async () => {
   }
 }
 
-const getVaultBase = async () => {
-  const { networkId, vaultAddress } = await getNetworkData()
 
-  if (!networkId || !vaultAddress) {
-    return null
-  }
-
-  const chainId = networks.chainById[networkId as NetworkIds]
-  const sdk = getSDK({ chainId })
-
-  const data = await requests.vault.fetchData({ sdk, vaultAddress, withTime: true })
-
-  return {
-    data,
-    isSSR: true,
-    isFetching: false,
-  }
-}
-
-
-export default getVaultBase
+export default getNetworkData
