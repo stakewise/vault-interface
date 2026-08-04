@@ -70,8 +70,8 @@ importers:
         specifier: 9.1.0
         version: 9.1.0(typescript@6.0.3)(zod@4.3.5)
       '@stakewise/v3-sdk':
-        specifier: 4.3.0
-        version: 4.3.0(ethers@6.14.3)
+        specifier: 4.3.1
+        version: 4.3.1(ethers@6.14.3)
       '@tailwindcss/postcss':
         specifier: 4.1.7
         version: 4.1.7
@@ -1564,8 +1564,8 @@ packages:
     resolution: {integrity: sha512-tlqY9xq5ukxTUZBmoOp+m61cqwQD5pHJtFY3Mn8CA8ps6yghLH/Hw8UPdqg4OLmFW3IFlcXnQNmo/dh8HzXYIQ==}
     engines: {node: '>=18'}
 
-  '@stakewise/v3-sdk@4.3.0':
-    resolution: {integrity: sha512-tZ3ORNi1cSGcAfqq4IisZkTDAwTEBf6hKPpcNq0X1qZkfcOKvmIJmA+joXBEEjPzQ2ONOqSpeUiRiiXh9F8MTQ==}
+  '@stakewise/v3-sdk@4.3.1':
+    resolution: {integrity: sha512-gDKG80WCl3RpQZLrMiFDs2p0umPdGbtyEK3UV+6kMEDGtLZoUqJqYoviegXhryXCiIDUgrVqt99vTjc7sZW+jw==}
     peerDependencies:
       ethers: ^6.14.3
 
@@ -8039,7 +8039,7 @@ snapshots:
 
   '@sindresorhus/merge-streams@4.0.0': {}
 
-  '@stakewise/v3-sdk@4.3.0(ethers@6.14.3)':
+  '@stakewise/v3-sdk@4.3.1(ethers@6.14.3)':
     dependencies:
       bignumber.js: 9.3.0
       ethers: 6.14.3
