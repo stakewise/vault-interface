@@ -6,9 +6,9 @@ import { commonMessages } from 'helpers'
 import { getLocale } from 'modules/intl/_SSR'
 import { ThemeColor } from 'modules/theme/enum'
 import { getServerTheme } from 'modules/theme/_SSR'
-import { getVaultBase } from 'helpers/requests/_SSR'
 import { getServerDevice } from 'modules/device/_SSR'
 import { getNetworkId } from 'config/core/config/_SSR'
+import { fetchStoreWithVaultData, fetchVault } from 'helpers/requests/_SSR'
 import GlobalLayout from 'layouts/GlobalLayout/GlobalLayout'
 
 import 'focus-visible'
@@ -31,8 +31,7 @@ export const generateMetadata: GenerateMetadata = async () => {
   const url = `https://${domain}/`
 
   try {
-    const vaultBase = await getVaultBase()
-    const vaultData = vaultBase?.data
+    const vaultData = await fetchVault()
 
     if (vaultData?.displayName) {
       title = envTitle ? `${vaultData.displayName} | ${envTitle}` : vaultData.displayName
@@ -130,12 +129,12 @@ const font = Inter({
 const RootLayout = async (props: RootLayoutProps) => {
   const { children } = props
 
-  const [ locale, networkId, vaultBase, serverTheme, device ] = await Promise.all([
+  const [ locale, networkId, serverTheme, device, serializedStore ] = await Promise.all([
     getLocale(),
     getNetworkId(),
-    getVaultBase(),
     getServerTheme(),
     getServerDevice(),
+    fetchStoreWithVaultData(),
   ])
 
   return (
@@ -172,9 +171,9 @@ const RootLayout = async (props: RootLayoutProps) => {
           <GlobalLayout
             locale={locale}
             networkId={networkId}
-            vaultBase={vaultBase}
             serverDevice={device}
             serverTheme={serverTheme}
+            serializedStore={serializedStore}
           >
             {children}
           </GlobalLayout>
