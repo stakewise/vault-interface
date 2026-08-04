@@ -26,13 +26,13 @@ const ErrorView: React.FC<ErrorViewProps> = ({ error }) => {
           className="text-center"
           message={pageMessages.title}
           color="dark"
-          size="h32"
+          size="h4"
         />
         <Text
           className="mt-16 text-center"
           message={pageMessages.text}
           color="dark"
-          size="t14"
+          size="sm"
         />
         <Button
           className="mt-32"

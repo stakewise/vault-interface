@@ -23,14 +23,14 @@ const Block: React.FC<BlockProps> = (props) => {
         className="opacity-60"
         message={value}
         color="dark"
-        size="t14"
+        size="sm"
         dataTestId={dataTestId}
       />
       <Text
-        className={cx('opacity-40', { 'mt-4': !isDesktop })}
+        className={cx('opacity-40 font-medium', { 'mt-4': !isDesktop })}
         message={text}
         color="dark"
-        size={!isDesktop ? 't12m' : 't14m'}
+        size={!isDesktop ? 'xs' : 'sm'}
       />
     </div>
   )

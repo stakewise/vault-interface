@@ -25,7 +25,7 @@ const Title: React.FC<TitleProps> = (props) => {
       <Text
         message={title as Intl.Message}
         color="dark"
-        size={isWide ? 'h32' : 'h24'}
+        size={isWide ? 'h4' : 'h6'}
       />
     </DialogTitle>
   )

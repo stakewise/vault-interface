@@ -59,7 +59,7 @@ export const [ SwitchAccountModal, openSwitchAccountModal ] = (
                 className="opacity-60"
                 message={commonMessages.loading}
                 color="dark"
-                size="t14"
+                size="sm"
               />
             ) : (
               <>
@@ -68,7 +68,7 @@ export const [ SwitchAccountModal, openSwitchAccountModal ] = (
                   message={messages.note}
                   color="dark"
                   tag="span"
-                  size="t14"
+                  size="sm"
                 />
                 &nbsp;
                 <ButtonBase
@@ -79,7 +79,7 @@ export const [ SwitchAccountModal, openSwitchAccountModal ] = (
                     message={nextPathType.title}
                     color="primary"
                     tag="span"
-                    size="t14"
+                    size="sm"
                   />
                 </ButtonBase>
               </>

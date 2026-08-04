@@ -22,10 +22,10 @@ const MagicPercent: React.FC<MagicPercentProps> = (props) => {
         )
       }
       <Text
-        className="text-secondary-gradient"
+        className="text-primary font-bold"
         message={String(value)}
         color="inherit"
-        size="t14b"
+        size="sm"
         dataTestId={dataTestId}
       />
       {

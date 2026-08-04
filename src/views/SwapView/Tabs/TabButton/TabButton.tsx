@@ -38,9 +38,10 @@ const TabButton: React.FC<TabButtonProps> = (props) => {
           )
         }
         <Text
+          className="font-medium"
           message={title}
           color="dark"
-          size="t14m"
+          size="sm"
         />
       </div>
     </ButtonBase>

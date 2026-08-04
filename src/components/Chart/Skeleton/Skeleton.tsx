@@ -10,7 +10,7 @@ type SkeletonProps = {
 
 const Skeleton: React.FC<SkeletonProps> = ({ className }) => {
   const { isDesktop } = device.useData()
-  const columns = isDesktop ? 6 : 4
+  const columns = !isDesktop ? 4 : 6
 
   return (
     <div className={className}>

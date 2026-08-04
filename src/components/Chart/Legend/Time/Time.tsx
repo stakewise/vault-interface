@@ -1,5 +1,4 @@
 import React, { useRef, useCallback } from 'react'
-import type { Time } from 'lightweight-charts'
 import date from 'modules/date'
 import cx from 'classnames'
 
@@ -25,6 +24,7 @@ const Time: React.FC<TimeProps> = (props) => {
     if (timeTooltipRef.current) {
       timeTooltipRef.current.innerHTML = date
         .time(Number(time) * 1000)
+        .utcOffset(0, false)
         .format('DD MMM YYYY')
     }
   }, [])
@@ -42,10 +42,10 @@ const Time: React.FC<TimeProps> = (props) => {
       />
       <Text
         ref={timeTooltipRef}
-        className="opacity-50"
+        className="opacity-50 font-medium"
         message=""
         color="dark"
-        size="t12m"
+        size="xs"
       />
     </div>
   )

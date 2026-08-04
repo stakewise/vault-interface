@@ -1,8 +1,23 @@
 'use client'
 import { useCallback, useState } from 'react'
+
 import * as constants from 'helpers/constants'
 import cookie from 'helpers/cookie'
 
+
+const isIpfs = process.env.NEXT_PUBLIC_IPFS === 'true'
+
+const getInitialLocale = (locale?: Intl.LanguagesKeys): Intl.LanguagesKeys => {
+  if (isIpfs) {
+    const saved = cookie.get(constants.cookieNames.language) as Intl.LanguagesKeys
+
+    if (saved) {
+      return saved
+    }
+  }
+
+  return locale || 'en'
+}
 
 export type Input = {
   locale?: Intl.LanguagesKeys
@@ -23,7 +38,7 @@ const useLocale = (values: Input): Output => {
   } = values
 
   // The module can take control of any kind of router, or we can save locale in state (if control via a router is not suitable for us)
-  const [ runtimeLocale, setRuntimeLocale ] = useState<Intl.LanguagesKeys>(locale || 'en')
+  const [ runtimeLocale, setRuntimeLocale ] = useState<Intl.LanguagesKeys>(() => getInitialLocale(locale))
 
   const setLocale = useCallback((value: Intl.LanguagesKeys) => {
     const isValid = locales.includes(value)

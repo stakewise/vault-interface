@@ -1,7 +1,6 @@
 import React, { useRef, useCallback } from 'react'
-import { createSelector } from '@reduxjs/toolkit'
+import { createSelector, useSelector } from 'store'
 import { methods } from 'helpers'
-import { useStore } from 'hooks'
 import cx from 'classnames'
 
 import Text from '../../../Text/Text'
@@ -29,7 +28,7 @@ const storeSelector = createSelector([
 const Amount: React.FC<AmountProps> = (props) => {
   const { className, token, chart, series } = props
 
-  const { fiatRates, currency, currencySymbol } = useStore(storeSelector)
+  const { fiatRates, currency, currencySymbol } = useSelector(storeSelector)
 
   const fiatTooltipRef = useRef<HTMLDivElement>(null)
   const tokenValueTooltipRef = useRef<HTMLDivElement>(null)
@@ -41,14 +40,20 @@ const Amount: React.FC<AmountProps> = (props) => {
     }
 
     if (fiatTooltipRef.current) {
+      if (!point.value) {
+        fiatTooltipRef.current.innerHTML = `(${currencySymbol} 0.00)`
+
+        return
+      }
+
       const rate = fiatRates[token][currency]
       const result = Number((rate * Number(point.value)).toFixed(2))
-      const perfix = result < 0 ? '-' : ''
+      const prefix = result < 0 ? '-' : ''
       const formattedResult = methods.numericalReduction(Math.abs(result))
 
       const fiatAmount = formattedResult === '0.00'
-        ? `< ${perfix}${currencySymbol} 0.01`
-        : `${perfix}${currencySymbol}${formattedResult}`
+        ? `< ${prefix}${currencySymbol} 0.01`
+        : `${prefix}${currencySymbol}${formattedResult}`
 
       fiatTooltipRef.current.innerHTML = `(${fiatAmount})`
     }
@@ -58,19 +63,20 @@ const Amount: React.FC<AmountProps> = (props) => {
 
   return (
     <div className={cx(className, 'flex items-center gap-4')}>
-      <Logo name={`token/${token}`} />
+      <Logo name={`token/${token}`} size={20} />
       <Text
+        className="font-medium"
         ref={tokenValueTooltipRef}
         message=""
-        size="t18m"
+        size="lg"
         color="dark"
       />
       <Text
         ref={fiatTooltipRef}
-        className="opacity-50"
+        className="opacity-50 font-medium"
         message=""
         color="dark"
-        size="t14m"
+        size="sm"
       />
     </div>
   )

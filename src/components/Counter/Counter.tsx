@@ -18,7 +18,6 @@ export type CounterProps = {
 const Counter: React.FC<CounterProps> = (props) => {
   const { className, count, disabled = false, ref, isFetching } = props
 
-  const textColor = disabled ? 'secondary' : 'inherit'
   const counterClassName = cx(className, s.counter, 'px-6 rounded-24 inline-flex items-center justify-center', {
     [s.disabled]: disabled,
   })
@@ -33,14 +32,15 @@ const Counter: React.FC<CounterProps> = (props) => {
           <Icon
             className="rotate-360"
             name="icon/loader"
-            color={textColor}
+            color="secondary"
             size={16}
           />
         ) : (
           <Text
+            className="font-bold"
             tag="span"
-            size="t12b"
-            color={textColor}
+            size="xs"
+            color="dark"
             message={String(count)}
           />
         )

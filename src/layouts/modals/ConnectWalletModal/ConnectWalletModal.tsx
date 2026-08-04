@@ -60,8 +60,8 @@ export const [ ConnectWalletModal, openConnectWalletModal, closeConnectWalletMod
             className="inline-block font-medium"
             dataTestId="select-wallet-modal-no-wallet-button"
             message={messages.noWallet}
-            size="t14m"
             color="inherit"
+            size="sm"
           />
         </Href>
       </div>

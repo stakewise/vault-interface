@@ -16,7 +16,7 @@ const UnstakeInput: React.FC = () => {
   return (
     <TokenAmountInput
       field={unstake.field}
-      loading={unstake.isUnstakeLoading}
+      disabled={unstake.isUnstakeLoading}
       balance={{
         token: sdk.config.tokens.depositToken,
         value: unstake.maxUnstakeAmount,

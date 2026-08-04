@@ -64,7 +64,7 @@ const TokenOptions: React.FC<TokenOptionsProps> = (props) => {
       {
         isFetching ? (
           <ScrollableContainer
-            className="overflow-y-auto"
+            className="overflow-y-auto custom-scrollbar"
             fadeClassName="fixed"
             style={{
               height: `calc(5 * 56px - 28px)`,
@@ -81,7 +81,7 @@ const TokenOptions: React.FC<TokenOptionsProps> = (props) => {
         ) : (
           filteredTokens.length ? (
             <ScrollableContainer
-              className="overflow-y-auto"
+              className="overflow-y-auto custom-scrollbar"
               fadeClassName="fixed"
               style={{
                 height: filteredTokens.length > 5
@@ -114,10 +114,10 @@ const TokenOptions: React.FC<TokenOptionsProps> = (props) => {
             </ScrollableContainer>
           ) : (
             <Text
-              className="my-24 text-center"
+              className="my-24 text-center font-medium"
               message={messages.noData}
               color="dark"
-              size="t16m"
+              size="md"
             />
           )
         )

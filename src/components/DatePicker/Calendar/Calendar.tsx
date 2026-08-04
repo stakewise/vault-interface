@@ -1,17 +1,14 @@
-import React, { useMemo } from 'react'
+import React, { useCallback, useMemo, useState } from 'react'
 import forms from 'modules/forms'
 import date from 'modules/date'
 import cx from 'classnames'
 
-import Bone from '../../Bone/Bone'
-import Icon from '../../Icon/Icon'
-import Text from '../../Text/Text'
-import ButtonBase from '../../ButtonBase/ButtonBase'
+import Days from './Days/Days'
+import Years from './Years/Years'
+import Months from './Months/Months'
+import Header from './Header/Header'
 
-import Day from './Day/Day'
 import { useDays, getDate } from './util'
-
-import s from './Calendar.module.scss'
 
 
 export type CalendarProps = {
@@ -22,158 +19,149 @@ export type CalendarProps = {
   onChange?: () => void
 }
 
+type Level = 'month' | 'year' | 'decade'
+
 const Calendar: React.FC<CalendarProps> = (props) => {
   const { className, field, minDate, maxDate, onChange } = props
 
+  const [ level, setLevel ] = useState<Level>('month')
+
   const { value: selectedDay } = forms.useFieldValue(field)
-  const { days, title, weekDays, yearMonth, weeksOffset, weeksCount, isLocaleFetching, setMonth } = useDays({
-    field,
-    animationDuration: 350,
-  })
+
+  const {
+    days, title, year, months, years, weekDays, yearMonth, isLocaleFetching,
+    decadeStart, yearTitle, decadeTitle, setMonth, setYear, selectMonth, selectYear,
+  } = useDays({ field })
 
   const minimalDate = useMemo(() => getDate(minDate), [ minDate ])
   const maximalDate = useMemo(() => getDate(maxDate), [ maxDate ])
+  const selectedDate = useMemo(() => getDate(selectedDay), [ selectedDay ])
 
-  const [ firstDayOfMonth, lastDayOfMonth ] = useMemo(() => {
+  const [ rangeStart, rangeEnd ] = useMemo(() => {
     const yearMonthDate = date.time(yearMonth, 'YYYY-MM')
 
-    return [
-      yearMonthDate.startOf('month'),
-      yearMonthDate.endOf('month'),
-    ]
-  }, [ yearMonth ])
-
-  const isLeftButtonDisabled = useMemo(() => {
-    if (minimalDate) {
-      return !firstDayOfMonth.isAfter(minimalDate)
+    if (level === 'year') {
+      return [ yearMonthDate.startOf('year'), yearMonthDate.endOf('year') ]
     }
-  }, [ firstDayOfMonth, minimalDate ])
 
-  const isRightButtonDisabled = useMemo(() => {
-    if (maximalDate) {
-      return !lastDayOfMonth.isBefore(maximalDate)
+    if (level === 'decade') {
+      return [
+        yearMonthDate.set('year', decadeStart).startOf('year'),
+        yearMonthDate.set('year', decadeStart + 9).endOf('year'),
+      ]
     }
-  }, [ lastDayOfMonth, maximalDate ])
+
+    return [ yearMonthDate.startOf('month'), yearMonthDate.endOf('month') ]
+  }, [ level, yearMonth, decadeStart ])
+
+  const isLeftButtonDisabled = useMemo(() => (
+    minimalDate ? !rangeStart.isAfter(minimalDate) : false
+  ), [ rangeStart, minimalDate ])
+
+  const isRightButtonDisabled = useMemo(() => (
+    maximalDate ? !rangeEnd.isBefore(maximalDate) : false
+  ), [ rangeEnd, maximalDate ])
+
+  const headerTitle = {
+    month: title,
+    year: yearTitle,
+    decade: decadeTitle,
+  }[level]
+
+  const handlePrev = useCallback(() => {
+    if (level === 'month') {
+      setMonth(-1)
+
+      return
+    }
+
+    setYear(level === 'decade' ? -10 : -1)
+  }, [ level, setMonth, setYear ])
+
+  const handleNext = useCallback(() => {
+    if (level === 'month') {
+      setMonth(1)
+
+      return
+    }
+
+    setYear(level === 'decade' ? 10 : 1)
+  }, [ level, setMonth, setYear ])
+
+  const handleTitleClick = useCallback(() => {
+    setLevel(level === 'month' ? 'year' : 'decade')
+  }, [ level ])
+
+  const handleSelectDay = useCallback((fullDate: string) => {
+    field.setValue(fullDate)
+
+    if (typeof onChange === 'function') {
+      onChange()
+    }
+  }, [ field, onChange ])
+
+  const handleSelectMonth = useCallback((month: number) => {
+    selectMonth(month)
+    setLevel('month')
+  }, [ selectMonth ])
+
+  const handleSelectYear = useCallback((value: number) => {
+    selectYear(value)
+    setLevel('year')
+  }, [ selectYear ])
 
   return (
     <div className={cx(className, 'w-[224px]')}>
-      <div className="flex items-center">
-        <ButtonBase
-          className={cx('rounded-4', {
-            'opacity-10': isLeftButtonDisabled,
-          })}
-          disabled={isLeftButtonDisabled}
-          onClick={() => setMonth(-1)}
-        >
-          <Icon
-            name="arrow/left"
-            size={20}
-            color="dark"
+      <Header
+        title={headerTitle}
+        isLocaleFetching={isLocaleFetching}
+        isTitleDisabled={level === 'decade'}
+        isLeftDisabled={isLeftButtonDisabled}
+        isRightDisabled={isRightButtonDisabled}
+        onPrev={handlePrev}
+        onNext={handleNext}
+        onTitleClick={handleTitleClick}
+      />
+      {
+        level === 'month' && (
+          <Days
+            days={days}
+            weekDays={weekDays}
+            yearMonth={yearMonth}
+            selectedDay={selectedDay}
+            isLocaleFetching={isLocaleFetching}
+            minimalDate={minimalDate}
+            maximalDate={maximalDate}
+            onSelect={handleSelectDay}
           />
-        </ButtonBase>
-        {
-          isLocaleFetching ? (
-            <div className="flex-1 flex items-center justify-center">
-              <Bone
-                className="rounded-4"
-                w={126}
-                h={24}
-              />
-            </div>
-          ) : (
-            <Text
-              className="flex-1 text-center capitalize"
-              message={title}
-              size="t16m"
-              color="dark"
-            />
-          )
-        }
-        <ButtonBase
-          className={cx('rounded-4', {
-            'opacity-10': isRightButtonDisabled,
-          })}
-          disabled={isRightButtonDisabled}
-          onClick={() => setMonth(1)}
-        >
-          <Icon
-            name="arrow/right"
-            size={20}
-            color="dark"
+        )
+      }
+      {
+        level === 'year' && (
+          <Months
+            year={year}
+            months={months}
+            yearMonth={yearMonth}
+            selectedDate={selectedDate}
+            minimalDate={minimalDate}
+            maximalDate={maximalDate}
+            onSelect={handleSelectMonth}
           />
-        </ButtonBase>
-      </div>
-      <div className={cx('grid text-center opacity-80 mt-8 capitalize', s.grid)}>
-        {
-          weekDays.map((weekDay) => (
-            isLocaleFetching ? (
-              <div
-                key={weekDay}
-                className="flex items-center justify-center"
-              >
-                <Bone
-                  className="rounded-4"
-                  w={20}
-                  h={20}
-                  delay={1}
-                />
-              </div>
-            ) : (
-              <Text
-                key={weekDay}
-                className="py-4"
-                message={weekDay}
-                size="t16m"
-                color="primary"
-              />
-            )
-          ))
-        }
-      </div>
-      <div
-        className={cx('relative transition-height duration-350', {
-          'overflow-hidden': weeksOffset !== 0,
-        })}
-        style={{
-          height: `${weeksCount * 32}px`,
-        }}
-      >
-        <div
-          className={cx('grid text-center', s.grid, {
-            'transition-transform duration-350': weeksOffset,
-          })}
-          style={{
-            transform: `translateY(${weeksOffset * 32}px)`,
-            marginTop: weeksOffset > 0 ? `-${weeksOffset * 32}px` : '0',
-          }}
-        >
-          {
-            days.map((day) => {
-              const dayDate = getDate(day.fullDate) as Date.Time
-
-              return (
-                <Day
-                  key={day.fullDate}
-                  title={day.date}
-                  isActive={day.yearMonth === yearMonth}
-                  isDisabled={(
-                    minimalDate?.isAfter(dayDate.endOf('day'))
-                    || maximalDate?.isBefore(dayDate.startOf('day'))
-                  )}
-                  isSelected={day.fullDate === selectedDay}
-                  onClick={() => {
-                    field.setValue(day.fullDate)
-
-                    if (typeof onChange === 'function') {
-                      onChange()
-                    }
-                  }}
-                />
-              )
-            })
-          }
-        </div>
-      </div>
+        )
+      }
+      {
+        level === 'decade' && (
+          <Years
+            years={years}
+            yearMonth={yearMonth}
+            decadeStart={decadeStart}
+            selectedDate={selectedDate}
+            minimalDate={minimalDate}
+            maximalDate={maximalDate}
+            onSelect={handleSelectYear}
+          />
+        )
+      }
     </div>
   )
 }

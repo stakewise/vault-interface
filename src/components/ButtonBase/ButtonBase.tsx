@@ -6,6 +6,8 @@ import s from './ButtonBase.module.scss'
 import intl from 'modules/intl'
 
 
+type ButtonElement = HTMLAnchorElement | HTMLButtonElement
+
 export type ButtonBaseProps = {
   children?: React.ReactNode
   className?: string
@@ -21,8 +23,9 @@ export type ButtonBaseProps = {
   disabled?: boolean
   dataTestId?: string
   ariaLabel?: string | Intl.Message
-  ref?: React.RefObject<HTMLAnchorElement | HTMLButtonElement>
-  onClick?: React.MouseEventHandler<HTMLAnchorElement | HTMLButtonElement>
+  ref?: React.RefObject<ButtonElement>
+  onKeyDown?: React.KeyboardEventHandler<ButtonElement>
+  onClick?: React.MouseEventHandler<ButtonElement>
 }
 
 const ButtonBase: React.FC<ButtonBaseProps> = (props) => {
@@ -45,7 +48,7 @@ const ButtonBase: React.FC<ButtonBaseProps> = (props) => {
     ? translations.formatMessage(ariaLabel, ariaLabel.values)
     : ariaLabel
 
-  const handleClick = useCallback((event: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => {
+  const handleClick = useCallback((event: React.MouseEvent<ButtonElement>) => {
     if (disabled) {
       return
     }

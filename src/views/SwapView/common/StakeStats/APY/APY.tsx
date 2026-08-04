@@ -38,7 +38,7 @@ const APY: React.FC<APYProps> = (props) => {
           className="opacity-60"
           message={methods.formatApy(apy)}
           color="dark"
-          size="t14"
+          size="sm"
           dataTestId="vault-apy"
         />
         {
@@ -49,7 +49,7 @@ const APY: React.FC<APYProps> = (props) => {
                 className="opacity-60"
                 message="-"
                 color="dark"
-                size="t14"
+                size="sm"
               />
               &nbsp;
               <MagicPercent
@@ -65,10 +65,10 @@ const APY: React.FC<APYProps> = (props) => {
         className={cx('flex items-center gap-4', { 'mt-4': !isDesktop })}
       >
         <Text
-          className="opacity-40"
+          className="opacity-40 font-medium"
           message={!isDesktop ? 'APY' : messages.apy}
           color="dark"
-          size={!isDesktop ? 't12m' : 't14m'}
+          size={!isDesktop ? 'xs' : 'sm'}
         />
         {
           isBoostEnabled && (

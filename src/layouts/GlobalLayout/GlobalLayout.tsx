@@ -23,12 +23,12 @@ type GlobalLayoutProps = {
   children: React.ReactNode
   locale: Intl.LanguagesKeys
   serverTheme: Theme.Input
+  serializedStore?: string
   serverDevice: Device.Context
-  vaultBase: Partial<Store['vault']['base']> | null
 }
 
 const GlobalLayout: React.FC<GlobalLayoutProps> = (values) => {
-  const { children, networkId, locale: initialLocale, serverDevice, serverTheme, vaultBase } = values
+  const { children, networkId, locale: initialLocale, serverDevice, serverTheme, serializedStore } = values
 
   // Strange "_next" type values may come in
   const isValidLocale = languages.includes(initialLocale)
@@ -55,12 +55,8 @@ const GlobalLayout: React.FC<GlobalLayoutProps> = (values) => {
       ? new URLSearchParams(window.location.search).get('skipSSR') === 'true'
       : false
 
-    if (vaultBase && !skipSSR) {
-      return createVaultInterfaceStore({
-        vault: {
-          base: vaultBase,
-        },
-      })
+    if (serializedStore && !skipSSR) {
+      return createVaultInterfaceStore(serializedStore)
     }
 
     return createVaultInterfaceStore()

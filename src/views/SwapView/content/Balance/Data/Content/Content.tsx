@@ -54,11 +54,11 @@ const Content: React.FC<ContentProps> = (props) => {
           withMinimalValue={withMinimalValue}
         />
         <FiatAmount
-          className="mt-4 opacity-60"
+          className="mt-4 opacity-60 font-medium"
           amount={amount}
           token={token}
           color="dark"
-          size="t12m"
+          size="xs"
         />
       </div>
     )
@@ -90,9 +90,10 @@ const Content: React.FC<ContentProps> = (props) => {
 
   return (
     <Text
+      className="font-medium"
       message={value}
       color="dark"
-      size="t14m"
+      size="sm"
       dataTestId={dataTestId}
     />
   )

@@ -21,6 +21,8 @@
   --radius-8: 8px;
   --radius-12: 12px;
   --radius-16: 16px;
+  --radius-20: 20px;
+  --radius-30: 30px;
   --radius-24: 24px;
   --radius-72: 72px;
 
@@ -32,6 +34,17 @@
   --blur-xl: 24px;
   --blur-2xl: 40px;
   --blur-3xl: 64px;
+
+  /* Font Weight */
+  --font-weight-thin: 100;
+  --font-weight-extralight: 200;
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extrabold: 800;
+  --font-weight-black: 900;
 
   /* Animation */
   --animate-spin: spin 1s linear infinite;

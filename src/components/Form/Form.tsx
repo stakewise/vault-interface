@@ -4,12 +4,13 @@ import React, { useCallback } from 'react'
 export type FormProps = React.AllHTMLAttributes<HTMLFormElement> & {
   loading?: boolean
   disabled?: boolean
+  dataTestId?: string
   onSubmit?: (event: React.FormEvent<HTMLFormElement>) => void
 }
 
 // Helper to handle loading and disable states for form
 const Form: React.FunctionComponent<FormProps> = (props) => {
-  const { children, loading, disabled, onSubmit, ...rest } = props
+  const { children, loading, disabled, dataTestId, onSubmit, ...rest } = props
 
   const handleSubmit = useCallback<React.FormEventHandler<HTMLFormElement>>((event) => {
     event.preventDefault()
@@ -28,6 +29,7 @@ const Form: React.FunctionComponent<FormProps> = (props) => {
       {...rest}
       noValidate
       aria-busy={loading}
+      data-testid={dataTestId}
       onSubmit={handleSubmit}
     >
       {children}

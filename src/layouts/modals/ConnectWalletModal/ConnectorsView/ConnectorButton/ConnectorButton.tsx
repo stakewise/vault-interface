@@ -34,11 +34,11 @@ const ConnectorButton: React.FC<ConnectorButtonProps> = (props) => {
           />
         </div>
         <Text
-          className={cx(s.text, 'mt-16 opacity-60')}
+          className={cx(s.text, 'mt-16 opacity-60 font-medium')}
           dataTestId={`${dataTestId}-title`}
           message={title}
           color="dark"
-          size="t12m"
+          size="xs"
         />
       </Href>
     )
@@ -66,11 +66,11 @@ const ConnectorButton: React.FC<ConnectorButtonProps> = (props) => {
         }
       </div>
       <Text
-        className={cx(s.text, 'mt-16 opacity-60')}
+        className={cx(s.text, 'mt-16 opacity-60 font-medium')}
         dataTestId={`${dataTestId}-title`}
         message={title}
         color="dark"
-        size="t12m"
+        size="xs"
       />
     </ButtonBase>
   )

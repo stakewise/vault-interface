@@ -86,6 +86,7 @@ const RewardsChart: React.FC<RewardsChartProps> = (props) => {
       dataTestId="stake-chart"
       vaultAddress={vaultAddress as string}
       noItemsDescription={messages.description}
+      showExtraRewards
       onExportButtonClick={closeModal}
     />
   )

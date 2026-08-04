@@ -52,12 +52,12 @@ const Legend: React.FC<LegendProps> = (props) => {
             {
               Boolean(options?.legendTitle) && (
                 <Text
-                  className={cx('opacity-50', {
+                  className={cx('opacity-50 font-medium', {
                     'ml-8': !isPercent,
                   })}
                   message={options?.legendTitle || ''}
                   color="dark"
-                  size="t14m"
+                  size="sm"
                 />
               )
             }

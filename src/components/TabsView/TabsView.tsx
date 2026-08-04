@@ -13,9 +13,9 @@ import s from './TabsView.module.scss'
 export type TabsViewProps = {
   className?: string
   dataTestId?: string
-  tabsClassName?: string
   panelClassName?: string
   panelsClassName?: string
+  tabsClassName?: string
   selectedId?: string
   tabsList: {
     id: string
@@ -97,7 +97,7 @@ const TabsView: React.FC<TabsViewProps> = (props) => {
 
   return (
     <div
-      className={className}
+      className={cx('custom-scrollbar', className)}
       data-testid={`${dataTestId}-main-container`}
     >
       <TabGroup
@@ -108,12 +108,12 @@ const TabsView: React.FC<TabsViewProps> = (props) => {
         manual
       >
         <div
-          className={cx(s.tabList, 'flex relative', {
+          className={cx('flex relative', {
             [s.borderMin]: borderMin,
             [s.borderFill]: !borderMin,
           })}
-          ref={containerRef}
           data-testid={`${dataTestId}-filters`}
+          ref={containerRef}
         >
           <div
             className={cx(s.line, 'bg-primary')}
@@ -160,9 +160,9 @@ const TabsView: React.FC<TabsViewProps> = (props) => {
                             dataTestId={dataTestId}
                           >
                             <Text
-                              className={cx('py-12', s.tabTitle)}
+                              className={cx('py-12 font-medium', s.tabTitle)}
                               message={title}
-                              size="t14m"
+                              size="sm"
                               color="inherit"
                             />
                             {

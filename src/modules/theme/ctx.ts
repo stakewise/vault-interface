@@ -8,6 +8,8 @@ import cookie from 'helpers/cookie'
 import { ThemeClasses, ThemeValue, ThemeColor } from './enum'
 
 
+const isIpfs = process.env.NEXT_PUBLIC_IPFS === 'true'
+
 const initialContext: Theme.Context = {
   themeValue: ThemeColor.Light,
   cookieTheme: ThemeColor.Light,
@@ -26,11 +28,30 @@ const {
   useData,
   useInit,
 } = initContext<Theme.Context, Theme.Input>(initialContext, (serverTheme) => {
-  const [ { cookieTheme, systemTheme, isSystemTheme }, setState ] = useObjectState<Theme.State>({
-    cookieTheme: serverTheme.value || ThemeColor.Light,
-    isSystemTheme: serverTheme.isSystemTheme,
-    systemTheme: serverTheme.isSystemTheme && serverTheme.value ? serverTheme.value : ThemeColor.Light,
-  })
+  const getInitialTheme = (): Theme.State => {
+    if (isIpfs) {
+      const savedTheme = cookie.get(constants.cookieNames.themeColor) as ThemeColor
+      const savedIsSystem = cookie.get(constants.cookieNames.isSystemTheme)
+
+      if (savedTheme || savedIsSystem) {
+        const isSystem = savedIsSystem === 'true'
+
+        return {
+          isSystemTheme: isSystem,
+          cookieTheme: savedTheme || ThemeColor.Light,
+          systemTheme: isSystem ? (savedTheme || ThemeColor.Light) : ThemeColor.Light,
+        }
+      }
+    }
+
+    return {
+      isSystemTheme: serverTheme.isSystemTheme,
+      cookieTheme: serverTheme.value || ThemeColor.Light,
+      systemTheme: serverTheme.isSystemTheme && serverTheme.value ? serverTheme.value : ThemeColor.Light,
+    }
+  }
+
+  const [ { cookieTheme, systemTheme, isSystemTheme }, setState ] = useObjectState<Theme.State>(getInitialTheme())
 
   const setThemeClassName = useCallback((theme: ThemeColor) => {
     const isDark = theme === ThemeColor.Dark
@@ -70,6 +91,9 @@ const {
       return () => {
         darkThemeQuery.removeEventListener('change', handleSetTheme)
       }
+    }
+    else {
+      setThemeClassName(cookieTheme)
     }
   }, [ isSystemTheme, getSystemTheme, setThemeClassName, setState ])
 

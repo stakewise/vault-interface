@@ -32,12 +32,10 @@ const TokenList: React.FC<TokenListProps> = (props) => {
             data-testid={dataTestId}
           >
             <TextWithTooltip
-              text={{
-                message: title,
-                color: 'dark',
-                size: 't14m',
-              }}
               tooltip={tooltip}
+              message={title}
+              color="dark"
+              size="sm"
             />
             <div className="text-right">
               <TokenAmount
@@ -47,11 +45,11 @@ const TokenList: React.FC<TokenListProps> = (props) => {
                 dataTestId={dataTestId ? `${dataTestId}-amount` : undefined}
               />
               <FiatAmount
-                className="mt-4 opacity-60"
+                className="mt-4 opacity-60 font-medium"
                 amount={amount}
                 token={token}
                 color="dark"
-                size="t12m"
+                size="xs"
                 dataTestId={dataTestId ? `${dataTestId}-fiat-amount` : undefined}
               />
             </div>

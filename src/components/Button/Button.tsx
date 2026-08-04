@@ -20,11 +20,11 @@ const iconSizes = {
 }
 
 const titleSizes = {
-  xs: 't12m',
-  s: 't14m',
-  m: 't14m',
-  l: 't18m',
-  xl: 't20b',
+  xs: 'xs',
+  s: 'sm',
+  m: 'sm',
+  l: 'lg',
+  xl: 'lg',
 }
 
 type ButtonSize = typeof buttonSizes[number]
@@ -125,7 +125,6 @@ const Button: React.FC<ButtonProps> = (props) => {
       'bg-dark/15 opacity-30': disabled || loading,
       [buttonPaddingClassName]: title && !withoutPadding,
     }
-    
   )
 
   return (

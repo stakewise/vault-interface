@@ -132,11 +132,9 @@ const Data: React.FC = () => {
             >
               <div>
                 <TextWithTooltip
-                  text={{
-                    message: title,
-                    color: 'dark',
-                    size: 't14m',
-                  }}
+                  message={title}
+                  color="dark"
+                  size="sm"
                   tooltip={tooltip}
                 />
               </div>

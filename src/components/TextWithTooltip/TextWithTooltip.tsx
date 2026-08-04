@@ -8,39 +8,40 @@ import Text, { TextProps } from '../Text/Text'
 
 export type TextWithTooltipProps = {
   className?: string
-  text: {
-    className?: string
-    message: Intl.Message | string
-    color?: TextProps['color']
-    size?: TextProps['size']
-    dataTestId?: string
-  }
-  icon?: {
-    size: IconProps['size']
-    color: IconProps['color']
-  }
+  message: Intl.Message | string
+  size?: TextProps['size']
+  color?: TextProps['color']
+  iconColor?: IconProps['color']
   tooltip?: Intl.Message | string
+  inModal?: boolean
+  dataTestId?: string
 }
 
 const TextWithTooltip: React.FC<TextWithTooltipProps> = (props) => {
-  const { className, text, icon, tooltip } = props
+  const { className, message, size, color, iconColor, tooltip, inModal, dataTestId } = props
 
   return (
-    <div className={cx(className, 'flex justify-start items-center')}>
+    <div
+      className={cx(className, 'flex justify-start items-center', {
+        'gap-4': !className?.includes('gap-'),
+      })}
+      data-testid={dataTestId}
+    >
       <Text
-        className={text.className}
-        dataTestId={text.dataTestId}
-        message={text.message}
-        size={text.size || 't14m'}
-        color={text.color || 'dark'}
+        message={message}
+        size={size || 'sm'}
+        color={color || 'dark'}
       />
       {
         Boolean(tooltip) && (
-          <Tooltip content={tooltip}>
+          <Tooltip
+            content={tooltip}
+            inModal={inModal}
+          >
             <Icon
-              className="ml-4 opacity-50 cursor-pointer"
-              color={icon?.color || 'secondary'}
-              size={icon?.size || 16}
+              className="cursor-pointer"
+              color={iconColor || 'secondary'}
+              size={16}
               name="icon/info"
             />
           </Tooltip>

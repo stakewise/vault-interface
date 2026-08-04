@@ -1,10 +1,13 @@
-import React, { useState, useCallback, useRef, useId, useEffect, ChangeEventHandler } from 'react'
+import React, { useCallback, useRef, useId, useEffect, ChangeEventHandler, MouseEventHandler, KeyboardEventHandler } from 'react'
 import cx from 'classnames'
 import { methods } from 'helpers'
+import device from 'modules/device'
+import { useObjectState } from 'hooks'
+import { GlobalHtmlAttributes } from 'helpers/methods/getGlobalHtmlAttrs'
 
 import Text from '../../Text/Text'
-import Icon from '../../Icon/Icon'
 import Logo from '../../Logo/Logo'
+import Icon, { IconProps } from '../../Icon/Icon'
 import ButtonBase from '../../ButtonBase/ButtonBase'
 
 import InputButton from '../InputButton/InputButton'
@@ -20,39 +23,50 @@ type ViewProps = {
   onCrossClick?: () => void
 }
 
-export type InputViewProps = ViewProps & {
+export type InputViewProps = ViewProps & GlobalHtmlAttributes & {
   className?: string
   elementClassName?: string
   description?: Intl.Message | string
   label?: Intl.Message | string
+  icon?: IconProps['name']
+  rightIcon?: IconProps['name']
+  placeholder?: Intl.Message | string
   disabled?: boolean
+  isButtonDisabled?: boolean
   multiline?: number
   token?: Tokens
-  secondaryButtonTitle?: Intl.Message | string
   autoFocus?: boolean
   dataTestId?: string
+  isCustomFocus?: boolean
   buttonTitle?: Intl.Message | string
-  onButtonClick?: () => void
-  onSecondaryButtonClick?: () => void
-  onChange?: (value: string) => void
-  onFocus?: () => void
+  validateOn?: 'change' | 'blur'
   onBlur?: () => void
+  onFocus?: () => void
+  onEnter?: () => void
+  onChange?: (value: string) => void
+  onKeyDown?: KeyboardEventHandler<HTMLInputElement>
+  onButtonClick?: () => void
 }
 
 const InputView: React.FC<InputViewProps> = (props) => {
   const {
-    className, value, error, label, autoFocus, description, secondaryButtonTitle,
-    token, disabled, isRequired, dataTestId, multiline, buttonTitle, elementClassName,
+    className, value, error, label, icon, rightIcon, autoFocus, description, isButtonDisabled = false, placeholder, isCustomFocus,
+    token, disabled, isRequired, dataTestId, multiline, buttonTitle, elementClassName, validateOn = 'change',
 
-    onButtonClick, onSecondaryButtonClick, onCrossClick, onChange, onBlur, onFocus, ...otherProps
+    onButtonClick, onCrossClick, onChange, onBlur, onFocus, onEnter, onKeyDown, ...otherProps
   } = props
 
   const inputRef = useRef<HTMLInputElement>(null)
   const textAreaRef = useRef<HTMLTextAreaElement>(null)
-  const [ isFocused, setFocused ] = useState(Boolean(autoFocus))
+  const [ { isFocused, isTouched }, setState ] = useObjectState({
+    isFocused: Boolean(autoFocus),
+    isTouched: false,
+  })
 
   const isTextArea = Boolean(multiline)
   const ref = isTextArea ? textAreaRef : inputRef
+
+  const { isMobile } = device.useData()
 
   const handleButtonClick = useCallback((event: any) => {
     event.stopPropagation()
@@ -62,35 +76,27 @@ const InputView: React.FC<InputViewProps> = (props) => {
     }
   }, [ onButtonClick ])
 
-  const handleSecondaryButtonClick = useCallback((event: any) => {
-    event.stopPropagation()
-
-    if (typeof onSecondaryButtonClick === 'function') {
-      onSecondaryButtonClick()
-    }
-  }, [ onSecondaryButtonClick ])
-
   useEffect(() => {
     if (autoFocus) {
-      setFocused(true)
+      setState({ isFocused: true })
     }
-  }, [ autoFocus ])
+  }, [ autoFocus, setState ])
 
   const handleBlur = useCallback(() => {
     if (typeof onBlur === 'function') {
       onBlur()
     }
 
-    setFocused(false)
-  }, [ onBlur ])
+    setState({ isFocused: false, isTouched: true })
+  }, [ onBlur, setState ])
 
   const handleFocus = useCallback(() => {
     if (typeof onFocus === 'function') {
       onFocus()
     }
 
-    setFocused(true)
-  }, [ onFocus ])
+    setState({ isFocused: true })
+  }, [ onFocus, setState ])
 
   const handleChange = useCallback<ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>>((event) => {
     const value = event.target.value
@@ -100,9 +106,31 @@ const InputView: React.FC<InputViewProps> = (props) => {
     }
   }, [ onChange ])
 
+  const handleKeyDown = useCallback((event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (typeof onKeyDown === 'function') {
+      onKeyDown(event)
+    }
+
+    if (typeof onEnter === 'function' && event.key === 'Enter' && !event.shiftKey) {
+      event.preventDefault()
+      onEnter()
+    }
+  }, [ onEnter, onKeyDown ])
+
   useEffect(() => {
     if (isFocused && !disabled && ref.current) {
-      ref.current.focus()
+      const length = ref.current.value?.length || 0
+      const element = ref.current
+
+      element.focus()
+
+      // setSelectionRange is supported only for textareas and text-like input types
+      const isTextarea = element instanceof HTMLTextAreaElement
+      const isTextLikeInput = !isTextarea && [ 'text', 'search', 'url', 'tel', 'password' ].includes(element.type)
+
+      if (isTextarea || isTextLikeInput) {
+        element.setSelectionRange(length, length)
+      }
     }
   }, [ ref, isFocused, disabled ])
 
@@ -111,12 +139,13 @@ const InputView: React.FC<InputViewProps> = (props) => {
   const disableCrossClick = useRef(false)
   const testId = dataTestId || `input-${controlId}`
 
-  const isError = Boolean(error)
+  const isError = Boolean(error) && (validateOn !== 'blur' || isTouched)
   const isFilled = value !== undefined && value !== ''
   const isShowTooltip = isError && isFocused && typeof error !== 'boolean'
 
   const containerClassName = cx(s.container, 'w-full flex items-center rounded-8', {
     [s.focused]: isFocused && !disabled,
+    [s.isCustomFocus]: isFocused && !disabled && isCustomFocus,
     [s.filled]: isFilled,
     [s.error]: isError && !isFocused,
     [s.disabled]: disabled,
@@ -130,7 +159,7 @@ const InputView: React.FC<InputViewProps> = (props) => {
   const inputClassName = cx(
     s.field,
     elementClassName,
-    'w-full text-t14m overflow-ellipsis whitespace-nowrap text-dark',
+    'w-full text-sm font-medium overflow-ellipsis whitespace-nowrap text-dark flex-1',
     {
       'mt-16': Boolean(label),
       'cursor-default': disabled,
@@ -141,17 +170,26 @@ const InputView: React.FC<InputViewProps> = (props) => {
     s.field,
     s.isMultiline,
     elementClassName,
-    'w-full mb-8 pb-8 pr-32 text-t14m text-dark scroll-y',
+    'w-full mb-8 pb-8 pr-36 font-medium text-dark scroll-y',
     {
+      'text-md': isMobile,
+      'text-sm': !isMobile,
       'mt-24': Boolean(label),
+      'mt-12': Boolean(placeholder),
       'cursor-default': disabled,
     }
   )
+
+  const tooltipClassName = `
+    py-4 px-8 mb-8 rounded-8 absolute left-0 bottom-full
+    bg-white backdrop-blur-[30px] border border-coal/20 shadow-md
+  `
 
   const elementProps = {
     ...htmlAttrs,
     ref,
     disabled,
+    placeholder,
     id: controlId,
     value: value || '',
     'data-testid': testId,
@@ -160,13 +198,16 @@ const InputView: React.FC<InputViewProps> = (props) => {
     onBlur: handleBlur,
     onFocus: handleFocus,
     onChange: handleChange,
+    onKeyDown: handleKeyDown,
     className: isTextArea ? textareaClassName : inputClassName,
     ...(isTextArea && {
       rows: multiline,
     }),
   }
 
-  const handleCrossClick = useCallback(() => {
+  const handleCrossClick = useCallback((event?: Parameters<MouseEventHandler>[0]) => {
+    event?.stopPropagation()
+
     if (typeof onCrossClick === 'function' && !disableCrossClick.current) {
       onCrossClick()
     }
@@ -174,11 +215,14 @@ const InputView: React.FC<InputViewProps> = (props) => {
     disableCrossClick.current = false
   }, [ onCrossClick ])
 
+  const isCrossButtonShown = typeof onCrossClick === 'function' && isFilled && !disabled
+
   return (
     <div className={cx(className, 'relative')}>
       <div
         className={containerClassName}
         onKeyDown={(event) => {
+          event.stopPropagation()
           // fix cross click instead of form submit
           disableCrossClick.current = event.key === 'Enter'
         }}
@@ -193,6 +237,15 @@ const InputView: React.FC<InputViewProps> = (props) => {
             />
           )
         }
+        {
+          icon && (
+            <Icon
+              className="mr-8"
+              name={icon}
+              size={20}
+            />
+          )
+        }
         <div className="w-full h-full inline-flex flex-col justify-center relative">
           {
             Boolean(label) && (
@@ -200,7 +253,7 @@ const InputView: React.FC<InputViewProps> = (props) => {
                 className={cx(s.label, 'absolute left-0 w-full overflow-ellipsis whitespace-nowrap opacity-60')}
                 message={label as string}
                 tag="label"
-                size={(value || isFocused && !disabled) ? 't12' : 't14'}
+                size={(value || isFocused && !disabled) ? 'xs' : 'sm'}
                 color="dark"
                 htmlFor={controlId}
               />
@@ -214,19 +267,28 @@ const InputView: React.FC<InputViewProps> = (props) => {
               )
             }
             {
-              typeof onCrossClick === 'function' && isFilled && !disabled && (
+              isCrossButtonShown && (
                 <ButtonBase
                   className={cx(s.crossButton, {
                     'ml-16': !multiline,
                     'absolute': multiline,
                   })}
                   ariaLabel={messages.resetValue}
-                  dataTestId={`${testId}-close-button`}
+                  dataTestId={`${testId}-cross-button`}
+                  onKeyDown={(event) => {
+                    if (event.key === 'Enter') {
+                      event.preventDefault()
+
+                      disableCrossClick.current = false
+                      handleCrossClick()
+                      ref.current?.focus()
+                    }
+                  }}
                   onClick={handleCrossClick}
                 >
                   <Icon
                     name="icon/close"
-                    size={24}
+                    size={16}
                     color="dark"
                   />
                 </ButtonBase>
@@ -235,22 +297,20 @@ const InputView: React.FC<InputViewProps> = (props) => {
             {
               Boolean(buttonTitle) && (
                 <InputButton
-                  className="ml-8"
-                  disabled={disabled}
+                  className="ml-8 flex-col"
                   title={buttonTitle as string}
                   dataTestId={`${testId}-button`}
+                  disabled={isButtonDisabled || disabled}
                   onClick={handleButtonClick}
                 />
               )
             }
             {
-              Boolean(secondaryButtonTitle) && (
-                <InputButton
-                  className="ml-8"
-                  disabled={disabled}
-                  dataTestId={`${testId}-secondary-button`}
-                  title={secondaryButtonTitle as string}
-                  onClick={handleSecondaryButtonClick}
+              (!isCrossButtonShown && rightIcon) && (
+                <Icon
+                  className="opacity-70"
+                  name={rightIcon}
+                  size={20}
                 />
               )
             }
@@ -261,7 +321,8 @@ const InputView: React.FC<InputViewProps> = (props) => {
         Boolean(description) && (
           <Text
             className={cx(s.description, 'w-full mt-4')}
-            size="t12"
+            html
+            size="xs"
             color="inherit"
             message={description as Intl.Message}
           />
@@ -269,10 +330,10 @@ const InputView: React.FC<InputViewProps> = (props) => {
       }
       {
         isShowTooltip && (
-          <div className="py-8 px-16 rounded-8 absolute left-0 bottom-full bg-black mb-4">
+          <div className={tooltipClassName}>
             <Text
-              size="t14"
-              color="white"
+              size="sm"
+              color={error ? 'error' : 'dark'}
               message={error as Intl.Message}
               dataTestId={`${testId}-error`}
             />

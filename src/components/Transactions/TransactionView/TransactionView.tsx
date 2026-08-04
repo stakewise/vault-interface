@@ -91,9 +91,10 @@ const TransactionView: React.FC<StepProps> = (props) => {
       <div className="flex-1 ml-12">
         <div className="mt-4 flex items-center gap-8">
           <Text
+            className="font-medium"
             message={title}
             color="dark"
-            size="t14m"
+            size="sm"
             dataTestId={dataTestId ? `${dataTestId}-title` : undefined}
           />
           {
@@ -106,9 +107,10 @@ const TransactionView: React.FC<StepProps> = (props) => {
                   dataTestId={dataTestId ? `${dataTestId}-cancel` : undefined}
                 >
                   <Text
+                    className="font-medium"
                     message={messages.buttonTitle.cancel}
                     color="inherit"
-                    size="t14m"
+                    size="sm"
                   />
                 </ButtonBase>
               </>
@@ -119,7 +121,7 @@ const TransactionView: React.FC<StepProps> = (props) => {
           className="mt-4 opacity-60"
           message={descriptions[status] as Intl.Message}
           color="dark"
-          size="t14"
+          size="sm"
         />
       </div>
     </div>

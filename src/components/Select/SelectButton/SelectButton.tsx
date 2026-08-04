@@ -5,16 +5,15 @@ import Text from '../../Text/Text'
 import Icon from '../../Icon/Icon'
 import Logo from '../../Logo/Logo'
 import ButtonBase from '../../ButtonBase/ButtonBase'
-
-import type { LogoName } from '../../Image/Image'
-import type { IconProps } from '../../Icon/Icon'
 import type { ButtonProps } from '../../Button/Button'
+import type { LogoName, IconName } from '../../Image/Image'
 
 import s from './SelectButton.module.scss'
 
 
 type SelectButtonProps = ButtonProps & {
   logo?: LogoName
+  icon?: IconName
   disabled?: boolean
   isError?: boolean
   isActive?: boolean
@@ -22,7 +21,7 @@ type SelectButtonProps = ButtonProps & {
 }
 
 const SelectButton: React.FC<SelectButtonProps> = (props) => {
-  const { className, logo, title, disabled, isError, isActive, arrow = 'down', ref, ...rest } = props
+  const { className, logo, title, disabled, isError, isActive, icon, ref, ...rest } = props
 
   const defaultClassName = isActive ? 'text-primary': 'interaction-color-dark'
 
@@ -45,13 +44,13 @@ const SelectButton: React.FC<SelectButtonProps> = (props) => {
         )
       }
       <Text
-        className="text-center overflow-ellipsis"
+        className="text-center overflow-ellipsis font-medium"
         message={title as string}
-        size="t14m"
+        size="sm"
         color="inherit"
       />
       {
-        Boolean(arrow) && (
+        Boolean(icon) && (
           <div
             className={cx('ml-4 flex items-center', s.arrow, {
               [s.active]: isActive,
@@ -60,7 +59,7 @@ const SelectButton: React.FC<SelectButtonProps> = (props) => {
             <Icon
               className={s.icon}
               size={16}
-              name={`arrow/${arrow}` as IconProps['name']}
+              name={icon as IconName}
               color={isActive ? 'primary' : 'dark'}
             />
           </div>

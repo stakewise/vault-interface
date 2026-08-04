@@ -60,6 +60,14 @@
     border-radius: var(--radius-16);
   }
 
+  .rounded-20 {
+    border-radius: var(--radius-20);
+  }
+
+  .rounded-30 {
+    border-radius: var(--radius-30);
+  }
+
   .rounded-24 {
     border-radius: var(--radius-24);
   }
@@ -114,6 +122,20 @@
     text-decoration: underline;
   }
 
+  .text-link {
+    color: rgb(var(--primary-rgb));
+    background-image: linear-gradient(currentColor, currentColor);
+    background-repeat: no-repeat;
+    background-position: 50% 100%;
+    background-size: 98% 1px;
+    cursor: pointer;
+    transition: background-size .35s ease;
+  }
+
+  .text-link:hover {
+    background-size: 0 1px;
+  }
+
   .hide-empty:empty {
     display: none;
   }
@@ -125,5 +147,39 @@
 
   .transparent {
     color: rgba(255, 255, 255, 0);
+  }
+
+  .backdrop-none {
+    backdrop-filter: none !important;
+  }
+
+  .backdrop-20 {
+    backdrop-filter: blur(20px);
+  }
+
+  .backdrop-30 {
+    backdrop-filter: blur(30px);
+  }
+
+  .scrollbar-none {
+    scrollbar-width: none; /* Firefox */
+  }
+
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+
+  .custom-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(var(--secondary-rgb), .5) transparent;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    width: 10px;
+    background-color: rgba(var(--secondary-rgb), .5) transparent;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: transparent;
   }
 }

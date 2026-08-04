@@ -9,7 +9,7 @@ type ActionInput = {
   cancelErrors?: string[]
   isConfirmOptional?: boolean
   action: () => Promise<string>
-  confirm: (values: { hash: string }) => Promise<void>
+  confirm: (values: { hash: string }) => Promise<any>
   setTransaction: SetTransaction
 }
 

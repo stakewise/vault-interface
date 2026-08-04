@@ -1,8 +1,9 @@
-import { cookies } from 'next/headers'
 import * as constants from 'helpers/constants'
 
 
 const getCookieDevice = async () => {
+  const { cookies } = await import('next/headers')
+
   const cookiesState = await cookies()
   const cookieDevice = cookiesState.get(constants.cookieNames.device)?.value
 

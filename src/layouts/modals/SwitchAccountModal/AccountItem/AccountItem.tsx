@@ -31,9 +31,10 @@ const AccountItem: React.FC<AccountItemProps> = (props) => {
       onClick={handleClick}
     >
       <Text
+        className="font-bold"
         message={shortenAddress as Intl.Message | string}
         color="dark"
-        size="t14b"
+        size="sm"
       />
       {
         Boolean(balance) ? (
@@ -45,11 +46,11 @@ const AccountItem: React.FC<AccountItemProps> = (props) => {
               size="md"
             />
             <FiatAmount
-              className="mt-4 text-center opacity-60"
+              className="mt-4 text-center opacity-60 font-medium"
               token={token}
               amount={balance as string}
               color="dark"
-              size="t12m"
+              size="xs"
             />
           </>
         ) : (

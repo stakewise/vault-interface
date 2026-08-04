@@ -30,9 +30,9 @@ const Percentage: React.FC<PercentageProps> = (props) => {
   return (
     <Text
       ref={percentageTooltipRef}
-      className={cx(className, s.value, 'opacity-80')}
+      className={cx(className, s.value, 'opacity-80 font-medium')}
       color="dark"
-      size="t18m"
+      size="lg"
       message=""
     />
   )

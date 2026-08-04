@@ -70,8 +70,9 @@ const ScrollableContainer: React.FC<ScrollableContainerProps> = (props) => {
                 color="white"
               />
               <Text
+                className="font-medium"
                 message={messages.buttonTitle}
-                size="t12m"
+                size="xs"
                 color="white"
               />
             </ButtonBase>

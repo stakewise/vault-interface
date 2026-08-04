@@ -12,13 +12,14 @@ export type HrefProps = {
   tabIndex?: string
   dataTestId?: string
   targetBlank?: boolean
+  nofollow?: boolean
   ariaLabel?: string | Intl.Message
   ref?: React.RefObject<HTMLAnchorElement>
   onClick?: (event: any) => void
 }
 
 const Href: React.FC<HrefProps> = (props) => {
-  const { children, className, to, ref, targetBlank, dataTestId, ariaLabel, onClick, ...otherProps } = props
+  const { children, className, to, ref, targetBlank, dataTestId, ariaLabel, nofollow = true, onClick, ...otherProps } = props
 
   const htmlAttrs = methods.getGlobalHtmlAttrs(otherProps)
   const isInternal = to && !/^(http|mailto)/.test(to)
@@ -29,7 +30,7 @@ const Href: React.FC<HrefProps> = (props) => {
   const translations = intl.useIntl()
 
   const _ariaLabel = typeof ariaLabel === 'object'
-    ? translations.formatMessage(ariaLabel)
+    ? translations.formatMessage(ariaLabel, ariaLabel.values)
     : ariaLabel
 
   // Handle enter click on focused link
@@ -40,6 +41,14 @@ const Href: React.FC<HrefProps> = (props) => {
   }, [ onClick ])
 
   useEventListener('keyup', handler, _ref)
+
+  const isTargetBlank = Boolean(to || targetBlank)
+
+  let rel = isTargetBlank ? 'noreferrer' : ''
+
+  if (nofollow) {
+    rel = 'noopener noreferrer nofollow'
+  }
 
   if (isInternal) {
     return (
@@ -60,16 +69,17 @@ const Href: React.FC<HrefProps> = (props) => {
   }
 
   return (
+    // eslint-disable-next-line react/jsx-no-target-blank
     <a
       // @ts-ignore
       ref={_ref}
       className={className}
       href={to}
-      target={(to || targetBlank) ? '_blank' : undefined}
-      rel="noopener noreferrer nofollow"
+      target={isTargetBlank ? '_blank' : undefined}
       onClick={onClick}
       aria-label={_ariaLabel}
       data-testid={dataTestId}
+      rel={rel}
       {...htmlAttrs}
     >
       {children}

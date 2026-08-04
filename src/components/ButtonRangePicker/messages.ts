@@ -5,7 +5,7 @@ export default {
     fr: 'Bouton de sélection de plage',
     es: 'Botón selector de rango',
     pt: 'Botão de seleção de intervalo',
-    de: 'Bereichauswahltaste',
+    de: 'Bereichsauswahl',
     zh: '范围选择按钮',
   },
 }

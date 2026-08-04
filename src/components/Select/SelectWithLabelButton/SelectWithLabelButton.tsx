@@ -5,13 +5,14 @@ import Text from '../../Text/Text'
 import Icon from '../../Icon/Icon'
 import ButtonBase from '../../ButtonBase/ButtonBase'
 
-import type { IconProps } from '../../Icon/Icon'
 import type { ButtonProps } from '../../Button/Button'
+import type { IconName } from '../../Image/Image'
 
 import s from './SelectWithLabelButton.module.scss'
 
 
 type SelectWithLabelButtonProps = ButtonProps & {
+  icon?: IconName
   disabled?: boolean
   isError?: boolean
   label: Intl.Message | string
@@ -19,12 +20,12 @@ type SelectWithLabelButtonProps = ButtonProps & {
 }
 
 const SelectWithLabelButton: React.FC<SelectWithLabelButtonProps> = (props) => {
-  const { className, title, label, arrow = 'down', disabled, isError, ref, ...rest } = props
+  const { className, title, label, icon, disabled, isError, ref, ...rest } = props
 
   const isFilled = title !== undefined
 
   const containerClassName = cx(s.container, 'w-full flex rounded-8 px-16', {
-    [s.filled]: isFilled && !disabled,
+    [s.filled]: isFilled,
     [s.error]: isError,
     [s.disabled]: disabled,
     'opacity-50 cursor-default': disabled,
@@ -44,25 +45,29 @@ const SelectWithLabelButton: React.FC<SelectWithLabelButtonProps> = (props) => {
           className={cx(s.label, 'absolute left-0 w-full overflow-ellipsis whitespace-nowrap opacity-60')}
           message={label}
           tag="label"
-          size={(title && !disabled) ? 't12' : 't14'}
+          size={title ? 'xs' : 'sm'}
           color="dark"
           htmlFor={controlId}
         />
         <div className="flex text-start">
           <Text
-            className="overflow-ellipsis whitespace-nowrap flex-1 mt-16"
+            className="overflow-ellipsis whitespace-nowrap flex-1 mt-16 font-medium"
             message={title as string}
             color="dark"
-            size="t14m"
+            size="sm"
           />
-          <div className="ml-4 flex items-center">
-            <Icon
-              className={s.icon}
-              name={`arrow/${arrow}` as IconProps['name']}
-              color="dark"
-              size={16}
-            />
-          </div>
+          {
+            Boolean(icon) && (
+              <div className="ml-4 flex items-center">
+                <Icon
+                  className={s.icon}
+                  color="dark"
+                  name={icon as IconName}
+                  size={16}
+                />
+              </div>
+            )
+          }
         </div>
       </div>
     </ButtonBase>

@@ -1,22 +1,24 @@
 import React, { Fragment } from 'react'
 import cx from 'classnames'
 import { offset } from '@floating-ui/react'
+import type { Placement } from '@floating-ui/react'
 import { autoUpdate, useFloating } from '@floating-ui/react-dom'
 import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react'
 
-import Input from '../Input/Input'
-import type { InputProps } from '../Input/Input'
+import Input, { InputProps } from '../Input/Input'
 
 import Calendar, { CalendarProps } from './Calendar/Calendar'
 
 
-export type DatePickerProps = Omit<InputProps, 'field'> & Omit<CalendarProps, 'onChange'>
+export type DatePickerProps = Omit<InputProps, 'field'> & Omit<CalendarProps, 'onChange'> & {
+  placement?: Placement
+}
 
 const DatePicker: React.FC<DatePickerProps> = (props) => {
-  const { className, field, minDate, maxDate, ...rest } = props
+  const { className, field, minDate, maxDate, placement = 'bottom-start', ...rest } = props
 
   const { refs, floatingStyles } = useFloating({
-    placement: 'bottom-start',
+    placement,
     middleware: [
       offset(10),
     ],

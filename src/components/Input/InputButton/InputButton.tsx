@@ -20,14 +20,14 @@ const InputButton: React.FC<InputButtonProps> = (props) => {
 
   return (
     <ButtonBase
-      className={cx(s.button, className, 'rounded-6 px-12')}
+      className={cx(s.button, className, 'rounded-12 px-8')}
       disabled={disabled}
       dataTestId={dataTestId}
       onClick={onClick}
     >
       <Text
         message={title}
-        size="t12"
+        size="xs"
         color="dark"
       />
     </ButtonBase>

@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react'
-import cx from 'classnames'
 import kit from 'modules/kit-provider'
+import cx from 'classnames'
 
 import { constants } from '../../helpers'
 import getImageStyle from './util/getImageStyle'

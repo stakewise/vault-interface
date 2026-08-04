@@ -30,7 +30,7 @@ const BackButton: React.FC<BackButtonProps> = (props) => {
           <Text
             className="flex-1 mr-16"
             message={title}
-            size="t14"
+            size="sm"
             color="dark"
           />
         )

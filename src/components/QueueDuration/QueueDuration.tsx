@@ -34,7 +34,7 @@ const QueueDuration: React.FC<QueueDurationProps> = (props) => {
         className="flex-1 opacity-50"
         message={messages.calculating}
         color="dark"
-        size="t12"
+        size="xs"
         dataTestId={dataTestId}
       />
     )
@@ -51,7 +51,7 @@ const QueueDuration: React.FC<QueueDurationProps> = (props) => {
           },
         }}
         color="dark"
-        size="t12"
+        size="xs"
         dataTestId={dataTestId}
       />
     )
@@ -68,7 +68,7 @@ const QueueDuration: React.FC<QueueDurationProps> = (props) => {
           },
         }}
         color="dark"
-        size="t12"
+        size="xs"
         dataTestId={dataTestId}
       />
     )

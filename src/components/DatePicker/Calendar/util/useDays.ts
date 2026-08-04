@@ -1,8 +1,12 @@
 import { useCallback, useMemo } from 'react'
 import intl from 'modules/intl'
 import date from 'modules/date'
-import { useChangeEffect, useFieldListener, useObjectState } from 'hooks'
+import { useFieldListener, useObjectState } from 'hooks'
 
+
+const format = 'YYYY-MM'
+
+const weeksInGrid = 6
 
 type GetCalendarRangeInput = {
   firstDay: Date.Time
@@ -11,12 +15,9 @@ type GetCalendarRangeInput = {
 
 type Input = {
   field: Forms.Field<string>
-  animationDuration: number
 }
 
-const format = 'YYYY-MM'
-
-const useDays = ({ field, animationDuration }: Input) => {
+const useDays = ({ field }: Input) => {
   const time = date.useTime()
   const { locale } = intl.useIntl()
 
@@ -35,7 +36,7 @@ const useDays = ({ field, animationDuration }: Input) => {
     return result
   }, [ field ])
 
-  const getStateFromField = useCallback((initialDate?: string) => {
+  const getYearMonthFromField = useCallback((initialDate?: string) => {
     const { year, month } = parseFieldDate()
 
     let currentDate = initialDate ? time(initialDate, format) : time()
@@ -44,21 +45,17 @@ const useDays = ({ field, animationDuration }: Input) => {
       currentDate = currentDate.set('year', year)
     }
     if (month) {
-      // in day js months are zero-based
       currentDate = currentDate.set('month', month - 1)
     }
 
-    const yearMonth = currentDate.format(format)
-    const initialYearMonth = yearMonth
-
-    return { yearMonth, initialYearMonth }
+    return currentDate.format(format)
   }, [ time, parseFieldDate ])
 
-  const [ { yearMonth, initialYearMonth }, setState ] = useObjectState(getStateFromField())
+  const [ { yearMonth }, setState ] = useObjectState({ yearMonth: getYearMonthFromField() })
 
   const onFieldChange = useCallback(() => {
-    setState({ yearMonth: getStateFromField(yearMonth).yearMonth })
-  }, [ yearMonth, setState, getStateFromField ])
+    setState({ yearMonth: getYearMonthFromField(yearMonth) })
+  }, [ yearMonth, setState, getYearMonthFromField ])
 
   useFieldListener(field, onFieldChange)
 
@@ -72,6 +69,28 @@ const useDays = ({ field, animationDuration }: Input) => {
     })
   }, [ yearMonth, time, setState ])
 
+  const setYear = useCallback((count: number) => {
+    const nextYearMonth = time(yearMonth, format)
+      .add(count, 'year')
+      .format(format)
+
+    setState({
+      yearMonth: nextYearMonth,
+    })
+  }, [ yearMonth, time, setState ])
+
+  const selectMonth = useCallback((month: number) => {
+    setState({
+      yearMonth: time(yearMonth, format).set('month', month).format(format),
+    })
+  }, [ yearMonth, time, setState ])
+
+  const selectYear = useCallback((value: number) => {
+    setState({
+      yearMonth: time(yearMonth, format).set('year', value).format(format),
+    })
+  }, [ yearMonth, time, setState ])
+
   const weekDays = useMemo(() => {
     return new Array(7)
       .fill(null)
@@ -81,29 +100,17 @@ const useDays = ({ field, animationDuration }: Input) => {
   }, [ time ])
 
   const getCalendarRange = useCallback((yearMonth: string) => {
-    const selectedMonth = time(yearMonth, format)
-    const startOfMonth = selectedMonth.startOf('month')
-    const endOfMonth = selectedMonth.endOf('month')
-
+    const startOfMonth = time(yearMonth, format).startOf('month')
     const startDiff = weekDays.indexOf(startOfMonth.format('dd'))
-    const endDiff = 6 - weekDays.indexOf(endOfMonth.format('dd'))
 
     const firstDay = startOfMonth.subtract(startDiff, 'day')
-    const lastDay = endOfMonth.add(endDiff, 'day')
+    const lastDay = firstDay.add(weeksInGrid * 7 - 1, 'day')
 
     return {
       firstDay,
       lastDay,
     }
   }, [ weekDays, time ])
-
-  const monthRange = useMemo(() => {
-    return getCalendarRange(yearMonth)
-  }, [ yearMonth, getCalendarRange ])
-
-  const initialMonthRange = useMemo(() => {
-    return getCalendarRange(initialYearMonth)
-  }, [ initialYearMonth, getCalendarRange ])
 
   const getDays = useCallback(({ firstDay, lastDay }: GetCalendarRangeInput) => {
     return new Array(lastDay.diff(firstDay, 'day') + 1)
@@ -122,59 +129,66 @@ const useDays = ({ field, animationDuration }: Input) => {
   }, [])
 
   const days = useMemo(() => {
-    const daysDiff = monthRange.firstDay.diff(initialMonthRange.firstDay, 'day')
-
-    const firstDay = daysDiff > 0
-      ? initialMonthRange.firstDay
-      : monthRange.firstDay
-
-    const lastDay = daysDiff > 0
-      ? monthRange.lastDay
-      : initialMonthRange.lastDay
-
-    return getDays({ firstDay, lastDay })
-  }, [ monthRange, initialMonthRange, getDays ])
-
-  const weeksCount = useMemo(() => {
-    return monthRange.lastDay.diff(monthRange.firstDay, 'week') + 1
-  }, [ monthRange ])
-
-  const weeksOffset = useMemo(() => {
-    return initialMonthRange.firstDay.diff(monthRange.firstDay, 'week')
-  }, [ monthRange, initialMonthRange ])
+    return getDays(getCalendarRange(yearMonth))
+  }, [ yearMonth, getCalendarRange, getDays ])
 
   const title = useMemo(() => time(yearMonth, format).format('MMMM, YYYY'), [ yearMonth, time ])
 
+  const current = useMemo(() => time(yearMonth, format), [ yearMonth, time ])
+
+  const year = useMemo(() => current.year(), [ current ])
+
+  const decadeStart = useMemo(() => Math.floor(year / 10) * 10, [ year ])
+
+  const months = useMemo(() => (
+    new Array(12).fill(null).map((_, index) => ({
+      month: index,
+      title: current.set('month', index).format('MMM'),
+    }))
+  ), [ current ])
+
+  const years = useMemo(() => (
+    new Array(12).fill(null).map((_, index) => decadeStart - 1 + index)
+  ), [ decadeStart ])
+
+  const yearTitle = useMemo(() => String(year), [ year ])
+
+  const decadeTitle = useMemo(() => `${decadeStart} – ${decadeStart + 9}`, [ decadeStart ])
+
   const isLocaleFetching = useMemo(() => locale !== time().locale(), [ time, locale ])
-
-  useChangeEffect<[ string, number ]>(() => {
-    const timeout = setTimeout(() => {
-      setState({ initialYearMonth: yearMonth })
-    }, animationDuration)
-
-    return () => {
-      clearTimeout(timeout)
-    }
-  }, [ yearMonth, animationDuration ])
 
   return useMemo(() => ({
     days,
+    year,
     title,
+    years,
+    months,
     weekDays,
     yearMonth,
-    weeksCount,
-    weeksOffset,
+    yearTitle,
+    decadeStart,
+    decadeTitle,
     isLocaleFetching,
+    setYear,
     setMonth,
+    selectYear,
+    selectMonth,
   }), [
+    year,
     days,
     title,
+    years,
+    months,
     weekDays,
+    yearTitle,
     yearMonth,
-    weeksCount,
-    weeksOffset,
+    decadeStart,
+    decadeTitle,
     isLocaleFetching,
+    setYear,
     setMonth,
+    selectYear,
+    selectMonth,
   ])
 }
 

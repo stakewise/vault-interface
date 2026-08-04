@@ -32,13 +32,13 @@ const FailedToken: React.FC<FailedTokenProps> = (props) => {
       className={cx(className, 'flex items-center justify-between border-top border-dark/10 py-16')}
     >
       <Text
-        className="flex-1"
+        className="flex-1 font-medium"
         message={{
           ...title,
           values: { token },
         }}
         color="error"
-        size="t18m"
+        size="md"
         dataTestId={`action-${action}`}
       />
       <div>
@@ -53,7 +53,7 @@ const FailedToken: React.FC<FailedTokenProps> = (props) => {
           amount={value}
           token={token}
           color="dark"
-          size="t12"
+          size="xs"
         />
       </div>
     </div>

@@ -22,6 +22,8 @@ export const createSetUserRewards: Wrapper = ({ page }) => (
       dailyRewardsJpy: 2.8604074786261133,
       dailyRewardsKrw: 2.8604074786261133,
       dailyRewardsAud: 2.8604074786261133,
+      dailyStakeRewards: 2.8604074786261133,
+      dailyBoostRewards: 2.8604074786261133,
     }))
 
     await page.evaluate((payload) => {

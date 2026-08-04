@@ -14,7 +14,7 @@ const useOverlayClick = ({ skip, closeModal }: Input) => {
     }
   }, [ skip, closeModal ])
 
-  const onClick = useCallback((event: any) => {
+  const onMousedown = useCallback((event: any) => {
     if (!skip) {
       const isOverlay = event.target?.dataset?.testid === 'modal-overlay'
 
@@ -25,7 +25,7 @@ const useOverlayClick = ({ skip, closeModal }: Input) => {
   }, [ skip, closeModal ])
 
   useEventListener('keydown', onKeyDown)
-  useEventListener('click', onClick)
+  useEventListener('mousedown', onMousedown)
 }
 
 

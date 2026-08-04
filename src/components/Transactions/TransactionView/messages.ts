@@ -23,7 +23,7 @@ export default {
     fr: 'Échoué',
     es: 'Fallido',
     pt: 'Falhou',
-    de: 'Gescheitert',
+    de: 'Fehlgeschlagen',
     zh: '失败',
   },
   processing: {

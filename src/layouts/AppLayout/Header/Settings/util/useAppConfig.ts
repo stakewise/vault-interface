@@ -58,19 +58,19 @@ const useAppConfig = () => {
 
   const themeOptions = useMemo<OptionsType[]>(() => [
     {
-      logo: 'theme/sun',
+      icon: 'theme/sun',
       value: ThemeValue.Light,
       title: messages.theme.light,
     },
     {
-      logo: 'theme/moon',
+      icon: 'theme/moon',
       value: ThemeValue.Dark,
       title: messages.theme.dark,
     },
     {
       value: ThemeValue.System,
       title: messages.theme.system,
-      logo: systemTheme === ThemeColor.Dark ? 'theme/moon' : 'theme/sun',
+      icon: systemTheme === ThemeColor.Dark ? 'theme/moon' : 'theme/sun',
     },
   ], [ systemTheme ])
 
@@ -132,3 +132,4 @@ const useAppConfig = () => {
 
 
 export default useAppConfig
+

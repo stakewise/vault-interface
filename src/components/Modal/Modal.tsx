@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback, useState, Fragment } from 'react'
+import React, { useRef, useEffect, useCallback, useState, Fragment } from 'react'
 import { Dialog, DialogPanel, Transition, TransitionChild } from '@headlessui/react'
 import device from 'modules/device'
 import cx from 'classnames'
@@ -29,7 +29,27 @@ const Modal: React.FC<ModalProps> = (props) => {
   // This state use for animation
   const [ isOpen, setIsOpen ] = useState(true)
 
-  const { isDesktop } = device.useData()
+  const { isDesktop, isMobile } = device.useData()
+
+  const panelRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const handleFocusOut = () => {
+      setTimeout(() => {
+        if (document.activeElement === document.body) {
+          panelRef.current?.focus()
+        }
+      })
+    }
+
+    setTimeout(() => panelRef.current?.focus())
+
+    document.addEventListener('focusout', handleFocusOut)
+
+    return () => {
+      document.removeEventListener('focusout', handleFocusOut)
+    }
+  }, [])
 
   useEffect(() => {
     // Headless UI Dialog sets the #global-wrapper to inert,
@@ -116,9 +136,11 @@ const Modal: React.FC<ModalProps> = (props) => {
             leaveTo={s.modalFrom}
           >
             <DialogPanel
+              ref={panelRef}
+              tabIndex={-1}
               className={cx(className, s.modal, 'relative m-auto p-24 bg-modal', s[size], {
-                'rounded-16': isDesktop,
-                'flex flex-col': !isDesktop,
+                'rounded-16': !isMobile,
+                'flex flex-col': isMobile,
               })}
               data-testid={dataTestId}
             >

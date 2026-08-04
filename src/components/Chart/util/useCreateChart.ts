@@ -45,7 +45,7 @@ const useCreateChart = (input: Input): State => {
     const chart = createChart(container.current as HTMLElement, params)
 
     if (data.length > 1 && style === 'bar') {
-      throw new Error("The chart cannot have more than one data set to work with a column view")
+      throw new Error('The chart cannot have more than one data set to work with a column view')
     }
 
     const dataArr = data.map(({ data, options }) => {

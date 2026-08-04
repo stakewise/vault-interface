@@ -5,7 +5,7 @@ export default {
     fr: 'Solde : {balance}',
     es: 'Saldo: {balance}',
     pt: 'Saldo: {balance}',
-    de: 'Kontostand: {balance}',
+    de: 'Guthaben: {balance}',
     zh: '余额：{balance}',
   },
   setMaxValue: {

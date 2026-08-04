@@ -86,8 +86,8 @@ const Tabs: React.FC<TabsProps> = (props) => {
                   'opacity-50': !isActive,
                 })}
                 title={title}
-                withLabel={isClaimAvailable && id === Tab.Balance}
-                withMagicIcon={id === Tab.Boost}
+                withLabel={isClaimAvailable && id === Tab.Balance && isDesktop}
+                withMagicIcon={id === Tab.Boost && isDesktop}
                 dataTestId={`tab-${id}`}
                 onClick={() => {
                   if (!isActive) {

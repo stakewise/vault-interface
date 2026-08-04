@@ -2,25 +2,10 @@
   min-width: 20px;
   height: 20px;
 
-  @include dark-theme {
-    color: $color-dark;
-    background-color: rgba($color-dark-rgb, .2);
-
-    :global(.bg-inherit) {
-      background-color: $color-dark;
-    }
-  }
-
-  @include light-theme {
-    color: $color-primary;
-    background-color: rgba($color-primary-rgb, .1);
-
-    :global(.bg-inherit) {
-      background-color: $color-primary;
-    }
-  }
+  color: $color-dark;
+  background-color: rgba($color-white-rgb, .4);
 
   &.disabled {
-    background-color: rgba($color-secondary-rgb, .2);
+    opacity: 0.3;
   }
 }

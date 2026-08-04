@@ -76,9 +76,10 @@ const UnstakeQueue: React.FC<UnstakeQueueProps> = (props) => {
       <div className="flex items-center justify-between">
         <div>
           <Text
+            className="font-medium"
             message={commonMessages.buttonTitle.unstakeQueue}
             color="dark"
-            size="t14m"
+            size="sm"
           />
           {
             !hideDuration && (

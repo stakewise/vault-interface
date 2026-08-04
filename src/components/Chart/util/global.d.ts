@@ -23,14 +23,28 @@ declare global {
       legendLine?: string
     }
 
+    type ExtraData = {
+      boostRewards: number
+      stakeRewards: number
+      time?: number | Time
+    }
+
     type TimePoint = {
       time: Time
       value: number
+      extraData?: ExtraData
     }
 
     type Point = {
+      extraData?: ExtraData
       time: Time | number
       value: number
+    }
+
+    type CacheData = {
+      apy: Point[]
+      balance: Point[]
+      rewards: Point[]
     }
 
     type Style = 'bar' | 'line'

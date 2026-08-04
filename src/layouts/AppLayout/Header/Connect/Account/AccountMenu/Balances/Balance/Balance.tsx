@@ -72,9 +72,10 @@ const Balance: React.FC<BalanceProps> = (props) => {
     <div className={containerClassName}>
       <div className="flex items-center justify-start">
         <Text
+          className="font-medium"
           message={token}
           color="dark"
-          size="t14m"
+          size="sm"
         />
         {
           withAddTokenButton && (
@@ -105,11 +106,11 @@ const Balance: React.FC<BalanceProps> = (props) => {
               dataTestId={`${token}-amount`}
             />
             <FiatAmount
-              className="opacity-60"
+              className="opacity-60 font-medium"
               amount={value}
               token={token}
               color="dark"
-              size="t12m"
+              size="xs"
               dataTestId={`${token}-fiat-amount`}
             />
           </div>

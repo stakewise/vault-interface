@@ -49,9 +49,10 @@ const Option: React.FC<OptionProps> = (props) => {
         <div className="whitespace-nowrap">
           <div className="flex items-center gap-8">
             <Text
+              className="font-medium"
               message={name}
               color="dark"
-              size="t14m"
+              size="sm"
             />
             {
               address && (
@@ -59,23 +60,24 @@ const Option: React.FC<OptionProps> = (props) => {
                   className="opacity-50"
                   message={methods.shortenAddress(address)}
                   color="dark"
-                  size="t12"
+                  size="xs"
                 />
               )
             }
           </div>
           <Text
-            className="opacity-50"
+            className="opacity-50 font-medium"
             message={title}
-            size="t12m"
+            size="xs"
             color="dark"
           />
         </div>
       </div>
       <div className="text-right">
         <Text
+          className="font-medium"
           message={methods.formatTokenValue(formattedBalance, true)}
-          size="t14m"
+          size="sm"
           color="dark"
         />
         <FiatAmount
@@ -83,7 +85,7 @@ const Option: React.FC<OptionProps> = (props) => {
           amount={formattedBalance}
           token={name as Tokens}
           color="dark"
-          size="t12"
+          size="xs"
         />
       </div>
     </ListboxOption>

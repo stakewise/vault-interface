@@ -55,6 +55,10 @@ const ButtonContent: React.FC<ButtonContentProps> = (props) => {
       {
         Boolean(title && !loading) && (
           <Text
+            className={cx({
+              'font-medium': titleSize !== 'lg',
+              'font-bold': titleSize === 'lg',
+            })}
             message={title as string}
             size={titleSize}
             color={color as TextColor}

@@ -47,26 +47,34 @@ const Bone: React.FC<BoneProps> = (props: any) => {
     }
   }, [ aspect ])
 
-  const boneClassName = cx(s.bone, s[`delay-${delay}`], className, {
-    'relative': !/absolute/.test(className || ''),
-    'rounded-4': !/rounded/.test(className || ''),
+  const textSizeClassName = cx({
     [`text-${textSize}`]: textSize,
     'w-full': wFull,
+  })
+
+  const boneClassName = cx(s.bone, s[`delay-${delay}`], className, textSizeClassName, {
+    'relative': !/absolute/.test(className || ''),
+    'rounded-4': !/rounded/.test(className || ''),
   })
 
   if (textSize) {
     return (
       <div
-        className={boneClassName}
+        className={cx(className, textSizeClassName)}
         style={style}
-        dangerouslySetInnerHTML={{ __html: Boolean(textSize) ? '&nbsp;' : '' }}
-      />
+      >
+        <div
+          className={cx(boneClassName, 'leading-[1] inline-block')}
+          style={style}
+          dangerouslySetInnerHTML={{ __html: '&nbsp;' }}
+        />
+      </div>
     )
   }
 
   return (
     <div
-      className={boneClassName}
+      className={cx(className, boneClassName)}
       style={style}
     >
       {

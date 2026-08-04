@@ -52,16 +52,21 @@ const Dropdown: React.FC<DropdownProps> = (props) => {
             {...rest}
           >
             {
-              ({ selected }) => (
-                <Option
-                  title={title}
-                  subTitle={subTitle}
-                  logo={logo}
-                  icon={icon}
-                  active={typeof onClick === 'function' ? false : selected}
-                  isError={isError}
-                />
-              )
+              ({ focus, selected }) => {
+                const isSelected = typeof onClick === 'function' ? false : selected
+
+                return (
+                  <Option
+                    title={title}
+                    subTitle={subTitle}
+                    logo={logo}
+                    icon={icon}
+                    active={isSelected}
+                    focused={focus}
+                    isError={isError}
+                  />
+                )
+              }
             }
           </ListboxOption>
         ))

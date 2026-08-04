@@ -26,10 +26,11 @@ const UserApy: React.FC<UserApyProps> = (props) => {
   if (!isBoosted) {
     return (
       <Text
+        className="font-medium"
         message={methods.formatApy(userApy)}
         dataTestId={dataTestId}
         color="dark"
-        size="t14m"
+        size="sm"
       />
     )
   }

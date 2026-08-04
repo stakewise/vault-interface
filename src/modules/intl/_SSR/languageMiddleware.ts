@@ -1,6 +1,6 @@
 import { NextRequest } from 'next/server'
-import * as constants from 'helpers/constants'
 import allLanguages from 'scripts/languages'
+import * as constants from 'helpers/constants'
 
 
 const defaultLanguage = allLanguages[0]

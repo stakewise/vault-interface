@@ -59,17 +59,17 @@ const ClaimLabel: React.FC<ClaimLabelProps> = (props) => {
     >
       <Text
         ref={claimRef}
-        className={s.text}
+        className={cx(s.text, 'font-bold')}
         message={commonMessages.buttonTitle.claim}
         color="light"
-        size="n10b"
+        size="xs"
       />
       <Text
         ref={amountRef}
-        className={cx(s.text, 'opacity-0')}
+        className={cx(s.text, 'opacity-0 font-bold')}
         message={amount}
         color="light"
-        size="n10b"
+        size="xs"
       />
     </div>
   )

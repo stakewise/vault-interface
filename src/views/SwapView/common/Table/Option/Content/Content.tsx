@@ -43,7 +43,7 @@ const Content: React.FC<ContentProps> = (props) => {
           className="font-medium"
           message={values.prev}
           color="dark"
-          size="t14"
+          size="sm"
           dataTestId={`${dataTestId}-prev`}
         />
         <Icon
@@ -60,10 +60,10 @@ const Content: React.FC<ContentProps> = (props) => {
           )
         }
         <Text
-          className={isMagicValue ? 'text-secondary-gradient font-medium' : 'font-medium'}
+          className={isMagicValue ? 'text-primary font-medium' : 'font-medium'}
           message={values.next}
           color="dark"
-          size="t14"
+          size="sm"
           dataTestId={`${dataTestId}-next`}
         />
       </div>
@@ -104,7 +104,7 @@ const Content: React.FC<ContentProps> = (props) => {
         className="font-medium"
         message={value as string}
         color="dark"
-        size="t14"
+        size="sm"
         dataTestId={dataTestId}
       />
     </div>

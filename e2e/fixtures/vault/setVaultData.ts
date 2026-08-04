@@ -20,7 +20,17 @@ export const createSetVaultData: Wrapper = ({ page, wallet }) => (
     const result: Output = {
       feePercent,
       vaultAddress,
+      subVaultsCount: 0,
+      exitingAssets: '0',
+      exitingTickets: '0',
+      subVaultsCurator: '',
       isSmoothingPool: false,
+      canHarvest: false,
+      avgQueueDays: 0,
+      ejectingSubVault: '',
+      subVaultsRegistry: '',
+      pendingMetaSubVault: '',
+      protocolFeePercent: '0',
       imageUrl: data?.imageUrl || '',
       isErc20: data?.isErc20 ?? false,
       vaultAdmin: getAddress(address),
@@ -66,8 +76,6 @@ export const createSetVaultData: Wrapper = ({ page, wallet }) => (
         isMoreV2: true,
       },
       isPostPectra: true,
-      protocolFeePercent: String(feePercent / 100),
-      avgQueueDays: 1,
     }
 
     await page.addInitScript((payload) => {

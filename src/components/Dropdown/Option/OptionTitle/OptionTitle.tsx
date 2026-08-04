@@ -23,7 +23,7 @@ const OptionTitle: React.FC<OptionTitleProps> = (props) => {
         <Text
           message={title}
           color={isError ? 'error' : 'dark'}
-          size="t14"
+          size="sm"
         />
         <Icon
           className="ml-8"
@@ -40,7 +40,7 @@ const OptionTitle: React.FC<OptionTitleProps> = (props) => {
       className={className}
       message={title}
       color={isError ? 'error' : 'dark'}
-      size="t14"
+      size="sm"
     />
   )
 }
