@@ -38,7 +38,7 @@ const AmountInput: React.FC<AmountInputProps> = (props) => {
       className={cx(s.input, className, 'w-full font-medium', {
         'text-dark': !error,
         'text-error': error,
-        'text-h20': !isDesktop,
+        'text-lg': !isDesktop,
         'text-h3': isDesktop,
       })}
       ref={inputRef}

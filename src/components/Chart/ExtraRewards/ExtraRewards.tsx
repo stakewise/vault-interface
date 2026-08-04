@@ -291,9 +291,7 @@ const ExtraRewards: React.FC<ExtraRewardsProps> = (props) => {
           <div
             key={index}
             ref={rowRef}
-            className={cx('flex p-8 items-center gap-16 justify-between border-top border-dark/5', {
-              '': index,
-            })}
+            className="flex p-8 items-center gap-16 justify-between border-top border-dark/5"
           >
             <Text
               size="xs"
