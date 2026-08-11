@@ -15,7 +15,6 @@ export interface BalancesState {
   stakedAssets: bigint
   totalEarnedAssets: bigint
   maxWithdrawAssets: bigint
-  totalRewardingAssets: bigint
   totalStakeEarnedAssets: bigint
   totalBoostEarnedAssets: bigint
   mintToken: {
@@ -36,7 +35,6 @@ export const initialState: BalancesState = {
   totalStakeEarnedAssets: 0n,
   totalBoostEarnedAssets: 0n,
   maxWithdrawAssets: 0n,
-  totalRewardingAssets: 0n,
   mintToken: {
     mintedAssets: 0n,
     mintedShares: 0n,

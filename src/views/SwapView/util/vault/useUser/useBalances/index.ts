@@ -19,7 +19,7 @@ const storeSelector = (store: Store) => ({
 const useBalances = (vaultAddress: string) => {
   const actions = useActions()
   const mountedRef = useMountedRef()
-  const { sdk, address, autoConnectChecked } = useConfig()
+  const { address, autoConnectChecked } = useConfig()
 
   const fetchStake = useStake()
   const fetchBoost = useBoost()
@@ -61,12 +61,6 @@ const useBalances = (vaultAddress: string) => {
           totalStakeEarnedAssets,
         } = stake
 
-        const boostedAssets = await sdk.contracts.base.mintTokenController.convertToShares(boost.shares)
-        const mintedAssets = mintToken.mintedAssets
-
-        const mintTokenAssets = boostedAssets > mintedAssets ? boostedAssets : mintedAssets
-        const totalRewardingAssets = stakedAssets + boost.rewardAssets + mintTokenAssets - mintedAssets
-
         const result: Omit<Store['vault']['user']['balances'], 'isFetching'> = {
           boost,
           userAPY,
@@ -74,7 +68,6 @@ const useBalances = (vaultAddress: string) => {
           stakedAssets,
           totalEarnedAssets,
           maxWithdrawAssets,
-          totalRewardingAssets,
           totalBoostEarnedAssets,
           totalStakeEarnedAssets,
         }
@@ -94,7 +87,6 @@ const useBalances = (vaultAddress: string) => {
       }
     }
   }, [
-    sdk,
     address,
     actions,
     mountedRef,
